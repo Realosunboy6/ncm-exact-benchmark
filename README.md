@@ -109,9 +109,12 @@ new instance.
 
 ## License
 
-**Not yet chosen.** Add a `LICENSE` file before making the repository public. MIT or
-BSD-3-Clause are the usual choices for research code; CC-BY-4.0 is common for the
-manuscript text. The Anymatrix matrices are not redistributed here and carry their own
+Released under the MIT License; see `LICENSE`. This covers the code, the manifests and
+the result files in this repository.
+
+Two things it does not cover. The manuscript text and figures under `paper/` remain the
+copyright of the author, and any journal agreement signed later takes precedence for
+them. The Anymatrix `CORRINV` matrices are not redistributed here and carry their own
 terms.
 
 ## Citation

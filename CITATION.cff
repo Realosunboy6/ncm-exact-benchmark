@@ -17,7 +17,7 @@ keywords:
   - benchmarking
   - reproducibility
   - semismooth Newton
-license-url: "https://github.com/"      # replace once a LICENSE is chosen
+license: MIT
 repository-code: "https://github.com/"  # replace with the repository URL
 version: "0.1.0"
 date-released: "2026-09-12"
