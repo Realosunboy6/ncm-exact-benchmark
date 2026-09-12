@@ -28,3 +28,7 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Locally generated suites (large synthetic sweep, thesis matrices)
+/code/thesis_suite/
+/code/degen_large*/

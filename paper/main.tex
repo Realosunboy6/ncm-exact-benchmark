@@ -62,32 +62,26 @@
 
 \begin{abstract}
 We specialize the known technique of generating test problems from prescribed
-optimality conditions to the nearest correlation matrix (NCM) problem. The
-resulting instances have exactly known primal and dual solutions, and their
+optimality conditions to the nearest correlation matrix (NCM) problem,
+obtaining instances with exactly known primal and dual solutions whose
 solution rank, near-zero multiplicity and eigenvalue separation are set
-independently; when the separation is zero, that multiplicity is the
-strict-complementarity defect. We pair this family with a matched-accuracy protocol:
-work--precision trajectories measured against the exact solution,
-accepted-only accounting, and primitive-work reporting. Together they show
-that the conclusions of NCM comparisons depend on the stopping rule and the
-accuracy target. Five verified solver variants were run on 270 instances with
-$n=100$ and on 162 instances with $n=500$. Under all 11 conventions tested,
-the cheapest method never changes; we report this as a null result for winner
-reversal. The order below it is less stable. At $n=100$ both AGD-SDAJ
-variants are cheaper than SBB-Dual at loose targets, whereas SBB-Dual is
-cheaper from $10^{-6}$ onward, and which of the two leads is organized by the
-rank of the solution. Neither pattern survives at $n=500$, where AGD-SDAJ-BH
-is cheaper at every target and every rank, although its advantage narrows as
-rank grows. The order below the leading method is therefore not an intrinsic
-property of the methods; it depends materially on the test set and its
-dimension. Under the
-dimension-scaled rule $\nrm{\nabla\theta}_2\le10^{-7}n$, the achieved
-accuracy varies by a factor of 383 across solvers. We also show that a known
-finite-precision failure of objective-value Armijo tests recurs in a second
-published method, AGD-SDAJ, where it does not affect the published results.
-It is removed in the Newton method by the published Borsdorf--Higham
-modified line search, and in AGD-SDAJ by our adaptation of their
-near-equality safeguard.
+independently. Using a matched-accuracy protocol measured against the exact
+solution, we show that conclusions drawn from NCM solver comparisons do not
+transfer across benchmark regimes. On 270 instances at $n=100$, the order of
+SBB-Dual and AGD-SDAJ reverses with the accuracy target and is organized by
+solution rank. On 162 instances at $n=500$ neither pattern survives:
+AGD-SDAJ-BH is cheaper at every target and every rank. Two matrices from the
+literature, at $n=94$ and $n=1399$, show the same dependence on dimension. The
+semismooth Newton method with the Borsdorf--Higham line search is the
+cheapest method under every convention and dimension tested. The
+dimension-scaled stopping rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits
+roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger problem
+can appear easier. Finally, a known finite-precision failure of objective-value
+Armijo tests recurs in a second published method, AGD-SDAJ, where it does not
+affect the published results, and occurs on a real matrix, where the naive test
+costs at least 75 times the work for five fewer correct digits. It is removed
+in the Newton method by the published Borsdorf--Higham line search, and in
+AGD-SDAJ by our adaptation of their safeguard.
 \end{abstract}
 % Word count of abstract: approx. 175 (target <= 200).
 % Corrected 2026-09-11: the per-cell count is 7 orderings (not 9) under the

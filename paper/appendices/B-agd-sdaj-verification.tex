@@ -63,12 +63,15 @@ displayed precision on all three instances. This showed early on that the
 objective, gradient, projection and stopping rule were correct, and that the
 discrepancy lay in the amount of work per iteration.
 
-\paragraph{Three transcription traps.}
-We found the first two by accounting for P9's \EVDs\ one at a time against the
-published 5. We found the third because P7's gap in outer iterations remained
-after the correct line search was in place. All three leave the method
-converging to the correct solution, so they are invisible unless work counts
-are checked against the source.
+\paragraph{Three hazards when reimplementing Algorithm~4.}
+Each of the following is easy to introduce when transcribing the method from
+its pseudocode. Each leaves the method converging to the correct solution
+while changing the work it does, so none is visible from final errors, only
+from work counts checked against the published ones. We record them for anyone
+reimplementing the method. All three occurred in our own first transcription
+and were found by exactly that check: the first two by accounting for the five
+published \EVDs\ on P9 one at a time, the third because a gap in outer
+iterations on P7 remained once the line search was correct.
 \begin{enumerate}
   \item \emph{Redundant \EVD\ at an already-evaluated point.} The inner
     QN-SDAJ routine recomputed $\theta$ and $\nabla\theta$ at the point its

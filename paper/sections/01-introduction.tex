@@ -37,9 +37,12 @@ first and third cannot be separated.
 
 \paragraph{Contributions.}
 In brief, we give an exact-solution NCM family and a matched-accuracy
-protocol. Together they show that the conclusions of recent NCM comparisons
-depend on the stopping rule and the accuracy target. We also show that a known
-finite-precision line-search defect recurs in a second published method.
+protocol, and use them to show that conclusions drawn from NCM solver
+comparisons do not transfer across benchmark regimes: an ordering established
+at $n=100$ fails to replicate at $n=500$, and two matrices from the literature
+show the same dependence on dimension. We also show that a known
+finite-precision line-search defect recurs in a second published method and
+occurs on a real matrix.
 Each contribution builds on established practice (\cref{sec:related}).
 \begin{enumerate}
   \item \emph{An exact-solution NCM family} (\cref{sec:family}). We specialize

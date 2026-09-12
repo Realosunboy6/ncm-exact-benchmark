@@ -980,20 +980,36 @@ function agd_sdaj_ncm(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
             backtracks=nls_bt[] + mls_bt[], diag_pre=diag_pre, tol=tau)
 end
 
-function reference_solution(G::Matrix{Float64}; sbb_maxit::Int=60000)
+function reference_solution(G::Matrix{Float64}; sbb_maxit::Int=60000,
+                            ref_max_evds::Int=30)
+    # The reference must be the most reliable solver available, not the fastest
+    # to write. Earlier this routine ran SBB-Dual to 1e-11 and then the
+    # NAIVE-Armijo Newton -- the very variant Sec. 4 shows stalls in finite
+    # precision. On bccd16 (n=3250) that combination failed to finish in four
+    # hours. The BH-globalized Newton converges in 4-7 EVDs on every instance in
+    # this project, so it is tried first, cold; the SBB warm start is kept only
+    # as a fallback.
     nthreads_timed = BLAS.get_num_threads()
     BLAS.set_num_threads(Sys.CPU_THREADS)
     try
         to = TimerOutput()
-        w = sbb_dual(G; tol=1e-11, maxit=sbb_maxit, rescale=false, to=to)
-        r = newton_ncm(G; tol=REF_TOL, y0=w.y, to=to)
-        if r.cert2 > w.cert2
-            r = (X=w.X, y=w.y, updates=w.updates, evds=w.evds, exit=w.exit,
-                 cert=w.cert, cert2=w.cert2, certinf=w.certinf)
-        end
-        if r.cert2 > 1e-11                       # last resort: cold Newton
-            r2 = newton_ncm(G; tol=REF_TOL, to=to)
-            r2.cert2 < r.cert2 && (r = r2)
+        # REF_TOL is an ABSOLUTE gradient tolerance and is not attainable at
+        # large n: on cor1399 the old reference spent 1770 EVDs to reach
+        # 4.59e-13, of which a quadratically convergent method needed under ten.
+        # The rest was the solve grinding against its own rounding floor. We
+        # therefore cap the reference work and report whatever accuracy it
+        # achieves, which is what the paper quotes.
+        r = newton_ncm_globalized(G; tol=REF_TOL, globalization=:armijo_bh,
+                                  to=to, max_evds=ref_max_evds)
+        if r.cert2 > 1e-11 && sbb_maxit > 0
+            w = sbb_dual(G; tol=1e-11, maxit=sbb_maxit, rescale=false, to=to)
+            rw = newton_ncm_globalized(G; tol=REF_TOL, y0=w.y,
+                                       globalization=:armijo_bh, to=to,
+                                       max_evds=ref_max_evds)
+            rw.cert2 < r.cert2 && (r = rw)
+            w.cert2 < r.cert2 && (r = (X=w.X, y=w.y, updates=w.updates,
+                                       evds=w.evds, exit=w.exit, cert=w.cert,
+                                       cert2=w.cert2, certinf=w.certinf))
         end
         return r
     finally
@@ -1183,6 +1199,7 @@ function run_ranking_study(instances, outpath;
                            sbb_tol=1e-11, newton_tol=1e-11, apm_tol=1e-11,
                            agd_tol=1e-11, apm_maxit=2000, sbb_maxit=20000,
                            max_evds=4000, ref_sbb_maxit=60000,
+                           solvers::Union{Nothing,Vector{String}}=nothing,
                            xstars=Dict{String,Matrix{Float64}}())
     open(outpath, "w") do io
         println(io, "instance,n,solver,evds,err_raw_fro,err_bh_fro,grad_2,grad_inf,accepted,event,outer_iteration,trial,solver_exit,backtracks,cg_iters_total,negative_curvature_count,lambda_min_X,diag_err_inf")
@@ -1208,6 +1225,14 @@ function run_ranking_study(instances, outpath;
                     ("AGD-SDAJ-BH",   (t) -> agd_sdaj_ncm(G; tol=agd_tol, traj=t, max_evds=max_evds,
                                                 globalization=:armijo_bh)),
                     ("Dykstra-APM",   (t) -> dykstra_apm(G; tol=apm_tol, maxit=apm_maxit, traj=t)))
+            # --solvers runs a subset. At large n running all five variants to a
+            # work cap can take a day per instance, so the choice is the user's.
+            if solvers !== nothing
+                known = [r[1] for r in runs]
+                bad = setdiff(solvers, known)
+                isempty(bad) || error("unknown solver(s) $(bad); choose from $(known)")
+                runs = Tuple(r for r in runs if r[1] in solvers)
+            end
             for (sname, f) in runs
                 t = Traj(Xref)
                 res = f(t)
@@ -1293,7 +1318,9 @@ function main()
                           sbb_maxit=parse(Int, get(args, "sbb-maxit", "20000")),
                           apm_maxit=parse(Int, get(args, "apm-maxit", "2000")),
                           max_evds=parse(Int, get(args, "max-evds", "4000")),
-                          ref_sbb_maxit=parse(Int, get(args, "ref-sbb-maxit", "60000")))
+                          ref_sbb_maxit=parse(Int, get(args, "ref-sbb-maxit", "60000")),
+                          solvers=haskey(args, "solvers") ?
+                                  String.(strip.(split(args["solvers"], ","))) : nothing)
         return
     end
 
