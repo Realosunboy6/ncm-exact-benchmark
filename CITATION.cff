@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or the instance family, please cite the manuscript below."
+title: "Exact test problems and a work-accuracy protocol for benchmarking nearest correlation matrix solvers"
+authors:
+  - family-names: Ibrahim
+    given-names: Oyeyinka E.
+    affiliation: "Department of Industrial and Systems Engineering, Northern Illinois University"
+abstract: >-
+  An NCM instance family with closed-form primal and dual solutions and independently
+  controlled rank, near-zero multiplicity and eigenvalue separation, together with a
+  matched-accuracy measurement protocol, used to show that the conclusions of nearest
+  correlation matrix solver comparisons depend on the stopping rule, the accuracy target
+  and the problem dimension.
+keywords:
+  - nearest correlation matrix
+  - semidefinite programming
+  - benchmarking
+  - reproducibility
+  - semismooth Newton
+license-url: "https://github.com/"      # replace once a LICENSE is chosen
+repository-code: "https://github.com/"  # replace with the repository URL
+version: "0.1.0"
+date-released: "2026-09-12"

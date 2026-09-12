@@ -1,0 +1,98 @@
+\section{Discussion and limitations}\label{sec:discussion}
+
+\paragraph{What changed the conclusions, and what did not.}
+On this family, none of the conventions we tested changed which method was
+cheapest. The accuracy target, the instance regime and the problem dimension
+did change the order below it: the change of lower-place ordering with the
+accuracy target that we found at $n=100$ does not reproduce at $n=500$
+(\cref{sec:n500}), and the rank effect that organizes it at $n=100$ no longer
+changes the order there. The stopping rule
+changed the achieved accuracy by a factor of 383. The cost unit (\EVDs\ against wall-clock time) and the accounting rule
+(accepted-only against all-trial) changed cost ratios but no ordering. Two
+line-search details changed whether methods converged at all. We think the
+correct summary is conservative. The protocol matters mainly for the
+\emph{magnitude} of reported advantages and for the ordering of methods that
+are close in cost. On the evidence here, it does not matter for identifying a
+clear winner. We expect this to hold wherever one method is ahead by a
+large factor; where methods are within a factor of about two, conclusions
+drawn under a single convention should be treated with caution.
+
+\paragraph{Why an exact family.}
+The regime dependence in \cref{sec:cells} is organized mainly by rank, one of
+the three quantities the construction controls. Finding it requires both an
+exact $\Xs$, so that forward error is not contaminated by an approximate
+reference, and independent control of the spectral structure at the
+solution. Real matrices supply neither. The same machinery then showed the
+limit of that finding: at $n=500$ (\cref{sec:n500}) the rank effect keeps its
+direction but no longer changes the order, so what looked like a rule about
+the methods at one dimension turns out to depend on the benchmark regime as
+well.
+
+\paragraph{Limitations.}
+\begin{itemize}
+  \item \emph{Problem size.} Results are reported at $n=100$ (270 instances)
+    and $n=500$ (162 instances). The $r\ge20$ crossover between SBB-Dual and
+    AGD-SDAJ found at $n=100$ does \emph{not} persist at $n=500$, where
+    AGD-SDAJ-BH is cheaper at every rank. No dimension above 500 was tested
+    on the family, and the $n=500$ study uses three of the five paired seeds
+    per cell, so its per-cell statistics are weaker than those at $n=100$.
+    Dykstra-APM is censored at $n=500$ by its iteration cap.
+  \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
+    matrices are correlation-like but are not estimated from data.
+    \Cref{sec:real} adds two matrices from the literature, at $n=94$ and
+    $n=1399$, measured against a computed rather than an exact reference. Two
+    further matrices ($n=3250$ and $n=3120$) were not completed, because the
+    reference solve at that size costs more than the benchmark itself.
+  \item \emph{Statistical uncertainty.} Aggregate medians at both dimensions
+    carry cluster-bootstrap intervals (\cref{tab:fwdci,tab:n500}), but the
+    $n=500$ study rests on three paired seeds per rank, that is nine seed
+    clusters in all, so inferential statements there are weak. Cell-level
+    orderings rest on five instances each, and within a cell the adjacent pair
+    AGD-SDAJ-BH against AGD-SDAJ is usually unresolved, so the count of
+    distinct orderings should not be read as a count of real regime changes.
+    We report counts and intervals rather than significance tests, because the
+    reuse of each drawn $U$ across all cells of its rank makes instance-level
+    comparisons strongly dependent.
+  \item \emph{Single machine.} All timings come from one machine with
+    single-threaded BLAS.
+  \item \emph{Our adaptation.} The Borsdorf--Higham adaptation to AGD-SDAJ is
+    ours, not the original authors'. It is reported beside the unmodified
+    method throughout.
+  \item \emph{Feasibility propositions.} \Cref{prop:det} assumes uniform
+    $\mu$, and the extension to mixed $\mu$ is open (\cref{app:family}).
+    \Cref{prop:hd} is stated for $a$ only; no companion bound on $b$ is
+    given, since the released family lies in the fixed-rank regime where
+    \cref{prop:hd} does not apply.
+  \item \emph{Scope of methods.} We benchmark five variants of four methods.
+    Other methods (e.g.\ Anderson-accelerated alternating
+    projections~\cite{higham2016anderson}) are not included.
+    Neither are the recent semismooth Newton method for general projection
+    equations~\cite{armijo2025semismooth} or the factor-structured
+    variant~\cite{borsdorf2010factor}.
+  \item \emph{Attribution of the line search.} We use the Borsdorf--Higham
+    globalization but not the rest of their algorithm, and the adaptation of
+    their near-equality safeguard to AGD-SDAJ is ours
+    (\cref{sec:solvers,sec:trap2}).
+  \item \emph{Unweighted problem.} Only the unweighted Frobenius problem is
+    considered.
+\end{itemize}
+
+\paragraph{Conclusion.}
+An exact instance family with a prescribed solution structure makes it
+possible to separate stopping-rule, reference, accounting and
+primitive-work effects in NCM benchmarks. On 270 instances at $n=100$, these
+effects changed cost ratios and the lower places of the ranking, but not the
+cheapest method. Repeating the study on 162 instances at $n=500$ sharpened
+that finding: Newton-SIN-BH remains the leading method, but the change of
+lower-place ordering with the accuracy target does not reproduce, and the rank
+effect that organizes it at $n=100$ no longer changes the order. Rankings
+below the leading method are therefore not intrinsic properties of the
+solvers; they depend materially on the benchmark regime, including its
+dimension. The one clear failure we found is a known finite-precision
+line-search defect, which appears in two separately published methods. It is
+removed in the semismooth Newton method by the published Borsdorf--Higham
+modified line search, and in AGD-SDAJ by our adaptation of their near-equality
+safeguard. We recommend
+that NCM comparisons report forward error against a trusted solution at a
+common tolerance, give rejected trials no accuracy credit, and report
+primitive work and wall-clock time together.

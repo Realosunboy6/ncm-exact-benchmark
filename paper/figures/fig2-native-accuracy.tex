@@ -1,0 +1,25 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.8\linewidth, height=5.4cm,
+  xbar, bar width=9pt,
+  xmode=log, xmin=1e-8, xmax=1e-4, log origin=infty,
+  xlabel={median $\fro{X-\Xs}$ at the method-specific exit at threshold $10^{-7}n$},
+  ytick={1,...,6},
+  yticklabels={Newton-SIN-BH,Newton-SIN,AGD-SDAJ-BH,AGD-SDAJ,SBB-Dual,Dykstra-APM},
+  y dir=reverse,
+  enlarge y limits=0.12,
+  axis x line*=bottom, axis y line*=left,
+  grid=major, grid style={gray!20},
+]
+\addplot[fill=gray!55, draw=gray!80!black] table[x=err, y=idx] {figures/data/native_accuracy.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Achieved accuracy when each solver exits under the same published
+dimension-scaled rule (tolerance $10^{-5}$ at $n=100$). Median forward
+errors range from $5.04\times10^{-8}$ (Newton variants) to
+$1.93\times10^{-5}$ (Dykstra-APM), a factor of 383. Costs measured at these
+exits are therefore costs at different accuracies.}
+\label{fig:native}
+\end{figure}

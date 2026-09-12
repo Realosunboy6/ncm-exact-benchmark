@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{cleveref}
+
+% ------------------------------------------------------------------ markers
+% PENDING: results still being computed by other workstreams.
+%   gap1 = n=500 replication; gap2 = real-matrix runs;
+%   gap3 = bootstrap confidence intervals / robustness; gap4 = literature audit.
+% Originally \textcolor{red}{\fbox{PENDING: #1}}; an \fbox cannot line-break, which
+% pushed long markers up to 700pt into the margin, so a breakable form is used.
+% Swap back to the \fbox form if boxed markers are preferred.
+\newcommand{\PENDING}[1]{\textcolor{red}{\textbf{[PENDING: #1]}}}
+% TODO: decisions reserved for the author.
+\newcommand{\TODO}[1]{\textcolor{orange!80!black}{\textbf{[TODO: #1]}}}
+
+% ------------------------------------------------------------------ theorems
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[proposition]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[proposition]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[proposition]{Remark}
+
+% ------------------------------------------------------------------ notation
+\DeclareMathOperator{\Diag}{Diag}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\range}{range}
+\newcommand{\Sp}{\mathcal{S}_+^n}
+\newcommand{\Proj}{\Pi_{\mathcal{S}_+^n}}
+\newcommand{\Xs}{X^\star}
+\newcommand{\ys}{y^\star}
+\newcommand{\fro}[1]{\lVert #1\rVert_F}
+\newcommand{\nrm}[1]{\lVert #1\rVert}
+\newcommand{\solver}[1]{\textsf{#1}}
+\newcommand{\EVD}{\textsc{evd}}
+\newcommand{\EVDs}{\textsc{evd}s}
+
+\title{Exact test problems and a work--accuracy protocol\\ for benchmarking nearest correlation matrix solvers}
+\author{Oyeyinka E. Ibrahim \\
+  Department of Industrial and Systems Engineering \\
+  Northern Illinois University \\
+  \texttt{ibrahimoyeyinka@gmail.com}}
+\date{Draft of \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We specialize the known technique of generating test problems from prescribed
+optimality conditions to the nearest correlation matrix (NCM) problem. The
+resulting instances have exactly known primal and dual solutions, and their
+solution rank, near-zero multiplicity and eigenvalue separation are set
+independently; when the separation is zero, that multiplicity is the
+strict-complementarity defect. We pair this family with a matched-accuracy protocol:
+work--precision trajectories measured against the exact solution,
+accepted-only accounting, and primitive-work reporting. Together they show
+that the conclusions of NCM comparisons depend on the stopping rule and the
+accuracy target. Five verified solver variants were run on 270 instances with
+$n=100$ and on 162 instances with $n=500$. Under all 11 conventions tested,
+the cheapest method never changes; we report this as a null result for winner
+reversal. The order below it is less stable. At $n=100$ both AGD-SDAJ
+variants are cheaper than SBB-Dual at loose targets, whereas SBB-Dual is
+cheaper from $10^{-6}$ onward, and which of the two leads is organized by the
+rank of the solution. Neither pattern survives at $n=500$, where AGD-SDAJ-BH
+is cheaper at every target and every rank, although its advantage narrows as
+rank grows. The order below the leading method is therefore not an intrinsic
+property of the methods; it depends materially on the test set and its
+dimension. Under the
+dimension-scaled rule $\nrm{\nabla\theta}_2\le10^{-7}n$, the achieved
+accuracy varies by a factor of 383 across solvers. We also show that a known
+finite-precision failure of objective-value Armijo tests recurs in a second
+published method, AGD-SDAJ, where it does not affect the published results.
+It is removed in the Newton method by the published Borsdorf--Higham
+modified line search, and in AGD-SDAJ by our adaptation of their
+near-equality safeguard.
+\end{abstract}
+% Word count of abstract: approx. 175 (target <= 200).
+% Corrected 2026-09-11: the per-cell count is 7 orderings (not 9) under the
+% corrected reach-and-hold rule; the rank attribution replaces it in the abstract.
+
+\tableofcontents
+
+\input{sections/01-introduction}
+\input{sections/02-instance-family}
+\input{sections/03-protocol}
+\input{sections/04-traps}
+\input{sections/05-ranking}
+\input{sections/06-stopping-rule}
+\input{sections/07-reproducibility}
+\input{sections/08-discussion}
+
+\appendix
+\input{appendices/A-family-proofs}
+\input{appendices/B-agd-sdaj-verification}
+\input{appendices/C-artifact}
+
+% refs.bib = paper2-lit.bib from the literature audit (26 Crossref-verified
+% entries), merged 2026-09-11; the earlier draft entries were superseded.
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

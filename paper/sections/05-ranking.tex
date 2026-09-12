@@ -1,0 +1,586 @@
+\section{Ranking under different conventions}\label{sec:ranking}
+
+\subsection{Solvers}\label{sec:solvers}
+We compare five variants of four methods. All are implemented in Julia with
+a common evaluation kernel, and every evaluation of $\theta$ or
+$\nabla\theta$ costs exactly one \EVD. Unless stated otherwise, each variant
+starts from $y_0=0$ (Dykstra-APM starts from $X_0=G$). The algorithms below
+are written at the same level of detail and use the notation
+$\bigl(\theta_k,g_k,X_k\bigr)\leftarrow\textsc{Eval}(y_k)$ for one \EVD\ of
+$C(y_k)$, with $X_k=\Proj(C(y_k))$ and $g_k=\diag(X_k)-e$. The stopping
+criterion in all algorithms is $\nrm{g_k}_2\le\tau$ (Dykstra-APM applies it to
+the diagonal of its PSD iterate). Here $\tau=10^{-11}$ unless stated
+otherwise.
+
+\paragraph{Newton-SIN-BH} (\cref{alg:newton}) is the semismooth Newton
+method of Qi and Sun~\cite{qisun2006quadratically}. The Newton system is solved inexactly by
+conjugate gradients, using the block form of the generalized Jacobian
+restricted to the positive-eigenvalue columns (with
+$\Omega_{\beta\beta}=0$) and a $10^{-12}$ diagonal shift. The spectral
+decomposition from the accepted trial is cached (\cref{sec:trap1}), and
+globalization uses the Borsdorf--Higham modified line
+search~\cite[Alg.~4.1, Step~6]{borsdorf2010preconditioned}. We adopt their
+globalization only: their Algorithm~4.1 also solves the Newton system with
+preconditioned \textsc{minres} rather than \textsc{cg}, which we do not
+adopt, so \solver{Newton-SIN-BH} is not a reimplementation of their
+algorithm. \emph{Newton-SIN} is the same method with the
+naive Armijo test; it appears only as a control in
+\cref{sec:protocol,sec:traps}.
+
+\paragraph{AGD-SDAJ} (\cref{alg:agd}) is Algorithm~4 of Huynh and
+Hwang~\cite{huynh2025accelerated}, transcribed from the full text and checked against
+the published counts (\cref{app:agd}). It uses $q=2$ inner quasi-Newton steps
+with a diagonal secant preconditioner and the nonmonotone residual line search
+of their equation~(6), followed by one accelerated gradient step with a
+monotone Armijo line search. \emph{AGD-SDAJ-BH} is our adaptation of that
+Armijo step, described in \cref{sec:trap2}.
+
+\paragraph{SBB-Dual} (\cref{alg:sbb}) is a spectral (Barzilai--Borwein)
+gradient method on~\eqref{eq:dual}. It uses the BB1 step, clamped to
+$[\eta,2-\eta]$ with $\eta=0.01$, has no line search, performs one \EVD\ per
+update, and finishes with a diagonal-rescaling step
+$\hat X=D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$, as in~\cite{borsdorf2010preconditioned}.
+
+\paragraph{Dykstra-APM} (\cref{alg:apm}) is Higham's alternating projections
+with Dykstra's correction~\cite{higham2002nearest}. Each iteration uses one \EVD. The
+method returns the PSD half-iterate.
+
+\begin{algorithm}[p]
+\caption{Newton-SIN-BH (semismooth Newton, cached factorization, BH line search)}\label{alg:newton}
+\begin{algorithmic}[1]
+\Require $G$, tolerance $\tau$; $\sigma=10^{-4}$, $\mu=0.9$, $\gamma=100$, $u=2^{-53}$
+\State $y\gets0$;\ $(\theta,g,X,\Lambda,P)\gets\textsc{Eval}(y)$ \Comment{keep the factorization}
+\While{$\nrm{g}>\tau$}
+  \State Solve $(V+10^{-12}I)d=-g$ by CG, with $V$ the generalized Jacobian from the cached $(\Lambda,P)$;
+  \Statex \hspace{\algorithmicindent} stop at $\nrm{r}\le\min\{0.1,\nrm g\}\nrm g$ or on negative curvature
+  \If{$d$ not finite or $g^{\mathsf T}d\ge0$} $d\gets-g$ \EndIf
+  \State $\alpha\gets1$
+  \Loop
+    \State $(\theta_t,g_t,X_t,\Lambda_t,P_t)\gets\textsc{Eval}(y+\alpha d)$
+    \If{$\theta_t\le\theta+\sigma\alpha g^{\mathsf T}d$} accept; \textbf{break} \EndIf
+    \If{$|\theta_t-\theta|<\gamma u(1+|\theta_t|+|\theta|)$} \Comment{BH near-equality branch}
+      \If{full step has $\nrm{g_{t}^{(\alpha=1)}}\le(1-\mu)\nrm g$} accept the full step; \textbf{break} \EndIf
+      \State accept the unit steepest-descent step $y-g$ (one further \EVD); \textbf{break}
+    \EndIf
+    \State $\alpha\gets\alpha/2$
+  \EndLoop
+  \State update $(y,\theta,g,X,\Lambda,P)$ from the accepted trial \Comment{no recomputation}
+\EndWhile
+\State \Return $X$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[p]
+\caption{AGD-SDAJ~\cite{huynh2025accelerated} (AGD-SDAJ-BH: with the marked branch)}\label{alg:agd}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$; $q=2$, $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$, $\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$
+\State $y\gets0$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
+\While{$\nrm{g}>\tau$}
+  \State $(y^{p},\theta^{p},g^{p})\gets(y,\theta,g)$;\ $b\gets e$ \Comment{$B_0=I$, reset every outer iteration}
+  \For{$i=0,\dots,q-1$ \textbf{while} $\nrm{g^p}>\tau$} \Comment{QN-SDAJ inner steps}
+    \State $d\gets-g^p\oslash b$;\ $\epsilon_i\gets1/(i+1)^2$;\ $\alpha\gets1$
+    \State backtrack $\alpha\gets\rho\alpha$ until, with $g_t=\nabla\theta(y^p+\alpha d)$,
+    \Statex \hspace{2\algorithmicindent}$\nrm{g_t}^2\le(1+\epsilon_i)\nrm{g^p}^2-\lambda_1\alpha^2\nrm{g^p}^2-\lambda_2\alpha^2\nrm{d}^2$ \Comment{eq.~(6)}
+    \State $\beta\gets a/b'$ with $a=-g^{p\mathsf T}d$, $b'=(g_t-g^p)^{\mathsf T}d$ if $b'>0$, else $\beta\gets1$ \Comment{general direction}
+    \State $s\gets\beta\alpha d$;\ $y^+\gets y^p+s$;\ evaluate at $y^+$ (reuse the trial if $\beta=1$)
+    \State $b_j\gets z_j/s_j$ if $z_j/s_j\in[\epsilon_l,\epsilon_u]$, else $1$, where $z=g^+-g^p$
+    \State $(y^p,\theta^p,g^p)\gets(y^+,\theta^+,g^+)$
+  \EndFor
+  \If{$\theta^p>\theta$} $(y^p,\theta^p,g^p)\gets(y,\theta,g)$ \EndIf
+  \If{$\nrm{g^p}\le\tau$} $y\gets y^p$; \textbf{break} \Comment{early exit at $x^{\mathrm{pre}}$}
+  \EndIf
+  \State $d\gets-g^p$;\ $\alpha\gets1$
+  \Loop \Comment{Algorithm 1, line 5}
+    \State $(\theta_t,g_t)\gets\textsc{Eval}(y^p+\alpha d)$
+    \If{$\theta_t\le\theta^p+c\alpha g^{p\mathsf T}d$} \textbf{break} \EndIf
+    \If{\textsc{bh} \textbf{and} $|\theta_t-\theta^p|<\gamma u(1+|\theta_t|+|\theta^p|)$ \textbf{and} $\nrm{g_t}<\nrm{g^p}$} \textbf{break} \EndIf
+    \State $\alpha\gets\rho\alpha$
+  \EndLoop
+  \State $\beta\gets\nrm{g^p}^2/\bigl((g^p-g_t)^{\mathsf T}g^p\bigr)$ if the denominator is $>0$, else $1$
+  \State $y\gets y^p-\beta\alpha g^p$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$ (reuse the trial if $\beta=1$)
+\EndWhile
+\State \Return $X$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[t]
+\caption{SBB-Dual (clamped spectral gradient on the dual)}\label{alg:sbb}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$, $\eta=0.01$
+\State $y\gets0$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
+\While{$\nrm{g}>\tau$}
+  \If{first update, or $s^{\mathsf T}w\le0$, where $s=y-y_{\mathrm{prev}}$, $w=g-g_{\mathrm{prev}}$}
+    \State $t\gets1$
+  \Else
+    \State $t\gets\min\{\max\{s^{\mathsf T}s/s^{\mathsf T}w,\ \eta\},\ 2-\eta\}$ \Comment{clamped BB1}
+  \EndIf
+  \State $(y_{\mathrm{prev}},g_{\mathrm{prev}})\gets(y,g)$;\ $y\gets y-tg$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
+\EndWhile
+\State $X\gets D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$;\ set $\diag(X)=e$ \Comment{rescaling epilogue}
+\State \Return $X$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[t]
+\caption{Dykstra-APM (alternating projections with Dykstra correction)}\label{alg:apm}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$
+\State $X\gets G$;\ $\Delta S\gets0$;\ $\Delta U\gets0$
+\Loop
+  \State $Y\gets\Proj(X+\Delta S)$ \Comment{one \EVD}
+  \If{$\nrm{\diag(Y)-e}_2\le\tau$} \Return $Y$ \Comment{PSD half-iterate}
+  \EndIf
+  \State $\Delta S\gets X+\Delta S-Y$
+  \State $Z\gets Y+\Delta U$ with $\diag(Z)\gets e$;\ $\Delta U\gets Y+\Delta U-Z$;\ $X\gets Z$
+\EndLoop
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Design}
+All five variants were run on the 270 instances of \cref{sec:family} at
+$n=100$, to a common tolerance of $10^{-11}$ with a budget of 4000 \EVDs, and
+a trajectory was recorded as described in \cref{sec:traj}. We evaluated 11
+conventions: the native exit; a common forward-error target
+$\fro{X-\Xs}\le\varepsilon$ for
+$\varepsilon\in\{10^{-2},10^{-4},10^{-6},10^{-8},10^{-10}\}$; and a common
+dual residual $\nrm{\nabla\theta}_2\le\tau$ for the same five values. We also
+compared accepted-only with all-trial accounting.
+\Cref{sec:n500} repeats the study at $n=500$.
+
+\subsection{The winner does not change}
+\Cref{tab:conventions} lists the orderings produced by the 11 conventions.
+There are two distinct orderings, and Newton-SIN-BH is cheapest in both.
+\emph{This is a null result for winner reversal.} On this family, the
+conventions change cost ratios and the order of the lower places. They never
+change which method is cheapest.
+
+\begin{table}[t]
+\centering
+\caption{Distinct orderings of median cost across the 11 conventions.}
+\label{tab:conventions}
+\small
+\begin{tabular}{p{0.52\linewidth}p{0.4\linewidth}}
+\toprule
+ordering (cheapest first) & conventions\\
+\midrule
+Newton-SIN-BH $<$ SBB-Dual $<$ AGD-SDAJ-BH $<$ AGD-SDAJ $<$ Dykstra-APM &
+forward $10^{-6},10^{-8},10^{-10}$; residual $10^{-6},10^{-8},10^{-10}$; native\\
+Newton-SIN-BH $<$ AGD-SDAJ-BH $<$ AGD-SDAJ $<$ SBB-Dual $<$ Dykstra-APM &
+forward $10^{-2},10^{-4}$; residual $10^{-2},10^{-4}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The ordering below the winner changes with the accuracy target}
+\Cref{tab:fwd,tab:res} and \cref{fig:crossover} show median cost to a common
+target. At loose targets ($10^{-2}$, $10^{-4}$), both AGD variants are cheaper
+than SBB-Dual. From $10^{-6}$ onward, SBB-Dual is cheaper. The same reversal
+occurs at the same point under the forward-error and the dual-residual
+criteria, so it does not depend on which error measure is used. A paper that
+reports at a loose tolerance would place AGD-SDAJ above SBB-Dual, and a paper
+that reports at a tight tolerance would place them the other way. Both are
+defensible one-number summaries of the same runs.
+
+\input{figures/fig1-evd-vs-eps}
+
+\begin{table}[t]
+\centering
+\caption{Median \EVDs\ to reach and hold $\fro{X-\Xs}\le\varepsilon$
+(accepted-only). Entries marked $^{*}$ are medians over the subset of
+instances that reached the target; reach counts are in brackets. All
+unmarked entries are over 270/270.}
+\label{tab:fwd}
+\begin{tabular}{lrrrrr}
+\toprule
+$\varepsilon$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM\\
+\midrule
+$10^{-2}$  & \textbf{3} & 6 & 6 & 8 & 15\\
+$10^{-4}$  & \textbf{4} & 14 & 14 & 16 & 33.5\\
+$10^{-6}$  & \textbf{4} & 28 & 28 & 24.5 & 53.5\\
+$10^{-8}$  & \textbf{5} & 45 & 50$^{*}$ [264] & 34 & 74.5\\
+$10^{-10}$ & \textbf{5} & 63.5 & 72$^{*}$ [253] & 43.5 & 95.5\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Median \EVDs\ to reach and hold $\nrm{\nabla\theta}_2\le\tau$
+(accepted-only), with reach counts as in \cref{tab:fwd}.}
+\label{tab:res}
+\begin{tabular}{lrrrrr}
+\toprule
+$\tau$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM\\
+\midrule
+$10^{-2}$  & \textbf{2} & 5 & 5 & 7 & 12\\
+$10^{-4}$  & \textbf{3} & 13 & 13 & 14 & 30\\
+$10^{-6}$  & \textbf{4} & 27 & 27 & 23 & 50\\
+$10^{-8}$  & \textbf{5} & 42 & 47$^{*}$ [264] & 32.5 & 71\\
+$10^{-10}$ & \textbf{5} & 60 & 69$^{*}$ [254] & 41.5 & 92\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Reach and hold.}
+A target counts as reached at the first accepted iterate from which the error
+stays at or below the target for the rest of the run. The accelerated methods
+are not monotone in forward error, so this differs from the first iterate at
+which the error dips below the target; scoring the first dip alone would
+understate their cost. Under this rule Newton-SIN-BH, AGD-SDAJ-BH, SBB-Dual
+and Dykstra-APM reach every target on all 270 instances. Only unmodified
+AGD-SDAJ misses some: 264/270 and 253/270 at forward targets $10^{-8}$ and
+$10^{-10}$ (264 and 254 for the residual), which is consistent with its 18
+budget-exhausting stalls (\cref{sec:trap2}). Its entries marked $^{*}$ are
+medians over the instances it reached, and are therefore optimistic. The
+second/third-place reversal is the same whether or not those entries are
+included.
+\paragraph{Uncertainty.}
+\Cref{tab:fwdci} gives cluster-bootstrap 95\% intervals for the forward-error
+medians ($B=2000$, resampling paired seeds within rank, so that all 18
+$(m,\delta)$ cells of a drawn seed move together). The intervals are narrow
+and do not overlap between SBB-Dual and the AGD variants at any target, so the
+change of order between $10^{-4}$ and $10^{-6}$ is not a sampling artifact.
+
+\begin{table}[t]
+\centering
+\caption{Cluster-bootstrap 95\% intervals for the medians of \cref{tab:fwd}
+($n=100$, $B=2000$, resampling the five paired seeds within each rank).
+Bracketed counts are instances reaching and holding the target.}
+\label{tab:fwdci}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+$\varepsilon$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM\\
+\midrule
+$10^{-2}$  & 3 [3, 3] & 6 [6, 6.5] & 6 [6, 6.5] & 8 [8, 8] & 15 [15, 15]\\
+$10^{-4}$  & 4 [3, 4] & 14 [13, 15] & 14 [13, 15] & 16 [15.5, 16] & 33.5 [33.5, 33.5]\\
+$10^{-6}$  & 4 [4, 4] & 28 [27, 29] & 28 [27, 29] & 24.5 [24.5, 24.5] & 53.5 [53.5, 53.5]\\
+$10^{-8}$  & 5 [5, 5] & 45 [42, 48.5] & 50 [46, 52] \tiny[264] & 34 [34, 34] & 74.5 [74.5, 74.5]\\
+$10^{-10}$ & 5 [5, 5] & 63.5 [62, 66] & 72 [70, 75] \tiny[253] & 43.5 [43, 43.5] & 95.5 [95.5, 95.5]\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The paired per-instance picture at $n=100$ is, however, much closer than the
+aggregate medians suggest. Against AGD-SDAJ-BH at $\varepsilon=10^{-2}$ the
+median paired difference is only $+2$ \EVDs\ (95\% CI $[1,2]$), SBB-Dual is
+cheaper on 40.4\% of the 270 instances, and 10 instances tie. The $n=100$
+ordering between these two is therefore a modest average effect with
+substantial per-instance overlap, in contrast to $n=500$ (\cref{sec:n500}),
+where SBB-Dual is cheaper on 0 of 162 instances at the same target.
+
+\subsection{The ordering varies across the degeneracy grid}\label{sec:cells}
+Aggregate medians can hide dependence on the regime. At a fixed target
+(forward error $10^{-8}$), the 54 $(r,m,\delta)$ cells produce 7 distinct
+orderings (\cref{tab:cells}).
+
+\begin{table}[t]
+\centering
+\caption{Orderings by cell at forward target $10^{-8}$ (54 cells, five paired
+instances each), with the number of cells of each rank producing each
+ordering.}
+\label{tab:cells}
+\small
+\begin{tabular}{p{0.56\linewidth}rrrr}
+\toprule
+ordering (cheapest first) & cells & $r{=}5$ & $r{=}20$ & $r{=}50$\\
+\midrule
+Newton-SIN-BH $<$ SBB-Dual $<$ AGD-SDAJ-BH $<$ AGD-SDAJ $<$ Dykstra-APM & 19 & 0 & 13 & 6\\
+Newton-SIN-BH $<$ AGD-SDAJ-BH $<$ AGD-SDAJ $<$ SBB-Dual $<$ Dykstra-APM & 18 & 17 & 1 & 0\\
+Newton-SIN-BH $<$ SBB-Dual $<$ Dykstra-APM $<$ AGD-SDAJ-BH $<$ AGD-SDAJ & 13 & 0 & 2 & 11\\
+Newton-SIN-BH $<$ AGD-SDAJ-BH $<$ SBB-Dual $<$ AGD-SDAJ $<$ Dykstra-APM & 1 & 0 & 1 & 0\\
+Newton-SIN-BH $<$ SBB-Dual $<$ AGD-SDAJ-BH $<$ Dykstra-APM $<$ AGD-SDAJ & 1 & 0 & 1 & 0\\
+Newton-SIN-BH $<$ AGD-SDAJ $<$ AGD-SDAJ-BH $<$ SBB-Dual $<$ Dykstra-APM & 1 & 1 & 0 & 0\\
+Newton-SIN-BH $<$ SBB-Dual $<$ Dykstra-APM $<$ AGD-SDAJ $<$ AGD-SDAJ-BH & 1 & 0 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Newton-SIN-BH is cheapest in every cell. Below it, at $n=100$, the order is
+governed almost entirely by the rank $r$ of the solution. AGD-SDAJ-BH is
+cheaper than SBB-Dual in all 18 cells with $r=5$; SBB-Dual is cheaper in 16 of
+the 18 cells with $r=20$ and in all 18 with $r=50$. Within a rank, the
+near-zero multiplicity $m$ and the separation $\delta$ rarely change
+this pair's order. Both AGD variants fall below Dykstra-APM to last place in
+14 cells: all 12 cells with $r=50$ and $m\in\{5,20\}$, and the two cells with
+$r=20$, $m=20$ and $\delta\in\{10^{-8},10^{-10}\}$. This block is determined
+by rank and multiplicity; the separation plays no visible role in it. The
+instance family was built to vary these quantities one at a time. On a
+collection of real matrices with uncontrolled spectra, the ordering could not
+be associated with rank in this way.
+
+The attribution is nevertheless specific to $n=100$. \Cref{sec:n500} repeats
+the study at $n=500$, where SBB-Dual is no longer cheaper at any rank. What
+survives across both dimensions is the direction of the effect, not the
+crossover: SBB-Dual gains on the AGD variants as rank increases.
+
+That rankings depend on the required accuracy is expected in
+principle~\cite{more2009benchmarking,hansen2021coco}. What the controlled
+family adds is that the variation is organized by a single spectral quantity
+which the construction sets directly.
+
+Each cell contains only five instances, so a per-cell median is a noisy
+statistic, and some of the rarer orderings may reflect sampling variation
+rather than a real change of regime.
+Resampling the five paired seeds of each cell ($B=2000$) shows that the count
+of distinct orderings overstates how much genuinely varies. Most cells
+reproduce their observed ordering in nearly every resample, but the adjacent
+pair AGD-SDAJ-BH against AGD-SDAJ is usually \emph{unresolved}: the 95\%
+interval of its median paired difference contains zero in most cells, which is
+unsurprising because the two differ only in a line-search safeguard that rarely
+activates at $n=100$. Reading unresolved adjacent pairs as ties collapses much
+of the variety in \cref{tab:cells}. What survives is the placement of SBB-Dual
+relative to the AGD pair, which is resolved in the great majority of cells and
+is the comparison discussed above.
+\Cref{fig:heatmap} shows the same comparison cell by cell as a ratio of median
+costs, which separates the three controlled quantities: rank sets the level,
+the near-zero multiplicity modulates it within a rank, and the separation has
+almost no effect.
+
+\input{figures/fig4-heatmap}
+
+\subsection{The same study at $n=500$}\label{sec:n500}
+The instance family was regenerated at $n=500$ with the same grid. All 270
+instances screened successfully; the acceptance rate at $r=5$ fell to 5 of 7
+candidate seeds, the first rank to show rejections, which is what
+\cref{prop:sat} predicts. The ranking study uses the first three paired seeds
+of each rank, 162 instances, with caps of 1200 iterations for SBB-Dual and 800
+for Dykstra-APM; the reduction was forced by runtime (about 8.6\,h as run).
+
+\begin{table}[t]
+\centering
+\caption{$n=500$, 162 instances. Median \EVDs\ to reach and hold
+$\fro{X-\Xs}\le\varepsilon$, with cluster-bootstrap 95\% intervals
+($B=2000$, resampling paired seeds within rank) and reach counts where these
+are below 162.}
+\label{tab:n500}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+$\varepsilon$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM$^{\ddagger}$\\
+\midrule
+$10^{-2}$  & \textbf{3} [3, 3] & 9 [9, 9] & 9 [9, 9] & 44 [44, 44] & 87 [86, 87]\\
+$10^{-4}$  & \textbf{4} [3, 4] & 30 [29, 31] & 30 [29, 31] & 97 [96, 97.5] & 195 [193, 195]\\
+$10^{-6}$  & \textbf{4} [4, 4] & 54 [48, 57.5] & 56 [52, 58] \tiny[160] & 152 [151, 152] & 191 [191, 194] \tiny[108]\\
+$10^{-8}$  & \textbf{5} [5, 5] & 79 [76, 80] & 85 [83, 89] \tiny[154] & 207.5 [206, 208] & 258 [257.5, 262.5] \tiny[108]\\
+$10^{-10}$ & \textbf{5} [5, 5] & 101 [97, 103] & 118 [114, 123] \tiny[144] & 261 [259.5, 263] \tiny[158] & 325.5 [325, 330.5] \tiny[108]\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two of the $n=100$ conclusions survive and two do not.
+
+\emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 5 \EVDs.
+The stall of unmodified AGD-SDAJ recurs (21 of 162 runs exhaust the \EVD\
+budget, against none for AGD-SDAJ-BH, whose worst case is 240 \EVDs\ against
+4039).
+
+\emph{Not reproduced.} The change of order with the accuracy target seen in
+\cref{tab:fwd} is absent: at $n=500$ a single ordering holds at all five
+targets, with AGD-SDAJ-BH ahead of SBB-Dual throughout. The paired
+per-instance comparison is one-sided. SBB-Dual is cheaper on 0 of 162
+instances at $10^{-2}$ and $10^{-4}$, and on 8 of 162 at $10^{-8}$. We report
+these counts and the cluster-bootstrap intervals of \cref{tab:n500} rather
+than an instance-level significance test: the design reuses each drawn $U$
+across all 18 $(m,\delta)$ cells of its rank, so the 162 comparisons form only
+nine seed clusters, and a test treating them as independent would overstate
+the evidence by a wide margin. The rank effect of \cref{sec:cells} keeps its
+direction but no longer produces a crossover: the median paired difference at
+$10^{-8}$ falls from $+673$ \EVDs\ at $r=5$ to $+126$ at $r=20$ and $+13.5$ at
+$r=50$, where SBB-Dual is cheaper on 15\% of instances. SBB-Dual is thus
+behind at every rank tested at $n=500$, while it led at $r\ge20$ at $n=100$.
+
+This is not an artifact of the caps. SBB-Dual converged on all 162 instances
+(worst case 1075 \EVDs\ against its 1200 cap) and reached every target except
+$10^{-10}$ on four instances. $^{\ddagger}$Dykstra-APM, by contrast, \emph{is}
+censored: 54 of 162 runs stop at the 800-iteration cap, and from $10^{-6}$
+down its medians cover only 108 instances. Its position at $n=500$ should be
+read as censored rather than measured.
+
+The scaling is the cleaner way to state the difference. Between $n=100$ and
+$n=500$ the median cost to $10^{-8}$ rises by a factor of 6.1 for SBB-Dual
+(34 to 207.5 \EVDs) and by 1.8 for AGD-SDAJ-BH (45 to 79), while Newton-SIN-BH
+is unchanged at 5. The order below the winner therefore reflects the test set,
+including its dimension, rather than a fixed property of the methods --- which
+is the paper's point, in a stronger form than the $n=100$ data alone supports.
+
+\subsection{Two matrices from the literature}\label{sec:real}
+The family of \cref{sec:family} is synthetic. To check that the regime
+dependence above is not an artifact of the construction, we ran the same
+protocol on two invalid correlation matrices from the literature: the
+Rocky Mountain carbon-storage matrix ($n=94$) and \texttt{cor1399}
+($n=1399$), both from the Anymatrix \texttt{CORRINV}
+collection~\cite{higham2022anymatrix} used by~\cite{huynh2025accelerated}.
+
+No exact solution is available here, which is the situation the rest of this
+paper avoids. Forward error is measured against a reference computed by
+semismooth Newton driven towards $10^{-13}$; for \texttt{cor1399} that
+reference solve itself stopped at its iteration limit after 1770 \EVDs\ with
+$\nrm{\nabla\theta}_2=4.59\times10^{-13}$. We therefore treat these runs as a
+check on external validity, not as measurements of the same quality as
+\cref{tab:fwd}. The common target is $10^{-9}$ and each solver is capped at
+500 \EVDs.
+
+\begin{table}[t]
+\centering
+\caption{Real matrices, target $10^{-9}$. \EVDs\ to reach and hold the target,
+and measured time at the matched tolerance. Dykstra-APM on \texttt{cor1399}
+stops at its cap and is censored.}
+\label{tab:real}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+matrix & solver & \EVDs\ to $10^{-8}$ & total \EVDs & time (s) & final error\\
+\midrule
+Rocky Mountain & Newton-SIN-BH & \textbf{4} & 4 & 0.009 & $1.49\times10^{-13}$\\
+$n=94$         & SBB-Dual      & \textbf{7} & 8 & 0.011 & $1.53\times10^{-10}$\\
+               & Dykstra-APM   & 11 & 13 & 0.023 & $2.57\times10^{-10}$\\
+               & AGD-SDAJ-BH   & 12 & 17 & 0.023 & $3.47\times10^{-10}$\\
+               & AGD-SDAJ      & 12 & 25 & 0.036 & $3.47\times10^{-10}$\\
+\midrule
+\texttt{cor1399} & Newton-SIN-BH & \textbf{7} & 7 & 7.00 & $1.27\times10^{-9}$\\
+$n=1399$         & AGD-SDAJ-BH   & \textbf{66} & 91 & 65.00 & $6.92\times10^{-10}$\\
+                 & AGD-SDAJ      & 67 & 136 & 100.04 & $2.29\times10^{-9}$\\
+                 & SBB-Dual      & 200 & 212 & 152.69 & $1.89\times10^{-9}$\\
+                 & Dykstra-APM$^{\ddagger}$ & 406 & 300 & 288.90 & $1.49\times10^{-6}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The two matrices disagree with each other, in the direction the synthetic
+family predicts. At $n=94$, SBB-Dual is the cheapest of the first-order
+methods, 7 \EVDs\ to $10^{-8}$ against 12 for AGD-SDAJ-BH and 11 for
+Dykstra-APM, which is the pattern of \cref{tab:cells} at $n=100$. At
+$n=1399$, SBB-Dual costs three times AGD-SDAJ-BH (200 against 66), which is
+the pattern of \cref{sec:n500}. Newton-SIN-BH is cheapest on both, as
+everywhere else in this paper. The crossover is therefore visible on matrices
+with uncontrolled spectra that we did not construct, and the same ordering
+holds under wall-clock time.
+
+\paragraph{The line-search stall occurs on real data.}
+On the Rocky Mountain matrix the naive-Armijo Newton control exhausts its
+budget at a forward error of $1.03\times10^{-8}$, while the same solver with
+the Borsdorf--Higham line search converges in 4 \EVDs\ to
+$1.49\times10^{-13}$. On \texttt{cor1399} the naive control converges normally
+(13 \EVDs\ against 7). The defect of \cref{sec:trap2} is thus not an artifact
+of the constructed family, but neither is it universal: whether it appears
+depends on the matrix.
+
+\paragraph{What we could not run.}
+A third matrix, \texttt{bccd16} ($n=3250$), was attempted and abandoned after
+four hours without producing a single solver result, because the reference
+solve alone had not finished; \texttt{cor3120} was not attempted. At these
+sizes a reference accurate enough to measure forward error costs more than the
+solves being measured. That is a practical argument for the synthetic family,
+whose solution is available in closed form at any size.
+
+\subsection{Accounting convention}\label{sec:acct-results}
+Under all-trial accounting, every evaluated point counts toward reaching and
+holding a target, including rejected line-search trials. A rejected trial can
+then be credited with reaching a target, but one that lies above the target
+also breaks a hold. On this family the second effect dominates slightly.
+Median costs change only for the two AGD variants (\cref{tab:acct}), by at
+most 2 \EVDs, and all-trial accounting is marginally the more expensive.
+Newton-SIN-BH, SBB-Dual and Dykstra-APM are unaffected, because they have few
+or no rejected trials here. The effect is negligible on this family and never
+changes an ordering. For methods with many rejected trials it need not be,
+and accepted-only accounting is the rule that cannot credit a point the method
+itself rejected.
+
+\begin{table}[t]
+\centering
+\caption{Accepted-only vs all-trial accounting (forward error, reach and
+hold). Only rows where the median changed are shown; bracketed counts are
+instances reaching the target.}
+\label{tab:acct}
+\begin{tabular}{llrrr}
+\toprule
+$\varepsilon$ & solver & accepted-only & all-trial & $\Delta$\\
+\midrule
+$10^{-4}$  & AGD-SDAJ-BH & 14.0 & 15.0 & $+1.0$\\
+$10^{-4}$  & AGD-SDAJ    & 14.0 & 15.0 & $+1.0$\\
+$10^{-8}$  & AGD-SDAJ-BH & 45.0 & 46.5 & $+1.5$\\
+$10^{-8}$  & AGD-SDAJ    & 50.0 [264] & 52.0 [264] & $+2.0$\\
+$10^{-10}$ & AGD-SDAJ-BH & 63.5 & 65.5 & $+2.0$\\
+$10^{-10}$ & AGD-SDAJ    & 72.0 [253] & 74.0 [253] & $+2.0$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{What each solver returns}\label{sec:returned}
+Methods also differ in what they return (\cref{tab:feas}). All five return
+matrices with $\lambda_{\min}$ at roundoff level, so none is meaningfully more
+positive semidefinite than another. The diagonal is a different matter.
+SBB-Dual returns an exactly unit diagonal because of its rescaling epilogue,
+whereas every other variant returns a diagonal that is accurate only to its
+convergence tolerance. The worst-case diagonal error of unmodified AGD-SDAJ
+is $4.01\times10^{-8}$, about 2.5 orders of magnitude larger than that of any
+other variant, which is a direct consequence of the stalls in
+\cref{sec:trap2}. The rescaling epilogue has a cost of its own: on a
+nearly feasible input at loose tolerance, it can increase $\fro{X-\Xs}$.
+Borsdorf and Higham bound that increase by
+$\mathrm{tol}\,\fro{X}/(1-\mathrm{tol})$~\cite[Lem.~3.2]{borsdorf2010preconditioned},
+which is small whenever the tolerance is tight but need not be at a loose
+one.
+A benchmark that reports only cost hides these differences. A user who needs
+an exactly unit diagonal and a user who needs minimal distance may not be
+best served by the same method.
+
+\begin{table}[t]
+\centering
+\caption{Feasibility of the returned iterate at matched tolerance $10^{-11}$,
+270 instances. ``diag err'' is $\nrm{\diag(X)-e}_\infty$.}
+\label{tab:feas}
+\begin{tabular}{lrrrr}
+\toprule
+solver & median $\lambda_{\min}(X)$ & worst $\lambda_{\min}$ & median diag err & worst diag err\\
+\midrule
+Newton-SIN-BH & $-3.42\times10^{-15}$ & $-1.25\times10^{-14}$ & $8.38\times10^{-15}$ & $5.70\times10^{-12}$\\
+AGD-SDAJ-BH   & $-3.40\times10^{-15}$ & $-1.36\times10^{-14}$ & $2.53\times10^{-12}$ & $7.20\times10^{-12}$\\
+AGD-SDAJ      & $-3.40\times10^{-15}$ & $-1.39\times10^{-14}$ & $2.79\times10^{-12}$ & $\mathbf{4.01\times10^{-8}}$\\
+SBB-Dual      & $-3.42\times10^{-15}$ & $-1.49\times10^{-14}$ & $0$ & $0$\\
+Dykstra-APM   & $-3.43\times10^{-15}$ & $-1.36\times10^{-14}$ & $1.49\times10^{-12}$ & $9.37\times10^{-12}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Native exits and exit reasons}
+For completeness, \cref{tab:nativeexit} reports cost at each solver's own
+exit when all are run to $10^{-11}$, and \cref{tab:exits} the exit reasons.
+Under this convention, the ordering equals the tight-target ordering in
+\cref{tab:conventions}, because the common tolerance is tight.
+
+\begin{table}[t]
+\centering
+\caption{Cost at the exit of each solver under the common tolerance $10^{-11}$.}
+\label{tab:nativeexit}
+\begin{tabular}{lrrrr}
+\toprule
+solver & median \EVDs & min & max & median final $\fro{X-\Xs}$\\
+\midrule
+Newton-SIN-BH & 5   & 4  & 10   & $1.25\times10^{-13}$\\
+AGD-SDAJ-BH   & 70  & 27 & 131  & $1.10\times10^{-11}$\\
+AGD-SDAJ      & 82  & 34 & 4035 & $1.16\times10^{-11}$\\
+SBB-Dual      & 46  & 13 & 218  & $1.74\times10^{-11}$\\
+Dykstra-APM   & 102 & 24 & 443  & $1.98\times10^{-11}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Exit reasons, 270 instances. ``at $x^{\mathrm{pre}}$'' denotes the
+early exit at the preconditioned point of~\cite{huynh2025accelerated}.}
+\label{tab:exits}
+\begin{tabular}{llr}
+\toprule
+solver & exit & count\\
+\midrule
+Newton-SIN-BH & converged & 270\\
+AGD-SDAJ-BH   & tolerance met / at $x^{\mathrm{pre}}$ & 177 / 93\\
+AGD-SDAJ      & tolerance met / at $x^{\mathrm{pre}}$ / \EVD\ budget & 156 / 96 / 18\\
+SBB-Dual      & tolerance met & 270\\
+Dykstra-APM   & tolerance met & 270\\
+\bottomrule
+\end{tabular}
+\end{table}

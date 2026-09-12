@@ -1,0 +1,157 @@
+\section{Introduction}\label{sec:intro}
+
+Given a symmetric matrix $G\in\mathbb{R}^{n\times n}$, the nearest correlation
+matrix problem asks for
+\begin{equation}\label{eq:ncm}
+  \min_{X}\ \tfrac12\fro{X-G}^2 \quad\text{subject to}\quad X\succeq 0,\ \diag(X)=e .
+\end{equation}
+The problem has a unique solution. Since Higham's alternating-projections
+method~\cite{higham2002nearest}, the literature has produced dual formulations and
+first-order schemes~\cite{malick2004dual,boyd2005least}, a quadratically convergent
+semismooth Newton method~\cite{qisun2006quadratically}, its preconditioned and globalized
+refinement~\cite{borsdorf2010preconditioned}, accelerated projection
+methods~\cite{higham2016anderson}, and, most recently, accelerated gradient
+methods with quasi-Newton preconditioning~\cite{huynh2025accelerated}. Most of these
+papers include numerical comparisons, and those comparisons are how a reader
+decides which method to use.
+
+This paper is about how such comparisons are made. We ask a narrow question:
+\emph{when NCM solvers are compared, which methodological choices change the
+conclusion, and which only change the numbers?} We identify four candidate
+confounds:
+\begin{enumerate}
+  \item \emph{Native stopping rules.} Each method stops when its own criterion
+    is met, so the solvers stop at different accuracies.
+  \item \emph{Approximate references.} Forward error is measured against the
+    output of another solver instead of against the true solution.
+  \item \emph{Rejected-iterate accounting.} Line-search trials that are
+    rejected can be credited with reaching a target that the method has not
+    actually reached.
+  \item \emph{Hidden primitive work.} ``Iterations'' count different
+    operations in different methods, and some per-iteration work is not
+    recorded at all.
+\end{enumerate}
+A careful benchmark must control each of these. Without an exact solution,
+however, the second confound cannot be removed, and without trajectories the
+first and third cannot be separated.
+
+\paragraph{Contributions.}
+In brief, we give an exact-solution NCM family and a matched-accuracy
+protocol. Together they show that the conclusions of recent NCM comparisons
+depend on the stopping rule and the accuracy target. We also show that a known
+finite-precision line-search defect recurs in a second published method.
+Each contribution builds on established practice (\cref{sec:related}).
+\begin{enumerate}
+  \item \emph{An exact-solution NCM family} (\cref{sec:family}). We specialize
+    the standard construction of test problems from prescribed optimality
+    conditions~\cite{lenard1984randomly,calamai1993new} to the NCM problem.
+    For semidefinite programs, the same idea is due to Wei and
+    Wolkowicz~\cite{wei2010generating}. The parts specific to NCM are the
+    projection identity $\Proj(G+\Diag\ys)=\Xs$, independent control of rank,
+    strict-complementarity defect and eigenvalue separation, a paired-seed
+    design, sufficient conditions for $|G_{ij}|\le1$ together with a
+    fixed-rank saturation result for $\max_{i\ne j}|\Xs_{ij}|$, and released
+    instance sets at $n=100$ and $n=500$.
+  \item \emph{A matched-accuracy protocol for NCM} (\cref{sec:protocol}). We
+    adapt data profiles~\cite{more2009benchmarking}, fixed-target
+    evaluation~\cite{hansen2021coco} and work--precision
+    diagrams~\cite{hairer1996solving} to spectral solvers. The unit of cost is
+    one \EVD, which we check against wall-clock time. Because the reference is
+    exact, two rules become enforceable: rejected trials receive no accuracy
+    credit, and accuracy is matched in forward error. Primitive work is
+    reported separately.
+  \item \emph{A ranking study with a null headline} (\cref{sec:ranking}). Five
+    verified solver variants were run on 270 instances at $n=100$ and 162 at
+    $n=500$. The cheapest method is the same under all 11 conventions
+    examined. Below it, the ordering changes with the accuracy target and
+    across the grid of cells, organized chiefly by solution rank at $n=100$;
+    at $n=500$ that crossover disappears. Only a family that varies one
+    spectral quantity at a time makes such an association visible.
+  \item \emph{Replication of a known line-search defect}
+    (\cref{sec:traps}). The failure of objective-value sufficient-decrease
+    tests near a minimizer is well known~\cite{hager2005new}. For the NCM dual,
+    Borsdorf analysed it~\cite[\S4.7.1]{borsdorf2007newton}, and this led to
+    the modified step selection of Borsdorf and
+    Higham~\cite{borsdorf2010preconditioned}. The new content is limited to
+    two points. First, the defect recurs in a separately published
+    first-order method~\cite{huynh2025accelerated}. Second, we quantify it on
+    the controlled family: 56/270 stalls for semismooth Newton and 18/270 for
+    AGD-SDAJ, both removed by the Borsdorf--Higham correction. We also
+    document a second, simpler trap (a redundant Jacobian factorization).
+  \item \emph{An NCM quantification of the stopping-rule confound}
+    (\cref{sec:stopping}). Dolan, Mor\'e and Munson~\cite{dolan2006optimality}
+    warned that native stopping tests confound comparisons. For NCM, the
+    widely used rule $\nrm{\nabla\theta}_2\le 10^{-7}n$ leaves the achieved
+    forward error spread over a factor of 383 across solvers.
+\end{enumerate}
+
+\paragraph{What we do not claim.}
+We do not claim that any method is best in general. The ranking results are
+for a synthetic family at $n=100$ and $n=500$, with two matrices from the
+literature as an external check, all on one machine.
+Two matrices from the literature are reported in \cref{sec:real} as an external check.
+SBB-Dual appears here as one of five variants and receives the same
+exposition as the others. Its theory is developed elsewhere and is not needed
+for any result in this paper.
+Its convergence theory is developed in a companion manuscript in
+preparation~\cite{ibrahim2026sbb}; none of the results below depends on it.
+
+\subsection{Related work}\label{sec:related}
+
+\paragraph{Benchmarking methodology.}
+Performance profiles~\cite{dolan2002benchmarking} compare solvers by the ratio
+of their cost to the best cost on each problem. Cost is measured at each
+solver's own termination, so the solver's stopping test implicitly sets the
+accuracy. Dolan, Mor\'e and Munson~\cite{dolan2006optimality} showed that
+differing stopping criteria bias such profiles, and proposed rerunning under a
+common optimality measure. Data profiles~\cite{more2009benchmarking} count
+cost in a problem-independent unit and show how rankings change with the
+required accuracy. COCO~\cite{hansen2021coco} uses a ladder of fixed targets
+against known optima. Work--precision diagrams, standard in the comparison of
+ODE solvers~\cite{hairer1996solving}, plot error against a reference solution
+versus work. Gould and Scott~\cite{gould2016note} show that performance-profile
+rankings below the leading solver can change when solvers are added or
+removed. Beiranvand, Hare and Lucet~\cite{beiranvand2017best} survey best
+practice, including known-solution test problems and reproducibility. Our
+protocol follows these principles; our contribution is to make their
+exact-reference versions possible for the NCM problem. The second/third-place
+reversals of \cref{sec:ranking} arise with a \emph{fixed} solver set, from the
+accuracy target and the instance regime, so the mechanism differs from the one
+studied by Gould and Scott.
+
+\paragraph{Test problems with known solutions.}
+Generating test problems from prescribed optimality conditions is standard
+for unconstrained optimization~\cite{more1981testing} and for quadratic
+programming~\cite{lenard1984randomly,calamai1993new}. Wei and
+Wolkowicz~\cite{wei2010generating} generate semidefinite programs from a
+chosen optimal primal--dual pair with prescribed complementarity nullity, and
+show that nullity correlates with solver difficulty. Our family applies the
+same idea to the NCM problem. Their generator does not apply directly: it
+builds a linear-objective SDP and chooses the constraint operator as part of
+the construction, whereas NCM fixes the constraint operator as $\diag(X)=e$
+and leaves only $G$ free. As far as we have found, no NCM study uses
+instances with a known exact solution. The test sets
+of~\cite{higham2002nearest,qisun2006quadratically,borsdorf2007newton,borsdorf2010preconditioned,higham2016anderson,armijo2025semismooth}
+are random or data-derived, as are the Anymatrix \texttt{CORRINV}
+matrices~\cite{higham2022anymatrix} used in~\cite{huynh2025accelerated}, and
+in all of them the reference solutions are computed approximately.
+
+\paragraph{Finite-precision line searches.}
+An objective-value sufficient-decrease test cannot be evaluated accurately near
+a minimizer, because the difference of function values suffers cancellation.
+Hager and Zhang~\cite{hager2005new} introduced approximate Wolfe conditions
+for this reason. For the NCM dual, Borsdorf~\cite[\S4.7.1]{borsdorf2007newton}
+derived the stagnation threshold, $\nrm{\nabla\theta}$ of the order of the
+square root of the rounding error in $\theta$ (about $10^{-8}$), noted that
+the problem is general to Armijo backtracking, and proposed the alternatives
+that became the modified step selection of~\cite{borsdorf2010preconditioned}.
+\Cref{sec:traps} replicates this known phenomenon; it does not rediscover it.
+
+\subsection{Outline}
+\Cref{sec:family} constructs the instance family. \Cref{sec:protocol} states
+the protocol, \cref{sec:traps} describes the two implementation traps,
+\cref{sec:ranking} reports the ranking study, and \cref{sec:stopping}
+examines the dimension-scaled stopping rule. \Cref{sec:repro} covers
+reproducibility and \cref{sec:discussion} discusses limitations. The
+appendices contain the proofs for the instance family, the verification record
+for our reimplementation of AGD-SDAJ, and the artifact manifest.

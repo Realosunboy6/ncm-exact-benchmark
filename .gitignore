@@ -1,0 +1,30 @@
+# Instance binaries: large and exactly regenerable from the seeded generator.
+# Scoped to code/, so the manifests under data/manifests/ stay tracked.
+*.bin
+/code/degen_instances*/
+/code/real_suite/
+/code/agd_verify_matrices/
+/code/lambda_sweep_instances/
+/code/runtime/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Python / Julia
+__pycache__/
+*.pyc
+.deps/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

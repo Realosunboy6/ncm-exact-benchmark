@@ -1,0 +1,118 @@
+\section{AGD-SDAJ verification record}\label{app:agd}
+
+\paragraph{Gate.}
+Before running our reimplementation of AGD-SDAJ~\cite{huynh2025accelerated} on the
+KKT family, we required it to reproduce the authors' own published counts on
+their own instances. An unverified reimplementation that is then reported as
+losing would not be a defensible result.
+
+\paragraph{Source and implementation.}
+The source is Huynh and Hwang (2025), \emph{Numer.\ Linear Algebra Appl.}\
+32(6), DOI \texttt{10.1002/nla.70045}. We transcribed Algorithm~1 (AGD),
+Algorithm~3 (QN-SDAJ), Algorithm~4 (AGD-SDAJ) and the Section~4.3 parameters
+from the full text: $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$,
+$\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$, $q=2$, $x_0=0$, the stopping rule
+$\nrm{\nabla\theta}\le10^{-7}n$, and $k_{\max}=200$. The implementation is
+\texttt{agd\_sdaj.jl} (standalone, used for verification) and
+\texttt{agd\_sdaj\_ncm} in \texttt{bench\_sbb\_dual.jl} (instrumented, used for
+the study). The instances are the Anymatrix \texttt{CORRINV} files already used
+elsewhere in this project, exported with the same loading convention.
+
+\paragraph{Equation (6), as transcribed.}
+The nonmonotone line search of Algorithm~3 is a Li--Fukushima-type
+rule~\cite{li2000derivative} on the residual:
+\begin{equation}\label{eq:hh6}
+  \nrm{\nabla\theta(x+\alpha d)}^2\ \le\ (1+\epsilon_k)\nrm{\nabla\theta(x)}^2
+  -\lambda_1\nrm{\alpha\nabla\theta(x)}^2-\lambda_2\nrm{\alpha d}^2,
+  \qquad \epsilon_k=\frac{1}{(k+1)^2},
+\end{equation}
+with $\lambda_1=\lambda_2=0.01$ and $\alpha=\rho^m$ backtracked from 1. The
+merit function is $\tfrac12\nrm{\nabla\theta}^2$. The quasi-Newton direction
+$d=-B^{-1}\nabla\theta$ need not be a descent direction for it, which is why a
+nonmonotone rule is needed. The paper also confirms that $B_k$ is reset to the
+identity once $x_k^{\mathrm{pre}}$ is generated, and that Step~4 discards
+$x_k^{\mathrm{pre}}$ if it does not decrease $\theta$.
+
+Before the full text was available, we tried two guesses: a
+Grippo--Lampariello--Lucidi rule on $\theta$, and a Li--Fukushima rule with
+unsquared norms and $\epsilon_k=0$. Both had the right general form but three
+wrong details: unsquared norms, a missing $(1+\epsilon_k)$ slack, and
+$\lambda_1,\lambda_2$ attached to the wrong terms. Because the two guesses
+bracketed the published counts, they helped locate the remaining gap.
+
+\paragraph{Results.}
+\begin{table}[h]
+\centering
+\caption{Outer iterations / \EVDs\ / nonmonotone backtracks, and
+$\fro{A-\Xs}$, under the final transcription (\texttt{eq6}) and the two
+superseded guesses.}
+\label{tab:agd-full}
+\small
+\begin{tabular}{lllll}
+\toprule
+instance & published & \texttt{eq6} (final) & GLL guess & LF guess\\
+\midrule
+P9 \texttt{bccd16}  & 1/5/0, 29.06  & 1/5/0, 29.0563 (exact) & 1/5/0 & 1/5/0\\
+P8 \texttt{cor3120} & 3/18/1, 5.44  & 3/18/1, 5.4437 (exact) & 3/17/0 & 3/19/2\\
+P7 \texttt{cor1399} & 4/31/8, 21.03 & 4/32/7, 21.0339 & 6/40/3 & 5/48/17\\
+\bottomrule
+\end{tabular}
+\end{table}
+Under every variant, $\fro{A-\Xs}$ matched the published value to the
+displayed precision on all three instances. This showed early on that the
+objective, gradient, projection and stopping rule were correct, and that the
+discrepancy lay in the amount of work per iteration.
+
+\paragraph{Three transcription traps.}
+We found the first two by accounting for P9's \EVDs\ one at a time against the
+published 5. We found the third because P7's gap in outer iterations remained
+after the correct line search was in place. All three leave the method
+converging to the correct solution, so they are invisible unless work counts
+are checked against the source.
+\begin{enumerate}
+  \item \emph{Redundant \EVD\ at an already-evaluated point.} The inner
+    QN-SDAJ routine recomputed $\theta$ and $\nabla\theta$ at the point its
+    caller had just evaluated. This is the same class of defect as
+    \cref{sec:trap1}, and it was found in the same way. Fix: pass the
+    caller's values into the inner routine.
+  \item \emph{Missing early termination at the preconditioned point.} The
+    note to Table~3 of~\cite{huynh2025accelerated} states that the loop also stops
+    whenever $x_k^{\mathrm{pre}}$ satisfies the stopping criterion, which
+    saves fewer than two \EVDs. Without this check, the outer gradient step is
+    always paid.
+  \item \emph{Wrong acceleration factor in Algorithm~3.} The factor
+    $\beta_k^{\mathrm{pre}}$ had been implemented with Algorithm~1's
+    $a_k=\nrm{g}^2$. That formula is the special case for $d=-\nabla\theta$.
+    In Algorithm~3, $d=-B^{-1}g$, so the general form of their Section~2.3
+    (the acceleration of Andrei~\cite{andrei2006acceleration}) is needed:
+    \[
+      \beta=\frac{-g^{\mathsf T}d}{(g_y-g)^{\mathsf T}d}\quad\text{if the denominator is positive, else }\beta=1.
+    \]
+    This form reduces exactly to Algorithm~1's when $d=-g$, so it is
+    consistent with both statements in the paper. \emph{This defect caused
+    the gap in outer iterations}: correcting it reduced P7 from 6 outer
+    iterations to 4.
+\end{enumerate}
+The cumulative effect on P7 was 46 \EVDs\ $\to$ 40 (defects 1--2) $\to$ 43
+(exact equation~(6)) $\to$ 32 (correct acceleration factor), against a
+published 31.
+
+\paragraph{The remaining P7 residual.}
+See \cref{sec:repro}. P7 matches in outer iterations (4) and residual norm
+(21.0339) and differs by one backtracking decision (7 against 8). That decision
+accounts for the whole difference in \EVDs, through the early-termination
+saving. We attribute it to last-bit differences between the MATLAB and Julia
+eigensolvers. P8 and P9 reproduce every count exactly on the same code path.
+No further parameter search was carried out.
+
+\paragraph{Conditions of use (all met in this paper).}
+(i) The code and this record are published with the results. (ii) The P7
+residual is disclosed. (iii) Published counts are printed beside local counts
+wherever the comparison appears (\cref{tab:agd-verify,tab:agd-full}).
+
+\paragraph{The Borsdorf--Higham adaptation.}
+AGD-SDAJ-BH changes only the monotone Armijo test of Algorithm~1, line~5
+(\cref{alg:agd}). When
+$|\theta_t-\theta|<\gamma u(1+|\theta_t|+|\theta|)$ with $\gamma=100$ and
+$u=2^{-53}$, a trial that reduces $\nrm{\nabla\theta}$ is accepted. The
+nonmonotone rule~\eqref{eq:hh6} is unchanged. This adaptation is ours.

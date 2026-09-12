@@ -1,0 +1,43 @@
+\section{Artifact manifest}\label{app:artifact}
+
+All paths are relative to \texttt{experiments/bench/} in the project
+repository.
+The generator, instances, solver code and analysis scripts will be deposited
+in a public archive with a permanent identifier when the paper is accepted;
+they are available from the author before then.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.42\linewidth}p{0.52\linewidth}}
+\toprule
+file & contents\\
+\midrule
+\multicolumn{2}{l}{\emph{Instance family}}\\
+\texttt{gen\_degeneracy\_family.py} & generator and screening (\cref{sec:family})\\
+\texttt{degen\_instances\_paired/} & 270 instances: \texttt{G\_*.bin}, \texttt{Xstar\_*.bin}, \texttt{manifest.tsv} (SHA-256), \texttt{cases.csv}, \texttt{seed\_screening.csv}\\
+\texttt{materialize\_exact\_ystars.py} & exact $\ys=-\diag(W)$ per instance\\
+\texttt{degen\_instances\_n500\_paired/} & 270 instances at $n=500$, same grid; \cref{sec:n500} uses 162\\
+\midrule
+\multicolumn{2}{l}{\emph{Solvers}}\\
+\texttt{bench\_sbb\_dual.jl} & \texttt{sbb\_dual}, \texttt{newton\_ncm\_globalized}, \texttt{agd\_sdaj\_ncm}, \texttt{dykstra\_apm}, \texttt{snap!} trajectory recorder, \texttt{run\_ranking\_study}\\
+\texttt{agd\_sdaj.jl} & standalone AGD-SDAJ used for verification (\cref{app:agd})\\
+\texttt{export\_agd\_verify\_matrices.jl} & exports P7/P8/P9 from Anymatrix \texttt{CORRINV}\\
+\midrule
+\multicolumn{2}{l}{\emph{Results and analysis}}\\
+\texttt{ranking\_kkt270\_v2.csv} & one row per \EVD, five solvers, 270 instances\\
+\texttt{analyze\_ranking.py}, \texttt{ranking\_kkt270\_v2\_analysis.md} & \cref{tab:conventions,tab:fwd,tab:res,tab:cells,tab:acct,tab:feas,tab:nativeexit,tab:exits}\\
+\texttt{timing\_kkt270\_\{native,matched\}.csv} & single-threaded timings, six variants\\
+\texttt{analyze\_timing.py}, \texttt{timing\_kkt270\_analysis.md} & \cref{tab:primitive,tab:perevd,tab:native}\\
+\texttt{globalization\_*.csv}, \texttt{globalization\_correction\_report.md} & Newton Armijo stall analysis (\cref{sec:trap2})\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+{\sloppy
+\paragraph{Figure data.} The files \texttt{figures/data/*.dat} in this
+manuscript's source were extracted from the CSVs above. The file
+\texttt{evd\_vs\_eps.dat} applies the cost-to-target rule of
+\texttt{analyze\_ranking.py} (accepted-only, reach and hold) again, on a
+half-decade grid of $\varepsilon$. At the five decade targets it reproduces
+\cref{tab:fwd}, up to that table's rounding of half-integer medians.\par}
