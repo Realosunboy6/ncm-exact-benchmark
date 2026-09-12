@@ -18,6 +18,6 @@ keywords:
   - reproducibility
   - semismooth Newton
 license: MIT
-repository-code: "https://github.com/"  # replace with the repository URL
+repository-code: "https://github.com/Realosunboy6/ncm-exact-benchmark"
 version: "0.1.0"
 date-released: "2026-09-12"

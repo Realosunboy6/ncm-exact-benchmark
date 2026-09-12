@@ -119,5 +119,5 @@ terms.
 
 ## Citation
 
-A `CITATION.cff` is included. Update it with the DOI once the artifact is archived
+A `CITATION.cff` is included. Add the DOI to it once the artifact is archived
 (Zenodo mints one automatically from a GitHub release).
