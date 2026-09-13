@@ -267,7 +267,7 @@ median paired difference is only $+2$ \EVDs\ (95\% CI $[1,2]$), SBB-Dual is
 cheaper on 40.4\% of the 270 instances, and 10 instances tie. The $n=100$
 ordering between these two is therefore a modest average effect with
 substantial per-instance overlap, in contrast to $n=500$ (\cref{sec:n500}),
-where SBB-Dual is cheaper on 0 of 162 instances at the same target.
+where SBB-Dual is cheaper on 0 of 270 instances at the same target.
 
 \subsection{The ordering varies across the degeneracy grid}\label{sec:cells}
 Aggregate medians can hide dependence on the regime. At a fixed target
@@ -343,27 +343,28 @@ almost no effect.
 The instance family was regenerated at $n=500$ with the same grid. All 270
 instances screened successfully; the acceptance rate at $r=5$ fell to 5 of 7
 candidate seeds, the first rank to show rejections, which is what
-\cref{prop:sat} predicts. The ranking study uses the first three paired seeds
-of each rank, 162 instances, with caps of 1200 iterations for SBB-Dual and 800
-for Dykstra-APM; the reduction was forced by runtime (about 8.6\,h as run).
+\cref{prop:sat} predicts. The ranking study uses all five paired seeds of
+each rank, 270 instances, with caps of 1200 iterations for SBB-Dual and 800
+for Dykstra-APM. It was run in two parts, seeds 0--2 (about 8.6\,h) and seeds
+3--4 (about 7.1\,h), with identical code and settings.
 
 \begin{table}[t]
 \centering
-\caption{$n=500$, 162 instances. Median \EVDs\ to reach and hold
+\caption{$n=500$, 270 instances. Median \EVDs\ to reach and hold
 $\fro{X-\Xs}\le\varepsilon$, with cluster-bootstrap 95\% intervals
 ($B=2000$, resampling paired seeds within rank) and reach counts where these
-are below 162.}
+are below 270.}
 \label{tab:n500}
 \small
 \begin{tabular}{lrrrrr}
 \toprule
 $\varepsilon$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM$^{\ddagger}$\\
 \midrule
-$10^{-2}$  & \textbf{3} [3, 3] & 9 [9, 9] & 9 [9, 9] & 44 [44, 44] & 87 [86, 87]\\
-$10^{-4}$  & \textbf{4} [3, 4] & 30 [29, 31] & 30 [29, 31] & 97 [96, 97.5] & 195 [193, 195]\\
-$10^{-6}$  & \textbf{4} [4, 4] & 54 [48, 57.5] & 56 [52, 58] \tiny[160] & 152 [151, 152] & 191 [191, 194] \tiny[108]\\
-$10^{-8}$  & \textbf{5} [5, 5] & 79 [76, 80] & 85 [83, 89] \tiny[154] & 207.5 [206, 208] & 258 [257.5, 262.5] \tiny[108]\\
-$10^{-10}$ & \textbf{5} [5, 5] & 101 [97, 103] & 118 [114, 123] \tiny[144] & 261 [259.5, 263] \tiny[158] & 325.5 [325, 330.5] \tiny[108]\\
+$10^{-2}$  & \textbf{3} [3, 3] & 9 [9, 9] & 9 [9, 9] & 44 [44, 44] & 87 [86.5, 88]\\
+$10^{-4}$  & \textbf{4} [3, 4] & 30 [29, 32] & 30 [29, 32] & 97 [97, 97] & 195 [194.5, 195.5]\\
+$10^{-6}$  & \textbf{4} [4, 4] & 53.5 [50.5, 56] & 55.5 [52, 58] \tiny[268] & 152 [152, 152] & 191 [191, 192] \tiny[180]\\
+$10^{-8}$  & \textbf{5} [5, 5] & 79 [76, 80] & 87 [84, 89] \tiny[259] & 207.5 [207, 208] & 258 [258, 260] \tiny[180]\\
+$10^{-10}$ & \textbf{5} [5, 5] & 101.5 [98.5, 105] & 119 [117, 123] \tiny[242] & 260 [259, 262] \tiny[261] & 325.5 [325, 327.5] \tiny[180]\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -371,30 +372,32 @@ $10^{-10}$ & \textbf{5} [5, 5] & 101 [97, 103] & 118 [114, 123] \tiny[144] & 261
 Two of the $n=100$ conclusions survive and two do not.
 
 \emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 5 \EVDs.
-The stall of unmodified AGD-SDAJ recurs (21 of 162 runs exhaust the \EVD\
+The stall of unmodified AGD-SDAJ recurs (31 of 270 runs exhaust the \EVD\
 budget, against none for AGD-SDAJ-BH, whose worst case is 240 \EVDs\ against
 4039).
 
 \emph{Not reproduced.} The change of order with the accuracy target seen in
 \cref{tab:fwd} is absent: at $n=500$ a single ordering holds at all five
 targets, with AGD-SDAJ-BH ahead of SBB-Dual throughout. The paired
-per-instance comparison is one-sided. SBB-Dual is cheaper on 0 of 162
-instances at $10^{-2}$ and $10^{-4}$, and on 8 of 162 at $10^{-8}$. We report
+per-instance comparison is one-sided. SBB-Dual is cheaper on 0 of 270
+instances at $10^{-2}$, 3 at $10^{-4}$ and 15 at $10^{-8}$. We report
 these counts and the cluster-bootstrap intervals of \cref{tab:n500} rather
 than an instance-level significance test: the design reuses each drawn $U$
-across all 18 $(m,\delta)$ cells of its rank, so the 162 comparisons form only
-nine seed clusters, and a test treating them as independent would overstate
+across all 18 $(m,\delta)$ cells of its rank, so the 270 comparisons form 15
+seed clusters, and a test treating them as independent would overstate
 the evidence by a wide margin. The rank effect of \cref{sec:cells} keeps its
 direction but no longer produces a crossover: the median paired difference at
-$10^{-8}$ falls from $+673$ \EVDs\ at $r=5$ to $+126$ at $r=20$ and $+13.5$ at
-$r=50$, where SBB-Dual is cheaper on 15\% of instances. SBB-Dual is thus
+$10^{-8}$ falls from $+669.5$ \EVDs\ at $r=5$ to $+129$ at $r=20$ and $+13$ at
+$r=50$, where SBB-Dual is cheaper on 17\% of instances. Cell by cell, SBB-Dual
+is ahead of AGD-SDAJ-BH in 0 of the 54 cells with a resolved bootstrap
+interval (47 resolved in favour of AGD-SDAJ-BH, 7 unresolved). SBB-Dual is thus
 behind at every rank tested at $n=500$, while it led at $r\ge20$ at $n=100$.
 
-This is not an artifact of the caps. SBB-Dual converged on all 162 instances
+This is not an artifact of the caps. SBB-Dual converged on all 270 instances
 (worst case 1075 \EVDs\ against its 1200 cap) and reached every target except
-$10^{-10}$ on four instances. $^{\ddagger}$Dykstra-APM, by contrast, \emph{is}
-censored: 54 of 162 runs stop at the 800-iteration cap, and from $10^{-6}$
-down its medians cover only 108 instances. Its position at $n=500$ should be
+$10^{-10}$ on nine instances. $^{\ddagger}$Dykstra-APM, by contrast, \emph{is}
+censored: 90 of 270 runs stop at the 800-iteration cap, and from $10^{-6}$
+down its medians cover only 180 instances. Its position at $n=500$ should be
 read as censored rather than measured.
 
 The scaling is the cleaner way to state the difference. Between $n=100$ and
@@ -404,28 +407,35 @@ is unchanged at 5. The order below the winner therefore reflects the test set,
 including its dimension, rather than a fixed property of the methods --- which
 is the paper's point, in a stronger form than the $n=100$ data alone supports.
 
-\subsection{Two matrices from the literature}\label{sec:real}
+\subsection{Four matrices from the literature}\label{sec:real}
 The family of \cref{sec:family} is synthetic. To check that the regime
 dependence above is not an artifact of the construction, we ran the same
-protocol on two invalid correlation matrices from the literature: the
-Rocky Mountain carbon-storage matrix ($n=94$) and \texttt{cor1399}
-($n=1399$), both from the Anymatrix \texttt{CORRINV}
-collection~\cite{higham2022anymatrix} used by~\cite{huynh2025accelerated}.
+protocol on four invalid correlation matrices from the literature: the
+Rocky Mountain carbon-storage matrix ($n=94$), \texttt{cor1399} ($n=1399$),
+\texttt{cor3120} ($n=3120$) and \texttt{bccd16} ($n=3250$), all from the
+Anymatrix \texttt{CORRINV} collection~\cite{higham2022anymatrix} used
+by~\cite{huynh2025accelerated}.
 
 No exact solution is available here, which is the situation the rest of this
 paper avoids. Forward error is measured against a reference computed by
 semismooth Newton driven towards $10^{-13}$; for \texttt{cor1399} that
 reference solve itself stopped at its iteration limit after 1770 \EVDs\ with
-$\nrm{\nabla\theta}_2=4.59\times10^{-13}$. We therefore treat these runs as a
-check on external validity, not as measurements of the same quality as
-\cref{tab:fwd}. The common target is $10^{-9}$ and each solver is capped at
-500 \EVDs.
+$\nrm{\nabla\theta}_2=4.59\times10^{-13}$. At $n\approx3000$ an absolute
+tolerance of $10^{-13}$ is not attainable in double precision, so for
+\texttt{cor3120} and \texttt{bccd16} the reference solve is capped at 30
+\EVDs\ and its achieved residual is reported instead:
+$\nrm{\nabla\theta}_2=1.58\times10^{-12}$ and $8.07\times10^{-13}$, after
+2201\,s and 895\,s. We therefore treat these runs as a check on external
+validity, not as measurements of the same quality as \cref{tab:fwd}. The common
+target is $10^{-9}$; each solver is capped at 500 \EVDs\ on the two smaller
+matrices and at 300 iterations on the two larger ones. Wall-clock time was
+measured only on the two smaller matrices.
 
 \begin{table}[t]
 \centering
-\caption{Real matrices, target $10^{-9}$. \EVDs\ to reach and hold the target,
-and measured time at the matched tolerance. Dykstra-APM on \texttt{cor1399}
-stops at its cap and is censored.}
+\caption{Real matrices, target $10^{-9}$. \EVDs\ to reach and hold $10^{-8}$,
+total \EVDs, measured time at the matched tolerance (smaller two matrices
+only) and final error. $^{\ddagger}$Stops at its cap and is censored.}
 \label{tab:real}
 \small
 \begin{tabular}{llrrrr}
@@ -443,36 +453,59 @@ $n=1399$         & AGD-SDAJ-BH   & \textbf{66} & 91 & 65.00 & $6.92\times10^{-10
                  & AGD-SDAJ      & 67 & 136 & 100.04 & $2.29\times10^{-9}$\\
                  & SBB-Dual      & 200 & 212 & 152.69 & $1.89\times10^{-9}$\\
                  & Dykstra-APM$^{\ddagger}$ & 406 & 300 & 288.90 & $1.49\times10^{-6}$\\
+\midrule
+\texttt{cor3120} & Newton-SIN-BH & \textbf{6} & 6 & -- & $2.33\times10^{-9}$\\
+$n=3120$         & AGD-SDAJ-BH   & 41 & 42 & -- & $1.32\times10^{-9}$\\
+                 & AGD-SDAJ      & 56 & 59 & -- & $2.17\times10^{-10}$\\
+                 & SBB-Dual      & 255 & 270 & -- & $3.38\times10^{-9}$\\
+                 & Dykstra-APM$^{\ddagger}$ & -- & 300 & -- & $1.16\times10^{-5}$\\
+\midrule
+\texttt{bccd16}  & Newton-SIN-BH & \textbf{4} & 5 & -- & $2.71\times10^{-11}$\\
+$n=3250$         & SBB-Dual      & 5 & 6 & -- & $1.20\times10^{-10}$\\
+                 & Dykstra-APM   & 6 & 7 & -- & $1.46\times10^{-10}$\\
+                 & AGD-SDAJ-BH   & 8 & 9 & -- & $8.88\times10^{-10}$\\
+                 & AGD-SDAJ$^{\ddagger}$ & -- & 323 & -- & $3.93\times10^{-5}$\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The two matrices disagree with each other, in the direction the synthetic
-family predicts. At $n=94$, SBB-Dual is the cheapest of the first-order
-methods, 7 \EVDs\ to $10^{-8}$ against 12 for AGD-SDAJ-BH and 11 for
-Dykstra-APM, which is the pattern of \cref{tab:cells} at $n=100$. At
-$n=1399$, SBB-Dual costs three times AGD-SDAJ-BH (200 against 66), which is
-the pattern of \cref{sec:n500}. Newton-SIN-BH is cheapest on both, as
-everywhere else in this paper. The crossover is therefore visible on matrices
-with uncontrolled spectra that we did not construct, and the same ordering
-holds under wall-clock time.
+The matrices disagree with each other, broadly in the direction the
+synthetic family predicts. At $n=94$, SBB-Dual is the cheapest of the
+first-order methods, 7 \EVDs\ to $10^{-8}$ against 12 for AGD-SDAJ-BH and 11
+for Dykstra-APM, which is the pattern of \cref{tab:cells} at $n=100$. At
+$n=1399$, SBB-Dual costs three times AGD-SDAJ-BH (200 against 66), and at
+$n=3120$ six times (255 against 41), which is the pattern of \cref{sec:n500}.
+\texttt{bccd16} is easy for every method: all but one reach $10^{-8}$ within
+8 \EVDs, so it does not discriminate between the first-order methods.
+Newton-SIN-BH is cheapest on all four, as everywhere else in this paper. The
+change of order is therefore visible on matrices with uncontrolled spectra that
+we did not construct, and on the two smaller matrices the same ordering holds
+under wall-clock time. With four matrices that differ in more than dimension,
+this is consistent with the dimension effect of \cref{sec:n500}, not an
+independent demonstration of it.
 
 \paragraph{The line-search stall occurs on real data.}
 On the Rocky Mountain matrix the naive-Armijo Newton control exhausts its
 budget at a forward error of $1.03\times10^{-8}$, while the same solver with
 the Borsdorf--Higham line search converges in 4 \EVDs\ to
 $1.49\times10^{-13}$. On \texttt{cor1399} the naive control converges normally
-(13 \EVDs\ against 7). The defect of \cref{sec:trap2} is thus not an artifact
-of the constructed family, but neither is it universal: whether it appears
-depends on the matrix.
+(13 \EVDs\ against 7). On \texttt{bccd16} the same defect appears in
+unmodified AGD-SDAJ. Both AGD variants follow an identical path to a forward
+error of $3.93\times10^{-5}$ at the fifth \EVD. From there AGD-SDAJ-BH, whose
+safeguard accepts the step, converges in four more \EVDs\ to
+$8.9\times10^{-10}$; unmodified AGD-SDAJ rejects trial after trial in its
+monotone line search, with the error unchanged in its first eight digits, until
+it exhausts the budget at 323 \EVDs. The defect of \cref{sec:trap2} is thus not
+an artifact of the constructed family, and it affects both published methods on
+real data, but neither is it universal: whether it appears depends on the
+matrix.
 
-\paragraph{What we could not run.}
-A third matrix, \texttt{bccd16} ($n=3250$), was attempted and abandoned after
-four hours without producing a single solver result, because the reference
-solve alone had not finished; \texttt{cor3120} was not attempted. At these
-sizes a reference accurate enough to measure forward error costs more than the
-solves being measured. That is a practical argument for the synthetic family,
-whose solution is available in closed form at any size.
+\paragraph{The cost of a reference.}
+At $n\approx3000$ the reference solve alone took 15 to 37 minutes, and a first
+attempt at \texttt{bccd16} with an uncapped absolute tolerance ran for four
+hours without finishing. A reference accurate enough to measure forward error
+can cost more than the solves being measured. That is a practical argument for
+the synthetic family, whose solution is available in closed form at any size.
 
 \subsection{Accounting convention}\label{sec:acct-results}
 Under all-trial accounting, every evaluated point counts toward reaching and

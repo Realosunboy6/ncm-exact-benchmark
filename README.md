@@ -101,9 +101,10 @@ new instance.
 
 - Forward error on the synthetic family is measured against the **exact** solution.
 - On the real matrices no exact solution exists; the reference is a high-accuracy
-  Newton solve, and the `cor1399` reference itself stopped at its iteration limit with
-  ‖∇θ‖₂ = 4.59 × 10⁻¹³. Those runs are an external check, not measurements of the same
-  quality.
+  Newton solve. The `cor1399` reference stopped at its iteration limit with
+  ‖∇θ‖₂ = 4.59 × 10⁻¹³; the `cor3120` and `bccd16` references are capped at 30 EVDs
+  and reach 1.58 × 10⁻¹² and 8.07 × 10⁻¹³. Those runs are an external check, not
+  measurements of the same quality.
 - `results/*.csv.gz` are gzipped. Decompress with `gunzip -k` before running the
   analysis scripts.
 

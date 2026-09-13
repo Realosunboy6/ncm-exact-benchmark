@@ -30,23 +30,23 @@ well.
 
 \paragraph{Limitations.}
 \begin{itemize}
-  \item \emph{Problem size.} Results are reported at $n=100$ (270 instances)
-    and $n=500$ (162 instances). The $r\ge20$ crossover between SBB-Dual and
+  \item \emph{Problem size.} Results are reported at $n=100$ and $n=500$
+    (270 instances each). The $r\ge20$ crossover between SBB-Dual and
     AGD-SDAJ found at $n=100$ does \emph{not} persist at $n=500$, where
     AGD-SDAJ-BH is cheaper at every rank. No dimension above 500 was tested
-    on the family, and the $n=500$ study uses three of the five paired seeds
-    per cell, so its per-cell statistics are weaker than those at $n=100$.
-    Dykstra-APM is censored at $n=500$ by its iteration cap.
+    on the family. Dykstra-APM is censored at $n=500$ by its iteration cap.
   \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
     matrices are correlation-like but are not estimated from data.
-    \Cref{sec:real} adds two matrices from the literature, at $n=94$ and
-    $n=1399$, measured against a computed rather than an exact reference. Two
-    further matrices ($n=3250$ and $n=3120$) were not completed, because the
-    reference solve at that size costs more than the benchmark itself.
+    \Cref{sec:real} adds four matrices from the literature, from $n=94$ to
+    $n=3250$, measured against a computed rather than an exact reference; for
+    the two largest that reference is capped and reaches
+    $\nrm{\nabla\theta}_2\approx10^{-12}$ rather than $10^{-13}$, and no
+    wall-clock times were taken. Four matrices cannot separate dimension from
+    the other ways in which they differ.
   \item \emph{Statistical uncertainty.} Aggregate medians at both dimensions
-    carry cluster-bootstrap intervals (\cref{tab:fwdci,tab:n500}), but the
-    $n=500$ study rests on three paired seeds per rank, that is nine seed
-    clusters in all, so inferential statements there are weak. Cell-level
+    carry cluster-bootstrap intervals (\cref{tab:fwdci,tab:n500}). Each
+    dimension rests on five paired seeds per rank, that is 15 seed clusters,
+    so inferential statements remain modest. Cell-level
     orderings rest on five instances each, and within a cell the adjacent pair
     AGD-SDAJ-BH against AGD-SDAJ is usually unresolved, so the count of
     distinct orderings should not be read as a count of real regime changes.
@@ -82,14 +82,15 @@ An exact instance family with a prescribed solution structure makes it
 possible to separate stopping-rule, reference, accounting and
 primitive-work effects in NCM benchmarks. On 270 instances at $n=100$, these
 effects changed cost ratios and the lower places of the ranking, but not the
-cheapest method. Repeating the study on 162 instances at $n=500$ sharpened
+cheapest method. Repeating the study on 270 instances at $n=500$ sharpened
 that finding: Newton-SIN-BH remains the leading method, but the change of
 lower-place ordering with the accuracy target does not reproduce, and the rank
 effect that organizes it at $n=100$ no longer changes the order. Rankings
 below the leading method are therefore not intrinsic properties of the
 solvers; they depend materially on the benchmark regime, including its
 dimension. The one clear failure we found is a known finite-precision
-line-search defect, which appears in two separately published methods. It is
+line-search defect, which appears in two separately published methods, on
+the constructed family and on real matrices. It is
 removed in the semismooth Newton method by the published Borsdorf--Higham
 modified line search, and in AGD-SDAJ by our adaptation of their near-equality
 safeguard. We recommend
