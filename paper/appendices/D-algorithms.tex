@@ -1,0 +1,96 @@
+\section{Solver pseudocode}\label{app:algorithms}
+
+The four solvers of \cref{sec:solvers} as implemented. Parameter values and
+the sources they are transcribed from are given there; the verification record
+for AGD-SDAJ is \cref{app:agd}.
+
+\begin{algorithm}[t]
+\caption{Newton-SIN-BH (semismooth Newton, cached factorization, BH line search)}\label{alg:newton}
+\begin{algorithmic}[1]
+\Require $G$, tolerance $\tau$; $\sigma=10^{-4}$, $\mubh=0.9$, $\gamma=100$, $u=2^{-53}$
+\State $y\gets0$;\ $(\theta,g,X,\Lambda,P)\gets\textsc{Eval}(y)$ \Comment{keep the factorization}
+\While{$\nrm{g}>\tau$}
+  \State Solve $(V+10^{-12}I)d=-g$ by CG, with $V$ the generalized Jacobian from the cached $(\Lambda,P)$;
+  \Statex \hspace{\algorithmicindent} stop at $\nrm{r}\le\min\{0.1,\nrm g\}\nrm g$ or on negative curvature
+  \If{$d$ not finite or $g^{\mathsf T}d\ge0$} $d\gets-g$ \EndIf
+  \State $\alpha\gets1$
+  \Loop
+    \State $(\theta_t,g_t,X_t,\Lambda_t,P_t)\gets\textsc{Eval}(y+\alpha d)$
+    \If{$\theta_t\le\theta+\sigma\alpha g^{\mathsf T}d$} accept; \textbf{break} \EndIf
+    \If{$|\theta_t-\theta|<\gamma u(1+|\theta_t|+|\theta|)$} \Comment{BH near-equality branch}
+      \If{full step has $\nrm{g_{t}^{(\alpha=1)}}\le(1-\mu)\nrm g$} accept the full step; \textbf{break} \EndIf
+      \State accept the unit steepest-descent step $y-g$ (one further \EVD); \textbf{break}
+    \EndIf
+    \State $\alpha\gets\alpha/2$
+  \EndLoop
+  \State update $(y,\theta,g,X,\Lambda,P)$ from the accepted trial \Comment{no recomputation}
+\EndWhile
+\State \Return $X$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[t]
+\caption{AGD-SDAJ~\cite{huynh2025accelerated} (AGD-SDAJ-BH: with the marked branch)}\label{alg:agd}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$; $q=2$, $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$, $\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$
+\State $y\gets0$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
+\While{$\nrm{g}>\tau$}
+  \State $(y^{p},\theta^{p},g^{p})\gets(y,\theta,g)$;\ $b\gets e$ \Comment{$B_0=I$, reset every outer iteration}
+  \For{$i=0,\dots,q-1$ \textbf{while} $\nrm{g^p}>\tau$} \Comment{QN-SDAJ inner steps}
+    \State $d\gets-g^p\oslash b$;\ $\epsilon_i\gets1/(i+1)^2$;\ $\alpha\gets1$
+    \State backtrack $\alpha\gets\rho\alpha$ until, with $g_t=\nabla\theta(y^p+\alpha d)$,
+    \Statex \hspace{2\algorithmicindent}$\nrm{g_t}^2\le(1+\epsilon_i)\nrm{g^p}^2-\lambda_1\alpha^2\nrm{g^p}^2-\lambda_2\alpha^2\nrm{d}^2$ \Comment{eq.~(6)}
+    \State $\beta\gets a/b'$ with $a=-g^{p\mathsf T}d$, $b'=(g_t-g^p)^{\mathsf T}d$ if $b'>0$, else $\beta\gets1$ \Comment{general direction}
+    \State $s\gets\beta\alpha d$;\ $y^+\gets y^p+s$;\ evaluate at $y^+$ (reuse the trial if $\beta=1$)
+    \State $b_j\gets z_j/s_j$ if $z_j/s_j\in[\epsilon_l,\epsilon_u]$, else $1$, where $z=g^+-g^p$
+    \State $(y^p,\theta^p,g^p)\gets(y^+,\theta^+,g^+)$
+  \EndFor
+  \If{$\theta^p>\theta$} $(y^p,\theta^p,g^p)\gets(y,\theta,g)$ \EndIf
+  \If{$\nrm{g^p}\le\tau$} $y\gets y^p$; \textbf{break} \Comment{early exit at $x^{\mathrm{pre}}$}
+  \EndIf
+  \State $d\gets-g^p$;\ $\alpha\gets1$
+  \Loop \Comment{Algorithm 1, line 5}
+    \State $(\theta_t,g_t)\gets\textsc{Eval}(y^p+\alpha d)$
+    \If{$\theta_t\le\theta^p+c\alpha g^{p\mathsf T}d$} \textbf{break} \EndIf
+    \If{\textsc{bh} \textbf{and} $|\theta_t-\theta^p|<\gamma u(1+|\theta_t|+|\theta^p|)$ \textbf{and} $\nrm{g_t}<\nrm{g^p}$} \textbf{break} \EndIf
+    \State $\alpha\gets\rho\alpha$
+  \EndLoop
+  \State $\beta\gets\nrm{g^p}^2/\bigl((g^p-g_t)^{\mathsf T}g^p\bigr)$ if the denominator is $>0$, else $1$
+  \State $y\gets y^p-\beta\alpha g^p$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$ (reuse the trial if $\beta=1$)
+\EndWhile
+\State \Return $X$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[t]
+\caption{SBB-Dual (clamped spectral gradient on the dual)}\label{alg:sbb}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$, $\eta=0.01$
+\State $y\gets0$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
+\While{$\nrm{g}>\tau$}
+  \If{first update, or $s^{\mathsf T}w\le0$, where $s=y-y_{\mathrm{prev}}$, $w=g-g_{\mathrm{prev}}$}
+    \State $t\gets1$
+  \Else
+    \State $t\gets\min\{\max\{s^{\mathsf T}s/s^{\mathsf T}w,\ \eta\},\ 2-\eta\}$ \Comment{clamped BB1}
+  \EndIf
+  \State $(y_{\mathrm{prev}},g_{\mathrm{prev}})\gets(y,g)$;\ $y\gets y-tg$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
+\EndWhile
+\State $X\gets D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$;\ set $\diag(X)=e$ \Comment{rescaling epilogue}
+\State \Return $X$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[t]
+\caption{Dykstra-APM (alternating projections with Dykstra correction)}\label{alg:apm}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$
+\State $X\gets G$;\ $\Delta S\gets0$;\ $\Delta U\gets0$
+\Loop
+  \State $Y\gets\Proj(X+\Delta S)$ \Comment{one \EVD}
+  \If{$\nrm{\diag(Y)-e}_2\le\tau$} \Return $Y$ \Comment{PSD half-iterate}
+  \EndIf
+  \State $\Delta S\gets X+\Delta S-Y$
+  \State $Z\gets Y+\Delta U$ with $\diag(Z)\gets e$;\ $\Delta U\gets Y+\Delta U-Z$;\ $X\gets Z$
+\EndLoop
+\end{algorithmic}
+\end{algorithm}
