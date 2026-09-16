@@ -309,10 +309,10 @@ instance family was built to vary these quantities one at a time. On a
 collection of real matrices with uncontrolled spectra, the ordering could not
 be associated with rank in this way.
 
-The attribution is nevertheless specific to $n=100$. \Cref{sec:n500} repeats
-the study at $n=500$, where SBB-Dual is no longer cheaper at any rank. What
-survives across both dimensions is the direction of the effect, not the
-crossover: SBB-Dual gains on the AGD variants as rank increases.
+The location of the crossover is nevertheless specific to $n=100$. At
+$n=500$ (\cref{sec:n500,sec:highrank}) SBB-Dual is behind at every rank up to
+$r=50$ and ahead from $r=75$: both the direction of the effect and the
+crossover survive, but the crossover moves to a higher rank.
 
 That rankings depend on the required accuracy is expected in
 principle~\cite{more2009benchmarking,hansen2021coco}. What the controlled
@@ -369,14 +369,15 @@ $10^{-10}$ & \textbf{5} [5, 5] & 101.5 [98.5, 105] & 119 [117, 123] \tiny[242] &
 \end{tabular}
 \end{table}
 
-Two of the $n=100$ conclusions survive and two do not.
+On this grid ($r\le50$), two of the $n=100$ conclusions survive and two do
+not; \cref{sec:highrank} shows that the two that fail return at higher rank.
 
 \emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 5 \EVDs.
 The stall of unmodified AGD-SDAJ recurs (31 of 270 runs exhaust the \EVD\
 budget, against none for AGD-SDAJ-BH, whose worst case is 240 \EVDs\ against
 4039).
 
-\emph{Not reproduced.} The change of order with the accuracy target seen in
+\emph{Not reproduced for $r\le50$.} The change of order with the accuracy target seen in
 \cref{tab:fwd} is absent: at $n=500$ a single ordering holds at all five
 targets, with AGD-SDAJ-BH ahead of SBB-Dual throughout. The paired
 per-instance comparison is one-sided. SBB-Dual is cheaper on 0 of 270
@@ -392,6 +393,8 @@ $r=50$, where SBB-Dual is cheaper on 17\% of instances. Cell by cell, SBB-Dual
 is ahead of AGD-SDAJ-BH in 0 of the 54 cells with a resolved bootstrap
 interval (47 resolved in favour of AGD-SDAJ-BH, 7 unresolved). SBB-Dual is thus
 behind at every rank tested at $n=500$, while it led at $r\ge20$ at $n=100$.
+The shrinking gap, however, points to a crossover beyond the grid, which
+\cref{sec:highrank} confirms.
 
 This is not an artifact of the caps. SBB-Dual converged on all 270 instances
 (worst case 1075 \EVDs\ against its 1200 cap) and reached every target except
@@ -406,6 +409,160 @@ $n=500$ the median cost to $10^{-8}$ rises by a factor of 6.1 for SBB-Dual
 is unchanged at 5. The order below the winner therefore reflects the test set,
 including its dimension, rather than a fixed property of the methods --- which
 is the paper's point, in a stronger form than the $n=100$ data alone supports.
+
+\subsection{Higher ranks at $n=500$}\label{sec:highrank}
+The grid of \cref{sec:family} stops at $r=50$. To locate the crossover we
+generated 135 further instances at $n=500$ with $r\in\{75,100,150\}$,
+$m\in\{1,5,20\}$, $\delta\in\{10^{-4},10^{-8},0\}$, $\mu_{\mathrm{bulk}}=0.1$
+and five paired seeds per rank, all accepted by screening, and ran the three
+leading solvers (\cref{tab:highrank}).
+
+\begin{table}[t]
+\centering
+\caption{$n=500$, higher ranks, 45 instances per rank. Median \EVDs\ to reach
+and hold $\fro{X-\Xs}\le10^{-8}$; instances (out of 45) on which SBB-Dual is
+cheaper than AGD-SDAJ-BH at three targets; and the median paired difference
+SBB-Dual minus AGD-SDAJ-BH at $10^{-8}$ with a 95\% interval from resampling
+the five seeds ($B=2000$). All runs converged.}
+\label{tab:highrank}
+\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{median \EVDs\ to $10^{-8}$} & \multicolumn{3}{c}{SBB-Dual cheaper at} & \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+$r$ & Newton-SIN-BH & AGD-SDAJ-BH & SBB-Dual & $10^{-4}$ & $10^{-8}$ & $10^{-10}$ & difference at $10^{-8}$\\
+\midrule
+75  & \textbf{5} & 60 & 51 & 17 & 34 & 39 & $-10$ $[-11,-6]$\\
+100 & \textbf{4} & 52 & 37 & 22 & 43 & 45 & $-15$ $[-20,-13]$\\
+150 & \textbf{5} & 41 & 22 & 30 & 45 & 45 & $-20$ $[-22,-19]$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Between $r=50$, where SBB-Dual is behind by 13 \EVDs\ at $10^{-8}$
+(\cref{sec:n500}), and $r=75$, where it is ahead by 10, the order reverses.
+The dependence on the accuracy target returns with it: at $r=75$ and $r=100$
+the two methods are level at $10^{-4}$ (median differences $+1$ and $0$), with
+AGD-SDAJ-BH ahead for $m=1$, while SBB-Dual is ahead at $10^{-8}$ and
+$10^{-10}$. Both patterns of \cref{sec:cells} therefore survive at $n=500$;
+what changes with dimension is the rank at which they appear, from between
+$r=5$ and $r=20$ at $n=100$ to between $r=50$ and $r=75$. Newton-SIN-BH is
+strictly cheapest on all 135 instances at every target from $10^{-4}$ to
+$10^{-10}$.
+
+A pilot of 48 instances at $r\in\{100,150\}$, repeated with
+$\mu_{\mathrm{bulk}}=0.01$ on the same $\Xs$ and hence a tenfold smaller
+violation, gave the same result: at $10^{-8}$ the median paired difference was
+$-12.5$ against $-14$ \EVDs\ at $r=100$ and $-19.5$ against $-18$ at $r=150$.
+The effect follows the rank of the solution, not the size of $W$.
+
+\subsection{Instances built from equity returns}\label{sec:thesis}
+Two further test sets start from one real correlation matrix: the sample
+correlation matrix $C$ of daily log returns, computed from split-adjusted
+closing prices, of 550 US-traded equities over 1397 trading days (January 2020
+to July 2025), with no missing values. The panel holds 50 names under each of
+the eleven sector labels of its source files and includes some ADRs and one
+closed-end fund. $C$ is a valid correlation matrix, with
+$\lambda_{\min}(C)=0.019$. It serves here only as a realistic input, not as an
+estimate of market structure; one series (CHRD) contains a corporate-action
+splice, which does not affect that use.
+
+\paragraph{KKT instances seeded by the data.}
+Because $C$ has full rank it cannot itself be the solution of a nontrivial
+instance of \cref{sec:family}, whose construction needs a kernel. Its rank-$r$
+factor model can: with $C\approx V_r\Lambda_rV_r^{\mathsf T}$, set
+$U=V_r\Lambda_r^{1/2}$, scale its rows to unit norm and take $\Xs=UU^{\mathsf T}$.
+The construction of \cref{sec:family} then gives $G$ with $\Xs$ as its
+\emph{exact} nearest correlation matrix, whose eigenvectors come from the
+market data rather than from a random $U$. Replicates differ by a Haar-random
+rotation of the kernel basis. Two settings differ from the synthetic family,
+both forced by screening: at $r=5$ the factor model misses 95\% of the
+off-diagonal correlation and drives some $|\Xs_{ij}|$ to $0.99995$, so every
+$r=5$ instance fails $|G_{ij}|\le1$, and with $\mu_{\mathrm{bulk}}=0.1$ every
+rank fails it. We therefore use $r\in\{20,50,100\}$ (off-diagonal relative fit
+0.59, 0.39, 0.24) and $\mu_{\mathrm{bulk}}=0.01$, with
+$\delta\in\{10^{-5},10^{-9},0\}$ so that $\rho=\delta/\mu_{\mathrm{bulk}}$ stays
+on the synthetic grid, $m\in\{1,5,20\}$ and three rotations: 81 instances. All
+pass screening, with worst exactness $1.1\times10^{-12}$. They are only mildly
+invalid, $\lambda_{\min}(G)\in[-4.6,-1.2]\times10^{-3}$.
+
+\begin{table}[t]
+\centering
+\caption{KKT instances seeded by equity returns, $n=550$, 27 instances per
+rank. Median \EVDs\ to reach and hold $\fro{X-\Xs}\le10^{-8}$ against the exact
+$\Xs$, and the number of instances (out of 27) on which SBB-Dual is cheaper
+than AGD-SDAJ-BH at $10^{-8}$ and at $10^{-10}$.}
+\label{tab:thesiskkt}
+\small
+\begin{tabular}{rrrrrrc}
+\toprule
+$r$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM & SBB cheaper\\
+\midrule
+20  & \textbf{4} & 117 & 154 & 249 & 500 & 0, 0\\
+50  & \textbf{4} & 92  & 94.5 \tiny[24] & 112 & 228 & 6, 6\\
+100 & \textbf{4} & 65  & 79 \tiny[25] & 72  & 148 & 11, 13\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:thesiskkt} repeats the pattern of the synthetic family on
+data-derived spectra. Newton-SIN-BH is cheapest on all 81 instances at every
+target. Unmodified AGD-SDAJ exhausts its 4000-\EVD\ budget on 10 of 81, and
+AGD-SDAJ-BH on none. Rank again organizes the comparison between SBB-Dual and
+AGD-SDAJ-BH: the median paired difference at $10^{-8}$ falls from $+128$ \EVDs\
+at $r=20$ to $+17$ at $r=50$ and $+7$ at $r=100$. At $r=100$ the gap nearly
+closes: SBB-Dual is cheaper on 11 of 27 instances at $10^{-8}$ and 13 of 27 at
+$10^{-10}$, ahead on all nine with $m=1$ and behind on all nine with $m=20$.
+On synthetic instances of similar size SBB-Dual is already ahead at $r=75$
+(\cref{sec:highrank}), so eigenvectors taken from market data appear to move
+the crossover to a still higher rank. The replicates share $\Xs$ within a
+rank, so these are counts, not independent samples.
+
+\paragraph{Perturbed data matrix.}
+The second set follows test problem P12 of~\cite{huynh2025accelerated}:
+$G=\mathrm{clip}(C+\sigma E,-1,1)$ with unit diagonal, where $E$ is symmetric
+with standard normal off-diagonal entries, for
+$\sigma\in\{0.005,0.01,0.03,0.1\}$ and five draws each. The smallest
+eigenvalue of $G$ falls from about $-0.09$ to $-4.2$ and the number of negative
+eigenvalues rises from about 60 to 240; at $\sigma=0.1$ about 0.02\% of entries
+are clipped. No exact solution exists, so forward error is measured against a
+Newton reference with $\nrm{\nabla\theta}_2\le1.2\times10^{-13}$ on every
+matrix.
+
+\begin{table}[t]
+\centering
+\caption{Perturbed equity correlation matrix, $n=550$, five draws per
+$\sigma$. Median \EVDs\ to reach and hold forward error $10^{-8}$ against the
+computed reference, and the number of draws (out of 5) on which SBB-Dual is
+cheaper than AGD-SDAJ-BH.}
+\label{tab:thesispert}
+\small
+\begin{tabular}{rrrrrrc}
+\toprule
+$\sigma$ & Newton-SIN-BH & SBB-Dual & Dykstra-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB cheaper\\
+\midrule
+0.005 & \textbf{5} & 10 & 17  & 20 & 24 & 5\\
+0.01  & \textbf{5} & 15 & 30  & 20 & 30 & 5\\
+0.03  & \textbf{6} & 29 & 60  & 29 & 29 & 2 (1 tie)\\
+0.1   & \textbf{7} & 67 & 140 & 38 & 42.5 \tiny[4] & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Here the degree of invalidity reverses the order below the winner
+(\cref{tab:thesispert}); the most negative eigenvalue and the number of
+negative eigenvalues grow together with $\sigma$, so the two cannot be
+separated. For small perturbations SBB-Dual is second, 1.3 to 2 times cheaper
+than AGD-SDAJ-BH in median, and at
+$\sigma=0.005$ even Dykstra-APM is ahead of both AGD variants; at
+$\sigma=0.03$ the two are level; at
+$\sigma=0.1$ AGD-SDAJ-BH is cheaper on every draw, by a median factor of about 1.7.
+The same reversal holds at $10^{-4}$ and $10^{-6}$. It is consistent with the
+matrices of \cref{sec:real}, where the mildly invalid Rocky Mountain matrix
+favours SBB-Dual and the larger, more strongly invalid matrices favour
+AGD-SDAJ-BH. Newton-SIN-BH is cheapest on every matrix at every target from
+$10^{-4}$ to $10^{-8}$, and unmodified
+AGD-SDAJ stalls once, at $\sigma=0.1$.
 
 \subsection{Four matrices from the literature}\label{sec:real}
 The family of \cref{sec:family} is synthetic. To check that the regime
@@ -425,7 +582,12 @@ tolerance of $10^{-13}$ is not attainable in double precision, so for
 \texttt{cor3120} and \texttt{bccd16} the reference solve is capped at 30
 \EVDs\ and its achieved residual is reported instead:
 $\nrm{\nabla\theta}_2=1.58\times10^{-12}$ and $8.07\times10^{-13}$, after
-2201\,s and 895\,s. We therefore treat these runs as a check on external
+2201\,s and 895\,s. A second, independent reference for each (SBB-Dual driven
+to its floor, then the same Newton polish) agrees with the first to
+$\fro{X_A-X_B}=1.3\times10^{-11}$ and $8.1\times10^{-12}$, so forward errors on
+these matrices are resolved well below the targets used; the residual floor
+near $10^{-12}$ is reached within four to six Newton iterations. We therefore treat
+these runs as a check on external
 validity, not as measurements of the same quality as \cref{tab:fwd}. The common
 target is $10^{-9}$; each solver is capped at 500 \EVDs\ on the two smaller
 matrices and at 300 iterations on the two larger ones. Wall-clock time was
@@ -498,7 +660,9 @@ monotone line search, with the error unchanged in its first eight digits, until
 it exhausts the budget at 323 \EVDs. The defect of \cref{sec:trap2} is thus not
 an artifact of the constructed family, and it affects both published methods on
 real data, but neither is it universal: whether it appears depends on the
-matrix.
+matrix. Unmodified AGD-SDAJ also stalls on 10 of the 81 data-seeded and 1 of
+the 20 perturbed instances of \cref{sec:thesis}, and on \texttt{mmb13},
+\texttt{tyda99r2} and \texttt{bhwi01} (\cref{app:agd}).
 
 \paragraph{The cost of a reference.}
 At $n\approx3000$ the reference solve alone took 15 to 37 minutes, and a first

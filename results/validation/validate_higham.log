@@ -1,0 +1,67 @@
+Check A: Higham-Strabic (2016) published alternating-projections iterations
+  matrix             n published it tol=n*eps  it tol=n*u our Dykstra vs ref
+  high02             3         -          41          43          0.0e+00
+  tec03              4        39          39          41          0.0e+00
+  bhwi01             5        27          27          28          0.0e+00
+  mmb13              6       801         801         817          1.4e-15
+  fing97             7        33          34          35          0.0e+00
+  beyu11            12         -          17          17          0.0e+00
+  tyda99r1           8         -          43          45          0.0e+00
+  tyda99r2           8         -          42          43          0.0e+00
+  tyda99r3           8         -          35          36          0.0e+00
+  usgs13 (Rocky)    94        18          18          18          0.0e+00
+
+Check B: all five solvers, absolute tol 1e-10 on ||grad theta||_2
+  matrix          solver           EVDs      ||A-X||_F    lam_min   diag err   vs Newton  exit
+  high02          Newton-SIN-BH       5     0.52779046   -4.9e-17    4.4e-16     0.0e+00  converged
+  high02          SBB-Dual           10     0.52779046    2.8e-16    0.0e+00     3.2e-11  diag_feasible
+  high02          AGD-SDAJ           15     0.52779046    5.0e-16    1.7e-11     2.7e-11  diag_feasible_at_xpre
+  high02          AGD-SDAJ-BH        15     0.52779046    5.0e-16    1.7e-11     2.7e-11  diag_feasible_at_xpre
+  high02          Dykstra-APM        27     0.52779046    1.1e-16    9.5e-11     1.3e-10  diag_feasible
+  tec03           Newton-SIN-BH       4     0.03741667    3.6e-17    2.4e-15     0.0e+00  converged
+  tec03           SBB-Dual           10     0.03741667   -3.3e-16    0.0e+00     5.6e-11  diag_feasible
+  tec03           AGD-SDAJ           19     0.03741667   -1.6e-18    3.8e-11     7.2e-11  diag_feasible
+  tec03           AGD-SDAJ-BH        19     0.03741667   -1.6e-18    3.8e-11     7.2e-11  diag_feasible
+  tec03           Dykstra-APM        26     0.03741667   -2.9e-16    5.5e-11     7.9e-11  diag_feasible
+  bhwi01          Newton-SIN-BH       4     0.15055422   -3.3e-16    3.4e-12     0.0e+00  converged
+  bhwi01          SBB-Dual           10     0.15055422   -1.7e-16    0.0e+00     5.1e-11  diag_feasible
+  bhwi01          AGD-SDAJ           66     0.15055422   -1.5e-16    1.7e-11     2.4e-11  diag_feasible
+  bhwi01          AGD-SDAJ-BH        21     0.15055422    1.1e-16    1.2e-11     1.9e-11  diag_feasible_at_xpre
+  bhwi01          Dykstra-APM        19     0.15055422   -1.3e-16    2.5e-11     3.4e-11  diag_feasible
+  mmb13           Newton-SIN-BH       8    30.33235704   -5.8e-16    4.8e-15     0.0e+00  converged
+  mmb13           SBB-Dual          275    30.33235704   -9.8e-16    0.0e+00     1.1e-10  diag_feasible
+  mmb13           AGD-SDAJ       200006    30.33235704   -4.8e-16    4.0e-10     8.7e-10  evd_budget
+  mmb13           AGD-SDAJ-BH       210    30.33235704   -9.7e-17    6.6e-11     1.4e-10  diag_feasible
+  mmb13           Dykstra-APM       558    30.33235704   -3.6e-16    8.7e-11     1.9e-10  diag_feasible
+  fing97          Newton-SIN-BH       4     0.04907808    2.8e-16    2.5e-13     0.0e+00  converged
+  fing97          SBB-Dual           10     0.04907808    8.3e-17    0.0e+00     2.5e-11  diag_feasible
+  fing97          AGD-SDAJ           33     0.04907808    2.3e-16    4.4e-11     6.9e-11  diag_feasible_at_xpre
+  fing97          AGD-SDAJ-BH        28     0.04907808   -1.0e-16    4.4e-11     6.9e-11  diag_feasible_at_xpre
+  fing97          Dykstra-APM        23     0.04907808   -3.4e-17    4.7e-11     6.7e-11  diag_feasible
+  beyu11          Newton-SIN-BH       3     0.00959112   -1.7e-16    2.7e-11     0.0e+00  converged
+  beyu11          SBB-Dual            6     0.00959112   -1.0e-16    0.0e+00     7.7e-11  diag_feasible
+  beyu11          AGD-SDAJ           14     0.00959112    5.6e-17    1.3e-12     3.9e-11  diag_feasible
+  beyu11          AGD-SDAJ-BH        13     0.00959112   -9.6e-17    1.3e-12     3.9e-11  diag_feasible
+  beyu11          Dykstra-APM        12     0.00959112    2.0e-16    1.7e-11     2.7e-11  diag_feasible
+  tyda99r1        Newton-SIN-BH       5     1.40455072   -1.3e-16    1.3e-14     0.0e+00  converged
+  tyda99r1        SBB-Dual           15     1.40455072   -3.5e-16    0.0e+00     1.1e-11  diag_feasible
+  tyda99r1        AGD-SDAJ           25     1.40455072   -2.4e-16    9.8e-12     1.6e-11  diag_feasible
+  tyda99r1        AGD-SDAJ-BH        25     1.40455072   -2.4e-16    9.8e-12     1.6e-11  diag_feasible
+  tyda99r1        Dykstra-APM        31     1.40455072   -3.3e-16    5.0e-11     6.4e-11  diag_feasible
+  tyda99r2        Newton-SIN-BH       5     0.77465215   -1.4e-16    1.1e-15     0.0e+00  converged
+  tyda99r2        SBB-Dual           15     0.77465215   -1.9e-16    0.0e+00     2.2e-12  diag_feasible
+  tyda99r2        AGD-SDAJ          549     0.77465215   -2.2e-16    5.1e-11     9.2e-11  diag_feasible_at_xpre
+  tyda99r2        AGD-SDAJ-BH        35     0.77465215   -3.5e-17    9.2e-12     1.6e-11  diag_feasible_at_xpre
+  tyda99r2        Dykstra-APM        29     0.77465215   -1.1e-17    9.3e-11     1.2e-10  diag_feasible
+  tyda99r3        Newton-SIN-BH       5     0.67226004   -2.9e-16    1.7e-15     0.0e+00  converged
+  tyda99r3        SBB-Dual           12     0.67226004    5.4e-17    0.0e+00     2.0e-11  diag_feasible
+  tyda99r3        AGD-SDAJ           25     0.67226004   -1.2e-16    1.4e-11     2.9e-11  diag_feasible_at_xpre
+  tyda99r3        AGD-SDAJ-BH        23     0.67226004   -4.6e-16    1.4e-11     2.9e-11  diag_feasible_at_xpre
+  tyda99r3        Dykstra-APM        25     0.67226004   -3.9e-16    2.8e-11     5.8e-11  diag_feasible
+  usgs13 (Rocky)  Newton-SIN-BH       4     0.05505106   -4.7e-17    8.7e-15     0.0e+00  converged
+  usgs13 (Rocky)  SBB-Dual            9     0.05505106   -5.3e-16    0.0e+00     4.1e-11  diag_feasible
+  usgs13 (Rocky)  AGD-SDAJ           32     0.05505106   -7.3e-17    2.4e-11     3.9e-11  diag_feasible
+  usgs13 (Rocky)  AGD-SDAJ-BH        21     0.05505106   -7.0e-16    2.4e-11     3.9e-11  diag_feasible_at_xpre
+  usgs13 (Rocky)  Dykstra-APM        14     0.05505106    8.4e-17    3.7e-11     5.7e-11  diag_feasible
+
+HIGHAM VALIDATION DONE

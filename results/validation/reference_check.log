@@ -1,0 +1,99 @@
+Mon Sep 14 03:11:51 CDT 2026 reference check start
+
+=== cor3120 (n=3120), n*eps = 6.93e-13
+  reference A (Newton from 0): 30 EVDs, 2506s, exit=evd_budget
+    outer  1  evds  2  ||grad|| 1.952e+00 -> 5.719e-01  armijo_2.12
+    outer  2  evds  3  ||grad|| 5.719e-01 -> 7.775e-02  armijo_2.12
+    outer  3  evds  4  ||grad|| 7.775e-02 -> 4.363e-03  armijo_2.12
+    outer  4  evds  5  ||grad|| 4.363e-03 -> 2.394e-05  armijo_2.12
+    outer  5  evds  6  ||grad|| 2.394e-05 -> 7.711e-10  armijo_2.12
+    outer  6  evds  7  ||grad|| 7.711e-10 -> 1.653e-12  armijo_2.12
+    outer  7  evds  9  ||grad|| 1.653e-12 -> 1.361e-12  bh_unit_steepest_descent
+    outer  8  evds 10  ||grad|| 1.361e-12 -> 1.598e-12  armijo_2.12
+    outer  9  evds 12  ||grad|| 1.598e-12 -> 1.380e-12  bh_unit_steepest_descent
+    outer 10  evds 14  ||grad|| 1.380e-12 -> 1.326e-12  bh_unit_steepest_descent
+    outer 11  evds 16  ||grad|| 1.326e-12 -> 1.344e-12  bh_unit_steepest_descent
+    outer 12  evds 17  ||grad|| 1.344e-12 -> 1.764e-12  armijo_2.12
+    outer 13  evds 18  ||grad|| 1.764e-12 -> 1.227e-12  armijo_2.12
+    outer 14  evds 20  ||grad|| 1.227e-12 -> 1.378e-12  bh_unit_steepest_descent
+    outer 15  evds 21  ||grad|| 1.378e-12 -> 1.690e-12  armijo_2.12
+    outer 16  evds 22  ||grad|| 1.690e-12 -> 1.888e-12  armijo_2.12
+    outer 17  evds 24  ||grad|| 1.888e-12 -> 2.034e-12  bh_unit_steepest_descent
+    outer 18  evds 25  ||grad|| 2.034e-12 -> 1.222e-12  armijo_2.12
+    outer 19  evds 27  ||grad|| 1.222e-12 -> 1.508e-12  bh_unit_steepest_descent
+    outer 20  evds 29  ||grad|| 1.508e-12 -> 1.253e-12  bh_unit_steepest_descent
+    outer 21  evds 30  ||grad|| 1.253e-12 -> 1.253e-12  evd_budget
+  SBB-Dual to floor: 338 EVDs, 2147s, exit=diag_feasible
+  reference B (Newton from SBB-Dual): 30 EVDs, 2324s, exit=evd_budget
+    outer  1  evds  2  ||grad|| 8.929e-12 -> 1.558e-12  armijo_2.12
+    outer  2  evds  4  ||grad|| 1.558e-12 -> 1.899e-12  bh_unit_steepest_descent
+    outer  3  evds  5  ||grad|| 1.899e-12 -> 9.788e-13  armijo_2.12
+    outer  4  evds  7  ||grad|| 9.788e-13 -> 1.292e-12  bh_unit_steepest_descent
+    outer  5  evds  8  ||grad|| 1.292e-12 -> 1.088e-12  armijo_2.12
+    outer  6  evds  9  ||grad|| 1.088e-12 -> 1.176e-12  armijo_2.12
+    outer  7  evds 10  ||grad|| 1.176e-12 -> 1.000e-12  armijo_2.12
+    outer  8  evds 12  ||grad|| 1.000e-12 -> 1.034e-12  bh_unit_steepest_descent
+    outer  9  evds 13  ||grad|| 1.034e-12 -> 1.006e-12  armijo_2.12
+    outer 10  evds 15  ||grad|| 1.006e-12 -> 1.228e-12  bh_unit_steepest_descent
+    outer 11  evds 16  ||grad|| 1.228e-12 -> 1.507e-12  armijo_2.12
+    outer 12  evds 17  ||grad|| 1.507e-12 -> 1.537e-12  armijo_2.12
+    outer 13  evds 18  ||grad|| 1.537e-12 -> 1.460e-12  armijo_2.12
+    outer 14  evds 19  ||grad|| 1.460e-12 -> 1.347e-12  armijo_2.12
+    outer 15  evds 21  ||grad|| 1.347e-12 -> 1.034e-12  bh_unit_steepest_descent
+    outer 16  evds 23  ||grad|| 1.034e-12 -> 1.144e-12  bh_unit_steepest_descent
+    outer 17  evds 25  ||grad|| 1.144e-12 -> 1.308e-12  bh_unit_steepest_descent
+    outer 18  evds 26  ||grad|| 1.308e-12 -> 1.066e-12  armijo_2.12
+    outer 19  evds 28  ||grad|| 1.066e-12 -> 1.052e-12  bh_unit_steepest_descent
+    outer 20  evds 29  ||grad|| 1.052e-12 -> 1.497e-12  armijo_2.12
+    outer 21  evds 30  ||grad|| 1.497e-12 -> 1.138e-12  armijo_2.12
+  ||grad A|| = 1.253e-12   ||grad B|| = 1.138e-12
+  ||X_A - X_B||_F = 1.282e-11   ||y_A - y_B||_2 = 1.290e-12
+  ||G - X_A||_F = 5.4437514272   ||G - X_B||_F = 5.4437514272
+
+=== bccd16 (n=3250), n*eps = 7.22e-13
+  reference A (Newton from 0): 30 EVDs, 444s, exit=evd_budget
+    outer  1  evds  2  ||grad|| 1.804e+00 -> 1.088e-02  armijo_2.12
+    outer  2  evds  3  ||grad|| 1.088e-02 -> 1.106e-04  armijo_2.12
+    outer  3  evds  4  ||grad|| 1.106e-04 -> 5.896e-09  armijo_2.12
+    outer  4  evds  5  ||grad|| 5.896e-09 -> 7.390e-13  armijo_2.12
+    outer  5  evds  7  ||grad|| 7.390e-13 -> 5.480e-13  bh_unit_steepest_descent
+    outer  6  evds  8  ||grad|| 5.480e-13 -> 4.985e-13  armijo_2.12
+    outer  7  evds 10  ||grad|| 4.985e-13 -> 4.944e-13  bh_unit_steepest_descent
+    outer  8  evds 12  ||grad|| 4.944e-13 -> 4.721e-13  bh_unit_steepest_descent
+    outer  9  evds 13  ||grad|| 4.721e-13 -> 6.404e-13  armijo_2.12
+    outer 10  evds 15  ||grad|| 6.404e-13 -> 1.249e-12  bh_unit_steepest_descent
+    outer 11  evds 16  ||grad|| 1.249e-12 -> 1.245e-12  armijo_2.12
+    outer 12  evds 17  ||grad|| 1.245e-12 -> 5.625e-13  armijo_2.12
+    outer 13  evds 19  ||grad|| 5.625e-13 -> 5.650e-13  bh_unit_steepest_descent
+    outer 14  evds 21  ||grad|| 5.650e-13 -> 5.109e-13  bh_unit_steepest_descent
+    outer 15  evds 23  ||grad|| 5.109e-13 -> 4.637e-13  bh_unit_steepest_descent
+    outer 16  evds 25  ||grad|| 4.637e-13 -> 5.488e-13  bh_unit_steepest_descent
+    outer 17  evds 27  ||grad|| 5.488e-13 -> 5.399e-13  bh_unit_steepest_descent
+    outer 18  evds 28  ||grad|| 5.399e-13 -> 4.991e-13  armijo_2.12
+    outer 19  evds 30  ||grad|| 4.991e-13 -> 5.030e-13  bh_unit_steepest_descent
+  SBB-Dual to floor: 7 EVDs, 43s, exit=diag_feasible
+  reference B (Newton from SBB-Dual): 30 EVDs, 465s, exit=evd_budget
+    outer  1  evds  3  ||grad|| 2.048e-12 -> 8.326e-13  bh_unit_steepest_descent
+    outer  2  evds  4  ||grad|| 8.326e-13 -> 6.442e-13  armijo_2.12
+    outer  3  evds  6  ||grad|| 6.442e-13 -> 7.566e-13  bh_unit_steepest_descent
+    outer  4  evds  7  ||grad|| 7.566e-13 -> 7.894e-13  armijo_2.12
+    outer  5  evds  9  ||grad|| 7.894e-13 -> 7.166e-13  bh_unit_steepest_descent
+    outer  6  evds 11  ||grad|| 7.166e-13 -> 9.287e-13  bh_unit_steepest_descent
+    outer  7  evds 13  ||grad|| 9.287e-13 -> 8.477e-13  bh_unit_steepest_descent
+    outer  8  evds 15  ||grad|| 8.477e-13 -> 5.495e-13  bh_unit_steepest_descent
+    outer  9  evds 17  ||grad|| 5.495e-13 -> 5.609e-13  bh_unit_steepest_descent
+    outer 10  evds 19  ||grad|| 5.609e-13 -> 4.895e-13  bh_unit_steepest_descent
+    outer 11  evds 20  ||grad|| 4.895e-13 -> 4.958e-13  armijo_2.12
+    outer 12  evds 21  ||grad|| 4.958e-13 -> 4.956e-13  armijo_2.12
+    outer 13  evds 23  ||grad|| 4.956e-13 -> 1.262e-12  bh_unit_steepest_descent
+    outer 14  evds 24  ||grad|| 1.262e-12 -> 1.238e-12  armijo_2.12
+    outer 15  evds 26  ||grad|| 1.238e-12 -> 5.367e-13  bh_unit_steepest_descent
+    outer 16  evds 28  ||grad|| 5.367e-13 -> 7.292e-13  bh_unit_steepest_descent
+    outer 17  evds 29  ||grad|| 7.292e-13 -> 1.245e-12  armijo_2.12
+    outer 18  evds 30  ||grad|| 1.245e-12 -> 8.734e-13  armijo_2.12
+  ||grad A|| = 5.030e-13   ||grad B|| = 8.734e-13
+  ||X_A - X_B||_F = 8.063e-12   ||y_A - y_B||_2 = 9.813e-13
+  ||G - X_A||_F = 29.0563127697   ||G - X_B||_F = 29.0563127697
+
+REFERENCE CHECK DONE
+Mon Sep 14 05:24:31 CDT 2026 exit 0

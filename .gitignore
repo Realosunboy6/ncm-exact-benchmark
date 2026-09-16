@@ -32,3 +32,22 @@ Thumbs.db
 # Locally generated suites (large synthetic sweep, thesis matrices)
 /code/thesis_suite/
 /code/degen_large*/
+/code/thesis_kkt/
+/code/ranking_thesis*.csv
+/code/ranking_thesis*.md
+
+# Validation logs are results, keep them
+!/results/validation/*.log
+/code/degen_highrank*/
+/code/degen_confound*/
+/code/ranking_highrank*.csv
+/code/ranking_confound*.csv
+/code/us2105_*/
+/code/ranking_us2105*.csv
+/code/ranking_us2105*.md
+
+# The canonical smoke-test subset ships with the submission artifact
+!/submission/data/canonical_n100/*.bin
+
+# reproduce.sh unpacks the shipped gzips here; regenerated, never committed
+/submission/results/reproduced/

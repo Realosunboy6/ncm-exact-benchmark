@@ -1,13 +1,15 @@
-# Running the extended experiments on your own laptop
+# Running the extended experiments locally
 
-Two experiments, run by you in your own terminal with your own Julia. Everything
-happens inside `code/`. Nothing here needs me to be running.
+Status (2026-09-14):
 
-1. **Thesis matrices** — the 550-ticker thesis correlation matrix, perturbed to make it invalid.
-2. **Large synthetic sweep** — exact-solution instances up to n = 6000.
+1. **Equity-based matrices** (experiments 1 and 1b below) — **done**; results in
+   `results/ranking_thesis.csv.gz` and `results/ranking_thesis_kkt.csv.gz`, reported in
+   Sec. 5.7 of the manuscript. They need the returns panel of 550 US-traded equities
+   (Jan 2020 – Jul 2025), which is not redistributed here.
+2. **Large synthetic sweep** (experiment 2, up to n = 6000) — **not run**; the manuscript
+   reports no dimension above 550. The commands are kept for anyone who wants to extend it.
 
-Do experiment 1 first: it is small, finishes in hours, and is a good check that the
-setup works before committing days of compute to experiment 2.
+Everything happens inside `code/`.
 
 ---
 
@@ -55,8 +57,8 @@ This writes 4 perturbation sizes × 5 random draws = **20 matrices** (about 50 M
 | 0.03 | −1.09 | 189 |
 | 0.10 | −4.26 | 242 |
 
-At sigma = 0.10 about 60 to 80 of the 302,500 off-diagonal entries exceed 1 and are
-clipped back to 1 or -1 (about 0.02 percent); at the smaller sizes none are.
+At sigma = 0.10 about 28 to 40 of the 150,975 off-diagonal pairs exceed 1 in magnitude
+and are clipped (about 0.02 percent); at the smaller sizes none are.
 
 The last line must read **`all matrices are invalid (lambda_min < 0)`**.
 
@@ -71,6 +73,37 @@ julia --project=. bench_sbb_dual.jl --suite thesis_suite `
 
 No exact solution exists for these matrices, so each first gets a high-accuracy reference
 (a few seconds at n = 550). **Expect roughly 1–3 hours** for all 20.
+
+---
+
+## Experiment 1b — KKT instances built from the thesis matrix (n = 550, exact solution)
+
+The thesis correlation matrix is full rank, so it cannot itself be the solution of a
+KKT instance. Its rank-r factor model can: keep the top r eigen-directions, rescale to
+unit diagonal, and use that as X\*. The KKT construction of the paper then gives
+invalid matrices G whose **exact** nearest correlation matrix is that factor model.
+
+- ranks 20, 50, 100 × near-zero multiplicity 1, 5, 20 × delta 1e-5, 1e-9, 0 × 3 kernel
+  rotations = **81 instances** (about 375 MB)
+- rank 5 is not used: on this panel a 5-factor model misses 95% of the correlation and
+  pushes some pairs to |X\*ᵢⱼ| ≈ 1, so every rank-5 instance fails the |Gᵢⱼ| ≤ 1 screen
+- bulk level μ = 0.01 (0.1 fails the screen at every rank); these matrices are only
+  mildly invalid, λ_min(G) between −0.0046 and −0.0012
+
+```powershell
+C:\Python314\python.exe export_thesis_kkt.py --panel "$PANEL" --out thesis_kkt
+```
+
+Check: `worst exactness` must be below 1e-9 (the test run gave 1.1e-12).
+
+```powershell
+julia --project=. bench_sbb_dual.jl --suite thesis_kkt `
+  --ranking ranking_thesis_kkt.csv `
+  --max-evds 4000 --sbb-maxit 20000 --apm-maxit 2000 --blas-threads 4
+```
+
+The exact X\* files are picked up automatically, so no reference solve is needed.
+**Expect roughly 5–7 hours**: run it overnight, after experiment 1.
 
 ---
 

@@ -67,26 +67,26 @@ obtaining instances with exactly known primal and dual solutions whose
 solution rank, near-zero multiplicity and eigenvalue separation are set
 independently. Using a matched-accuracy protocol measured against the exact
 solution, we show that conclusions drawn from NCM solver comparisons do not
-transfer across benchmark regimes. On 270 instances at $n=100$, the order of
-SBB-Dual and AGD-SDAJ reverses with the accuracy target and is organized by
-solution rank. On 270 instances at $n=500$ neither pattern survives:
-AGD-SDAJ-BH is cheaper at every target and every rank. Four matrices from the
-literature, from $n=94$ to $n=3250$, are consistent with the same dependence
-on dimension. The
-semismooth Newton method with the Borsdorf--Higham line search is the
-cheapest method under every convention and dimension tested. The
-dimension-scaled stopping rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits
-roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger problem
-can appear easier. Finally, a known finite-precision failure of objective-value
-Armijo tests recurs in a second published method, AGD-SDAJ, where it does not
-affect the published results, and occurs on two real matrices: at $n=94$ the
-naive Newton test costs at least 75 times the work for five fewer correct
-digits, and at $n=3250$ unmodified AGD-SDAJ stops at its work cap with error
-$4\times10^{-5}$, where the safeguarded variant needs 9 \EVDs. It is removed
-in the Newton method by the published Borsdorf--Higham line search, and in
-AGD-SDAJ by our adaptation of their safeguard.
+transfer across benchmark regimes. At $n=100$ the order of SBB-Dual and
+AGD-SDAJ reverses with the accuracy target and with solution rank, crossing
+between $r=5$ and $r=20$. At $n=500$ both patterns persist, but the crossover
+moves to between $r=50$ and $r=75$, so a study confined to $r\le50$ would
+conclude that it had vanished. On matrices built from the returns of 550
+equities the order also changes with the degree of invalidity, and four
+matrices from the literature, from $n=94$ to $n=3250$, are consistent with
+these regimes. The semismooth Newton method with the Borsdorf--Higham line
+search is the cheapest method under every convention and on every test set.
+The dimension-scaled stopping rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits
+roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger
+problem can appear easier. Finally, a known finite-precision failure of
+objective-value Armijo tests recurs in a second published method, AGD-SDAJ.
+It does not affect the published results, but it stalls the method on real
+and data-derived matrices, including one at $n=3250$ that the safeguarded
+variant solves in 9 \EVDs. It is removed in the Newton method by the
+published Borsdorf--Higham line search, and in AGD-SDAJ by our adaptation of
+their safeguard.
 \end{abstract}
-% Word count of abstract: approx. 175 (target <= 200).
+% Word count of abstract: approx. 215.
 % Corrected 2026-09-11: the per-cell count is 7 orderings (not 9) under the
 % corrected reach-and-hold rule; the rank attribution replaces it in the abstract.
 

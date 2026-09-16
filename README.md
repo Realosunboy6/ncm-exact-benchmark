@@ -105,6 +105,13 @@ new instance.
   ‖∇θ‖₂ = 4.59 × 10⁻¹³; the `cor3120` and `bccd16` references are capped at 30 EVDs
   and reach 1.58 × 10⁻¹² and 8.07 × 10⁻¹³. Those runs are an external check, not
   measurements of the same quality.
+  A second, independent reference for each agrees with the first to about 1e-11.
+- The equity-based instances (`export_thesis_kkt.py`, `export_thesis_suite.py`) need the
+  author's returns panel (550 US-traded equities, Jan 2020 – Jul 2025), which is not redistributed here; the result
+  files `results/ranking_thesis*.csv.gz` are included.
+- `code/validation/` checks every solver against published solutions and work counts
+  (Higham 2002; Higham–Strabić 2016; Borsdorf 2007; Huynh–Hwang 2025). The logs are in
+  `results/validation/`. Set `NCM_REAL_SUITE` to the exported real-matrix suite first.
 - `results/*.csv.gz` are gzipped. Decompress with `gunzip -k` before running the
   analysis scripts.
 

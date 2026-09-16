@@ -1,0 +1,22 @@
+
+eps=0.0001
+  r= 75 Newton=4 AGD-BH=25 SBB=26 | SBB cheaper 17/45 ties 3 | median d +1 95% [+0,+2] | by m {1: 13, 5: 1, 20: -5}
+  r=100 Newton=3 AGD-BH=18 SBB=19 | SBB cheaper 22/45 ties 2 | median d +0 95% [-1,+1] | by m {1: 11, 5: -1, 20: -2}
+  r=150 Newton=4 AGD-BH=15 SBB=12 | SBB cheaper 30/45 ties 0 | median d -4 95% [-6,-2] | by m {1: 3, 5: -4, 20: -6}
+
+eps=1e-06
+  r= 75 Newton=4 AGD-BH=41 SBB=39 | SBB cheaper 27/45 ties 1 | median d -4 95% [-6,-2] | by m {1: 5, 5: -4, 20: -10}
+  r=100 Newton=4 AGD-BH=36 SBB=28 | SBB cheaper 31/45 ties 2 | median d -10 95% [-12,-10] | by m {1: 2, 5: -12, 20: -11}
+  r=150 Newton=4 AGD-BH=27 SBB=17 | SBB cheaper 45/45 ties 0 | median d -10 95% [-13,-9] | by m {1: -6, 5: -13, 20: -15}
+
+eps=1e-08
+  r= 75 Newton=5 AGD-BH=60 SBB=51 | SBB cheaper 34/45 ties 1 | median d -10 95% [-11,-6] | by m {1: 3, 5: -10, 20: -15}
+  r=100 Newton=4 AGD-BH=52 SBB=37 | SBB cheaper 43/45 ties 0 | median d -15 95% [-20,-13] | by m {1: -12, 5: -21, 20: -16}
+  r=150 Newton=5 AGD-BH=41 SBB=22 | SBB cheaper 45/45 ties 0 | median d -20 95% [-22,-19] | by m {1: -16, 5: -24, 20: -20}
+
+eps=1e-10
+  r= 75 Newton=5 AGD-BH=81 SBB=64 | SBB cheaper 39/45 ties 0 | median d -18 95% [-22,-16] | by m {1: -6, 5: -22, 20: -27}
+  r=100 Newton=5 AGD-BH=69 SBB=46 | SBB cheaper 45/45 ties 0 | median d -24 95% [-25,-22] | by m {1: -19, 5: -31, 20: -23}
+  r=150 Newton=5 AGD-BH=60 SBB=27 | SBB cheaper 45/45 ties 0 | median d -34 95% [-37,-31] | by m {1: -24, 5: -38, 20: -34}
+
+Newton-SIN-BH strictly cheapest on every instance and target: True (135 instances)

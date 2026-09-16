@@ -3,10 +3,11 @@
 \paragraph{What changed the conclusions, and what did not.}
 On this family, none of the conventions we tested changed which method was
 cheapest. The accuracy target, the instance regime and the problem dimension
-did change the order below it: the change of lower-place ordering with the
-accuracy target that we found at $n=100$ does not reproduce at $n=500$
-(\cref{sec:n500}), and the rank effect that organizes it at $n=100$ no longer
-changes the order there. The stopping rule
+did change the order below it: the changes of lower-place ordering with the
+accuracy target and with rank that we found at $n=100$ recur at $n=500$ only
+above $r=50$ (\cref{sec:n500,sec:highrank}), and on matrices built from equity
+returns the degree of invalidity reverses the order as well
+(\cref{sec:thesis}). The stopping rule
 changed the achieved accuracy by a factor of 383. The cost unit (\EVDs\ against wall-clock time) and the accounting rule
 (accepted-only against all-trial) changed cost ratios but no ordering. Two
 line-search details changed whether methods converged at all. We think the
@@ -23,18 +24,19 @@ the three quantities the construction controls. Finding it requires both an
 exact $\Xs$, so that forward error is not contaminated by an approximate
 reference, and independent control of the spectral structure at the
 solution. Real matrices supply neither. The same machinery then showed the
-limit of that finding: at $n=500$ (\cref{sec:n500}) the rank effect keeps its
-direction but no longer changes the order, so what looked like a rule about
-the methods at one dimension turns out to depend on the benchmark regime as
-well.
+dimension dependence of that finding: at $n=500$ the same rank effect changes
+the order only between $r=50$ and $r=75$ (\cref{sec:highrank}), so a grid
+chosen at one dimension can miss the crossover at another.
 
 \paragraph{Limitations.}
 \begin{itemize}
   \item \emph{Problem size.} Results are reported at $n=100$ and $n=500$
-    (270 instances each). The $r\ge20$ crossover between SBB-Dual and
-    AGD-SDAJ found at $n=100$ does \emph{not} persist at $n=500$, where
-    AGD-SDAJ-BH is cheaper at every rank. No dimension above 500 was tested
-    on the family. Dykstra-APM is censored at $n=500$ by its iteration cap.
+    (270 instances each), with 135 more at $n=500$ and $r\in\{75,100,150\}$
+    for three solvers only. The crossover between SBB-Dual and AGD-SDAJ-BH
+    lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$
+    at $n=500$; on data-seeded instances at $n=550$ SBB-Dual is still slightly
+    behind at $r=100$. No dimension above 550 was tested.
+    Dykstra-APM is censored at $n=500$ by its iteration cap.
   \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
     matrices are correlation-like but are not estimated from data.
     \Cref{sec:real} adds four matrices from the literature, from $n=94$ to
@@ -42,7 +44,12 @@ well.
     the two largest that reference is capped and reaches
     $\nrm{\nabla\theta}_2\approx10^{-12}$ rather than $10^{-13}$, and no
     wall-clock times were taken. Four matrices cannot separate dimension from
-    the other ways in which they differ.
+    the other ways in which they differ. The equity-based instances of
+    \cref{sec:thesis} use a factor model of one correlation matrix as the
+    exact solution; those instances are only mildly invalid and have three
+    replicates per setting, while the perturbed set has five draws per
+    $\sigma$ and a computed reference. All of them rest on one base
+    correlation matrix.
   \item \emph{Statistical uncertainty.} Aggregate medians at both dimensions
     carry cluster-bootstrap intervals (\cref{tab:fwdci,tab:n500}). Each
     dimension rests on five paired seeds per rank, that is 15 seed clusters,
@@ -83,12 +90,12 @@ possible to separate stopping-rule, reference, accounting and
 primitive-work effects in NCM benchmarks. On 270 instances at $n=100$, these
 effects changed cost ratios and the lower places of the ranking, but not the
 cheapest method. Repeating the study on 270 instances at $n=500$ sharpened
-that finding: Newton-SIN-BH remains the leading method, but the change of
-lower-place ordering with the accuracy target does not reproduce, and the rank
-effect that organizes it at $n=100$ no longer changes the order. Rankings
+that finding: Newton-SIN-BH remains the leading method, and the changes of
+lower-place ordering with the accuracy target and with rank recur, but only
+above $r=50$, a rank the original grid did not reach. Rankings
 below the leading method are therefore not intrinsic properties of the
 solvers; they depend materially on the benchmark regime, including its
-dimension. The one clear failure we found is a known finite-precision
+dimension, the rank of the solution and the size of the violation. The one clear failure we found is a known finite-precision
 line-search defect, which appears in two separately published methods, on
 the constructed family and on real matrices. It is
 removed in the semismooth Newton method by the published Borsdorf--Higham

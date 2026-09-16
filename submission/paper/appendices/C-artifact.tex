@@ -1,0 +1,64 @@
+\section{Artifact manifest}\label{app:artifact}
+
+The generator, the solvers, the analysis scripts and every result file behind
+every table are available at
+\url{https://github.com/Realosunboy6/ncm-exact-benchmark}. Paths below are
+relative to the artifact root. An archived snapshot carrying a permanent
+identifier will be deposited on acceptance.
+
+Instance binaries are not stored in full: they reach 1\,GB at $n=500$ and are
+exactly reproducible from the seeded generator, so the manifests carry SHA-256
+hashes instead. A 12-instance subset at $n=100$ (2\,MB) ships with the artifact
+for smoke tests.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.40\linewidth}p{0.54\linewidth}}
+\toprule
+file & contents\\
+\midrule
+\multicolumn{2}{l}{\emph{Instances}}\\
+\texttt{code/gen\_degeneracy\_family.py} & generator and screening (\cref{sec:family})\\
+\texttt{code/materialize\_exact\_ystars.py} & exact $\ys=-\diag(W)$ for a suite\\
+\texttt{data/canonical\_n100/} & 12 instances with $G$, $\Xs$, $\ys$, manifest and cases\\
+\texttt{data/manifests/} & SHA-256 manifests and screening logs for every set\\
+\texttt{code/export\_real\_suite.py} & literature matrices from Anymatrix \texttt{CORRINV}\\
+\texttt{code/export\_thesis\_kkt.py}, \texttt{export\_thesis\_suite.py} & equity-derived sets (\cref{sec:thesis,sec:us2105})\\
+\midrule
+\multicolumn{2}{l}{\emph{Solvers}}\\
+\texttt{code/bench\_sbb\_dual.jl} & \texttt{sbb\_dual}, \texttt{newton\_ncm\_globalized}, \texttt{agd\_sdaj\_ncm}, \texttt{dykstra\_apm}, trajectory recorder, study drivers\\
+\texttt{code/agd\_sdaj.jl} & standalone AGD-SDAJ used for verification (\cref{app:agd})\\
+\texttt{code/validation/} & checks against Higham (2002), Higham--Strabi\'c (2016), Borsdorf (2007), Huynh--Hwang (2025); logs in \texttt{results/validation/}\\
+\texttt{code/check\_reference\_accuracy.jl} & two independent references per matrix (\cref{sec:real})\\
+\midrule
+\multicolumn{2}{l}{\emph{Results and analysis}}\\
+\texttt{code/reproduce.sh} & regenerates every analysis table from \texttt{results/*.csv.gz}\\
+\texttt{results/ranking\_kkt270\_v2.csv.gz} & one row per \EVD, five solvers, 270 instances at $n=100$\\
+\texttt{results/ranking\_n500.csv.gz} & the same at $n=500$\\
+\texttt{results/ranking\_highrank\_n500.csv.gz} & $r\in\{75,100,150\}$, three solvers (\cref{tab:highrank})\\
+\texttt{results/ranking\_thesis*.csv.gz} & equity sets at $n=550$ (\cref{tab:thesiskkt,tab:thesispert})\\
+\texttt{results/ranking\_us2105\_*.csv.gz} & equity sets at $n=2105$ (\cref{tab:us2105,tab:us2105pert})\\
+\texttt{results/ranking\_real.csv.gz} & four literature matrices (\cref{tab:real})\\
+\texttt{results/timing\_*.csv} & single-threaded timings\\
+\texttt{code/analyze\_ranking.py} & \cref{tab:conventions,tab:fwd,tab:res,tab:cells,tab:acct,tab:feas,tab:nativeexit,tab:exits,tab:n500}\\
+\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py}, \texttt{analyze\_confound.py} & \cref{tab:highrank,tab:us2105,tab:us2105pert} and the bulk-level pilot\\
+\texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
+\texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Data not redistributed.}
+The Anymatrix \texttt{CORRINV} matrices carry their own terms and are obtained
+from their own repository. The two equity panels are built from vendor price
+data that may not be redistributed; the exporters, the selection rules and all
+result files are included, the raw prices are not.
+
+{\sloppy
+\paragraph{Figure data.} The files \texttt{paper/figures/data/*.dat} were
+extracted from the result files above. The file \texttt{evd\_vs\_eps.dat}
+applies the cost-to-target rule of \texttt{analyze\_ranking.py}
+(accepted-only, reach and hold) on a half-decade grid of $\varepsilon$. At the
+five decade targets it reproduces \cref{tab:fwd}, up to that table's rounding
+of half-integer medians.\par}

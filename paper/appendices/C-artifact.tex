@@ -21,6 +21,7 @@ file & contents\\
 \texttt{degen\_instances\_paired/} & 270 instances: \texttt{G\_*.bin}, \texttt{Xstar\_*.bin}, \texttt{manifest.tsv} (SHA-256), \texttt{cases.csv}, \texttt{seed\_screening.csv}\\
 \texttt{materialize\_exact\_ystars.py} & exact $\ys=-\diag(W)$ per instance\\
 \texttt{degen\_instances\_n500\_paired/} & 270 instances at $n=500$, same grid, all used in \cref{sec:n500}\\
+\texttt{export\_thesis\_kkt.py}, \texttt{export\_thesis\_suite.py} & equity-based instances (\cref{sec:thesis})\\
 \midrule
 \multicolumn{2}{l}{\emph{Solvers}}\\
 \texttt{bench\_sbb\_dual.jl} & \texttt{sbb\_dual}, \texttt{newton\_ncm\_globalized}, \texttt{agd\_sdaj\_ncm}, \texttt{dykstra\_apm}, \texttt{snap!} trajectory recorder, \texttt{run\_ranking\_study}\\
@@ -33,6 +34,11 @@ file & contents\\
 \texttt{timing\_kkt270\_\{native,matched\}.csv} & single-threaded timings, six variants\\
 \texttt{analyze\_timing.py}, \texttt{timing\_kkt270\_analysis.md} & \cref{tab:primitive,tab:perevd,tab:native}\\
 \texttt{globalization\_*.csv}, \texttt{globalization\_correction\_report.md} & Newton Armijo stall analysis (\cref{sec:trap2})\\
+\texttt{ranking\_thesis\_kkt.csv}, \texttt{ranking\_thesis.csv} & \cref{tab:thesiskkt,tab:thesispert}\\
+\texttt{ranking\_highrank\_n500.csv}, \texttt{analyze\_highrank.py} & \cref{tab:highrank}\\
+\texttt{ranking\_confound\_mu*.csv}, \texttt{analyze\_confound.py} & bulk-level pilot (\cref{sec:highrank})\\
+\texttt{validation/} & \cref{tab:external}\\
+\texttt{check\_reference\_accuracy.jl} & reference accuracy (\cref{sec:real})\\
 \bottomrule
 \end{tabular}
 \end{table}

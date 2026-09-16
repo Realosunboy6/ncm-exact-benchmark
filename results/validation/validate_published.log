@@ -1,0 +1,61 @@
+
+=== Higham 2002 3x3  (n=3, tol=1.0e-12)
+    solver           EVDs  time(s)      ||A-X||_F     lam_min   diag err  exit
+    SBB-Dual           11      4.7       0.527790   -2.71e-16   0.00e+00  diag_feasible
+        max |X - X_published| = 1.0e-05 (published to 4 d.p.)
+    Newton-SIN-BH       5      5.1       0.527790   -4.88e-17   4.44e-16  converged
+        max |X - X_published| = 1.0e-05 (published to 4 d.p.)
+    AGD-SDAJ           17      1.7       0.527790   -3.82e-16   2.22e-16  diag_feasible_at_xpre
+        max |X - X_published| = 1.0e-05 (published to 4 d.p.)
+    AGD-SDAJ-BH        17      0.0       0.527790   -3.82e-16   2.22e-16  diag_feasible_at_xpre
+        max |X - X_published| = 1.0e-05 (published to 4 d.p.)
+    Dykstra-APM        33      0.8       0.527790    1.12e-17   6.66e-13  diag_feasible
+        max |X - X_published| = 1.0e-05 (published to 4 d.p.)
+    ||X_SBB-Dual - X_Newton||_F = 7.78e-16
+    ||X_Dykstra-APM - X_Newton||_F = 8.97e-13
+    ||X_AGD-SDAJ - X_Newton||_F = 1.05e-15
+    ||X_AGD-SDAJ-BH - X_Newton||_F = 1.05e-15
+
+=== cor1399  (n=1399, tol=1.4e-04)
+    published ||A-X||_F = 21.03
+    published AGD-SDAJ EVDs = 31
+    solver           EVDs  time(s)      ||A-X||_F     lam_min   diag err  exit
+    SBB-Dual           89    110.7      21.033911   -8.79e-14   0.00e+00  diag_feasible
+    Newton-SIN-BH       6      6.3      21.033883   -9.55e-14   9.86e-06  converged
+    AGD-SDAJ           32     26.7      21.033906   -1.45e-13   2.02e-05  diag_feasible
+    AGD-SDAJ-BH        32     25.4      21.033906   -1.45e-13   2.02e-05  diag_feasible
+    Dykstra-APM       180    204.5      21.033696   -1.08e-13   9.64e-05  diag_feasible
+    ||X_SBB-Dual - X_Newton||_F = 2.91e-04
+    ||X_Dykstra-APM - X_Newton||_F = 4.26e-04
+    ||X_AGD-SDAJ - X_Newton||_F = 1.40e-04
+    ||X_AGD-SDAJ-BH - X_Newton||_F = 1.40e-04
+
+=== cor3120  (n=3120, tol=3.1e-04)
+    published ||A-X||_F = 5.44
+    published AGD-SDAJ EVDs = 18
+    solver           EVDs  time(s)      ||A-X||_F     lam_min   diag err  exit
+    SBB-Dual           86   1044.6       5.443752   -5.23e-15   0.00e+00  diag_feasible
+    Newton-SIN-BH       5    177.0       5.443738   -5.72e-15   1.28e-05  converged
+    AGD-SDAJ           18    177.5       5.443717   -5.89e-15   3.44e-05  diag_feasible_at_xpre
+    AGD-SDAJ-BH        18    129.7       5.443717   -5.89e-15   3.44e-05  diag_feasible_at_xpre
+    Dykstra-APM       161   1453.4       5.443533   -6.64e-15   2.95e-04  diag_feasible
+    ||X_SBB-Dual - X_Newton||_F = 2.62e-03
+    ||X_Dykstra-APM - X_Newton||_F = 1.42e-03
+    ||X_AGD-SDAJ - X_Newton||_F = 1.05e-04
+    ||X_AGD-SDAJ-BH - X_Newton||_F = 1.05e-04
+
+=== bccd16  (n=3250, tol=3.2e-04)
+    published ||A-X||_F = 29.06
+    published AGD-SDAJ EVDs = 5
+    solver           EVDs  time(s)      ||A-X||_F     lam_min   diag err  exit
+    SBB-Dual            3     25.3      29.056313   -7.01e-14   0.00e+00  diag_feasible
+    Newton-SIN-BH       3     31.9      29.056309   -3.64e-13   2.81e-05  converged
+    AGD-SDAJ            5     42.0      29.056313   -1.06e-13   6.86e-06  diag_feasible_at_xpre
+    AGD-SDAJ-BH         5     60.4      29.056313   -1.06e-13   6.86e-06  diag_feasible_at_xpre
+    Dykstra-APM         4     40.6      29.056313   -3.38e-14   2.57e-06  diag_feasible
+    ||X_SBB-Dual - X_Newton||_F = 3.68e-03
+    ||X_Dykstra-APM - X_Newton||_F = 1.06e-04
+    ||X_AGD-SDAJ - X_Newton||_F = 1.19e-04
+    ||X_AGD-SDAJ-BH - X_Newton||_F = 1.19e-04
+
+VALIDATION DONE

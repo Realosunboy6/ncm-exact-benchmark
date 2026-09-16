@@ -1,0 +1,225 @@
+\section{The KKT-controlled instance family}\label{sec:family}
+
+\subsection{Dual formulation}
+Following~\cite{malick2004dual,qisun2006quadratically}, the Lagrangian dual of~\eqref{eq:ncm}
+is the unconstrained problem
+\begin{equation}\label{eq:dual}
+  \min_{y\in\mathbb{R}^n}\ \theta(y) \coloneqq \tfrac12\fro{\Proj(G+\Diag(y))}^2 - e^{\mathsf T}y ,
+  \qquad
+  \nabla\theta(y) = \diag\bigl(\Proj(G+\Diag(y))\bigr) - e .
+\end{equation}
+Here $\Proj$ is the projection onto the positive semidefinite cone. The
+gradient is globally Lipschitz with constant 1. If $\ys$ satisfies
+$\nabla\theta(\ys)=0$, then $\Xs=\Proj(G+\Diag(\ys))$ is the unique solution
+of~\eqref{eq:ncm}. Each evaluation of $\theta$ or $\nabla\theta$ requires one
+symmetric eigendecomposition (\EVD) of $C(y)\coloneqq G+\Diag(y)$.
+
+\subsection{Construction and exactness}\label{sec:construction}
+The idea is to choose the solution first and then build a $G$ for which that
+solution satisfies the KKT conditions exactly. This is the standard technique
+of generating instances from prescribed optimality
+conditions~\cite{lenard1984randomly,calamai1993new}, and in particular Wei and
+Wolkowicz's generator of semidefinite programs with prescribed complementarity
+nullity~\cite{wei2010generating}, specialized here to the NCM problem. What is
+specific to NCM is the exact projection identity of \cref{prop:exact}, the
+independent control of the three spectral quantities in
+\cref{sec:spectrum}, and the entrywise conditions of \cref{sec:feasibility}.
+Their construction does not cover the present problem. It generates the data
+$(\mathcal{A},b,C)$ of a \emph{linear}-objective SDP, $\min\operatorname{trace}CX$
+subject to $\mathcal{A}(X)=b$, $X\succeq0$, and is free to choose the constraint
+operator $\mathcal{A}$ itself (their Algorithm~2.3, Steps 3--4). The NCM problem
+fixes both the objective, which is quadratic, and the constraint operator,
+$\mathcal{A}=\diag$ with $b=e$; the only free data is $G$. The shared element is
+the idea of prescribing an optimal primal--dual pair and controlling the
+dimension of its common nullspace, which they call the complementarity nullity
+and which corresponds to $|\beta|$ here.
+
+\begin{definition}[KKT-controlled instance]\label{def:family}
+Let $n>r\ge1$. Draw $U\in\mathbb{R}^{n\times r}$ with independent
+standard-normal entries and rescale every row to unit Euclidean norm. Set
+$\Xs=UU^{\mathsf T}$, so that $\diag(\Xs)=e$, $\Xs\succeq0$ and $\rank\Xs=r$
+almost surely. Let $Q_0\in\mathbb{R}^{n\times(n-r)}$ have orthonormal columns
+spanning $\ker\Xs$. For $\mu\in\mathbb{R}^{n-r}_{\ge0}$ define
+\begin{equation}\label{eq:construction}
+  W = Q_0\Diag(\mu)Q_0^{\mathsf T},\qquad
+  G = \Xs - W + \Diag(\diag W),\qquad
+  \ys = -\diag(W).
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Exactness]\label{prop:exact}
+For every $\mu\ge0$, $\Proj(G+\Diag(\ys))=\Xs$ and $\nabla\theta(\ys)=0$.
+Hence $\Xs$ is the unique nearest correlation matrix to $G$.
+\end{proposition}
+\begin{proof}
+By construction, $G+\Diag(\ys)=\Xs-W$. Both $\Xs$ and $W$ are symmetric
+positive semidefinite, and $\Xs W=\Xs Q_0\Diag(\mu)Q_0^{\mathsf T}=0$ because
+the columns of $Q_0$ lie in $\ker\Xs$. The ranges of $\Xs$ and $W$ are
+therefore orthogonal. They need not be complementary: if some $\mu_j=0$, then
+$\range W$ is a proper subspace of $\ker\Xs$. Consequently $\Xs-W$ has the
+spectral decomposition obtained by combining those of $\Xs$ and $-W$ on
+orthogonal subspaces. Its positive part is $\Xs$, and its nonpositive part is
+$-W$. Thus $\Proj(\Xs-W)=\Xs$, and
+$\nabla\theta(\ys)=\diag(\Xs)-e=0$. Since $\theta$ is convex and
+differentiable, $\ys$ minimizes~\eqref{eq:dual}. Uniqueness of the primal
+solution is classical~\cite{higham2002nearest,qisun2006quadratically}.
+\end{proof}
+
+In floating point, the generator recomputes the projection rather than relying
+on the identity. Over the 270 released instances, the KKT residual is about
+$1.6\times10^{-14}$ and the exactness error $\fro{\Proj(C(\ys))-\Xs}$ is about
+$8.2\times10^{-14}$.
+
+\subsection{Prescribed spectral structure}\label{sec:spectrum}
+Because the ranges are orthogonal, the spectrum of $C(\ys)=\Xs-W$ is the
+multiset union
+\begin{equation}
+  \operatorname{spec}C(\ys) = \{\lambda_1(\Xs),\dots,\lambda_r(\Xs)\}\ \cup\ \{-\mu_1,\dots,-\mu_{n-r}\}.
+\end{equation}
+In the notation of~\cite{qisun2006quadratically}, let $\alpha,\beta,\gamma$ index the
+positive, zero and negative eigenvalues of $C(\ys)$. Then
+\begin{itemize}
+  \item $|\alpha|=r$, so the rank of the solution is prescribed;
+  \item $|\beta|=\#\{j:\mu_j=0\}$ exactly, so the multiplicity of zero
+    eigenvalues at the solution is prescribed;
+  \item an entry $\mu_j=\delta>0$ produces an eigenvalue $-\delta$, which moves
+    toward the nonsmooth boundary of $\Proj$ as $\delta\to0$.
+\end{itemize}
+
+\paragraph{Terminology.}
+Qi and Sun~\cite{qisun2006quadratically} showed that constraint
+nondegeneracy always holds for the NCM problem, so the family does not, and
+could not, vary constraint degeneracy. What it varies is \emph{failure of
+strict complementarity}: zero eigenvalues of $C(\ys)$ ($|\beta|>0$), and
+near-zero eigenvalues (small $\delta$) that approach it. Throughout this
+paper, a \emph{degeneracy cell} means one $(r,m,\delta)$ combination in this
+sense, and the \emph{strict-complementarity defect} means $|\beta|$.
+The generator uses
+$\mu=(\mu_{\mathrm{bulk}},\dots,\mu_{\mathrm{bulk}},\delta,\dots,\delta)$ with
+$m$ copies of $\delta$ and $\mu_{\mathrm{bulk}}=0.1$. The separation parameter
+is $\sep=\delta/\mu_{\mathrm{bulk}}$ (we avoid $\rho$, which denotes the
+line-search backtracking factor in \cref{sec:traps,sec:ranking}). The released grid is
+\[
+  r\in\{5,20,50\},\quad m\in\{1,5,20\},\quad
+  \delta\in\{10^{-2},10^{-4},10^{-6},10^{-8},10^{-10},0\},
+\]
+with five paired seeds per rank. This gives $3\times3\times6=54$ cells and
+270 instances at $n=100$. In plots, $\sep$ is shown on a $\log_{10}$ axis and
+the case $\sep=0$ is shown separately.
+
+\subsection{Correlation-like inputs: sufficient conditions for $|G_{ij}|\le1$}\label{sec:feasibility}
+\Cref{prop:exact} places no restriction on the entries of $G$. For the
+instances to resemble invalid correlation matrices, which is the setting in
+which NCM problems arise, the generator additionally requires
+$\diag(G)=e$ (true by construction), $\lambda_{\min}(G)<0$, and
+$|G_{ij}|\le1$. The first two are checked directly. The results below explain
+when the third can be expected to hold. Let $P_r$ be the orthogonal projector
+onto $\range U$, so that $Q_0Q_0^{\mathsf T}=I-P_r$, and define
+\[
+  a \coloneqq \max_{i\ne j}|\Xs_{ij}|,\qquad b\coloneqq \max_{i\ne j}|(P_r)_{ij}|.
+\]
+
+\begin{proposition}[Deterministic bound, uniform $\mu$]\label{prop:det}
+If $\mu=c\,e$ with $c>0$, then $|G_{ij}|\le a+cb$ for all $i\neq j$. In
+particular, if $a<1$, then $0<c\le(1-a)/b$ is sufficient for $|G_{ij}|\le1$.
+\end{proposition}
+
+\begin{proposition}[Fixed-rank saturation]\label{prop:sat}
+Fix $r\ge2$ and let the rows $u_i$ of $U$ be independent and uniform on
+$S^{r-1}$. Then $a\to1$ as $n\to\infty$, along every realization.
+\end{proposition}
+
+\Cref{prop:sat} says only that $a$ saturates. It does \emph{not} imply that a
+fixed $c>0$ eventually violates \cref{prop:det}: at fixed $r$ the quantity $b$
+also decreases with $n$, so whether $a+cb$ exceeds 1 depends on the relative
+rates of $1-a$ and $b$, which we do not establish. We therefore make no
+asymptotic feasibility claim, and the generator relies on entrywise
+screening.
+
+\begin{proposition}[High-dimensional regime]\label{prop:hd}
+Let the rows of $U$ be independent and uniform on $S^{r-1}$ and let
+$\eta\in(0,1)$ be a failure probability (distinct from the separation
+parameter $\delta$ of \cref{def:family}). Then with probability at least
+$1-\eta$,
+\[
+  a\;\le\;\sqrt{\frac{2}{r}\Bigl(2\log n+\log\frac{2}{\eta}\Bigr)} .
+\]
+In particular $a\to0$ whenever $r/\log n\to\infty$.
+\end{proposition}
+
+The bound follows from the subgaussianity of the uniform distribution on the
+sphere~\cite[Thm.~3.4.5]{vershynin2026high} and a union bound; see
+\cref{app:family}. We state it only for $a$, the quantity that governs
+\cref{prop:det} in the regime of interest. A companion bound on $b$ would
+require a model for $\range U$ that we do not need here, since the released
+family lies in the fixed-rank regime of \cref{prop:sat}, where
+\cref{prop:hd} does not apply.
+
+Proofs are given in \cref{app:family}. These results give sufficient
+conditions only. Failure of the bound in \cref{prop:det} does not show that
+some $|G_{ij}|$ exceeds 1, and for that reason the generator checks every
+entry directly instead of relying on the bound. \Cref{prop:det} assumes
+uniform $\mu$, whereas the released instances use a mixed $\mu$ (bulk value
+$0.1$ together with $m$ copies of $\delta$).
+The extension to mixed $\mu$ is left open: the extra off-diagonal term it
+introduces depends on the choice of orthonormal basis for $\ker\Xs$ and is not
+determined by $(n,r,m,\delta)$ alone (\cref{app:family}). The released
+mixed-$\mu$ instances are therefore screened entrywise rather than certified
+by a bound.
+None of these results says anything about indefiniteness of $G$, which is
+checked separately.
+
+\paragraph{Which regime the released family is in.}
+\Cref{tab:ab} reports empirical values of $(a,b)$ at $n=100$ over 30 seeds per
+rank. The family is in the regime of \cref{prop:sat}, not \cref{prop:hd}. The
+rank is fixed and small relative to $n$, $a$ is close to 1 at $r=5$, and the
+bound on $c$ implied by \cref{prop:det} shrinks sharply as the rank decreases.
+
+\begin{table}[t]
+\centering
+\caption{Empirical $(a,b)$ at $n=100$, 30 seeds per rank. The last column is
+the mean over seeds of the sufficient bound $(1-a)/b$ from \cref{prop:det}.}
+\label{tab:ab}
+\begin{tabular}{rrrrrr}
+\toprule
+$r$ & mean $a$ & max $a$ & mean $b$ & max $b$ & mean $(1-a)/b$\\
+\midrule
+5  & 0.9905 & 0.9981 & 0.0590 & 0.0708 & 0.162\\
+20 & 0.7495 & 0.8340 & 0.1483 & 0.1871 & 1.690\\
+50 & 0.5081 & 0.5719 & 0.1856 & 0.2083 & 2.650\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The table is consistent with the screening outcomes. At
+$\mu_{\mathrm{bulk}}=0.1$, the mean sufficient bound at $r=5$ ($0.162$)
+exceeds $0.1$, but the worst seeds (max $a=0.9981$) fall below it. In the
+paired design (\cref{sec:paired}), 5 of the 7 candidate seeds were accepted at
+$r=5$; the 2 rejections were for $|G_{ij}|>1$. At $r=20$ and $r=50$, 5 of 5
+were accepted. With $\mu_{\mathrm{bulk}}=1$, the sufficient bound fails at
+every rank tested, and in an earlier design every $r=5$ candidate was
+rejected. This is why the generator uses $\mu_{\mathrm{bulk}}=0.1$.
+
+\subsection{Paired-seed design and screening}\label{sec:paired}
+Each candidate seed is screened once per rank against its entire
+$(m,\delta)$ block. A seed is accepted only if all $3\times6$ instances built
+from it pass the checks ($\diag(G)=e$, $|G_{ij}|\le1$, $\lambda_{\min}(G)<0$,
+and a recomputed KKT residual and exactness error each below $10^{-9}$). The
+accepted seeds are then reused across every $(m,\delta)$ cell. Varying the
+separation therefore changes only $\mu$, with $U$ held fixed, so comparisons
+along $\delta$ are within-seed. Rejections are counted and reported, not
+silently discarded.
+
+Because of the screening, the $r=5$ sample is conditioned differently from the
+$r=20$ and $r=50$ samples: at $r=5$ it excludes the seeds with the largest
+$a$. Comparisons across ranks should be read with this in mind.
+
+\subsection{Release}
+We release the 270 paired instances ($G$, $\Xs$, $\ys$, SHA-256 hashes of the
+upper triangle of $G$, and per-instance screening diagnostics), the generator,
+and the seed-screening log. \Cref{app:artifact} lists the files.
+We also release a paired set at $n=500$, generated on the same grid. All 270
+instances passed screening; seed acceptance was 5 of 7 candidates at $r=5$
+(both rejections for $|G_{ij}|>1$) and 5 of 5 at $r=20$ and $r=50$, with
+$\max_{i\ne j}|G_{ij}|=0.99987$ among the accepted $r=5$ instances. The
+ranking study of \cref{sec:n500} uses all five paired seeds per rank.

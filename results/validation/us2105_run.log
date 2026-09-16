@@ -1,0 +1,162 @@
+Mon Sep 14 23:32:32 CDT 2026 start
+panel: 1253 dates x 2105 assets; lambda_min(C) = -0.0000
+  thesis-s0.005-r0       lambda_min=-0.3493  negative=599  clipped=0
+  thesis-s0.005-r1       lambda_min=-0.3484  negative=601  clipped=0
+  thesis-s0.01-r0        lambda_min=-0.7426  negative=689  clipped=0
+  thesis-s0.01-r1        lambda_min=-0.7337  negative=692  clipped=0
+  thesis-s0.03-r0        lambda_min=-2.4403  negative=845  clipped=0
+  thesis-s0.03-r1        lambda_min=-2.4484  negative=846  clipped=0
+  thesis-s0.1-r0         lambda_min=-8.6442  negative=970  clipped=93
+  thesis-s0.1-r1         lambda_min=-8.6517  negative=970  clipped=91
+wrote 8 matrices to us2105_pert
+all matrices are invalid (lambda_min < 0)
+Mon Sep 14 23:32:41 CDT 2026 exported perturbed suite exit 0
+panel: 1253 dates x 2105 assets; lambda_min(C) = -0.0000
+rank 50: off-diagonal ||X* - C||_F / ||C||_F = 0.923, max offdiag |X*| = 0.9953
+rank 100: off-diagonal ||X* - C||_F / ||C||_F = 0.656, max offdiag |X*| = 0.9894
+rank 200: off-diagonal ||X* - C||_F / ||C||_F = 0.396, max offdiag |X*| = 0.9795
+rank 400: off-diagonal ||X* - C||_F / ||C||_F = 0.182, max offdiag |X*| = 0.9644
+wrote 16 instances to us2105_kkt
+worst KKT residual : 1.10e-13
+worst exactness    : 3.41e-12
+lambda_min(G) range: -3.513e-02 .. -7.550e-03
+max |G_ij| (offdiag): 0.99812
+Mon Sep 14 23:35:45 CDT 2026 exported KKT suite exit 0
+[1/8] thesis-s0.005-r0 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=1.606e-13 ||grad||_inf=1.732e-14 exit=evd_budget evds=30  177.9s
+    SBB-Dual          21 EVDs  err=9.422e-10  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=6.321e-12  exit=converged
+    AGD-SDAJ          37 EVDs  err=1.610e-10  exit=diag_feasible
+    AGD-SDAJ-BH       37 EVDs  err=1.610e-10  exit=diag_feasible
+[2/8] thesis-s0.005-r1 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=1.687e-13 ||grad||_inf=2.487e-14 exit=evd_budget evds=30  190.2s
+    SBB-Dual          21 EVDs  err=8.444e-10  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=4.507e-12  exit=converged
+    AGD-SDAJ          81 EVDs  err=3.869e-10  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH       23 EVDs  err=7.442e-10  exit=diag_feasible_at_xpre
+[3/8] thesis-s0.01-r0 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=1.883e-13 ||grad||_inf=2.265e-14 exit=evd_budget evds=30  172.8s
+    SBB-Dual          33 EVDs  err=8.611e-10  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=1.291e-10  exit=converged
+    AGD-SDAJ          43 EVDs  err=1.107e-10  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH       42 EVDs  err=9.953e-11  exit=diag_feasible_at_xpre
+[4/8] thesis-s0.01-r1 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=1.695e-13 ||grad||_inf=1.843e-14 exit=evd_budget evds=30  222.5s
+    SBB-Dual          31 EVDs  err=1.241e-09  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=5.922e-11  exit=converged
+    AGD-SDAJ          39 EVDs  err=2.430e-10  exit=diag_feasible
+    AGD-SDAJ-BH       32 EVDs  err=2.130e-10  exit=diag_feasible
+[5/8] thesis-s0.03-r0 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=1.937e-13 ||grad||_inf=1.810e-14 exit=evd_budget evds=30  187.7s
+    SBB-Dual          77 EVDs  err=2.298e-09  exit=diag_feasible
+    Newton-SIN-BH      7 EVDs  err=7.728e-12  exit=converged
+    AGD-SDAJ          42 EVDs  err=7.013e-11  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH       41 EVDs  err=8.743e-11  exit=diag_feasible_at_xpre
+[6/8] thesis-s0.03-r1 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=3.180e-13 ||grad||_inf=4.641e-14 exit=evd_budget evds=30  171.4s
+    SBB-Dual          73 EVDs  err=1.822e-09  exit=diag_feasible
+    Newton-SIN-BH      7 EVDs  err=1.913e-11  exit=converged
+    AGD-SDAJ          51 EVDs  err=4.090e-10  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH       47 EVDs  err=2.520e-10  exit=diag_feasible_at_xpre
+[7/8] thesis-s0.1-r0 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=2.657e-13 ||grad||_inf=3.286e-14 exit=evd_budget evds=30  134.0s
+    SBB-Dual         176 EVDs  err=2.996e-09  exit=diag_feasible
+    Newton-SIN-BH      8 EVDs  err=7.483e-12  exit=converged
+    AGD-SDAJ          65 EVDs  err=2.058e-09  exit=diag_feasible
+    AGD-SDAJ-BH       83 EVDs  err=1.967e-09  exit=diag_feasible_at_xpre
+[8/8] thesis-s0.1-r1 (n=2105)
+    reference (computed, NOT exact): ||grad||_2=1.274e-13 ||grad||_inf=1.266e-14 exit=evd_budget evds=30  130.7s
+    SBB-Dual         172 EVDs  err=3.032e-09  exit=diag_feasible
+    Newton-SIN-BH      8 EVDs  err=3.805e-12  exit=converged
+    AGD-SDAJ          84 EVDs  err=6.629e-10  exit=diag_feasible
+    AGD-SDAJ-BH       68 EVDs  err=4.719e-10  exit=diag_feasible_at_xpre
+
+wrote ranking_us2105_pert.csv
+Tue Sep 15 00:48:19 CDT 2026 perturbed benchmark exit 0
+[1/16] thesiskkt-r50-m1-d0-p0 (n=2105)
+    SBB-Dual         874 EVDs  err=9.039e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=2.703e-12  exit=converged
+    AGD-SDAJ         293 EVDs  err=1.366e-11  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH      212 EVDs  err=3.222e-11  exit=diag_feasible
+[2/16] thesiskkt-r50-m1-d0-p1 (n=2105)
+    SBB-Dual         874 EVDs  err=9.077e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=3.603e-12  exit=converged
+    AGD-SDAJ         389 EVDs  err=4.530e-11  exit=diag_feasible
+    AGD-SDAJ-BH      290 EVDs  err=3.538e-11  exit=diag_feasible_at_xpre
+[3/16] thesiskkt-r50-m20-d0-p0 (n=2105)
+    SBB-Dual         806 EVDs  err=8.757e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=5.290e-12  exit=converged
+    AGD-SDAJ         152 EVDs  err=3.418e-11  exit=diag_feasible
+    AGD-SDAJ-BH      109 EVDs  err=4.739e-11  exit=diag_feasible
+[4/16] thesiskkt-r50-m20-d0-p1 (n=2105)
+    SBB-Dual         805 EVDs  err=8.879e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=8.365e-12  exit=converged
+    AGD-SDAJ         187 EVDs  err=3.023e-11  exit=diag_feasible
+    AGD-SDAJ-BH      151 EVDs  err=1.387e-11  exit=diag_feasible
+[5/16] thesiskkt-r100-m1-d0-p0 (n=2105)
+    SBB-Dual         589 EVDs  err=7.271e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=4.111e-12  exit=converged
+    AGD-SDAJ         349 EVDs  err=3.351e-11  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH      205 EVDs  err=3.785e-11  exit=diag_feasible
+[6/16] thesiskkt-r100-m1-d0-p1 (n=2105)
+    SBB-Dual         589 EVDs  err=7.303e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=7.500e-12  exit=converged
+    AGD-SDAJ         315 EVDs  err=3.004e-11  exit=diag_feasible
+    AGD-SDAJ-BH      250 EVDs  err=4.295e-11  exit=diag_feasible_at_xpre
+[7/16] thesiskkt-r100-m20-d0-p0 (n=2105)
+    SBB-Dual         566 EVDs  err=7.228e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=5.789e-11  exit=converged
+Tue Sep 15 11:44:31 CDT 2026 resume KKT instances 7-16
+[1/10] thesiskkt-r100-m20-d0-p0 (n=2105)
+    SBB-Dual         566 EVDs  err=7.228e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=5.789e-11  exit=converged
+    AGD-SDAJ         150 EVDs  err=2.668e-11  exit=diag_feasible
+    AGD-SDAJ-BH      136 EVDs  err=2.501e-11  exit=diag_feasible
+[2/10] thesiskkt-r100-m20-d0-p1 (n=2105)
+    SBB-Dual         563 EVDs  err=7.147e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=6.353e-11  exit=converged
+    AGD-SDAJ         171 EVDs  err=2.694e-11  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH      136 EVDs  err=3.666e-11  exit=diag_feasible_at_xpre
+[3/10] thesiskkt-r200-m1-d0-p0 (n=2105)
+    SBB-Dual         328 EVDs  err=5.601e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=1.292e-11  exit=converged
+    AGD-SDAJ         242 EVDs  err=9.820e-12  exit=diag_feasible
+    AGD-SDAJ-BH      174 EVDs  err=2.337e-11  exit=diag_feasible
+[4/10] thesiskkt-r200-m1-d0-p1 (n=2105)
+    SBB-Dual         328 EVDs  err=5.642e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=1.228e-11  exit=converged
+    AGD-SDAJ         213 EVDs  err=9.804e-12  exit=diag_feasible
+    AGD-SDAJ-BH      134 EVDs  err=3.347e-11  exit=diag_feasible
+[5/10] thesiskkt-r200-m20-d0-p0 (n=2105)
+    SBB-Dual         321 EVDs  err=5.491e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=4.304e-11  exit=converged
+    AGD-SDAJ         155 EVDs  err=1.839e-11  exit=diag_feasible
+    AGD-SDAJ-BH      132 EVDs  err=1.025e-11  exit=diag_feasible
+[6/10] thesiskkt-r200-m20-d0-p1 (n=2105)
+    SBB-Dual         322 EVDs  err=5.566e-11  exit=diag_feasible
+    Newton-SIN-BH      5 EVDs  err=3.144e-11  exit=converged
+    AGD-SDAJ         114 EVDs  err=8.708e-12  exit=diag_feasible
+    AGD-SDAJ-BH      105 EVDs  err=9.531e-12  exit=diag_feasible_at_xpre
+[7/10] thesiskkt-r400-m1-d0-p0 (n=2105)
+    SBB-Dual         149 EVDs  err=3.698e-11  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=7.380e-12  exit=converged
+    AGD-SDAJ         240 EVDs  err=9.511e-12  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH      164 EVDs  err=2.156e-11  exit=diag_feasible
+[8/10] thesiskkt-r400-m1-d0-p1 (n=2105)
+    SBB-Dual         149 EVDs  err=3.595e-11  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=7.159e-12  exit=converged
+    AGD-SDAJ         832 EVDs  err=3.823e-10  exit=evd_budget
+    AGD-SDAJ-BH      119 EVDs  err=1.095e-11  exit=diag_feasible
+[9/10] thesiskkt-r400-m20-d0-p0 (n=2105)
+    SBB-Dual         147 EVDs  err=3.663e-11  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=5.878e-12  exit=converged
+    AGD-SDAJ         816 EVDs  err=7.429e-11  exit=evd_budget
+    AGD-SDAJ-BH      140 EVDs  err=1.014e-11  exit=diag_feasible_at_xpre
+[10/10] thesiskkt-r400-m20-d0-p1 (n=2105)
+    SBB-Dual         147 EVDs  err=3.810e-11  exit=diag_feasible
+    Newton-SIN-BH      6 EVDs  err=6.216e-12  exit=converged
+    AGD-SDAJ         112 EVDs  err=5.358e-12  exit=diag_feasible_at_xpre
+    AGD-SDAJ-BH      151 EVDs  err=5.092e-12  exit=diag_feasible_at_xpre
+
+wrote ranking_us2105_kkt_part2.csv
+Tue Sep 15 21:29:23 CDT 2026 KKT part2 exit 0

@@ -1,0 +1,110 @@
+\section{Discussion and limitations}\label{sec:discussion}
+
+\paragraph{What changed the conclusions, and what did not.}
+On this family, none of the conventions we tested changed which method was
+cheapest. The accuracy target, the instance regime and the problem dimension
+did change the order below it: the changes of lower-place ordering with the
+accuracy target and with rank that we found at $n=100$ recur at $n=500$ only
+above $r=50$ (\cref{sec:n500,sec:highrank}), and on matrices built from equity
+returns the degree of invalidity reverses the order as well
+(\cref{sec:thesis}). The stopping rule
+changed the achieved accuracy by a factor of 383. The cost unit (\EVDs\ against wall-clock time) and the accounting rule
+(accepted-only against all-trial) changed cost ratios but no ordering. Two
+line-search details changed whether methods converged at all. We think the
+correct summary is conservative. The protocol matters mainly for the
+\emph{magnitude} of reported advantages and for the ordering of methods that
+are close in cost. On the evidence here, it does not matter for identifying a
+clear winner. We expect this to hold wherever one method is ahead by a
+large factor; where methods are within a factor of about two, conclusions
+drawn under a single convention should be treated with caution.
+
+\paragraph{Why an exact family.}
+The regime dependence in \cref{sec:cells} is organized mainly by rank, one of
+the three quantities the construction controls. Finding it requires both an
+exact $\Xs$, so that forward error is not contaminated by an approximate
+reference, and independent control of the spectral structure at the
+solution. Real matrices supply neither. The same machinery then showed the
+dimension dependence of that finding: at $n=500$ the same rank effect changes
+the order only between $r=50$ and $r=75$ (\cref{sec:highrank}), so a grid
+chosen at one dimension can miss the crossover at another.
+
+\paragraph{Limitations.}
+\begin{itemize}
+  \item \emph{Problem size.} Results are reported at $n=100$ and $n=500$
+    (270 instances each), with 135 more at $n=500$ and $r\in\{75,100,150\}$
+    for three solvers only. The crossover between SBB-Dual and AGD-SDAJ-BH
+    lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$
+    at $n=500$; on data-seeded instances at $n=550$ SBB-Dual is still slightly
+    behind at $r=100$, and at $n=2105$ (\cref{sec:us2105}) the gap closes to
+    within one \EVD\ by $r=400$ without a resolved crossover. The crossover is
+    therefore bracketed at each dimension and rises with it; the data do not
+    support a functional form, and the largest panel contributes four
+    instances per rank with weak replication.
+    Dykstra-APM is censored at $n=500$ by its iteration cap.
+  \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
+    matrices are correlation-like but are not estimated from data.
+    \Cref{sec:real} adds four matrices from the literature, from $n=94$ to
+    $n=3250$, measured against a computed rather than an exact reference; for
+    the two largest that reference is capped and reaches
+    $\nrm{\nabla\theta}_2\approx10^{-12}$ rather than $10^{-13}$, and no
+    wall-clock times were taken. Four matrices cannot separate dimension from
+    the other ways in which they differ. The equity-based instances of
+    \cref{sec:thesis} use a factor model of one correlation matrix as the
+    exact solution; those instances are only mildly invalid and have three
+    replicates per setting, while the perturbed set has five draws per
+    $\sigma$ and a computed reference. All of them rest on one base
+    correlation matrix.
+  \item \emph{Statistical uncertainty.} Aggregate medians at both dimensions
+    carry cluster-bootstrap intervals (\cref{tab:fwdci,tab:n500}). Each
+    dimension rests on five paired seeds per rank, that is 15 seed clusters,
+    so inferential statements remain modest. Cell-level
+    orderings rest on five instances each, and within a cell the adjacent pair
+    AGD-SDAJ-BH against AGD-SDAJ is usually unresolved, so the count of
+    distinct orderings should not be read as a count of real regime changes.
+    We report counts and intervals rather than significance tests, because the
+    reuse of each drawn $U$ across all cells of its rank makes instance-level
+    comparisons strongly dependent.
+  \item \emph{Single machine.} All timings come from one machine with
+    single-threaded BLAS.
+  \item \emph{Our adaptation.} The Borsdorf--Higham adaptation to AGD-SDAJ is
+    ours, not the original authors'. It is reported beside the unmodified
+    method throughout.
+  \item \emph{Feasibility propositions.} \Cref{prop:det} assumes uniform
+    $\mu$, and the extension to mixed $\mu$ is open (\cref{app:family}).
+    \Cref{prop:hd} is stated for $a$ only; no companion bound on $b$ is
+    given, since the released family lies in the fixed-rank regime where
+    \cref{prop:hd} does not apply.
+  \item \emph{Scope of methods.} We benchmark five variants of four methods.
+    Other methods (e.g.\ Anderson-accelerated alternating
+    projections~\cite{higham2016anderson}) are not included.
+    Neither are the recent semismooth Newton method for general projection
+    equations~\cite{armijo2025semismooth} or the factor-structured
+    variant~\cite{borsdorf2010factor}.
+  \item \emph{Attribution of the line search.} We use the Borsdorf--Higham
+    globalization but not the rest of their algorithm, and the adaptation of
+    their near-equality safeguard to AGD-SDAJ is ours
+    (\cref{sec:solvers,sec:trap2}).
+  \item \emph{Unweighted problem.} Only the unweighted Frobenius problem is
+    considered.
+\end{itemize}
+
+\paragraph{Conclusion.}
+An exact instance family with a prescribed solution structure makes it
+possible to separate stopping-rule, reference, accounting and
+primitive-work effects in NCM benchmarks. On 270 instances at $n=100$, these
+effects changed cost ratios and the lower places of the ranking, but not the
+cheapest method. Repeating the study on 270 instances at $n=500$ sharpened
+that finding: Newton-SIN-BH remains the leading method, and the changes of
+lower-place ordering with the accuracy target and with rank recur, but only
+above $r=50$, a rank the original grid did not reach. Rankings
+below the leading method are therefore not intrinsic properties of the
+solvers; they depend materially on the benchmark regime, including its
+dimension, the rank of the solution and the size of the violation. The one clear failure we found is a known finite-precision
+line-search defect, which appears in two separately published methods, on
+the constructed family and on real matrices. It is
+removed in the semismooth Newton method by the published Borsdorf--Higham
+modified line search, and in AGD-SDAJ by our adaptation of their near-equality
+safeguard. We recommend
+that NCM comparisons report forward error against a trusted solution at a
+common tolerance, give rejected trials no accuracy credit, and report
+primitive work and wall-clock time together.

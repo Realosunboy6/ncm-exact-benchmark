@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{cleveref}
+
+% ------------------------------------------------------------------ theorems
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[proposition]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[proposition]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[proposition]{Remark}
+
+% ------------------------------------------------------------------ notation
+\DeclareMathOperator{\Diag}{Diag}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\range}{range}
+\newcommand{\Sp}{\mathcal{S}_+^n}
+\newcommand{\Proj}{\Pi_{\mathcal{S}_+^n}}
+\newcommand{\Xs}{X^\star}
+\newcommand{\ys}{y^\star}
+\newcommand{\fro}[1]{\lVert #1\rVert_F}
+\newcommand{\nrm}[1]{\lVert #1\rVert}
+\newcommand{\solver}[1]{\textsf{#1}}
+\newcommand{\EVD}{\textsc{evd}}
+\newcommand{\EVDs}{\textsc{evd}s}
+\newcommand{\sep}{\mathrm{sep}}
+\newcommand{\mubh}{\mu_{\mathrm{BH}}}
+
+\title{Exact test problems and a work--accuracy protocol\\ for benchmarking nearest correlation matrix solvers}
+\author{Oyeyinka E. Ibrahim \\
+  Department of Industrial and Systems Engineering \\
+  Northern Illinois University \\
+  \texttt{ibrahimoyeyinka@gmail.com}}
+\date{Draft of \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Comparisons of nearest correlation matrix (NCM) solvers are usually run on
+collections of matrices whose solutions are unknown, so the accuracy each
+method actually delivers is not measured. We specialize the known technique of
+generating test problems from prescribed optimality conditions to the NCM
+problem, obtaining instances whose primal and dual solutions are known in
+closed form and whose solution rank, near-zero multiplicity and eigenvalue
+separation are set independently. Measuring forward error against those exact
+solutions changes what a comparison reports. The semismooth Newton method with
+the Borsdorf--Higham line search is cheapest under all 11 conventions we
+examine, on every test set, and its cost is flat in dimension: five
+eigendecompositions at $n=100$ and again at $n=2105$. The ordering below it is
+a property of the test set rather than of the methods. It changes with the
+accuracy target, with how far the input is from a correlation matrix, and above
+all with the solution rank, whose crossover we bracket between $r=5$ and $r=20$
+at $n=100$ and between $r=50$ and $r=75$ at $n=500$, rising further but
+unresolved on an equity panel at $n=2105$. Two further results are practical.
+The dimension-scaled stopping rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits
+roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger problem
+can appear easier. And a known finite-precision failure of objective-value
+Armijo tests recurs in a second published method, where it does not affect the
+published results but stalls the method on real and equity-derived matrices up
+to $n=3250$; a safeguard adapted from the NCM literature removes it in every
+case.
+\end{abstract}
+% Word count of abstract: approx. 215.
+% Corrected 2026-09-11: the per-cell count is 7 orderings (not 9) under the
+% corrected reach-and-hold rule; the rank attribution replaces it in the abstract.
+
+\tableofcontents
+
+\input{sections/01-introduction}
+\input{sections/02-instance-family}
+\input{sections/03-protocol}
+\input{sections/04-traps}
+\input{sections/05-ranking}
+\input{sections/06-stopping-rule}
+\input{sections/07-reproducibility}
+\input{sections/08-discussion}
+
+\appendix
+\input{appendices/A-family-proofs}
+\input{appendices/B-agd-sdaj-verification}
+\input{appendices/C-artifact}
+
+% refs.bib = paper2-lit.bib from the literature audit (26 Crossref-verified
+% entries), merged 2026-09-11; the earlier draft entries were superseded.
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

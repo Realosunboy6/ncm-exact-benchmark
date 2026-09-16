@@ -38,9 +38,11 @@ first and third cannot be separated.
 \paragraph{Contributions.}
 In brief, we give an exact-solution NCM family and a matched-accuracy
 protocol, and use them to show that conclusions drawn from NCM solver
-comparisons do not transfer across benchmark regimes: an ordering established
-at $n=100$ fails to replicate at $n=500$, and four matrices from the literature
-are consistent with the same dependence on dimension. We also show that a known
+comparisons do not transfer across benchmark regimes: the rank at which an
+ordering established at $n=100$ reverses moves higher at $n=500$, the order
+also changes with the degree of invalidity on matrices built from equity
+returns, and four matrices from the literature are consistent with this
+dependence. We also show that a known
 finite-precision line-search defect recurs in a second published method and
 occurs on real matrices.
 Each contribution builds on established practice (\cref{sec:related}).
@@ -65,10 +67,12 @@ Each contribution builds on established practice (\cref{sec:related}).
     reported separately.
   \item \emph{A ranking study with a null headline} (\cref{sec:ranking}). Five
     verified solver variants were run on 270 instances at $n=100$ and 270 at
-    $n=500$. The cheapest method is the same under all 11 conventions
+    $n=500$, with 135 further instances at higher rank and 101 built from
+    equity returns. The cheapest method is the same under all 11 conventions
     examined. Below it, the ordering changes with the accuracy target and
-    across the grid of cells, organized chiefly by solution rank at $n=100$;
-    at $n=500$ that crossover disappears. Only a family that varies one
+    across the grid of cells, organized chiefly by solution rank; the
+    crossover lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and
+    $r=75$ at $n=500$. Only a family that varies one
     spectral quantity at a time makes such an association visible.
   \item \emph{Replication of a known line-search defect}
     (\cref{sec:traps}). The failure of objective-value sufficient-decrease
@@ -90,8 +94,9 @@ Each contribution builds on established practice (\cref{sec:related}).
 
 \paragraph{What we do not claim.}
 We do not claim that any method is best in general. The ranking results are
-for a synthetic family at $n=100$ and $n=500$, with four matrices from the
-literature (\cref{sec:real}) as an external check, all on one machine.
+for a synthetic family at $n=100$ and $n=500$, with instances built from
+equity returns at $n=550$ (\cref{sec:thesis}) and four matrices from the
+literature (\cref{sec:real}) as external checks, all on one machine.
 SBB-Dual appears here as one of five variants and receives the same
 exposition as the others. Its theory is developed elsewhere and is not needed
 for any result in this paper.

@@ -1,0 +1,4 @@
+rank,candidate_seed,accepted,failed_m,failed_delta,reason
+5,10005000,True,,,
+20,10020000,True,,,
+50,10050000,True,,,

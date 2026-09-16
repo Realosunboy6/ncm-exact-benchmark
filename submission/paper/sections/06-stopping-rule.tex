@@ -1,0 +1,78 @@
+\section{The dimension-scaled stopping rule}\label{sec:stopping}
+
+A common exit criterion for dual NCM methods is
+$\nrm{\nabla\theta(y_k)}_2\le10^{-7}n$. It is used, for example, in the
+experiments of~\cite{huynh2025accelerated}. Because the threshold grows linearly
+with $n$, the forward error it guarantees depends on both the dimension and
+the method. The general point that native stopping tests confound
+comparisons was made by Dolan, Mor\'e and Munson~\cite{dolan2006optimality}.
+This section documents a specific NCM instance of it.
+
+\paragraph{Spread across methods at a fixed $n$.}
+\Cref{tab:native} and \cref{fig:native} report the timing run under this rule
+at $n=100$, where the tolerance is $10^{-5}$.
+
+\begin{table}[t]
+\centering
+\caption{Solvers exiting when the stopping quantity specific to each method
+first reaches the common numerical threshold $10^{-7}n$ at $n=100$ (for the
+dual methods this quantity is $\nrm{\nabla\theta}_2$; for Dykstra-APM it is
+the diagonal error of the PSD iterate), 270 instances, single-threaded
+timing.}
+\label{tab:native}
+\begin{tabular}{lrrr}
+\toprule
+solver & median \EVDs & median time (s) & median $\fro{X-\Xs}$\\
+\midrule
+Newton-SIN-BH & 4  & 0.023 & $5.04\times10^{-8}$\\
+Newton-SIN    & 7  & 0.035 & $5.04\times10^{-8}$\\
+AGD-SDAJ-BH   & 20 & 0.085 & $9.58\times10^{-6}$\\
+AGD-SDAJ      & 20 & 0.084 & $9.58\times10^{-6}$\\
+SBB-Dual      & 18 & 0.088 & $7.73\times10^{-6}$\\
+Dykstra-APM   & 40 & 0.222 & $1.93\times10^{-5}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\input{figures/fig2-native-accuracy}
+
+At this dimension the best and worst median achieved accuracies differ by a
+factor of 383. That factor is specific to $n=100$: repeating the same run at
+$n=500$ (18 instances, threshold $5\times10^{-5}$) gives a spread of only
+13.8, with medians from $1.74\times10^{-5}$ for Newton-SIN-BH to
+$2.41\times10^{-4}$ for Dykstra-APM. The spread across solvers is therefore
+not itself a stable quantity, and we do not claim it as one. What does grow
+with $n$ is the inaccuracy the rule permits, which is the subject of the next
+paragraph. Newton
+overshoots the tolerance because a quadratically convergent step moves far
+past the threshold. First-order methods stop close to it, and Dykstra-APM's
+stopping quantity (the diagonal error of its PSD iterate) is not the dual
+gradient norm at all. The cost column is therefore a comparison at different
+accuracies, and it favours methods that stop early. At this tolerance the native costs also place SBB-Dual (18 \EVDs)
+slightly ahead of both AGD variants (20 \EVDs). That comparison sits at the
+crossover of \cref{fig:crossover}: the accuracies reached, near $10^{-5}$,
+lie where the matched-accuracy order changes, so the native ranking agrees
+with neither the loose-target nor the tight-target regime and should not be
+read as evidence for either.
+
+\paragraph{Growth with $n$.}
+The rule loosens as $n$ grows. In earlier runs, outside the ranking study, a
+nearly feasible $n=500$ instance exited after \emph{zero} updates with forward
+error $7.8\times10^{-4}$. At $n=2000$, both dual first-order methods stopped
+after 3 to 5 iterations with forward errors between $2.7\times10^{-3}$ and
+$4.1\times10^{-3}$. Under this rule, a larger problem can appear easier
+simply because less accuracy is being asked for.
+The paired family makes the same point with the dimension controlled. Under
+this rule Newton-SIN-BH exits at a median forward error of
+$5.04\times10^{-8}$ at $n=100$ but $1.74\times10^{-5}$ at $n=500$, about 340
+times worse, purely because the threshold is proportional to $n$. Every other
+variant degrades similarly. A reader comparing published $n=100$ and $n=500$
+results under this rule is comparing solutions of very different quality.
+The real-matrix runs of \cref{sec:real} were made at a matched tolerance
+only, so they give no native-rule spread on real data.
+
+\paragraph{Recommendation.}
+Timing or iteration counts should never be reported without the achieved
+forward error (or, when $\Xs$ is unknown, a certified bound on it). Where a
+dimension-scaled rule is used for compatibility with earlier work, it should
+be accompanied by a run to a common tight tolerance.
