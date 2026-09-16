@@ -56,16 +56,16 @@ dual residual $\nrm{\nabla\theta}_2\le\tau$ for the same five values. We also
 compared accepted-only with all-trial accounting.
 \Cref{sec:n500} repeats the study at $n=500$.
 
-\subsection{Newton-SIN-BH is cheapest under every convention}\label{sec:winner}
+\subsection{Cost of the semismooth Newton method across conventions}\label{sec:winner}
 The 11 conventions produce two distinct orderings, and Newton-SIN-BH is
 cheapest in both: it leads under every accuracy target, under both error
 measures, under either accounting rule and at every solver's own exit. The
 conventions change cost ratios and the order of the lower places; they never
 change which method is cheapest. The rest of this section is therefore about
-the places below the winner, which is where the choice of test set decides the
+the places below it, which is where the choice of test set decides the
 answer.
 
-\subsection{The ordering below the winner changes with the accuracy target}
+\subsection{Dependence of the ordering on the accuracy target}
 \Cref{tab:fwd} and \cref{fig:crossover} show median cost to a common
 target. At loose targets ($10^{-2}$, $10^{-4}$), both AGD variants are cheaper
 than SBB-Dual. From $10^{-6}$ onward, SBB-Dual is cheaper. The same reversal
@@ -126,7 +126,7 @@ ordering between these two is therefore a modest average effect with
 substantial per-instance overlap, in contrast to $n=500$ (\cref{sec:n500}),
 where SBB-Dual is cheaper on 0 of 270 instances at the same target.
 
-\subsection{The ordering varies across the degeneracy grid}\label{sec:cells}
+\subsection{Dependence of the ordering on the degeneracy parameters}\label{sec:cells}
 Aggregate medians can hide dependence on the regime. At a fixed target
 (forward error $10^{-8}$), the 54 $(r,m,\delta)$ cells produce 7 distinct
 orderings (\cref{tab:cells}).
@@ -190,7 +190,7 @@ almost no effect.
 
 \input{figures/fig4-heatmap}
 
-\subsection{The same study at $n=500$}\label{sec:n500}
+\subsection{The same design at $n=500$}\label{sec:n500}
 The instance family was regenerated at $n=500$ with the same grid. All 270
 instances screened successfully; the acceptance rate at $r=5$ fell to 5 of 7
 candidate seeds, the first rank to show rejections, which is what
@@ -257,7 +257,7 @@ read as censored rather than measured.
 The scaling is the cleaner way to state the difference. Between $n=100$ and
 $n=500$ the median cost to $10^{-8}$ rises by a factor of 6.1 for SBB-Dual
 (34 to 207.5 \EVDs) and by 1.8 for AGD-SDAJ-BH (45 to 79), while Newton-SIN-BH
-is unchanged at 5. The order below the winner therefore reflects the test set,
+is unchanged at 5. The order below first place therefore reflects the test set,
 including its dimension, rather than a fixed property of the methods --- which
 is the paper's point, in a stronger form than the $n=100$ data alone supports.
 
@@ -406,7 +406,7 @@ $\sigma$ & Newton-SIN-BH & SBB-Dual & Dykstra-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB
 \end{tabular}
 \end{table}
 
-Here the degree of invalidity reverses the order below the winner
+Here the degree of invalidity reverses the order below first place
 (\cref{tab:thesispert}); the most negative eigenvalue and the number of
 negative eigenvalues grow together with $\sigma$, so the two cannot be
 separated. For small perturbations SBB-Dual is second, 1.3 to 2 times cheaper
@@ -463,7 +463,7 @@ $r$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & SBB cheaper\\
 \end{table}
 
 Newton-SIN-BH takes 5 \EVDs\ on every instance, as at $n=100$ and $n=500$: the
-cost of the winner is flat in $n$ over a twenty-fold range, while the
+cost of the leading method is flat in $n$ over a twenty-fold range, while the
 first-order methods grow by an order of magnitude. The gap between SBB-Dual and
 AGD-SDAJ-BH again narrows with rank, from $+490$ \EVDs\ at $r=50$ to $-0.5$ at
 $r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: the
@@ -614,8 +614,10 @@ Under all-trial accounting, every evaluated point counts toward reaching and
 holding a target, including rejected line-search trials. A rejected trial can
 then be credited with reaching a target, but one that lies above the target
 also breaks a hold. On this family the second effect dominates slightly.
-Median costs change only for the two AGD variants (\cref{tab:acct}), by at
-most 2 \EVDs, and all-trial accounting is marginally the more expensive.
+Median costs change only for the two AGD variants, and all-trial accounting
+is marginally the more expensive: for AGD-SDAJ-BH the median rises by 1.0, 1.5
+and 2.0 \EVDs at $\varepsilon=10^{-4},10^{-8},10^{-10}$, and for unmodified
+AGD-SDAJ by 1.0, 2.0 and 2.0.
 Newton-SIN-BH, SBB-Dual and Dykstra-APM are unaffected, because they have few
 or no rejected trials here. The effect is negligible on this family and never
 changes an ordering. For methods with many rejected trials it need not be,
@@ -660,25 +662,7 @@ instances and not of the budget it was given; a cap generous enough to
 uncensor Dykstra-APM would have to be an order of magnitude larger than any
 other method needs. We report its position as censored throughout.
 
-\begin{table}[t]
-\centering
-\caption{Accepted-only vs all-trial accounting (forward error, reach and
-hold). Only rows where the median changed are shown; bracketed counts are
-instances reaching the target.}
-\label{tab:acct}
-\begin{tabular}{llrrr}
-\toprule
-$\varepsilon$ & solver & accepted-only & all-trial & $\Delta$\\
-\midrule
-$10^{-4}$  & AGD-SDAJ-BH & 14.0 & 15.0 & $+1.0$\\
-$10^{-4}$  & AGD-SDAJ    & 14.0 & 15.0 & $+1.0$\\
-$10^{-8}$  & AGD-SDAJ-BH & 45.0 & 46.5 & $+1.5$\\
-$10^{-8}$  & AGD-SDAJ    & 50.0 [264] & 52.0 [264] & $+2.0$\\
-$10^{-10}$ & AGD-SDAJ-BH & 63.5 & 65.5 & $+2.0$\\
-$10^{-10}$ & AGD-SDAJ    & 72.0 [253] & 74.0 [253] & $+2.0$\\
-\bottomrule
-\end{tabular}
-\end{table}
+
 
 \subsection{What each solver returns}\label{sec:returned}
 Methods also differ in what they return (\cref{tab:feas}). All five return
@@ -704,6 +688,7 @@ best served by the same method.
 \caption{Feasibility of the returned iterate at matched tolerance $10^{-11}$,
 270 instances. `diag err' is $\nrm{\diag(X)-e}_\infty$.}
 \label{tab:feas}
+\small
 \begin{tabular}{lrrrr}
 \toprule
 solver & median $\lambda_{\min}(X)$ & worst $\lambda_{\min}$ & median diag err & worst diag err\\
@@ -717,9 +702,8 @@ Dykstra-APM   & $-3.43\times10^{-15}$ & $-1.36\times10^{-14}$ & $1.49\times10^{-
 \end{tabular}
 \end{table}
 
-\subsection{Native exits and exit reasons}
 Costs at each solver's own exit when all are run to $10^{-11}$, and the exit
-reasons behind them, are in the released analysis output.
-Under this convention, the ordering equals the tight-target ordering in
+reasons behind them, are in the released analysis output; under that
+convention the ordering equals the tight-target ordering of
 \cref{sec:winner}, because the common tolerance is tight.
 

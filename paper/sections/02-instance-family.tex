@@ -24,15 +24,13 @@ nullity~\cite{wei2010generating}, specialized here to the NCM problem. What is
 specific to NCM is the exact projection identity of \cref{prop:exact}, the
 independent control of the three spectral quantities in
 \cref{sec:spectrum}, and the entrywise conditions of \cref{sec:feasibility}.
-Their construction does not cover the present problem. It generates the data
-$(\mathcal{A},b,C)$ of a \emph{linear}-objective SDP, $\min\operatorname{trace}CX$
-subject to $\mathcal{A}(X)=b$, $X\succeq0$, and is free to choose the constraint
-operator $\mathcal{A}$ itself (their Algorithm~2.3, Steps 3--4). The NCM problem
-fixes both the objective, which is quadratic, and the constraint operator,
-$\mathcal{A}=\diag$ with $b=e$; the only free data is $G$. The shared element is
-the idea of prescribing an optimal primal--dual pair and controlling the
-dimension of its common nullspace, which they call the complementarity nullity
-and which corresponds to $|\beta|$ here.
+Their construction does not cover the present problem: it generates the data
+of a \emph{linear}-objective SDP and is free to choose the constraint operator
+itself (their Algorithm~2.3, Steps 3--4), whereas the NCM problem fixes both
+the quadratic objective and the operator $\mathcal{A}=\diag$ with $b=e$, leaving
+$G$ as the only free data. The shared element is the idea of prescribing an
+optimal primal--dual pair and controlling the dimension of its common
+nullspace, their complementarity nullity, which corresponds to $|\beta|$ here.
 
 \begin{definition}[KKT-controlled instance]\label{def:family}
 Let $n>r\ge1$. Draw $U\in\mathbb{R}^{n\times r}$ with independent
@@ -180,6 +178,7 @@ bound on $c$ implied by \cref{prop:det} shrinks sharply as the rank decreases.
 \caption{Empirical $(a,b)$ at $n=100$, 30 seeds per rank. The last column is
 the mean over seeds of the sufficient bound $(1-a)/b$ from \cref{prop:det}.}
 \label{tab:ab}
+\small
 \begin{tabular}{rrrrrr}
 \toprule
 $r$ & mean $a$ & max $a$ & mean $b$ & max $b$ & mean $(1-a)/b$\\
