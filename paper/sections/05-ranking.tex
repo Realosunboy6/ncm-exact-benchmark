@@ -670,10 +670,20 @@ paper relies on a capped run. At $n=500$ the caps are 1200 iterations for
 SBB-Dual, 800 for Dykstra-APM and a 4000-\EVD\ budget for the AGD variants,
 chosen so that each method's own exit is reached on most instances within a
 fixed total runtime. SBB-Dual converged on all 270 instances (worst case
-1075), so its numbers are uncensored; Dykstra-APM is censored on 90 of 270 and
-is reported as such wherever it appears; the AGD-SDAJ medians are taken over
+1075), so its numbers are uncensored, and the AGD-SDAJ medians are taken over
 the instances that reached each target, which understates the cost of the
 unmodified variant and therefore understates the benefit of the safeguard.
+
+Dykstra-APM is the one method whose cap binds, on 90 of 270 instances, and it
+also had the smallest budget, so we re-ran those 90 at SBB-Dual's cap of 1200
+iterations. \emph{All 90 reached the larger cap as well.} At 1200 iterations
+they end at a median forward error of about $10^{-6}$: 71 of the 90 reach
+$10^{-6}$ (median 1099 \EVDs, against 152 for SBB-Dual and 53.5 for
+AGD-SDAJ-BH at the same target), 6 reach $10^{-8}$, and none reaches
+$10^{-10}$. The censoring is therefore a property of the method on these
+instances and not of the budget it was given; a cap generous enough to
+uncensor Dykstra-APM would have to be an order of magnitude larger than any
+other method needs. We report its position as censored throughout.
 
 \begin{table}[t]
 \centering
