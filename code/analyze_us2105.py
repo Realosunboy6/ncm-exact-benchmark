@@ -9,18 +9,18 @@ import statistics as st
 import sys
 from collections import defaultdict
 
-SOLVERS = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual"]
+SOLVERS = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual", "Dykstra-APM"]
 
 
 def load(paths):
     """Later files supersede earlier ones for the instances they contain."""
     later = set()
     for p in paths[1:]:
-        later |= {r["instance"] for r in csv.DictReader(open(p))}
+        later |= {(r["instance"], r["solver"]) for r in csv.DictReader(open(p))}
     rows = defaultdict(list)
     for k, p in enumerate(paths):
         for r in csv.DictReader(open(p)):
-            if k == 0 and r["instance"] in later:
+            if k == 0 and (r["instance"], r["solver"]) in later:
                 continue
             if r["accepted"] == "true":
                 rows[(r["instance"], r["solver"])].append((int(r["evds"]), float(r["err_raw_fro"])))
@@ -63,7 +63,8 @@ def table(rows, key_of, keys, label):
 if __name__ == "__main__":
     # optional: directory holding ranking_us2105_*.csv (default: current directory)
     d = sys.argv[1] if len(sys.argv) > 1 else "."
-    kkt = load([f"{d}/ranking_us2105_kkt.csv", f"{d}/ranking_us2105_kkt_part2.csv"])
+    kkt = load([f"{d}/ranking_us2105_kkt.csv", f"{d}/ranking_us2105_kkt_part2.csv",
+                f"{d}/ranking_us2105_dykstra.csv"])
     table(kkt, lambda i: int(re.search(r"-r(\d+)-", i).group(1)), [50, 100, 200, 400], "KKT instances (exact X*)")
     pert = load([f"{d}/ranking_us2105_pert.csv"])
     table(pert, lambda i: re.search(r"-s([\d.]+)-", i).group(1), ["0.005", "0.01", "0.03", "0.1"],

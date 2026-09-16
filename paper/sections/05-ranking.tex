@@ -439,25 +439,25 @@ The KKT set uses the rank-$r$ factor model of $C$ as $\Xs$ with
 $r\in\{50,100,200,400\}$, $m\in\{1,20\}$, $\delta=0$ and two kernel rotations,
 16 instances with exact solutions. At this size $\mu_{\mathrm{bulk}}=0.1$
 passes the screen at every rank, so these instances use the same bulk level as
-the synthetic family. Dykstra-APM was omitted for cost: one \EVD\ takes about
-1.8\,s at this size, and it is the slowest method in every earlier study.
+the synthetic family.
 
 \begin{table}[t]
 \centering
 \caption{Equity panel at $n=2105$, four instances per rank. Median \EVDs\ to
 reach and hold $\fro{X-\Xs}\le10^{-8}$ against the exact $\Xs$, and the number
 of instances on which SBB-Dual is cheaper than AGD-SDAJ-BH at $10^{-8}$ and at
-$10^{-10}$. Bracketed entries are reach counts below four.}
+$10^{-10}$. A dash marks a method that did not reach the target within its cap
+of 800 \EVDs.}
 \label{tab:us2105}
 \small
-\begin{tabular}{rrrrrc}
+\begin{tabular}{rrrrrrc}
 \toprule
-$r$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & SBB cheaper\\
+$r$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM & SBB cheaper\\
 \midrule
-50  & \textbf{5} & 159.5 & 201.5 & 650 & 0, 0\\
-100 & \textbf{5} & 143   & 179   & 442 & 0, 0\\
-200 & \textbf{5} & 111   & 116.5 & 244 & 0, 0\\
-400 & \textbf{5} & 109.5 & 130   & 109 & 2, 1\\
+50  & \textbf{5} & 159.5 & 201.5 & 650 & -- & 0, 0\\
+100 & \textbf{5} & 143   & 179   & 442 & -- & 0, 0\\
+200 & \textbf{5} & 111   & 116.5 & 244 & 491 & 0, 0\\
+400 & \textbf{5} & 109.5 & 130   & 109 & 222.5 & 2, 1\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -474,6 +474,18 @@ by $r=200$ and is unresolved at $r=400$. The two rotations per cell are also
 weak replicates for the rotation-invariant methods: SBB-Dual's costs are
 identical across rotations in every cell, so the effective replication for that
 comparison is one instance per $(r,m)$ pair, not two.
+
+Dykstra-APM was run on the same 16 instances at a cap of 800 \EVDs, one \EVD\ costing about 1.8\,s at this size. It is last at every rank and target it
+reaches, so it changes no ordering, but its own behaviour across the set is the
+sharpest rank dependence we observed. At $r=50$ and $r=100$ it exhausts the cap,
+ending at forward errors of $8.8\times10^{-6}$ and $6.7\times10^{-8}$; at $r=200$
+and $r=400$ it converges on its own diagonal-feasibility test, in 647 to 662 and
+301 to 305 \EVDs. Its cost to a loose target falls monotonically with rank,
+from 556 \EVDs\ at $r=50$ to 93 at $r=400$ for $\varepsilon=10^{-4}$, a sixfold
+drop within one test set, while Newton-SIN-BH stays at 4. A study drawing its
+instances only from low-rank solutions would report Dykstra-APM as a method that
+does not converge at this size; one drawing from high-rank solutions would report
+it reaching $10^{-10}$ in 289 \EVDs.
 
 \begin{table}[t]
 \centering
