@@ -4,7 +4,7 @@ The four solvers of \cref{sec:solvers} as implemented. Parameter values and
 the sources they are transcribed from are given there; the verification record
 for AGD-SDAJ is \cref{app:agd}.
 
-\begin{algorithm}[t]
+\begin{algorithm}[htbp]
 \caption{Newton-SIN-BH (semismooth Newton, cached factorization, BH line search)}\label{alg:newton}
 \begin{algorithmic}[1]
 \Require $G$, tolerance $\tau$; $\sigma=10^{-4}$, $\mubh=0.9$, $\gamma=100$, $u=2^{-53}$
@@ -29,7 +29,7 @@ for AGD-SDAJ is \cref{app:agd}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[t]
+\begin{algorithm}[htbp]
 \caption{AGD-SDAJ~\cite{huynh2025accelerated} (AGD-SDAJ-BH: with the marked branch)}\label{alg:agd}
 \begin{algorithmic}[1]
 \Require $G$, $\tau$; $q=2$, $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$, $\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$
@@ -62,7 +62,7 @@ for AGD-SDAJ is \cref{app:agd}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[t]
+\begin{algorithm}[htbp]
 \caption{SBB-Dual (clamped spectral gradient on the dual)}\label{alg:sbb}
 \begin{algorithmic}[1]
 \Require $G$, $\tau$, $\eta=0.01$
@@ -80,7 +80,7 @@ for AGD-SDAJ is \cref{app:agd}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[t]
+\begin{algorithm}[htbp]
 \caption{Dykstra-APM (alternating projections with Dykstra correction)}\label{alg:apm}
 \begin{algorithmic}[1]
 \Require $G$, $\tau$

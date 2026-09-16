@@ -8,12 +8,22 @@
 \usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage{xcolor}
+\usepackage{float}
+\usepackage[section]{placeins}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepgfplotslibrary{groupplots}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+% let pages carry more float material before a float page is forced
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+
 \usepackage{cleveref}
 
 % ------------------------------------------------------------------ theorems
@@ -98,6 +108,7 @@ reproducibility.
 
 % refs.bib = paper2-lit.bib from the literature audit (26 Crossref-verified
 % entries), merged 2026-09-11; the earlier draft entries were superseded.
+\clearpage
 \bibliographystyle{plain}
 \bibliography{refs}
 
