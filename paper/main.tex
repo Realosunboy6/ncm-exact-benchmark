@@ -52,33 +52,33 @@
 \maketitle
 
 \begin{abstract}
-Comparisons of nearest correlation matrix (NCM) solvers are usually run on
-collections of matrices whose solutions are unknown, so the accuracy each
-method actually delivers is not measured. We specialize the known technique of
-generating test problems from prescribed optimality conditions to the NCM
-problem, obtaining instances whose primal and dual solutions are known in
-closed form and whose solution rank, near-zero multiplicity and eigenvalue
-separation are set independently. Measuring forward error against those exact
-solutions changes what a comparison reports. The semismooth Newton method with
-the Borsdorf--Higham line search is cheapest under all 11 conventions we
-examine, on every test set, and its cost is flat in dimension: five
-eigendecompositions at $n=100$ and again at $n=2105$. The ordering below it is
-a property of the test set rather than of the methods. It changes with the
-accuracy target, with how far the input is from a correlation matrix, and above
-all with the solution rank, whose crossover we bracket between $r=5$ and $r=20$
-at $n=100$ and between $r=50$ and $r=75$ at $n=500$, rising further but
-unresolved on an equity panel at $n=2105$. Two further results are practical.
-The dimension-scaled stopping rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits
-roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger problem
+Nearest correlation matrix (NCM) solvers are usually compared on matrices whose
+solutions are unknown, so the accuracy each method delivers goes unmeasured. We
+specialize the known technique of generating test problems from prescribed
+optimality conditions to the NCM problem, obtaining instances with closed-form
+primal and dual solutions and independently controlled rank, near-zero
+multiplicity and eigenvalue separation. Measuring forward error against them
+changes what a comparison reports. The semismooth Newton method with
+the Borsdorf--Higham line search is cheapest under all 11 conventions examined, on
+every test set, at a cost flat in dimension: five eigendecompositions at
+$n=100$ and again at $n=2105$. The ordering below it is a property of the test
+set, changing with the accuracy target, with the distance of the input from a
+correlation matrix, and above all with the solution rank,
+whose crossover moves from between $5$ and $20$ at $n=100$ to between $50$ and
+$75$ at $n=500$. Two further results are practical. The
+dimension-scaled rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits 340
+times less accuracy at $n=500$ than at $n=100$, so a larger problem
 can appear easier. And a known finite-precision failure of objective-value
-Armijo tests recurs in a second published method, where it does not affect the
-published results but stalls the method on real and equity-derived matrices up
-to $n=3250$; a safeguard adapted from the NCM literature removes it in every
-case.
+Armijo tests recurs in a second published method, where a safeguard from the
+NCM literature removes it.
 \end{abstract}
-% Word count of abstract: approx. 215.
-% Corrected 2026-09-11: the per-cell count is 7 orderings (not 9) under the
-% corrected reach-and-hold rule; the rank attribution replaces it in the abstract.
+
+\paragraph{Keywords.} nearest correlation matrix; semidefinite programming;
+test problem generation; benchmarking; semismooth Newton method;
+reproducibility.
+
+\paragraph{2010 Mathematics Subject Classification.} 65F30; 90C22; 90C25;
+65K05; 65Y20.
 
 \tableofcontents
 

@@ -60,7 +60,7 @@ sensitivity check (\cref{sec:acct-results}).
 \begin{table}[t]
 \centering
 \caption{Median primitive work at matched tolerance $10^{-11}$, 270 instances,
-$n=100$. An ``outer iteration'' denotes a different amount of work in each
+$n=100$. An `outer iteration' denotes a different amount of work in each
 row.}
 \label{tab:primitive}
 \begin{tabular}{lrrrr}
@@ -81,7 +81,7 @@ Four accepted Newton iterations use 5 \EVDs\ and 24 Krylov iterations. Forty-six
 SBB-Dual iterations use 46 \EVDs\ and nothing else. Nine AGD-SDAJ-BH outer
 iterations use 70 \EVDs, because each outer iteration contains $q=2$
 quasi-Newton inner steps, each with its own line search. A table of
-``iterations to convergence'' across these rows would compare four
+`iterations to convergence' across these rows would compare four
 different quantities. We therefore report \EVDs, Krylov iterations and
 line-search trials separately.
 
@@ -91,7 +91,7 @@ is run and discarded, \texttt{GC.gc()} is called before the measured solve,
 and a single \texttt{@elapsed} surrounds the whole solve. A separate
 instrumented pass (TimerOutputs) gives the breakdown of time. In that
 breakdown, percentages are taken against the measured elapsed time, so any
-uninstrumented work shows up as ``other'' time instead of inflating the
+uninstrumented work shows up as `other' time instead of inflating the
 \EVD\ share. Timings were measured on all 270 instances at both the native
 ($10^{-7}n$) and the matched ($10^{-11}$) tolerance. The trajectory runs are
 a separate, untimed pass.

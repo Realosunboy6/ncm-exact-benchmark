@@ -45,10 +45,6 @@ $\hat X=D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$, as in~\cite{borsdorf2010precondi
 with Dykstra's correction~\cite{higham2002nearest}. Each iteration uses one \EVD. The
 method returns the PSD half-iterate.
 
-
-
-
-
 \subsection{Design}
 All five variants were run on the 270 instances of \cref{sec:family} at
 $n=100$, to a common tolerance of $10^{-11}$ with a budget of 4000 \EVDs, and
@@ -69,7 +65,6 @@ change which method is cheapest. The rest of this section is therefore about
 the places below the winner, which is where the choice of test set decides the
 answer.
 
-
 \subsection{The ordering below the winner changes with the accuracy target}
 \Cref{tab:fwd} and \cref{fig:crossover} show median cost to a common
 target. At loose targets ($10^{-2}$, $10^{-4}$), both AGD variants are cheaper
@@ -85,23 +80,25 @@ defensible one-number summaries of the same runs.
 \begin{table}[t]
 \centering
 \caption{Median \EVDs\ to reach and hold $\fro{X-\Xs}\le\varepsilon$
-(accepted-only). Entries marked $^{*}$ are medians over the subset of
-instances that reached the target; reach counts are in brackets. All
-unmarked entries are over 270/270.}
+(accepted-only), with cluster-bootstrap 95\% intervals in brackets ($B=2000$,
+resampling the five paired seeds within each rank, so that all 18 $(m,\delta)$
+cells of a drawn seed move together). Entries marked $^{*}$ are medians over
+the subset of instances that reached the target, the subset size in small
+type; all other entries are over 270/270.}
 \label{tab:fwd}
+\small
 \begin{tabular}{lrrrrr}
 \toprule
 $\varepsilon$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM\\
 \midrule
-$10^{-2}$  & \textbf{3} & 6 & 6 & 8 & 15\\
-$10^{-4}$  & \textbf{4} & 14 & 14 & 16 & 33.5\\
-$10^{-6}$  & \textbf{4} & 28 & 28 & 24.5 & 53.5\\
-$10^{-8}$  & \textbf{5} & 45 & 50$^{*}$ [264] & 34 & 74.5\\
-$10^{-10}$ & \textbf{5} & 63.5 & 72$^{*}$ [253] & 43.5 & 95.5\\
+$10^{-2}$  & \textbf{3 [3, 3]} & 6 [6, 6.5] & 6 [6, 6.5] & 8 [8, 8] & 15 [15, 15]\\
+$10^{-4}$  & \textbf{4 [3, 4]} & 14 [13, 15] & 14 [13, 15] & 16 [15.5, 16] & 33.5 [33.5, 33.5]\\
+$10^{-6}$  & \textbf{4 [4, 4]} & 28 [27, 29] & 28 [27, 29] & 24.5 [24.5, 24.5] & 53.5 [53.5, 53.5]\\
+$10^{-8}$  & \textbf{5 [5, 5]} & 45 [42, 48.5] & 50$^{*}$ [46, 52] \tiny[264] & 34 [34, 34] & 74.5 [74.5, 74.5]\\
+$10^{-10}$ & \textbf{5 [5, 5]} & 63.5 [62, 66] & 72$^{*}$ [70, 75] \tiny[253] & 43.5 [43, 43.5] & 95.5 [95.5, 95.5]\\
 \bottomrule
 \end{tabular}
 \end{table}
-
 
 \paragraph{Reach and hold.}
 A target counts as reached at the first accepted iterate from which the error
@@ -117,31 +114,9 @@ medians over the instances it reached, and are therefore optimistic. The
 second/third-place reversal is the same whether or not those entries are
 included.
 \paragraph{Uncertainty.}
-\Cref{tab:fwdci} gives cluster-bootstrap 95\% intervals for the forward-error
-medians ($B=2000$, resampling paired seeds within rank, so that all 18
-$(m,\delta)$ cells of a drawn seed move together). The intervals are narrow
-and do not overlap between SBB-Dual and the AGD variants at any target, so the
-change of order between $10^{-4}$ and $10^{-6}$ is not a sampling artifact.
-
-\begin{table}[t]
-\centering
-\caption{Cluster-bootstrap 95\% intervals for the medians of \cref{tab:fwd}
-($n=100$, $B=2000$, resampling the five paired seeds within each rank).
-Bracketed counts are instances reaching and holding the target.}
-\label{tab:fwdci}
-\small
-\begin{tabular}{lrrrrr}
-\toprule
-$\varepsilon$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM\\
-\midrule
-$10^{-2}$  & 3 [3, 3] & 6 [6, 6.5] & 6 [6, 6.5] & 8 [8, 8] & 15 [15, 15]\\
-$10^{-4}$  & 4 [3, 4] & 14 [13, 15] & 14 [13, 15] & 16 [15.5, 16] & 33.5 [33.5, 33.5]\\
-$10^{-6}$  & 4 [4, 4] & 28 [27, 29] & 28 [27, 29] & 24.5 [24.5, 24.5] & 53.5 [53.5, 53.5]\\
-$10^{-8}$  & 5 [5, 5] & 45 [42, 48.5] & 50 [46, 52] \tiny[264] & 34 [34, 34] & 74.5 [74.5, 74.5]\\
-$10^{-10}$ & 5 [5, 5] & 63.5 [62, 66] & 72 [70, 75] \tiny[253] & 43.5 [43, 43.5] & 95.5 [95.5, 95.5]\\
-\bottomrule
-\end{tabular}
-\end{table}
+The bootstrap intervals in \cref{tab:fwd} are narrow and do not overlap between
+SBB-Dual and the AGD variants at any target, so the change of order between
+$10^{-4}$ and $10^{-6}$ is not a sampling artefact.
 
 The paired per-instance picture at $n=100$ is, however, much closer than the
 aggregate medians suggest. Against AGD-SDAJ-BH at $\varepsilon=10^{-2}$ the
@@ -727,7 +702,7 @@ best served by the same method.
 \begin{table}[t]
 \centering
 \caption{Feasibility of the returned iterate at matched tolerance $10^{-11}$,
-270 instances. ``diag err'' is $\nrm{\diag(X)-e}_\infty$.}
+270 instances. `diag err' is $\nrm{\diag(X)-e}_\infty$.}
 \label{tab:feas}
 \begin{tabular}{lrrrr}
 \toprule
@@ -747,5 +722,4 @@ Costs at each solver's own exit when all are run to $10^{-11}$, and the exit
 reasons behind them, are in the released analysis output.
 Under this convention, the ordering equals the tight-target ordering in
 \cref{sec:winner}, because the common tolerance is tight.
-
 
