@@ -61,8 +61,10 @@ def table(rows, key_of, keys, label):
 
 
 if __name__ == "__main__":
-    kkt = load(["ranking_us2105_kkt.csv", "ranking_us2105_kkt_part2.csv"])
+    # optional: directory holding ranking_us2105_*.csv (default: current directory)
+    d = sys.argv[1] if len(sys.argv) > 1 else "."
+    kkt = load([f"{d}/ranking_us2105_kkt.csv", f"{d}/ranking_us2105_kkt_part2.csv"])
     table(kkt, lambda i: int(re.search(r"-r(\d+)-", i).group(1)), [50, 100, 200, 400], "KKT instances (exact X*)")
-    pert = load(["ranking_us2105_pert.csv"])
+    pert = load([f"{d}/ranking_us2105_pert.csv"])
     table(pert, lambda i: re.search(r"-s([\d.]+)-", i).group(1), ["0.005", "0.01", "0.03", "0.1"],
           "perturbed matrix (computed reference)")

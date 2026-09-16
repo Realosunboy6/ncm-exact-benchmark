@@ -48,7 +48,7 @@ method returns the PSD half-iterate.
 \begin{algorithm}[p]
 \caption{Newton-SIN-BH (semismooth Newton, cached factorization, BH line search)}\label{alg:newton}
 \begin{algorithmic}[1]
-\Require $G$, tolerance $\tau$; $\sigma=10^{-4}$, $\mu=0.9$, $\gamma=100$, $u=2^{-53}$
+\Require $G$, tolerance $\tau$; $\sigma=10^{-4}$, $\mubh=0.9$, $\gamma=100$, $u=2^{-53}$
 \State $y\gets0$;\ $(\theta,g,X,\Lambda,P)\gets\textsc{Eval}(y)$ \Comment{keep the factorization}
 \While{$\nrm{g}>\tau$}
   \State Solve $(V+10^{-12}I)d=-g$ by CG, with $V$ the generalized Jacobian from the cached $(\Lambda,P)$;
@@ -147,12 +147,13 @@ dual residual $\nrm{\nabla\theta}_2\le\tau$ for the same five values. We also
 compared accepted-only with all-trial accounting.
 \Cref{sec:n500} repeats the study at $n=500$.
 
-\subsection{The winner does not change}
+\subsection{Newton-SIN-BH is cheapest under every convention}\label{sec:winner}
 \Cref{tab:conventions} lists the orderings produced by the 11 conventions.
-There are two distinct orderings, and Newton-SIN-BH is cheapest in both.
-\emph{This is a null result for winner reversal.} On this family, the
-conventions change cost ratios and the order of the lower places. They never
-change which method is cheapest.
+There are two distinct orderings, and Newton-SIN-BH is cheapest in both. The
+conventions change cost ratios and the order of the lower places; they never
+change which method is cheapest. The rest of this section is therefore about
+the places below the winner, which is where the choice of test set decides the
+answer.
 
 \begin{table}[t]
 \centering
@@ -446,7 +447,11 @@ the two methods are level at $10^{-4}$ (median differences $+1$ and $0$), with
 AGD-SDAJ-BH ahead for $m=1$, while SBB-Dual is ahead at $10^{-8}$ and
 $10^{-10}$. Both patterns of \cref{sec:cells} therefore survive at $n=500$;
 what changes with dimension is the rank at which they appear, from between
-$r=5$ and $r=20$ at $n=100$ to between $r=50$ and $r=75$. Newton-SIN-BH is
+$r=5$ and $r=20$ at $n=100$ to between $r=50$ and $r=75$ at $n=500$. We report
+these as brackets and fit no trend to them: three dimensions with three or four
+grid points each cannot separate proportional growth from any other increasing
+rule, and the equity instances of \cref{sec:thesis,sec:us2105} sit outside the
+synthetic family in more ways than dimension. Newton-SIN-BH is
 strictly cheapest on all 135 instances at every target from $10^{-4}$ to
 $10^{-10}$.
 
@@ -481,7 +486,7 @@ off-diagonal correlation and drives some $|\Xs_{ij}|$ to $0.99995$, so every
 $r=5$ instance fails $|G_{ij}|\le1$, and with $\mu_{\mathrm{bulk}}=0.1$ every
 rank fails it. We therefore use $r\in\{20,50,100\}$ (off-diagonal relative fit
 0.59, 0.39, 0.24) and $\mu_{\mathrm{bulk}}=0.01$, with
-$\delta\in\{10^{-5},10^{-9},0\}$ so that $\rho=\delta/\mu_{\mathrm{bulk}}$ stays
+$\delta\in\{10^{-5},10^{-9},0\}$ so that $\sep=\delta/\mu_{\mathrm{bulk}}$ stays
 on the synthetic grid, $m\in\{1,5,20\}$ and three rotations: 81 instances. All
 pass screening, with worst exactness $1.1\times10^{-12}$. They are only mildly
 invalid, $\lambda_{\min}(G)\in[-4.6,-1.2]\times10^{-3}$.
@@ -563,6 +568,87 @@ favours SBB-Dual and the larger, more strongly invalid matrices favour
 AGD-SDAJ-BH. Newton-SIN-BH is cheapest on every matrix at every target from
 $10^{-4}$ to $10^{-8}$, and unmodified
 AGD-SDAJ stalls once, at $\sigma=0.1$.
+
+\subsection{An equity panel at $n=2105$}\label{sec:us2105}
+The panel of \cref{sec:thesis} is one of 550 names over 1397 days. To test the
+same questions an order of magnitude higher we built a second panel of 2105
+US-traded common stocks over 1253 trading days (September 2021 to September
+2026), selected from an exchange listing by complete price history, a median
+traded value above \$1\,M per day and one share class per company. Here
+$n$ exceeds the sample length, so the sample correlation matrix $C$ is singular:
+853 of its eigenvalues are zero to working precision, and $C$ sits exactly on
+the boundary of the feasible set.
+
+Two sets were generated from it. The perturbed set adds
+$\sigma E$ as in \cref{sec:thesis} for $\sigma\in\{0.005,0.01,0.03,0.1\}$ with
+two draws each; the resulting matrices are strongly invalid, with
+$\lambda_{\min}(G)$ from $-0.34$ to $-8.7$ and 599 to 968 negative eigenvalues.
+The KKT set uses the rank-$r$ factor model of $C$ as $\Xs$ with
+$r\in\{50,100,200,400\}$, $m\in\{1,20\}$, $\delta=0$ and two kernel rotations,
+16 instances with exact solutions. At this size $\mu_{\mathrm{bulk}}=0.1$
+passes the screen at every rank, so these instances use the same bulk level as
+the synthetic family. Dykstra-APM was omitted for cost: one \EVD\ takes about
+1.8\,s at this size, and it is the slowest method in every earlier study.
+
+\begin{table}[t]
+\centering
+\caption{Equity panel at $n=2105$, four instances per rank. Median \EVDs\ to
+reach and hold $\fro{X-\Xs}\le10^{-8}$ against the exact $\Xs$, and the number
+of instances on which SBB-Dual is cheaper than AGD-SDAJ-BH at $10^{-8}$ and at
+$10^{-10}$. Bracketed entries are reach counts below four.}
+\label{tab:us2105}
+\small
+\begin{tabular}{rrrrrc}
+\toprule
+$r$ & Newton-SIN-BH & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & SBB cheaper\\
+\midrule
+50  & \textbf{5} & 159.5 & 201.5 & 650 & 0, 0\\
+100 & \textbf{5} & 143   & 179   & 442 & 0, 0\\
+200 & \textbf{5} & 111   & 116.5 & 244 & 0, 0\\
+400 & \textbf{5} & 109.5 & 130   & 109 & 2, 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Newton-SIN-BH takes 5 \EVDs\ on every instance, as at $n=100$ and $n=500$: the
+cost of the winner is flat in $n$ over a twenty-fold range, while the
+first-order methods grow by an order of magnitude. The gap between SBB-Dual and
+AGD-SDAJ-BH again narrows with rank, from $+490$ \EVDs\ at $r=50$ to $-0.5$ at
+$r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: the
+median there is $-0.5$ \EVDs\ with a cluster interval of $[-27,+21.5]$, and at
+$10^{-10}$ the sign turns over ($+8$, with AGD-SDAJ-BH cheaper on three of the
+four instances). The honest reading is that the crossover has not been reached
+by $r=200$ and is unresolved at $r=400$. The two rotations per cell are also
+weak replicates for the rotation-invariant methods: SBB-Dual's costs are
+identical across rotations in every cell, so the effective replication for that
+comparison is one instance per $(r,m)$ pair, not two.
+
+\begin{table}[t]
+\centering
+\caption{Perturbed equity panel at $n=2105$, two draws per $\sigma$. \EVDs\ to
+reach and hold forward error $10^{-8}$ against a computed reference with
+$\nrm{\nabla\theta}_2\le3.2\times10^{-13}$.}
+\label{tab:us2105pert}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+$\sigma$ & Newton-SIN-BH & SBB-Dual & AGD-SDAJ-BH & AGD-SDAJ\\
+\midrule
+0.005 & \textbf{6, 6} & 19, 19   & 34, 22 & 34, 76\\
+0.01  & \textbf{6, 6} & 29, 28   & 32, 29 & 33, 34\\
+0.03  & \textbf{7, 7} & 71, 67   & 37, 44 & 38, 48\\
+0.1   & \textbf{8, 8} & 165, 162 & 68, 66 & 47, 72\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The perturbed set reproduces the pattern of \cref{tab:thesispert} at four times
+the dimension (\cref{tab:us2105pert}): SBB-Dual is second at the two smallest
+$\sigma$ and about twice as expensive as AGD-SDAJ-BH at $\sigma=0.1$, with the
+change of order between $\sigma=0.01$ and $\sigma=0.03$ in both panels.
+Unmodified AGD-SDAJ exhausted its 800-\EVD\ budget on two of the 16 KKT
+instances, both at $r=400$, where AGD-SDAJ-BH converged in 119 and 164 \EVDs;
+this is the stall of \cref{sec:trap2} at the largest size we tested.
 
 \subsection{Four matrices from the literature}\label{sec:real}
 The family of \cref{sec:family} is synthetic. To check that the regime
@@ -683,6 +769,34 @@ or no rejected trials here. The effect is negligible on this family and never
 changes an ordering. For methods with many rejected trials it need not be,
 and accepted-only accounting is the rule that cannot credit a point the method
 itself rejected.
+
+Two further accounting choices deserve a check, because each could favour a
+particular method. First, cost is scored on the raw projection
+$\Proj(G+\Diag(y))$, while SBB-Dual applies a Borsdorf--Higham rescaling before
+returning its iterate (\cref{sec:solvers}), so it is scored on a quantity it
+does not return. Both columns are recorded. Rescoring every study on the
+rescaled iterate leaves the ordering unchanged at 19 of the 20
+(dataset, target) pairs, and moves SBB-Dual's median at $n=500$ and
+$\varepsilon=10^{-8}$ from 207.5 to 188 \EVDs: the reported numbers are the
+conservative choice for our own method. The single exception is the
+data-seeded set at $10^{-10}$, where rescoring lowers SBB-Dual's reach count
+from 81 to 45 instances, so the apparent change of order is a comparison over
+an easier subset rather than a reversal. Second, the AGD line searches return
+their last trial if a backtracking limit of 60 is reached, and the method then
+moves to a point the trajectory records as rejected. This never occurs in the
+reported runs: no line search in any study exceeded 60 trials, and every
+AGD stall recorded here is a work-budget exhaustion, not a backtracking
+failure.
+
+The iteration caps are not uniform across methods, and no comparison in this
+paper relies on a capped run. At $n=500$ the caps are 1200 iterations for
+SBB-Dual, 800 for Dykstra-APM and a 4000-\EVD\ budget for the AGD variants,
+chosen so that each method's own exit is reached on most instances within a
+fixed total runtime. SBB-Dual converged on all 270 instances (worst case
+1075), so its numbers are uncensored; Dykstra-APM is censored on 90 of 270 and
+is reported as such wherever it appears; the AGD-SDAJ medians are taken over
+the instances that reached each target, which understates the cost of the
+unmodified variant and therefore understates the benefit of the safeguard.
 
 \begin{table}[t]
 \centering

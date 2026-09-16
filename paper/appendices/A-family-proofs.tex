@@ -45,12 +45,15 @@ establish here.
 
 \subsection{Proof of \cref{prop:hd}}
 Fix $i\ne j$ and condition on $u_i$. Since $u_j$ is uniform on $S^{r-1}$ and
-independent of $u_i$, the uniform distribution on the sphere is subgaussian:
-by~\cite[Thm.~3.4.5]{vershynin2026high}, for every unit vector $v$ and every
-$t\ge0$,
+independent of $u_i$, we use the classical spherical-cap bound: for every
+unit vector $v$ and every $t\ge0$,
 \[
   \Pr\bigl\{u_j^{\mathsf T}v\ge t\bigr\}\le 2\exp(-t^2r/2).
 \]
+This explicit form is the cap estimate of~\cite[Lem.~2.2]{ball1997elementary};
+the subgaussian statement of~\cite[Thm.~3.4.5]{vershynin2026high} gives the
+same decay with an unspecified absolute constant in the exponent, which would
+leave the constant in \cref{prop:hd} unspecified as well.
 Applying this with $v=u_i$, and again to $-u_j$, gives
 $\Pr\{|u_i^{\mathsf T}u_j|\ge t\}\le4\exp(-t^2r/2)$; the bound is unchanged
 after averaging over $u_i$. Taking a union bound over the fewer than $n^2/2$
@@ -58,9 +61,9 @@ unordered pairs,
 \[
   \Pr\{a\ge t\}\;\le\;2n^2\exp(-t^2r/2).
 \]
-Setting the right-hand side equal to $\delta$ and solving for $t$ gives
-$t=\sqrt{(2/r)(2\log n+\log(2/\delta))}$, which is the stated bound. If
-$r/\log n\to\infty$ then $t\to0$ for any fixed $\delta$. \qed
+Setting the right-hand side equal to $\eta$ and solving for $t$ gives
+$t=\sqrt{(2/r)(2\log n+\log(2/\eta))}$, which is the stated bound. If
+$r/\log n\to\infty$ then $t\to0$ for any fixed $\eta$. \qed
 
 \begin{remark}[On $b$]
 We do not state a companion bound for $b=\max_{i\ne j}|(P_r)_{ij}|$. Writing

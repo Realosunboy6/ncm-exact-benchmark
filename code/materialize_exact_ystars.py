@@ -2,8 +2,12 @@
 
 No solver is run. Each case is rebuilt from its registered design parameters,
 and G and X* must match the stored binaries bit-for-bit before y* is written.
+
+Usage: python materialize_exact_ystars.py [suite directory]
+       (default: degen_instances_paired next to this script)
 """
 
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -13,7 +17,7 @@ from gen_degeneracy_family import build_instance
 
 
 HERE = Path(__file__).resolve().parent
-SUITE = HERE / "degen_instances_paired"
+SUITE = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "degen_instances_paired"
 
 
 def main() -> None:

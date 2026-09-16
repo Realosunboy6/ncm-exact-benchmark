@@ -33,6 +33,9 @@ echo "equity n=550 KKT     -> thesis_kkt_analysis.md"
 echo "equity n=550 perturbed -> thesis_pert_analysis.md"
 "$PY" "$here/analyze_ranking.py" "$work/ranking_thesis.csv" "$work/thesis_pert_analysis.md" > /dev/null
 
+echo "equity n=2105       -> us2105_analysis.txt"
+"$PY" "$here/analyze_us2105.py" "$work" > "$work/us2105_analysis.txt"
+
 echo "scoring-column check -> scoring_column_check.txt"
 "$PY" "$here/check_scoring_column.py" "$work/ranking_kkt270_v2.csv" "$work/ranking_n500.csv" \
       "$work/ranking_highrank_n500.csv" "$work/ranking_thesis_kkt.csv" > "$work/scoring_column_check.txt"
@@ -46,6 +49,5 @@ cat <<'MAP'
   Tab. thesiskkt                            thesis_kkt_analysis.md
   Tab. thesispert                           thesis_pert_analysis.md
   Sec. accounting sensitivity               scoring_column_check.txt
-  Tab. us2105, us2105pert                   run analyze_us2105.py in a directory
-                                            holding ranking_us2105_*.csv
+  Tab. us2105, us2105pert                   us2105_analysis.txt
 MAP

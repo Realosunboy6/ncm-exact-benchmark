@@ -46,7 +46,9 @@ $|a-b|<\gamma u(1+|a|+|b|)$ with $\gamma=100$, and if so accepts the full
 inexact Newton step provided
 $\nrm{\nabla f(y_k+\alpha_kd_k)}_2/\nrm{\nabla f(y_k)}_2\le1-\mu$, falling
 back to a unit steepest-descent step otherwise. Our implementation uses their
-parameter values, $\mu=0.9$, $\rho=0.5$ and $\sigma=10^{-4}$.
+parameter values, $\mubh=0.9$, $\rho=0.5$ and $\sigma=10^{-4}$ (we write
+$\mubh$ for their gradient-reduction parameter, since $\mu$ denotes the
+spectrum vector of \cref{def:family}).
 
 \paragraph{Semismooth Newton.}
 With the naive test~\eqref{eq:armijo}, Newton stalls on 56 of the 270 KKT

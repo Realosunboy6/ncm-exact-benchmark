@@ -47,7 +47,7 @@ Thumbs.db
 /code/ranking_us2105*.md
 
 # The canonical smoke-test subset ships with the submission artifact
-!/submission/data/canonical_n100/*.bin
+!/data/canonical_n100/*.bin
 
 # reproduce.sh unpacks the shipped gzips here; regenerated, never committed
-/submission/results/reproduced/
+/results/reproduced/

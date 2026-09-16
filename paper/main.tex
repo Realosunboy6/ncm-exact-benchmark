@@ -16,17 +16,6 @@
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \usepackage{cleveref}
 
-% ------------------------------------------------------------------ markers
-% PENDING: results still being computed by other workstreams.
-%   gap1 = n=500 replication; gap2 = real-matrix runs;
-%   gap3 = bootstrap confidence intervals / robustness; gap4 = literature audit.
-% Originally \textcolor{red}{\fbox{PENDING: #1}}; an \fbox cannot line-break, which
-% pushed long markers up to 700pt into the margin, so a breakable form is used.
-% Swap back to the \fbox form if boxed markers are preferred.
-\newcommand{\PENDING}[1]{\textcolor{red}{\textbf{[PENDING: #1]}}}
-% TODO: decisions reserved for the author.
-\newcommand{\TODO}[1]{\textcolor{orange!80!black}{\textbf{[TODO: #1]}}}
-
 % ------------------------------------------------------------------ theorems
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{lemma}[proposition]{Lemma}
@@ -49,6 +38,8 @@
 \newcommand{\solver}[1]{\textsf{#1}}
 \newcommand{\EVD}{\textsc{evd}}
 \newcommand{\EVDs}{\textsc{evd}s}
+\newcommand{\sep}{\mathrm{sep}}
+\newcommand{\mubh}{\mu_{\mathrm{BH}}}
 
 \title{Exact test problems and a work--accuracy protocol\\ for benchmarking nearest correlation matrix solvers}
 \author{Oyeyinka E. Ibrahim \\
@@ -61,30 +52,29 @@
 \maketitle
 
 \begin{abstract}
-We specialize the known technique of generating test problems from prescribed
-optimality conditions to the nearest correlation matrix (NCM) problem,
-obtaining instances with exactly known primal and dual solutions whose
-solution rank, near-zero multiplicity and eigenvalue separation are set
-independently. Using a matched-accuracy protocol measured against the exact
-solution, we show that conclusions drawn from NCM solver comparisons do not
-transfer across benchmark regimes. At $n=100$ the order of SBB-Dual and
-AGD-SDAJ reverses with the accuracy target and with solution rank, crossing
-between $r=5$ and $r=20$. At $n=500$ both patterns persist, but the crossover
-moves to between $r=50$ and $r=75$, so a study confined to $r\le50$ would
-conclude that it had vanished. On matrices built from the returns of 550
-equities the order also changes with the degree of invalidity, and four
-matrices from the literature, from $n=94$ to $n=3250$, are consistent with
-these regimes. The semismooth Newton method with the Borsdorf--Higham line
-search is the cheapest method under every convention and on every test set.
+Comparisons of nearest correlation matrix (NCM) solvers are usually run on
+collections of matrices whose solutions are unknown, so the accuracy each
+method actually delivers is not measured. We specialize the known technique of
+generating test problems from prescribed optimality conditions to the NCM
+problem, obtaining instances whose primal and dual solutions are known in
+closed form and whose solution rank, near-zero multiplicity and eigenvalue
+separation are set independently. Measuring forward error against those exact
+solutions changes what a comparison reports. The semismooth Newton method with
+the Borsdorf--Higham line search is cheapest under all 11 conventions we
+examine, on every test set, and its cost is flat in dimension: five
+eigendecompositions at $n=100$ and again at $n=2105$. The ordering below it is
+a property of the test set rather than of the methods. It changes with the
+accuracy target, with how far the input is from a correlation matrix, and above
+all with the solution rank, whose crossover we bracket between $r=5$ and $r=20$
+at $n=100$ and between $r=50$ and $r=75$ at $n=500$, rising further but
+unresolved on an equity panel at $n=2105$. Two further results are practical.
 The dimension-scaled stopping rule $\nrm{\nabla\theta}_2\le10^{-7}n$ permits
-roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger
-problem can appear easier. Finally, a known finite-precision failure of
-objective-value Armijo tests recurs in a second published method, AGD-SDAJ.
-It does not affect the published results, but it stalls the method on real
-and data-derived matrices, including one at $n=3250$ that the safeguarded
-variant solves in 9 \EVDs. It is removed in the Newton method by the
-published Borsdorf--Higham line search, and in AGD-SDAJ by our adaptation of
-their safeguard.
+roughly 340 times less accuracy at $n=500$ than at $n=100$, so a larger problem
+can appear easier. And a known finite-precision failure of objective-value
+Armijo tests recurs in a second published method, where it does not affect the
+published results but stalls the method on real and equity-derived matrices up
+to $n=3250$; a safeguard adapted from the NCM literature removes it in every
+case.
 \end{abstract}
 % Word count of abstract: approx. 215.
 % Corrected 2026-09-11: the per-cell count is 7 orderings (not 9) under the

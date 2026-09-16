@@ -65,15 +65,19 @@ Each contribution builds on established practice (\cref{sec:related}).
     exact, two rules become enforceable: rejected trials receive no accuracy
     credit, and accuracy is matched in forward error. Primitive work is
     reported separately.
-  \item \emph{A ranking study with a null headline} (\cref{sec:ranking}). Five
-    verified solver variants were run on 270 instances at $n=100$ and 270 at
-    $n=500$, with 135 further instances at higher rank and 101 built from
-    equity returns. The cheapest method is the same under all 11 conventions
-    examined. Below it, the ordering changes with the accuracy target and
-    across the grid of cells, organized chiefly by solution rank; the
-    crossover lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and
-    $r=75$ at $n=500$. Only a family that varies one
-    spectral quantity at a time makes such an association visible.
+  \item \emph{An invariant winner above a regime-dependent ordering}
+    (\cref{sec:ranking}). Five verified solver variants were run on 270
+    instances at $n=100$ and 270 at $n=500$, with 135 further instances at
+    higher rank and 125 built from two equity panels at $n=550$ and $n=2105$.
+    The cheapest method is the same under all 11 conventions examined, and its
+    cost is flat in dimension: 5 eigendecompositions at $n=100$ and at
+    $n=2105$. Below it the ordering changes with the accuracy target, with the
+    solution rank, and with how far the input is from a correlation matrix.
+    The rank at which the second and third places exchange is bracketed
+    between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$ at
+    $n=500$, and rises further at $n=2105$ without being resolved there. Only
+    a family that varies one spectral quantity at a time makes such an
+    association visible.
   \item \emph{Replication of a known line-search defect}
     (\cref{sec:traps}). The failure of objective-value sufficient-decrease
     tests near a minimizer is well known~\cite{hager2005new}. For the NCM dual,

@@ -97,14 +97,15 @@ sense, and the \emph{strict-complementarity defect} means $|\beta|$.
 The generator uses
 $\mu=(\mu_{\mathrm{bulk}},\dots,\mu_{\mathrm{bulk}},\delta,\dots,\delta)$ with
 $m$ copies of $\delta$ and $\mu_{\mathrm{bulk}}=0.1$. The separation parameter
-is $\rho=\delta/\mu_{\mathrm{bulk}}$. The released grid is
+is $\sep=\delta/\mu_{\mathrm{bulk}}$ (we avoid $\rho$, which denotes the
+line-search backtracking factor in \cref{sec:traps,sec:ranking}). The released grid is
 \[
   r\in\{5,20,50\},\quad m\in\{1,5,20\},\quad
   \delta\in\{10^{-2},10^{-4},10^{-6},10^{-8},10^{-10},0\},
 \]
 with five paired seeds per rank. This gives $3\times3\times6=54$ cells and
-270 instances at $n=100$. In plots, $\rho$ is shown on a $\log_{10}$ axis and
-the case $\rho=0$ is shown separately.
+270 instances at $n=100$. In plots, $\sep$ is shown on a $\log_{10}$ axis and
+the case $\sep=0$ is shown separately.
 
 \subsection{Correlation-like inputs: sufficient conditions for $|G_{ij}|\le1$}\label{sec:feasibility}
 \Cref{prop:exact} places no restriction on the entries of $G$. For the
@@ -137,9 +138,11 @@ screening.
 
 \begin{proposition}[High-dimensional regime]\label{prop:hd}
 Let the rows of $U$ be independent and uniform on $S^{r-1}$ and let
-$\delta\in(0,1)$. Then with probability at least $1-\delta$,
+$\eta\in(0,1)$ be a failure probability (distinct from the separation
+parameter $\delta$ of \cref{def:family}). Then with probability at least
+$1-\eta$,
 \[
-  a\;\le\;\sqrt{\frac{2}{r}\Bigl(2\log n+\log\frac{2}{\delta}\Bigr)} .
+  a\;\le\;\sqrt{\frac{2}{r}\Bigl(2\log n+\log\frac{2}{\eta}\Bigr)} .
 \]
 In particular $a\to0$ whenever $r/\log n\to\infty$.
 \end{proposition}

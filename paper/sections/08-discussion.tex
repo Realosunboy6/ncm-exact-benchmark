@@ -35,7 +35,11 @@ chosen at one dimension can miss the crossover at another.
     for three solvers only. The crossover between SBB-Dual and AGD-SDAJ-BH
     lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$
     at $n=500$; on data-seeded instances at $n=550$ SBB-Dual is still slightly
-    behind at $r=100$. No dimension above 550 was tested.
+    behind at $r=100$, and at $n=2105$ (\cref{sec:us2105}) the gap closes to
+    within one \EVD\ by $r=400$ without a resolved crossover. The crossover is
+    therefore bracketed at each dimension and rises with it; the data do not
+    support a functional form, and the largest panel contributes four
+    instances per rank with weak replication.
     Dykstra-APM is censored at $n=500$ by its iteration cap.
   \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
     matrices are correlation-like but are not estimated from data.
