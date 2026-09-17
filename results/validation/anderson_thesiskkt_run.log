@@ -1,0 +1,245 @@
+[1/81] thesiskkt-r20-m1-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      187 EVDs  err=2.713e-11  exit=diag_feasible
+    Anderson-APM     153 EVDs  err=4.439e-11  exit=diag_feasible
+[2/81] thesiskkt-r20-m1-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      141 EVDs  err=2.285e-11  exit=diag_feasible
+    Anderson-APM     105 EVDs  err=4.363e-11  exit=diag_feasible
+[3/81] thesiskkt-r20-m1-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH      249 EVDs  err=1.212e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     124 EVDs  err=5.094e-11  exit=diag_feasible
+[4/81] thesiskkt-r20-m1-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      161 EVDs  err=2.237e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     177 EVDs  err=5.422e-11  exit=diag_feasible
+[5/81] thesiskkt-r20-m1-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH      148 EVDs  err=2.387e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     146 EVDs  err=1.694e-11  exit=diag_feasible
+[6/81] thesiskkt-r20-m1-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      208 EVDs  err=2.957e-11  exit=diag_feasible
+    Anderson-APM     149 EVDs  err=5.319e-11  exit=diag_feasible
+[7/81] thesiskkt-r20-m1-d0-p0 (n=550)
+    AGD-SDAJ-BH      222 EVDs  err=3.779e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     181 EVDs  err=3.046e-11  exit=diag_feasible
+[8/81] thesiskkt-r20-m1-d0-p1 (n=550)
+    AGD-SDAJ-BH      116 EVDs  err=1.906e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     149 EVDs  err=4.044e-11  exit=diag_feasible
+[9/81] thesiskkt-r20-m1-d0-p2 (n=550)
+    AGD-SDAJ-BH      234 EVDs  err=2.989e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     142 EVDs  err=4.938e-11  exit=diag_feasible
+[10/81] thesiskkt-r20-m5-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      270 EVDs  err=2.429e-11  exit=diag_feasible
+    Anderson-APM     129 EVDs  err=4.756e-11  exit=diag_feasible
+[11/81] thesiskkt-r20-m5-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      121 EVDs  err=3.669e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     115 EVDs  err=4.444e-11  exit=diag_feasible
+[12/81] thesiskkt-r20-m5-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH       91 EVDs  err=2.441e-11  exit=diag_feasible
+    Anderson-APM     129 EVDs  err=5.216e-11  exit=diag_feasible
+[13/81] thesiskkt-r20-m5-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      186 EVDs  err=3.236e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     129 EVDs  err=1.701e-11  exit=diag_feasible
+[14/81] thesiskkt-r20-m5-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH      180 EVDs  err=2.967e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     182 EVDs  err=5.270e-11  exit=diag_feasible
+[15/81] thesiskkt-r20-m5-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      130 EVDs  err=3.104e-11  exit=diag_feasible
+    Anderson-APM     155 EVDs  err=4.752e-11  exit=diag_feasible
+[16/81] thesiskkt-r20-m5-d0-p0 (n=550)
+    AGD-SDAJ-BH      147 EVDs  err=1.683e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     127 EVDs  err=5.116e-11  exit=diag_feasible
+[17/81] thesiskkt-r20-m5-d0-p1 (n=550)
+    AGD-SDAJ-BH      134 EVDs  err=2.625e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     177 EVDs  err=3.534e-11  exit=diag_feasible
+[18/81] thesiskkt-r20-m5-d0-p2 (n=550)
+    AGD-SDAJ-BH      122 EVDs  err=1.477e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     162 EVDs  err=4.642e-11  exit=diag_feasible
+[19/81] thesiskkt-r20-m20-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      177 EVDs  err=1.732e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     155 EVDs  err=2.859e-11  exit=diag_feasible
+[20/81] thesiskkt-r20-m20-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      172 EVDs  err=3.235e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     151 EVDs  err=3.831e-11  exit=diag_feasible
+[21/81] thesiskkt-r20-m20-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH      176 EVDs  err=3.259e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     142 EVDs  err=4.446e-11  exit=diag_feasible
+[22/81] thesiskkt-r20-m20-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      141 EVDs  err=4.039e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     135 EVDs  err=2.360e-11  exit=diag_feasible
+[23/81] thesiskkt-r20-m20-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH       83 EVDs  err=1.791e-11  exit=diag_feasible
+    Anderson-APM     170 EVDs  err=4.135e-11  exit=diag_feasible
+[24/81] thesiskkt-r20-m20-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      113 EVDs  err=3.669e-11  exit=diag_feasible
+    Anderson-APM     111 EVDs  err=5.478e-11  exit=diag_feasible
+[25/81] thesiskkt-r20-m20-d0-p0 (n=550)
+    AGD-SDAJ-BH       96 EVDs  err=3.551e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     143 EVDs  err=3.449e-11  exit=diag_feasible
+[26/81] thesiskkt-r20-m20-d0-p1 (n=550)
+    AGD-SDAJ-BH      125 EVDs  err=3.244e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     191 EVDs  err=3.952e-11  exit=diag_feasible
+[27/81] thesiskkt-r20-m20-d0-p2 (n=550)
+    AGD-SDAJ-BH      135 EVDs  err=3.016e-11  exit=diag_feasible_at_xpre
+    Anderson-APM     103 EVDs  err=4.862e-11  exit=diag_feasible
+[28/81] thesiskkt-r50-m1-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      158 EVDs  err=2.305e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      97 EVDs  err=3.859e-11  exit=diag_feasible
+[29/81] thesiskkt-r50-m1-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      196 EVDs  err=1.174e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      89 EVDs  err=3.811e-11  exit=diag_feasible
+[30/81] thesiskkt-r50-m1-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH      114 EVDs  err=1.542e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      77 EVDs  err=3.254e-11  exit=diag_feasible
+[31/81] thesiskkt-r50-m1-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      206 EVDs  err=2.189e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      94 EVDs  err=2.052e-11  exit=diag_feasible
+[32/81] thesiskkt-r50-m1-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH       96 EVDs  err=1.994e-11  exit=diag_feasible
+    Anderson-APM      93 EVDs  err=2.078e-11  exit=diag_feasible
+[33/81] thesiskkt-r50-m1-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      148 EVDs  err=1.911e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      93 EVDs  err=3.085e-11  exit=diag_feasible
+[34/81] thesiskkt-r50-m1-d0-p0 (n=550)
+    AGD-SDAJ-BH      151 EVDs  err=1.955e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      93 EVDs  err=1.285e-11  exit=diag_feasible
+[35/81] thesiskkt-r50-m1-d0-p1 (n=550)
+    AGD-SDAJ-BH      202 EVDs  err=1.143e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      94 EVDs  err=1.803e-11  exit=diag_feasible
+[36/81] thesiskkt-r50-m1-d0-p2 (n=550)
+    AGD-SDAJ-BH      142 EVDs  err=2.126e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      93 EVDs  err=2.091e-11  exit=diag_feasible
+[37/81] thesiskkt-r50-m5-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      109 EVDs  err=2.070e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      85 EVDs  err=2.953e-11  exit=diag_feasible
+[38/81] thesiskkt-r50-m5-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      115 EVDs  err=1.923e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      85 EVDs  err=2.987e-11  exit=diag_feasible
+[39/81] thesiskkt-r50-m5-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH       90 EVDs  err=1.783e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      85 EVDs  err=2.135e-11  exit=diag_feasible
+[40/81] thesiskkt-r50-m5-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      109 EVDs  err=2.017e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      93 EVDs  err=2.680e-11  exit=diag_feasible
+[41/81] thesiskkt-r50-m5-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH      142 EVDs  err=2.274e-11  exit=diag_feasible
+    Anderson-APM      84 EVDs  err=2.395e-11  exit=diag_feasible
+[42/81] thesiskkt-r50-m5-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      113 EVDs  err=2.078e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      93 EVDs  err=3.079e-11  exit=diag_feasible
+[43/81] thesiskkt-r50-m5-d0-p0 (n=550)
+    AGD-SDAJ-BH      124 EVDs  err=2.065e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      97 EVDs  err=2.775e-11  exit=diag_feasible
+[44/81] thesiskkt-r50-m5-d0-p1 (n=550)
+    AGD-SDAJ-BH      127 EVDs  err=2.049e-11  exit=diag_feasible
+    Anderson-APM      93 EVDs  err=2.496e-11  exit=diag_feasible
+[45/81] thesiskkt-r50-m5-d0-p2 (n=550)
+    AGD-SDAJ-BH      141 EVDs  err=2.599e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      96 EVDs  err=2.622e-11  exit=diag_feasible
+[46/81] thesiskkt-r50-m20-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      108 EVDs  err=9.911e-12  exit=diag_feasible_at_xpre
+    Anderson-APM      71 EVDs  err=3.266e-11  exit=diag_feasible
+[47/81] thesiskkt-r50-m20-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      140 EVDs  err=1.871e-11  exit=diag_feasible
+    Anderson-APM      77 EVDs  err=2.244e-11  exit=diag_feasible
+[48/81] thesiskkt-r50-m20-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH      192 EVDs  err=2.040e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      71 EVDs  err=3.301e-11  exit=diag_feasible
+[49/81] thesiskkt-r50-m20-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      114 EVDs  err=1.862e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      66 EVDs  err=2.163e-11  exit=diag_feasible
+[50/81] thesiskkt-r50-m20-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH       99 EVDs  err=6.706e-12  exit=diag_feasible_at_xpre
+    Anderson-APM      82 EVDs  err=2.531e-11  exit=diag_feasible
+[51/81] thesiskkt-r50-m20-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      179 EVDs  err=1.849e-11  exit=diag_feasible
+    Anderson-APM      72 EVDs  err=2.950e-11  exit=diag_feasible
+[52/81] thesiskkt-r50-m20-d0-p0 (n=550)
+    AGD-SDAJ-BH       80 EVDs  err=2.391e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      76 EVDs  err=2.851e-11  exit=diag_feasible
+[53/81] thesiskkt-r50-m20-d0-p1 (n=550)
+    AGD-SDAJ-BH      109 EVDs  err=2.307e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      82 EVDs  err=2.156e-11  exit=diag_feasible
+[54/81] thesiskkt-r50-m20-d0-p2 (n=550)
+    AGD-SDAJ-BH      105 EVDs  err=2.050e-11  exit=diag_feasible
+    Anderson-APM      76 EVDs  err=3.340e-11  exit=diag_feasible
+[55/81] thesiskkt-r100-m1-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH      166 EVDs  err=1.832e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      76 EVDs  err=2.775e-11  exit=diag_feasible
+[56/81] thesiskkt-r100-m1-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH      116 EVDs  err=5.708e-12  exit=diag_feasible_at_xpre
+    Anderson-APM      76 EVDs  err=2.407e-11  exit=diag_feasible
+[57/81] thesiskkt-r100-m1-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH      104 EVDs  err=1.542e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      74 EVDs  err=2.479e-11  exit=diag_feasible
+[58/81] thesiskkt-r100-m1-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH      114 EVDs  err=1.577e-11  exit=diag_feasible
+    Anderson-APM      77 EVDs  err=2.519e-11  exit=diag_feasible
+[59/81] thesiskkt-r100-m1-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH      171 EVDs  err=1.863e-11  exit=diag_feasible
+    Anderson-APM      77 EVDs  err=2.378e-11  exit=diag_feasible
+[60/81] thesiskkt-r100-m1-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH      103 EVDs  err=1.006e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      77 EVDs  err=2.124e-11  exit=diag_feasible
+[61/81] thesiskkt-r100-m1-d0-p0 (n=550)
+    AGD-SDAJ-BH      128 EVDs  err=1.174e-11  exit=diag_feasible
+    Anderson-APM      77 EVDs  err=2.111e-11  exit=diag_feasible
+[62/81] thesiskkt-r100-m1-d0-p1 (n=550)
+    AGD-SDAJ-BH      134 EVDs  err=1.278e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      77 EVDs  err=2.405e-11  exit=diag_feasible
+[63/81] thesiskkt-r100-m1-d0-p2 (n=550)
+    AGD-SDAJ-BH      117 EVDs  err=1.642e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      77 EVDs  err=1.739e-11  exit=diag_feasible
+[64/81] thesiskkt-r100-m5-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH       93 EVDs  err=1.101e-11  exit=diag_feasible
+    Anderson-APM      71 EVDs  err=1.814e-11  exit=diag_feasible
+[65/81] thesiskkt-r100-m5-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH       77 EVDs  err=1.104e-11  exit=diag_feasible
+    Anderson-APM      70 EVDs  err=1.726e-11  exit=diag_feasible
+[66/81] thesiskkt-r100-m5-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH      109 EVDs  err=7.252e-12  exit=diag_feasible
+    Anderson-APM      75 EVDs  err=2.145e-11  exit=diag_feasible
+[67/81] thesiskkt-r100-m5-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH       99 EVDs  err=2.085e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      75 EVDs  err=2.502e-11  exit=diag_feasible
+[68/81] thesiskkt-r100-m5-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH      101 EVDs  err=1.304e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      77 EVDs  err=2.359e-11  exit=diag_feasible
+[69/81] thesiskkt-r100-m5-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH       85 EVDs  err=1.126e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      76 EVDs  err=2.151e-11  exit=diag_feasible
+[70/81] thesiskkt-r100-m5-d0-p0 (n=550)
+    AGD-SDAJ-BH      115 EVDs  err=1.184e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      77 EVDs  err=1.589e-11  exit=diag_feasible
+[71/81] thesiskkt-r100-m5-d0-p1 (n=550)
+    AGD-SDAJ-BH      128 EVDs  err=1.473e-11  exit=diag_feasible
+    Anderson-APM      76 EVDs  err=2.496e-11  exit=diag_feasible
+[72/81] thesiskkt-r100-m5-d0-p2 (n=550)
+    AGD-SDAJ-BH       82 EVDs  err=1.734e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      76 EVDs  err=2.655e-11  exit=diag_feasible
+[73/81] thesiskkt-r100-m20-d1e-05-p0 (n=550)
+    AGD-SDAJ-BH       74 EVDs  err=1.449e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      65 EVDs  err=2.814e-11  exit=diag_feasible
+[74/81] thesiskkt-r100-m20-d1e-05-p1 (n=550)
+    AGD-SDAJ-BH       72 EVDs  err=7.593e-12  exit=diag_feasible_at_xpre
+    Anderson-APM      68 EVDs  err=2.128e-11  exit=diag_feasible
+[75/81] thesiskkt-r100-m20-d1e-05-p2 (n=550)
+    AGD-SDAJ-BH       67 EVDs  err=1.579e-11  exit=diag_feasible
+    Anderson-APM      63 EVDs  err=2.121e-11  exit=diag_feasible
+[76/81] thesiskkt-r100-m20-d1e-09-p0 (n=550)
+    AGD-SDAJ-BH       79 EVDs  err=1.245e-11  exit=diag_feasible
+    Anderson-APM      70 EVDs  err=2.507e-11  exit=diag_feasible
+[77/81] thesiskkt-r100-m20-d1e-09-p1 (n=550)
+    AGD-SDAJ-BH      107 EVDs  err=1.792e-11  exit=diag_feasible
+    Anderson-APM      71 EVDs  err=2.560e-11  exit=diag_feasible
+[78/81] thesiskkt-r100-m20-d1e-09-p2 (n=550)
+    AGD-SDAJ-BH       80 EVDs  err=1.614e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      67 EVDs  err=1.222e-11  exit=diag_feasible
+[79/81] thesiskkt-r100-m20-d0-p0 (n=550)
+    AGD-SDAJ-BH       71 EVDs  err=1.848e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      74 EVDs  err=2.395e-11  exit=diag_feasible
+[80/81] thesiskkt-r100-m20-d0-p1 (n=550)
+    AGD-SDAJ-BH       71 EVDs  err=8.651e-12  exit=diag_feasible
+    Anderson-APM      71 EVDs  err=2.969e-11  exit=diag_feasible
+[81/81] thesiskkt-r100-m20-d0-p2 (n=550)
+    AGD-SDAJ-BH       67 EVDs  err=1.290e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      74 EVDs  err=2.160e-11  exit=diag_feasible
+
+wrote ranking_thesis_kkt_anderson.csv

@@ -94,3 +94,22 @@ for AGD-SDAJ is \cref{app:agd}.
 \EndLoop
 \end{algorithmic}
 \end{algorithm}
+
+\begin{algorithm}[htbp]
+\caption{Anderson-APM (alternating projections with Anderson acceleration,
+history $m$; Higham and Strabi\'{c}~\cite{higham2016anderson})}\label{alg:anderson}
+\begin{algorithmic}[1]
+\Require $G$, $\tau$, history length $m$ (here $m=2$)
+\State $Y\gets G$;\ $\Delta S\gets0$;\ $z\gets(\operatorname{vec}Y,\operatorname{vec}\Delta S)$
+\For{$k=1,2,\dots$}
+  \State $X\gets\Proj(Y-\Delta S)$ \Comment{one \EVD}
+  \State $\Delta S'\gets X-(Y-\Delta S)$;\ $Y'\gets X$ with $\diag(Y')\gets e$
+  \State $g\gets(\operatorname{vec}Y',\operatorname{vec}\Delta S')$;\ $f\gets g-z$
+  \If{$\fro{Y'-X}/\fro{Y'}\le\tau$} \Return $X$ \Comment{PSD half-iterate}
+  \EndIf
+  \State $m_k\gets\min(m,k-1)$; form $\Delta F_k$, $\Delta G_k$ from the last $m_k$ differences of $f$, $g$
+  \State $\gamma\gets\arg\min_\gamma\nrm{f-\Delta F_k\gamma}_2$ \Comment{QR with updating}
+  \State $z\gets g-\Delta G_k\gamma$; unpack $z$ into $Y,\Delta S$
+\EndFor
+\end{algorithmic}
+\end{algorithm}

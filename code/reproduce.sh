@@ -19,19 +19,23 @@ for f in "$root"/results/*.csv.gz; do
 done
 
 echo "n=100 ranking study  -> kkt270_analysis.md"
-"$PY" "$here/analyze_ranking.py" "$work/ranking_kkt270_v2.csv" "$work/kkt270_analysis.md" > /dev/null
+"$PY" "$here/analyze_ranking.py" \n    "$work/ranking_kkt270_v2.csv,$work/ranking_kkt270_anderson.csv" \n    "$work/kkt270_analysis.md" > /dev/null
 
 echo "n=500 ranking study  -> n500_analysis.md"
-"$PY" "$here/analyze_ranking.py" "$work/ranking_n500.csv" "$work/n500_analysis.md" > /dev/null
+"$PY" "$here/analyze_ranking.py" \n    "$work/ranking_n500.csv,$work/ranking_n500_anderson.csv" \n    "$work/n500_analysis.md" > /dev/null
 
 echo "n=500 high rank      -> highrank_analysis.txt"
 "$PY" "$here/analyze_highrank.py" "$work/ranking_highrank_n500.csv" > "$work/highrank_analysis.txt"
+"$PY" "$here/analyze_by_rank.py" "$work/highrank_by_rank.md" \n    "$work/ranking_highrank_n500.csv,$work/ranking_highrank_proj.csv" \n    SBB-Dual:AGD-SDAJ-BH Anderson-APM:AGD-SDAJ-BH > /dev/null
 
 echo "equity n=550 KKT     -> thesis_kkt_analysis.md"
-"$PY" "$here/analyze_ranking.py" "$work/ranking_thesis_kkt.csv" "$work/thesis_kkt_analysis.md" > /dev/null
+"$PY" "$here/analyze_ranking.py" \n    "$work/ranking_thesis_kkt.csv,$work/ranking_thesis_kkt_anderson.csv" \n    "$work/thesis_kkt_analysis.md" > /dev/null
 
 echo "equity n=550 perturbed -> thesis_pert_analysis.md"
 "$PY" "$here/analyze_ranking.py" "$work/ranking_thesis.csv" "$work/thesis_pert_analysis.md" > /dev/null
+
+echo "equity n=550 KKT by rank -> thesis_kkt_by_rank.md"
+"$PY" "$here/analyze_by_rank.py" "$work/thesis_kkt_by_rank.md" \n    "$work/ranking_thesis_kkt.csv,$work/ranking_thesis_kkt_anderson.csv" \n    SBB-Dual:AGD-SDAJ-BH Anderson-APM:AGD-SDAJ-BH > /dev/null
 
 echo "equity n=2105       -> us2105_analysis.txt"
 "$PY" "$here/analyze_us2105.py" "$work" > "$work/us2105_analysis.txt"
@@ -45,8 +49,8 @@ echo "done. table -> file map:"
 cat <<'MAP'
   Tab. fwd, res, cells, acct, feas, exits   kkt270_analysis.md
   Tab. n500                                 n500_analysis.md
-  Tab. highrank                             highrank_analysis.txt
-  Tab. thesiskkt                            thesis_kkt_analysis.md
+  Tab. highrank                             highrank_analysis.txt, highrank_by_rank.md
+  Tab. thesiskkt                            thesis_kkt_analysis.md, thesis_kkt_by_rank.md
   Tab. thesispert                           thesis_pert_analysis.md
   Sec. accounting sensitivity               scoring_column_check.txt
   Tab. us2105, us2105pert                   us2105_analysis.txt

@@ -19,38 +19,45 @@ Two honesty rules carried over from analyze_trajectory.py:
   * rejected trials cost EVDs always, but under accepted-only accounting they can
     never be credited with reaching a target.
 
-Usage: python analyze_ranking.py ranking_kkt270.csv [out.md]
+Usage: python analyze_ranking.py ranking_kkt270.csv[,more.csv...] [out.md]
+
+Several comma-separated CSVs are read as one study, so a solver run later (and
+written to its own file) joins the tables of the run it extends. The solver
+list is taken from the data.
 """
 import csv
 import re
 import sys
 from collections import defaultdict
 
-path = sys.argv[1] if len(sys.argv) > 1 else "ranking_kkt270.csv"
+paths = (sys.argv[1] if len(sys.argv) > 1 else "ranking_kkt270.csv").split(",")
 outpath = sys.argv[2] if len(sys.argv) > 2 else None
 
-SOLVERS = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual", "Dykstra-APM"]
+SOLVER_ORDER = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual",
+                "Dykstra-APM", "Anderson-APM"]
 FWD_EPS = [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]
 RES_TAU = [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]
 
 curves = defaultdict(list)
 ns, exits, feas = {}, {}, {}
-with open(path) as f:
+for path in paths:
+  with open(path.strip()) as f:
     for r in csv.DictReader(f):
-        key = (r["instance"], r["solver"])
-        curves[key].append((
-            int(r["evds"]),
-            float(r["err_raw_fro"]),
-            float(r["grad_2"]),
-            r["accepted"].strip().lower() == "true",
-        ))
-        ns[r["instance"]] = int(r["n"])
-        exits[key] = r["solver_exit"]
-        feas[key] = (float(r["lambda_min_X"]), float(r["diag_err_inf"]))
+          key = (r["instance"], r["solver"])
+          curves[key].append((
+              int(r["evds"]),
+              float(r["err_raw_fro"]),
+              float(r["grad_2"]),
+              r["accepted"].strip().lower() == "true",
+          ))
+          ns[r["instance"]] = int(r["n"])
+          exits[key] = r["solver_exit"]
+          feas[key] = (float(r["lambda_min_X"]), float(r["diag_err_inf"]))
 for k in curves:
     curves[k].sort()
 
 instances = sorted({i for i, _ in curves})
+SOLVERS = [s for s in SOLVER_ORDER if any((i, s) in curves for i in instances)]
 
 L = []
 
@@ -353,11 +360,14 @@ if cells:
          f"**{len(bo)}** distinct orderings (Sec. 7: {len(by_order)}); "
          f"cells whose ordering changed: {sum(fo[c] != cell_orders[c] for c in cells)}.")
     emit("")
-    emit("| ordering (cheapest first) | cells | example |")
-    emit("|---|---:|---|")
+    ranks = sorted({c[0] for c in cells}, key=int)
+    emit("| ordering (cheapest first) | cells | "
+         + " | ".join(f"r={r}" for r in ranks) + " | example |")
+    emit("|---|---:|" + "---:|" * len(ranks) + "---|")
     for o, cs in sorted(bo.items(), key=lambda kv: -len(kv[1])):
         ex = cs[0]
-        emit(f"| {' < '.join(o)} | {len(cs)} | r={ex[0]} m={ex[1]} d={ex[2]} |")
+        per = " | ".join(str(sum(c[0] == r for c in cs)) for r in ranks)
+        emit(f"| {' < '.join(o)} | {len(cs)} | {per} | r={ex[0]} m={ex[1]} d={ex[2]} |")
     emit("")
     cell_orders = fo  # Sec. 11 'observed ordering' = corrected-rule ordering
 
@@ -536,7 +546,7 @@ else:
     emit("")
     TG11 = 1e-8
     SHORT = {"Newton-SIN-BH": "N", "AGD-SDAJ-BH": "Abh", "AGD-SDAJ": "A",
-             "SBB-Dual": "S", "Dykstra-APM": "D"}
+             "SBB-Dual": "S", "Dykstra-APM": "D", "Anderson-APM": "AA"}
     cell_idx = defaultdict(list)
     for i in instances:
         mo = parsed[i]
