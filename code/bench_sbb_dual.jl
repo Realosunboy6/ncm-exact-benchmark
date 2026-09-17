@@ -1055,6 +1055,9 @@ function dykstra_apm(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
             cert=g, cert2=norm(g), certinf=maximum(abs.(g)))
 end
 
+# Anderson-accelerated alternating projections (Higham and Strabic, 2016).
+include(joinpath(@__DIR__, "anderson_apm.jl"))
+
 # ---------------------------------------------------------------- metrics
 
 section_seconds(to, key) = haskey(to.inner_timers, key) ?
@@ -1190,6 +1193,9 @@ Solvers:
                       comparator; the naive-Armijo variant stalls on 56/270)
   AGD-SDAJ            Huynh--Hwang 2025, verified against published counts
   Dykstra-APM         alternating projections
+  Anderson-APM        alternating projections with Anderson acceleration,
+                      m = 2 (Higham--Strabic 2016, verified against their
+                      published counts; see validation/validate_anderson.jl)
 
 Every row is one EVD. Rejected line-search trials carry accepted=false: they cost
 work and receive no accuracy credit. Forward error is measured against the EXACT
@@ -1224,7 +1230,8 @@ function run_ranking_study(instances, outpath;
                                                 globalization=:armijo_naive)),
                     ("AGD-SDAJ-BH",   (t) -> agd_sdaj_ncm(G; tol=agd_tol, traj=t, max_evds=max_evds,
                                                 globalization=:armijo_bh)),
-                    ("Dykstra-APM",   (t) -> dykstra_apm(G; tol=apm_tol, maxit=apm_maxit, traj=t)))
+                    ("Dykstra-APM",   (t) -> dykstra_apm(G; tol=apm_tol, maxit=apm_maxit, traj=t)),
+                    ("Anderson-APM",  (t) -> anderson_apm(G; tol=apm_tol, maxit=apm_maxit, m=2, traj=t)))
             # --solvers runs a subset. At large n running all five variants to a
             # work cap can take a day per instance, so the choice is the user's.
             if solvers !== nothing

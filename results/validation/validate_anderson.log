@@ -1,0 +1,145 @@
+Higham & Strabic (2016) validation of anderson_apm.jl
+
+Table 1: delta = 0
+  tec03 (n=4)
+    it         published   39   tol=n*eps   39 match   tol=n*u   41   direct-LS   39
+    itAA m=1   published   15   tol=n*eps   15 match   tol=n*u   15   direct-LS   15
+    itAA m=2   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    ||A-X_AA||_F - ||A-X_AP||_F = -9.0e-16
+    itAA m=3   published    9   tol=n*eps    9 match   tol=n*u    9   direct-LS    9
+    itAA m=4   published    9   tol=n*eps    9 match   tol=n*u   10   direct-LS    9
+    itAA m=5   published    9   tol=n*eps    9 match   tol=n*u   10   direct-LS    9
+    itAA m=6   published    9   tol=n*eps   10 DIFF    tol=n*u   10   direct-LS   10
+  bhwi01 (n=5)
+    it         published   27   tol=n*eps   27 match   tol=n*u   28   direct-LS   27
+    itAA m=1   published   17   tol=n*eps   18 DIFF    tol=n*u   18   direct-LS   17
+    itAA m=2   published   14   tol=n*eps   14 match   tol=n*u   15   direct-LS   14
+    ||A-X_AA||_F - ||A-X_AP||_F = 3.4e-15
+    itAA m=3   published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+    itAA m=4   published   11   tol=n*eps   11 match   tol=n*u   11   direct-LS   11
+    itAA m=5   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    itAA m=6   published   10   tol=n*eps   10 match   tol=n*u   11   direct-LS   10
+  mmb13 (n=6)
+    it         published  801   tol=n*eps  801 match   tol=n*u  817   direct-LS  801
+    itAA m=1   published  305   tol=n*eps  291 DIFF    tol=n*u  315   direct-LS  305
+    itAA m=2   published  212   tol=n*eps  167 DIFF    tol=n*u  185   direct-LS  173
+    ||A-X_AA||_F - ||A-X_AP||_F = 0.0e+00
+    itAA m=3   published  117   tol=n*eps  113 DIFF    tol=n*u  152   direct-LS  102
+    itAA m=4   published  126   tol=n*eps   70 DIFF    tol=n*u  122   direct-LS   56
+    itAA m=5   published   40   tol=n*eps   41 DIFF    tol=n*u   43   direct-LS   40
+    itAA m=6   published   31   tol=n*eps   31 match   tol=n*u   31   direct-LS   30
+  fing97 (n=7)
+    it         published   33   tol=n*eps   34 DIFF    tol=n*u   35   direct-LS   34
+    itAA m=1   published   15   tol=n*eps   15 match   tol=n*u   16   direct-LS   15
+    itAA m=2   published   10   tol=n*eps   10 match   tol=n*u   11   direct-LS   10
+    ||A-X_AA||_F - ||A-X_AP||_F = 7.2e-15
+    itAA m=3   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    itAA m=4   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    itAA m=5   published    9   tol=n*eps    9 match   tol=n*u   12   direct-LS    9
+    itAA m=6   published    9   tol=n*eps    9 match   tol=n*u   10   direct-LS    9
+
+Table 7: delta = 1e-8
+  tec03 (n=4)
+    it         published   39   tol=n*eps   39 match   tol=n*u   42   direct-LS   39
+    itAA m=1   published   15   tol=n*eps   15 match   tol=n*u   15   direct-LS   15
+    itAA m=2   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    ||A-X_AA||_F - ||A-X_AP||_F = 1.8e-16
+    itAA m=3   published    9   tol=n*eps    9 match   tol=n*u   12   direct-LS    9
+    itAA m=4   published    9   tol=n*eps    9 match   tol=n*u   10   direct-LS    9
+    itAA m=5   published    9   tol=n*eps    9 match   tol=n*u    9   direct-LS    9
+    itAA m=6   published   10   tol=n*eps    9 DIFF    tol=n*u   10   direct-LS    9
+  bhwi01 (n=5)
+    it         published   27   tol=n*eps   28 DIFF    tol=n*u   29   direct-LS   28
+    itAA m=1   published   17   tol=n*eps   17 match   tol=n*u   18   direct-LS   17
+    itAA m=2   published   14   tol=n*eps   14 match   tol=n*u   15   direct-LS   14
+    ||A-X_AA||_F - ||A-X_AP||_F = 2.7e-15
+    itAA m=3   published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+    itAA m=4   published   11   tol=n*eps   11 match   tol=n*u   11   direct-LS   11
+    itAA m=5   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    itAA m=6   published   10   tol=n*eps   10 match   tol=n*u   11   direct-LS   10
+  mmb13 (n=6)
+    it         published  802   tol=n*eps  804 DIFF    tol=n*u  825   direct-LS  804
+    itAA m=1   published  280   tol=n*eps  303 DIFF    tol=n*u  332   direct-LS  298
+    itAA m=2   published  177   tol=n*eps  229 DIFF    tol=n*u  265   direct-LS  257
+    ||A-X_AA||_F - ||A-X_AP||_F = 0.0e+00
+    itAA m=3   published  114   tol=n*eps  157 DIFF    tol=n*u  191   direct-LS   94
+    itAA m=4   published   58   tol=n*eps   57 DIFF    tol=n*u   60   direct-LS   59
+    itAA m=5   published   39   tol=n*eps   39 match   tol=n*u   51   direct-LS   40
+    itAA m=6   published   30   tol=n*eps   30 match   tol=n*u   31   direct-LS   31
+  fing97 (n=7)
+    it         published   33   tol=n*eps   34 DIFF    tol=n*u   34   direct-LS   34
+    itAA m=1   published   15   tol=n*eps   15 match   tol=n*u   16   direct-LS   15
+    itAA m=2   published   10   tol=n*eps   10 match   tol=n*u   11   direct-LS   10
+    ||A-X_AA||_F - ||A-X_AP||_F = 8.1e-15
+    itAA m=3   published   10   tol=n*eps   10 match   tol=n*u   10   direct-LS   10
+    itAA m=4   published   10   tol=n*eps   10 match   tol=n*u   11   direct-LS   10
+    itAA m=5   published    9   tol=n*eps    9 match   tol=n*u    9   direct-LS    9
+    itAA m=6   published    9   tol=n*eps    9 match   tol=n*u   10   direct-LS    9
+
+Table 7: delta = 0.1
+  tec03 (n=4)
+    it         published   66   tol=n*eps   65 DIFF    tol=n*u   68   direct-LS   65
+    itAA m=1   published   31   tol=n*eps   30 DIFF    tol=n*u   31   direct-LS   30
+    itAA m=2   published   19   tol=n*eps   19 match   tol=n*u   20   direct-LS   19
+    ||A-X_AA||_F - ||A-X_AP||_F = 4.7e-15
+    itAA m=3   published   16   tol=n*eps   16 match   tol=n*u   16   direct-LS   16
+    itAA m=4   published   13   tol=n*eps   13 match   tol=n*u   16   direct-LS   13
+    itAA m=5   published   14   tol=n*eps   14 match   tol=n*u   14   direct-LS   14
+    itAA m=6   published   13   tol=n*eps   13 match   tol=n*u   14   direct-LS   13
+  bhwi01 (n=5)
+    it         published   34   tol=n*eps   34 match   tol=n*u   34   direct-LS   34
+    itAA m=1   published   23   tol=n*eps   23 match   tol=n*u   24   direct-LS   24
+    itAA m=2   published   15   tol=n*eps   15 match   tol=n*u   17   direct-LS   15
+    ||A-X_AA||_F - ||A-X_AP||_F = 8.9e-16
+    itAA m=3   published   14   tol=n*eps   14 match   tol=n*u   15   direct-LS   14
+    itAA m=4   published   12   tol=n*eps   12 match   tol=n*u   14   direct-LS   12
+    itAA m=5   published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+    itAA m=6   published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+  mmb13 (n=6)
+    it         published  895   tol=n*eps  891 DIFF    tol=n*u  909   direct-LS  891
+    itAA m=1   published  269   tol=n*eps  227 DIFF    tol=n*u  251   direct-LS  254
+    itAA m=2   published  216   tol=n*eps  182 DIFF    tol=n*u  246   direct-LS  256
+    ||A-X_AA||_F - ||A-X_AP||_F = 0.0e+00
+    itAA m=3   published  127   tol=n*eps  117 DIFF    tol=n*u  141   direct-LS  116
+    itAA m=4   published   59   tol=n*eps   59 match   tol=n*u   81   direct-LS   66
+    itAA m=5   published   48   tol=n*eps   46 DIFF    tol=n*u   49   direct-LS   48
+    itAA m=6   published   41   tol=n*eps   42 DIFF    tol=n*u   73   direct-LS   47
+  fing97 (n=7)
+    it         published   54   tol=n*eps   54 match   tol=n*u   54   direct-LS   54
+    itAA m=1   published   31   tol=n*eps   31 match   tol=n*u   32   direct-LS   31
+    itAA m=2   published   24   tol=n*eps   24 match   tol=n*u   25   direct-LS   24
+    ||A-X_AA||_F - ||A-X_AP||_F = 6.7e-15
+    itAA m=3   published   15   tol=n*eps   15 match   tol=n*u   15   direct-LS   15
+    itAA m=4   published   15   tol=n*eps   15 match   tol=n*u   15   direct-LS   15
+    itAA m=5   published   14   tol=n*eps   14 match   tol=n*u   14   direct-LS   14
+    itAA m=6   published   14   tol=n*eps   13 DIFF    tol=n*u   14   direct-LS   13
+
+Table 4: fixed elements, delta = 0
+  fing97 (n=7)
+    it         published   33   tol=n*eps   34 DIFF    tol=n*u   35   direct-LS   34
+    it_fe      published   34   tol=n*eps   34 match   tol=n*u   36   direct-LS   34
+    itAA_fe m=1 published   14   tol=n*eps   16 DIFF    tol=n*u   17   direct-LS   15
+    itAA_fe m=2 published   11   tol=n*eps   12 DIFF    tol=n*u   12   direct-LS   11
+    itAA_fe m=3 published   10   tol=n*eps   10 match   tol=n*u   13   direct-LS   10
+    itAA_fe m=4 published    9   tol=n*eps    9 match   tol=n*u   11   direct-LS    9
+    itAA_fe m=5 published    9   tol=n*eps    9 match   tol=n*u   13   direct-LS    9
+  Rocky (n=94)
+    it         published   18   tol=n*eps   18 match   tol=n*u   18   direct-LS   18
+    it_fe      published   40   tol=n*eps   40 match   tol=n*u   41   direct-LS   40
+    itAA_fe m=1 published   15   tol=n*eps   15 match   tol=n*u   16   direct-LS   15
+    itAA_fe m=2 published   14   tol=n*eps   14 match   tol=n*u   15   direct-LS   14
+    itAA_fe m=3 published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+    itAA_fe m=4 published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+    itAA_fe m=5 published   12   tol=n*eps   12 match   tol=n*u   12   direct-LS   12
+
+SMALL SUMMARY: 70 of 98 published counts matched at tol = n*eps; direct-LS agreed on 76 of 98
+
+anderson_apm wrapper vs nearcorr_aa on mmb13, 167 steps: ||Xout diff||_F = 0.0e+00
+
+Table 3: m = 2, large matrices
+  cor1399 (n=1399)  itAA published 124, ours 118 DIFF  (155s)
+  cor1399 (n=1399)  it   published 476, ours 476 match  (458s)
+  cor3120 (n=3120)  itAA published 174, ours 163 DIFF  (1367s)
+  cor3120 (n=3120)  it   published 559, ours 559 match  (5903s)
+
+ANDERSON VALIDATION DONE

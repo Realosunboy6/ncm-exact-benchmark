@@ -1,0 +1,542 @@
+[1/270] degen-r5-m1-d0.01-p0 (n=100)
+    Anderson-APM      89 EVDs  err=1.881e-11  exit=diag_feasible
+[2/270] degen-r5-m1-d0.01-p1 (n=100)
+    Anderson-APM      81 EVDs  err=2.486e-11  exit=diag_feasible
+[3/270] degen-r5-m1-d0.01-p2 (n=100)
+    Anderson-APM     115 EVDs  err=3.871e-11  exit=diag_feasible
+[4/270] degen-r5-m1-d0.01-p3 (n=100)
+    Anderson-APM      70 EVDs  err=3.573e-11  exit=diag_feasible
+[5/270] degen-r5-m1-d0.01-p4 (n=100)
+    Anderson-APM      89 EVDs  err=3.063e-11  exit=diag_feasible
+[6/270] degen-r5-m1-d0.0001-p0 (n=100)
+    Anderson-APM      62 EVDs  err=2.270e-11  exit=diag_feasible
+[7/270] degen-r5-m1-d0.0001-p1 (n=100)
+    Anderson-APM     121 EVDs  err=3.308e-11  exit=diag_feasible
+[8/270] degen-r5-m1-d0.0001-p2 (n=100)
+    Anderson-APM      76 EVDs  err=3.747e-11  exit=diag_feasible
+[9/270] degen-r5-m1-d0.0001-p3 (n=100)
+    Anderson-APM     147 EVDs  err=3.971e-11  exit=diag_feasible
+[10/270] degen-r5-m1-d0.0001-p4 (n=100)
+    Anderson-APM     124 EVDs  err=3.841e-11  exit=diag_feasible
+[11/270] degen-r5-m1-d1e-06-p0 (n=100)
+    Anderson-APM      50 EVDs  err=2.758e-11  exit=diag_feasible
+[12/270] degen-r5-m1-d1e-06-p1 (n=100)
+    Anderson-APM      58 EVDs  err=2.611e-11  exit=diag_feasible
+[13/270] degen-r5-m1-d1e-06-p2 (n=100)
+    Anderson-APM      76 EVDs  err=3.412e-11  exit=diag_feasible
+[14/270] degen-r5-m1-d1e-06-p3 (n=100)
+    Anderson-APM     147 EVDs  err=3.988e-11  exit=diag_feasible
+[15/270] degen-r5-m1-d1e-06-p4 (n=100)
+    Anderson-APM      55 EVDs  err=3.397e-11  exit=diag_feasible
+[16/270] degen-r5-m1-d1e-08-p0 (n=100)
+    Anderson-APM      76 EVDs  err=1.719e-11  exit=diag_feasible
+[17/270] degen-r5-m1-d1e-08-p1 (n=100)
+    Anderson-APM      57 EVDs  err=3.167e-11  exit=diag_feasible
+[18/270] degen-r5-m1-d1e-08-p2 (n=100)
+    Anderson-APM      76 EVDs  err=2.952e-11  exit=diag_feasible
+[19/270] degen-r5-m1-d1e-08-p3 (n=100)
+    Anderson-APM     147 EVDs  err=3.159e-11  exit=diag_feasible
+[20/270] degen-r5-m1-d1e-08-p4 (n=100)
+    Anderson-APM      53 EVDs  err=3.272e-11  exit=diag_feasible
+[21/270] degen-r5-m1-d1e-10-p0 (n=100)
+    Anderson-APM      69 EVDs  err=2.857e-11  exit=diag_feasible
+[22/270] degen-r5-m1-d1e-10-p1 (n=100)
+    Anderson-APM      66 EVDs  err=3.195e-11  exit=diag_feasible
+[23/270] degen-r5-m1-d1e-10-p2 (n=100)
+    Anderson-APM      77 EVDs  err=3.795e-11  exit=diag_feasible
+[24/270] degen-r5-m1-d1e-10-p3 (n=100)
+    Anderson-APM     146 EVDs  err=4.032e-11  exit=diag_feasible
+[25/270] degen-r5-m1-d1e-10-p4 (n=100)
+    Anderson-APM      48 EVDs  err=3.627e-11  exit=diag_feasible
+[26/270] degen-r5-m1-d0-p0 (n=100)
+    Anderson-APM      75 EVDs  err=1.178e-11  exit=diag_feasible
+[27/270] degen-r5-m1-d0-p1 (n=100)
+    Anderson-APM      71 EVDs  err=3.944e-11  exit=diag_feasible
+[28/270] degen-r5-m1-d0-p2 (n=100)
+    Anderson-APM      76 EVDs  err=2.837e-11  exit=diag_feasible
+[29/270] degen-r5-m1-d0-p3 (n=100)
+    Anderson-APM     147 EVDs  err=3.784e-11  exit=diag_feasible
+[30/270] degen-r5-m1-d0-p4 (n=100)
+    Anderson-APM      46 EVDs  err=3.007e-11  exit=diag_feasible
+[31/270] degen-r5-m5-d0.01-p0 (n=100)
+    Anderson-APM      90 EVDs  err=3.713e-11  exit=diag_feasible
+[32/270] degen-r5-m5-d0.01-p1 (n=100)
+    Anderson-APM      59 EVDs  err=3.771e-11  exit=diag_feasible
+[33/270] degen-r5-m5-d0.01-p2 (n=100)
+    Anderson-APM      51 EVDs  err=2.389e-11  exit=diag_feasible
+[34/270] degen-r5-m5-d0.01-p3 (n=100)
+    Anderson-APM      62 EVDs  err=3.829e-11  exit=diag_feasible
+[35/270] degen-r5-m5-d0.01-p4 (n=100)
+    Anderson-APM      44 EVDs  err=1.585e-11  exit=diag_feasible
+[36/270] degen-r5-m5-d0.0001-p0 (n=100)
+    Anderson-APM     129 EVDs  err=3.363e-11  exit=diag_feasible
+[37/270] degen-r5-m5-d0.0001-p1 (n=100)
+    Anderson-APM      58 EVDs  err=2.890e-11  exit=diag_feasible
+[38/270] degen-r5-m5-d0.0001-p2 (n=100)
+    Anderson-APM      72 EVDs  err=3.878e-11  exit=diag_feasible
+[39/270] degen-r5-m5-d0.0001-p3 (n=100)
+    Anderson-APM      77 EVDs  err=3.348e-11  exit=diag_feasible
+[40/270] degen-r5-m5-d0.0001-p4 (n=100)
+    Anderson-APM      49 EVDs  err=4.054e-11  exit=diag_feasible
+[41/270] degen-r5-m5-d1e-06-p0 (n=100)
+    Anderson-APM      94 EVDs  err=3.815e-11  exit=diag_feasible
+[42/270] degen-r5-m5-d1e-06-p1 (n=100)
+    Anderson-APM      55 EVDs  err=2.372e-11  exit=diag_feasible
+[43/270] degen-r5-m5-d1e-06-p2 (n=100)
+    Anderson-APM      57 EVDs  err=4.047e-11  exit=diag_feasible
+[44/270] degen-r5-m5-d1e-06-p3 (n=100)
+    Anderson-APM      66 EVDs  err=3.848e-11  exit=diag_feasible
+[45/270] degen-r5-m5-d1e-06-p4 (n=100)
+    Anderson-APM      54 EVDs  err=3.909e-11  exit=diag_feasible
+[46/270] degen-r5-m5-d1e-08-p0 (n=100)
+    Anderson-APM      79 EVDs  err=1.783e-11  exit=diag_feasible
+[47/270] degen-r5-m5-d1e-08-p1 (n=100)
+    Anderson-APM      56 EVDs  err=2.888e-11  exit=diag_feasible
+[48/270] degen-r5-m5-d1e-08-p2 (n=100)
+    Anderson-APM      77 EVDs  err=3.660e-11  exit=diag_feasible
+[49/270] degen-r5-m5-d1e-08-p3 (n=100)
+    Anderson-APM      65 EVDs  err=2.749e-11  exit=diag_feasible
+[50/270] degen-r5-m5-d1e-08-p4 (n=100)
+    Anderson-APM      54 EVDs  err=2.255e-11  exit=diag_feasible
+[51/270] degen-r5-m5-d1e-10-p0 (n=100)
+    Anderson-APM      93 EVDs  err=3.671e-11  exit=diag_feasible
+[52/270] degen-r5-m5-d1e-10-p1 (n=100)
+    Anderson-APM      57 EVDs  err=1.377e-11  exit=diag_feasible
+[53/270] degen-r5-m5-d1e-10-p2 (n=100)
+    Anderson-APM      89 EVDs  err=3.166e-11  exit=diag_feasible
+[54/270] degen-r5-m5-d1e-10-p3 (n=100)
+    Anderson-APM      61 EVDs  err=4.118e-11  exit=diag_feasible
+[55/270] degen-r5-m5-d1e-10-p4 (n=100)
+    Anderson-APM      66 EVDs  err=1.838e-11  exit=diag_feasible
+[56/270] degen-r5-m5-d0-p0 (n=100)
+    Anderson-APM      91 EVDs  err=2.598e-11  exit=diag_feasible
+[57/270] degen-r5-m5-d0-p1 (n=100)
+    Anderson-APM      62 EVDs  err=2.852e-11  exit=diag_feasible
+[58/270] degen-r5-m5-d0-p2 (n=100)
+    Anderson-APM      93 EVDs  err=3.662e-11  exit=diag_feasible
+[59/270] degen-r5-m5-d0-p3 (n=100)
+    Anderson-APM      61 EVDs  err=3.294e-11  exit=diag_feasible
+[60/270] degen-r5-m5-d0-p4 (n=100)
+    Anderson-APM      65 EVDs  err=3.073e-11  exit=diag_feasible
+[61/270] degen-r5-m20-d0.01-p0 (n=100)
+    Anderson-APM      62 EVDs  err=1.652e-11  exit=diag_feasible
+[62/270] degen-r5-m20-d0.01-p1 (n=100)
+    Anderson-APM     116 EVDs  err=3.004e-11  exit=diag_feasible
+[63/270] degen-r5-m20-d0.01-p2 (n=100)
+    Anderson-APM      57 EVDs  err=3.041e-11  exit=diag_feasible
+[64/270] degen-r5-m20-d0.01-p3 (n=100)
+    Anderson-APM      83 EVDs  err=3.679e-11  exit=diag_feasible
+[65/270] degen-r5-m20-d0.01-p4 (n=100)
+    Anderson-APM      76 EVDs  err=3.594e-11  exit=diag_feasible
+[66/270] degen-r5-m20-d0.0001-p0 (n=100)
+    Anderson-APM      89 EVDs  err=3.835e-11  exit=diag_feasible
+[67/270] degen-r5-m20-d0.0001-p1 (n=100)
+    Anderson-APM      64 EVDs  err=3.416e-11  exit=diag_feasible
+[68/270] degen-r5-m20-d0.0001-p2 (n=100)
+    Anderson-APM      53 EVDs  err=3.041e-11  exit=diag_feasible
+[69/270] degen-r5-m20-d0.0001-p3 (n=100)
+    Anderson-APM      85 EVDs  err=3.706e-11  exit=diag_feasible
+[70/270] degen-r5-m20-d0.0001-p4 (n=100)
+    Anderson-APM      58 EVDs  err=3.443e-11  exit=diag_feasible
+[71/270] degen-r5-m20-d1e-06-p0 (n=100)
+    Anderson-APM      95 EVDs  err=3.869e-11  exit=diag_feasible
+[72/270] degen-r5-m20-d1e-06-p1 (n=100)
+    Anderson-APM      76 EVDs  err=2.415e-11  exit=diag_feasible
+[73/270] degen-r5-m20-d1e-06-p2 (n=100)
+    Anderson-APM      60 EVDs  err=2.728e-11  exit=diag_feasible
+[74/270] degen-r5-m20-d1e-06-p3 (n=100)
+    Anderson-APM      66 EVDs  err=2.702e-11  exit=diag_feasible
+[75/270] degen-r5-m20-d1e-06-p4 (n=100)
+    Anderson-APM      93 EVDs  err=4.030e-11  exit=diag_feasible
+[76/270] degen-r5-m20-d1e-08-p0 (n=100)
+    Anderson-APM      76 EVDs  err=1.718e-11  exit=diag_feasible
+[77/270] degen-r5-m20-d1e-08-p1 (n=100)
+    Anderson-APM      64 EVDs  err=3.148e-11  exit=diag_feasible
+[78/270] degen-r5-m20-d1e-08-p2 (n=100)
+    Anderson-APM      65 EVDs  err=3.095e-11  exit=diag_feasible
+[79/270] degen-r5-m20-d1e-08-p3 (n=100)
+    Anderson-APM      61 EVDs  err=2.666e-11  exit=diag_feasible
+[80/270] degen-r5-m20-d1e-08-p4 (n=100)
+    Anderson-APM      67 EVDs  err=3.077e-11  exit=diag_feasible
+[81/270] degen-r5-m20-d1e-10-p0 (n=100)
+    Anderson-APM      76 EVDs  err=1.854e-11  exit=diag_feasible
+[82/270] degen-r5-m20-d1e-10-p1 (n=100)
+    Anderson-APM      95 EVDs  err=3.504e-11  exit=diag_feasible
+[83/270] degen-r5-m20-d1e-10-p2 (n=100)
+    Anderson-APM      69 EVDs  err=1.459e-11  exit=diag_feasible
+[84/270] degen-r5-m20-d1e-10-p3 (n=100)
+    Anderson-APM      62 EVDs  err=3.395e-11  exit=diag_feasible
+[85/270] degen-r5-m20-d1e-10-p4 (n=100)
+    Anderson-APM      75 EVDs  err=2.095e-11  exit=diag_feasible
+[86/270] degen-r5-m20-d0-p0 (n=100)
+    Anderson-APM      83 EVDs  err=2.421e-11  exit=diag_feasible
+[87/270] degen-r5-m20-d0-p1 (n=100)
+    Anderson-APM     101 EVDs  err=4.106e-11  exit=diag_feasible
+[88/270] degen-r5-m20-d0-p2 (n=100)
+    Anderson-APM      80 EVDs  err=3.997e-11  exit=diag_feasible
+[89/270] degen-r5-m20-d0-p3 (n=100)
+    Anderson-APM      64 EVDs  err=2.929e-11  exit=diag_feasible
+[90/270] degen-r5-m20-d0-p4 (n=100)
+    Anderson-APM      78 EVDs  err=3.022e-11  exit=diag_feasible
+[91/270] degen-r20-m1-d0.01-p0 (n=100)
+    Anderson-APM      36 EVDs  err=1.808e-11  exit=diag_feasible
+[92/270] degen-r20-m1-d0.01-p1 (n=100)
+    Anderson-APM      28 EVDs  err=2.184e-11  exit=diag_feasible
+[93/270] degen-r20-m1-d0.01-p2 (n=100)
+    Anderson-APM      35 EVDs  err=2.069e-11  exit=diag_feasible
+[94/270] degen-r20-m1-d0.01-p3 (n=100)
+    Anderson-APM      36 EVDs  err=1.673e-11  exit=diag_feasible
+[95/270] degen-r20-m1-d0.01-p4 (n=100)
+    Anderson-APM      37 EVDs  err=1.425e-11  exit=diag_feasible
+[96/270] degen-r20-m1-d0.0001-p0 (n=100)
+    Anderson-APM      37 EVDs  err=2.035e-11  exit=diag_feasible
+[97/270] degen-r20-m1-d0.0001-p1 (n=100)
+    Anderson-APM      32 EVDs  err=1.636e-11  exit=diag_feasible
+[98/270] degen-r20-m1-d0.0001-p2 (n=100)
+    Anderson-APM      34 EVDs  err=1.952e-11  exit=diag_feasible
+[99/270] degen-r20-m1-d0.0001-p3 (n=100)
+    Anderson-APM      36 EVDs  err=1.808e-11  exit=diag_feasible
+[100/270] degen-r20-m1-d0.0001-p4 (n=100)
+    Anderson-APM      35 EVDs  err=1.481e-11  exit=diag_feasible
+[101/270] degen-r20-m1-d1e-06-p0 (n=100)
+    Anderson-APM      37 EVDs  err=1.692e-11  exit=diag_feasible
+[102/270] degen-r20-m1-d1e-06-p1 (n=100)
+    Anderson-APM      30 EVDs  err=2.080e-11  exit=diag_feasible
+[103/270] degen-r20-m1-d1e-06-p2 (n=100)
+    Anderson-APM      33 EVDs  err=1.906e-11  exit=diag_feasible
+[104/270] degen-r20-m1-d1e-06-p3 (n=100)
+    Anderson-APM      35 EVDs  err=2.086e-11  exit=diag_feasible
+[105/270] degen-r20-m1-d1e-06-p4 (n=100)
+    Anderson-APM      34 EVDs  err=1.727e-11  exit=diag_feasible
+[106/270] degen-r20-m1-d1e-08-p0 (n=100)
+    Anderson-APM      37 EVDs  err=1.705e-11  exit=diag_feasible
+[107/270] degen-r20-m1-d1e-08-p1 (n=100)
+    Anderson-APM      30 EVDs  err=1.650e-11  exit=diag_feasible
+[108/270] degen-r20-m1-d1e-08-p2 (n=100)
+    Anderson-APM      33 EVDs  err=1.892e-11  exit=diag_feasible
+[109/270] degen-r20-m1-d1e-08-p3 (n=100)
+    Anderson-APM      35 EVDs  err=2.074e-11  exit=diag_feasible
+[110/270] degen-r20-m1-d1e-08-p4 (n=100)
+    Anderson-APM      34 EVDs  err=1.713e-11  exit=diag_feasible
+[111/270] degen-r20-m1-d1e-10-p0 (n=100)
+    Anderson-APM      37 EVDs  err=1.694e-11  exit=diag_feasible
+[112/270] degen-r20-m1-d1e-10-p1 (n=100)
+    Anderson-APM      30 EVDs  err=1.671e-11  exit=diag_feasible
+[113/270] degen-r20-m1-d1e-10-p2 (n=100)
+    Anderson-APM      33 EVDs  err=1.909e-11  exit=diag_feasible
+[114/270] degen-r20-m1-d1e-10-p3 (n=100)
+    Anderson-APM      35 EVDs  err=2.096e-11  exit=diag_feasible
+[115/270] degen-r20-m1-d1e-10-p4 (n=100)
+    Anderson-APM      34 EVDs  err=1.712e-11  exit=diag_feasible
+[116/270] degen-r20-m1-d0-p0 (n=100)
+    Anderson-APM      37 EVDs  err=1.704e-11  exit=diag_feasible
+[117/270] degen-r20-m1-d0-p1 (n=100)
+    Anderson-APM      30 EVDs  err=1.777e-11  exit=diag_feasible
+[118/270] degen-r20-m1-d0-p2 (n=100)
+    Anderson-APM      33 EVDs  err=1.914e-11  exit=diag_feasible
+[119/270] degen-r20-m1-d0-p3 (n=100)
+    Anderson-APM      35 EVDs  err=2.097e-11  exit=diag_feasible
+[120/270] degen-r20-m1-d0-p4 (n=100)
+    Anderson-APM      34 EVDs  err=1.714e-11  exit=diag_feasible
+[121/270] degen-r20-m5-d0.01-p0 (n=100)
+    Anderson-APM      34 EVDs  err=1.378e-11  exit=diag_feasible
+[122/270] degen-r20-m5-d0.01-p1 (n=100)
+    Anderson-APM      39 EVDs  err=1.413e-11  exit=diag_feasible
+[123/270] degen-r20-m5-d0.01-p2 (n=100)
+    Anderson-APM      31 EVDs  err=1.514e-11  exit=diag_feasible
+[124/270] degen-r20-m5-d0.01-p3 (n=100)
+    Anderson-APM      35 EVDs  err=1.569e-11  exit=diag_feasible
+[125/270] degen-r20-m5-d0.01-p4 (n=100)
+    Anderson-APM      35 EVDs  err=2.067e-11  exit=diag_feasible
+[126/270] degen-r20-m5-d0.0001-p0 (n=100)
+    Anderson-APM      39 EVDs  err=1.291e-11  exit=diag_feasible
+[127/270] degen-r20-m5-d0.0001-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.492e-11  exit=diag_feasible
+[128/270] degen-r20-m5-d0.0001-p2 (n=100)
+    Anderson-APM      35 EVDs  err=1.151e-11  exit=diag_feasible
+[129/270] degen-r20-m5-d0.0001-p3 (n=100)
+    Anderson-APM      33 EVDs  err=1.591e-11  exit=diag_feasible
+[130/270] degen-r20-m5-d0.0001-p4 (n=100)
+    Anderson-APM      31 EVDs  err=1.459e-11  exit=diag_feasible
+[131/270] degen-r20-m5-d1e-06-p0 (n=100)
+    Anderson-APM      40 EVDs  err=1.451e-11  exit=diag_feasible
+[132/270] degen-r20-m5-d1e-06-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.481e-11  exit=diag_feasible
+[133/270] degen-r20-m5-d1e-06-p2 (n=100)
+    Anderson-APM      36 EVDs  err=1.473e-11  exit=diag_feasible
+[134/270] degen-r20-m5-d1e-06-p3 (n=100)
+    Anderson-APM      33 EVDs  err=1.509e-11  exit=diag_feasible
+[135/270] degen-r20-m5-d1e-06-p4 (n=100)
+    Anderson-APM      31 EVDs  err=1.557e-11  exit=diag_feasible
+[136/270] degen-r20-m5-d1e-08-p0 (n=100)
+    Anderson-APM      40 EVDs  err=1.458e-11  exit=diag_feasible
+[137/270] degen-r20-m5-d1e-08-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.464e-11  exit=diag_feasible
+[138/270] degen-r20-m5-d1e-08-p2 (n=100)
+    Anderson-APM      36 EVDs  err=1.489e-11  exit=diag_feasible
+[139/270] degen-r20-m5-d1e-08-p3 (n=100)
+    Anderson-APM      33 EVDs  err=1.526e-11  exit=diag_feasible
+[140/270] degen-r20-m5-d1e-08-p4 (n=100)
+    Anderson-APM      31 EVDs  err=1.586e-11  exit=diag_feasible
+[141/270] degen-r20-m5-d1e-10-p0 (n=100)
+    Anderson-APM      40 EVDs  err=1.469e-11  exit=diag_feasible
+[142/270] degen-r20-m5-d1e-10-p1 (n=100)
+    Anderson-APM      33 EVDs  err=1.253e-11  exit=diag_feasible
+[143/270] degen-r20-m5-d1e-10-p2 (n=100)
+    Anderson-APM      36 EVDs  err=1.478e-11  exit=diag_feasible
+[144/270] degen-r20-m5-d1e-10-p3 (n=100)
+    Anderson-APM      32 EVDs  err=5.257e-12  exit=diag_feasible
+[145/270] degen-r20-m5-d1e-10-p4 (n=100)
+    Anderson-APM      33 EVDs  err=1.156e-11  exit=diag_feasible
+[146/270] degen-r20-m5-d0-p0 (n=100)
+    Anderson-APM      40 EVDs  err=1.451e-11  exit=diag_feasible
+[147/270] degen-r20-m5-d0-p1 (n=100)
+    Anderson-APM      33 EVDs  err=1.144e-11  exit=diag_feasible
+[148/270] degen-r20-m5-d0-p2 (n=100)
+    Anderson-APM      36 EVDs  err=1.475e-11  exit=diag_feasible
+[149/270] degen-r20-m5-d0-p3 (n=100)
+    Anderson-APM      32 EVDs  err=4.986e-12  exit=diag_feasible
+[150/270] degen-r20-m5-d0-p4 (n=100)
+    Anderson-APM      33 EVDs  err=1.156e-11  exit=diag_feasible
+[151/270] degen-r20-m20-d0.01-p0 (n=100)
+    Anderson-APM      35 EVDs  err=1.073e-11  exit=diag_feasible
+[152/270] degen-r20-m20-d0.01-p1 (n=100)
+    Anderson-APM      37 EVDs  err=1.344e-11  exit=diag_feasible
+[153/270] degen-r20-m20-d0.01-p2 (n=100)
+    Anderson-APM      38 EVDs  err=2.168e-11  exit=diag_feasible
+[154/270] degen-r20-m20-d0.01-p3 (n=100)
+    Anderson-APM      30 EVDs  err=6.448e-12  exit=diag_feasible
+[155/270] degen-r20-m20-d0.01-p4 (n=100)
+    Anderson-APM      35 EVDs  err=1.703e-11  exit=diag_feasible
+[156/270] degen-r20-m20-d0.0001-p0 (n=100)
+    Anderson-APM      34 EVDs  err=8.329e-12  exit=diag_feasible
+[157/270] degen-r20-m20-d0.0001-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.487e-11  exit=diag_feasible
+[158/270] degen-r20-m20-d0.0001-p2 (n=100)
+    Anderson-APM      37 EVDs  err=1.564e-11  exit=diag_feasible
+[159/270] degen-r20-m20-d0.0001-p3 (n=100)
+    Anderson-APM      32 EVDs  err=7.932e-12  exit=diag_feasible
+[160/270] degen-r20-m20-d0.0001-p4 (n=100)
+    Anderson-APM      36 EVDs  err=1.634e-11  exit=diag_feasible
+[161/270] degen-r20-m20-d1e-06-p0 (n=100)
+    Anderson-APM      39 EVDs  err=1.496e-11  exit=diag_feasible
+[162/270] degen-r20-m20-d1e-06-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.429e-11  exit=diag_feasible
+[163/270] degen-r20-m20-d1e-06-p2 (n=100)
+    Anderson-APM      41 EVDs  err=1.707e-11  exit=diag_feasible
+[164/270] degen-r20-m20-d1e-06-p3 (n=100)
+    Anderson-APM      34 EVDs  err=1.931e-11  exit=diag_feasible
+[165/270] degen-r20-m20-d1e-06-p4 (n=100)
+    Anderson-APM      37 EVDs  err=1.565e-11  exit=diag_feasible
+[166/270] degen-r20-m20-d1e-08-p0 (n=100)
+    Anderson-APM      39 EVDs  err=1.985e-11  exit=diag_feasible
+[167/270] degen-r20-m20-d1e-08-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.408e-11  exit=diag_feasible
+[168/270] degen-r20-m20-d1e-08-p2 (n=100)
+    Anderson-APM      41 EVDs  err=1.792e-11  exit=diag_feasible
+[169/270] degen-r20-m20-d1e-08-p3 (n=100)
+    Anderson-APM      34 EVDs  err=2.055e-11  exit=diag_feasible
+[170/270] degen-r20-m20-d1e-08-p4 (n=100)
+    Anderson-APM      37 EVDs  err=1.592e-11  exit=diag_feasible
+[171/270] degen-r20-m20-d1e-10-p0 (n=100)
+    Anderson-APM      34 EVDs  err=4.912e-12  exit=diag_feasible
+[172/270] degen-r20-m20-d1e-10-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.614e-11  exit=diag_feasible
+[173/270] degen-r20-m20-d1e-10-p2 (n=100)
+    Anderson-APM      41 EVDs  err=1.784e-11  exit=diag_feasible
+[174/270] degen-r20-m20-d1e-10-p3 (n=100)
+    Anderson-APM      34 EVDs  err=2.057e-11  exit=diag_feasible
+[175/270] degen-r20-m20-d1e-10-p4 (n=100)
+    Anderson-APM      34 EVDs  err=1.689e-11  exit=diag_feasible
+[176/270] degen-r20-m20-d0-p0 (n=100)
+    Anderson-APM      34 EVDs  err=4.881e-12  exit=diag_feasible
+[177/270] degen-r20-m20-d0-p1 (n=100)
+    Anderson-APM      31 EVDs  err=1.622e-11  exit=diag_feasible
+[178/270] degen-r20-m20-d0-p2 (n=100)
+    Anderson-APM      41 EVDs  err=1.774e-11  exit=diag_feasible
+[179/270] degen-r20-m20-d0-p3 (n=100)
+    Anderson-APM      34 EVDs  err=2.115e-11  exit=diag_feasible
+[180/270] degen-r20-m20-d0-p4 (n=100)
+    Anderson-APM      35 EVDs  err=1.456e-11  exit=diag_feasible
+[181/270] degen-r50-m1-d0.01-p0 (n=100)
+    Anderson-APM      18 EVDs  err=3.192e-12  exit=diag_feasible
+[182/270] degen-r50-m1-d0.01-p1 (n=100)
+    Anderson-APM      18 EVDs  err=3.863e-12  exit=diag_feasible
+[183/270] degen-r50-m1-d0.01-p2 (n=100)
+    Anderson-APM      17 EVDs  err=1.035e-11  exit=diag_feasible
+[184/270] degen-r50-m1-d0.01-p3 (n=100)
+    Anderson-APM      18 EVDs  err=3.644e-12  exit=diag_feasible
+[185/270] degen-r50-m1-d0.01-p4 (n=100)
+    Anderson-APM      17 EVDs  err=8.694e-12  exit=diag_feasible
+[186/270] degen-r50-m1-d0.0001-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.310e-11  exit=diag_feasible
+[187/270] degen-r50-m1-d0.0001-p1 (n=100)
+    Anderson-APM      17 EVDs  err=1.147e-11  exit=diag_feasible
+[188/270] degen-r50-m1-d0.0001-p2 (n=100)
+    Anderson-APM      17 EVDs  err=5.898e-12  exit=diag_feasible
+[189/270] degen-r50-m1-d0.0001-p3 (n=100)
+    Anderson-APM      17 EVDs  err=9.965e-12  exit=diag_feasible
+[190/270] degen-r50-m1-d0.0001-p4 (n=100)
+    Anderson-APM      17 EVDs  err=6.632e-12  exit=diag_feasible
+[191/270] degen-r50-m1-d1e-06-p0 (n=100)
+    Anderson-APM      17 EVDs  err=6.171e-12  exit=diag_feasible
+[192/270] degen-r50-m1-d1e-06-p1 (n=100)
+    Anderson-APM      16 EVDs  err=8.729e-12  exit=diag_feasible
+[193/270] degen-r50-m1-d1e-06-p2 (n=100)
+    Anderson-APM      16 EVDs  err=5.784e-12  exit=diag_feasible
+[194/270] degen-r50-m1-d1e-06-p3 (n=100)
+    Anderson-APM      16 EVDs  err=9.649e-12  exit=diag_feasible
+[195/270] degen-r50-m1-d1e-06-p4 (n=100)
+    Anderson-APM      16 EVDs  err=1.057e-11  exit=diag_feasible
+[196/270] degen-r50-m1-d1e-08-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.128e-11  exit=diag_feasible
+[197/270] degen-r50-m1-d1e-08-p1 (n=100)
+    Anderson-APM      17 EVDs  err=5.654e-12  exit=diag_feasible
+[198/270] degen-r50-m1-d1e-08-p2 (n=100)
+    Anderson-APM      16 EVDs  err=7.924e-12  exit=diag_feasible
+[199/270] degen-r50-m1-d1e-08-p3 (n=100)
+    Anderson-APM      17 EVDs  err=5.744e-12  exit=diag_feasible
+[200/270] degen-r50-m1-d1e-08-p4 (n=100)
+    Anderson-APM      16 EVDs  err=9.714e-12  exit=diag_feasible
+[201/270] degen-r50-m1-d1e-10-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.247e-11  exit=diag_feasible
+[202/270] degen-r50-m1-d1e-10-p1 (n=100)
+    Anderson-APM      17 EVDs  err=8.079e-12  exit=diag_feasible
+[203/270] degen-r50-m1-d1e-10-p2 (n=100)
+    Anderson-APM      16 EVDs  err=8.697e-12  exit=diag_feasible
+[204/270] degen-r50-m1-d1e-10-p3 (n=100)
+    Anderson-APM      17 EVDs  err=5.945e-12  exit=diag_feasible
+[205/270] degen-r50-m1-d1e-10-p4 (n=100)
+    Anderson-APM      16 EVDs  err=1.138e-11  exit=diag_feasible
+[206/270] degen-r50-m1-d0-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.209e-11  exit=diag_feasible
+[207/270] degen-r50-m1-d0-p1 (n=100)
+    Anderson-APM      17 EVDs  err=7.571e-12  exit=diag_feasible
+[208/270] degen-r50-m1-d0-p2 (n=100)
+    Anderson-APM      16 EVDs  err=9.022e-12  exit=diag_feasible
+[209/270] degen-r50-m1-d0-p3 (n=100)
+    Anderson-APM      17 EVDs  err=6.497e-12  exit=diag_feasible
+[210/270] degen-r50-m1-d0-p4 (n=100)
+    Anderson-APM      16 EVDs  err=1.053e-11  exit=diag_feasible
+[211/270] degen-r50-m5-d0.01-p0 (n=100)
+    Anderson-APM      17 EVDs  err=6.810e-12  exit=diag_feasible
+[212/270] degen-r50-m5-d0.01-p1 (n=100)
+    Anderson-APM      17 EVDs  err=9.458e-12  exit=diag_feasible
+[213/270] degen-r50-m5-d0.01-p2 (n=100)
+    Anderson-APM      16 EVDs  err=7.804e-12  exit=diag_feasible
+[214/270] degen-r50-m5-d0.01-p3 (n=100)
+    Anderson-APM      16 EVDs  err=8.922e-12  exit=diag_feasible
+[215/270] degen-r50-m5-d0.01-p4 (n=100)
+    Anderson-APM      16 EVDs  err=4.882e-12  exit=diag_feasible
+[216/270] degen-r50-m5-d0.0001-p0 (n=100)
+    Anderson-APM      18 EVDs  err=4.418e-12  exit=diag_feasible
+[217/270] degen-r50-m5-d0.0001-p1 (n=100)
+    Anderson-APM      18 EVDs  err=5.316e-12  exit=diag_feasible
+[218/270] degen-r50-m5-d0.0001-p2 (n=100)
+    Anderson-APM      17 EVDs  err=6.691e-12  exit=diag_feasible
+[219/270] degen-r50-m5-d0.0001-p3 (n=100)
+    Anderson-APM      17 EVDs  err=5.258e-12  exit=diag_feasible
+[220/270] degen-r50-m5-d0.0001-p4 (n=100)
+    Anderson-APM      18 EVDs  err=6.240e-12  exit=diag_feasible
+[221/270] degen-r50-m5-d1e-06-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.074e-11  exit=diag_feasible
+[222/270] degen-r50-m5-d1e-06-p1 (n=100)
+    Anderson-APM      16 EVDs  err=1.152e-11  exit=diag_feasible
+[223/270] degen-r50-m5-d1e-06-p2 (n=100)
+    Anderson-APM      17 EVDs  err=5.751e-12  exit=diag_feasible
+[224/270] degen-r50-m5-d1e-06-p3 (n=100)
+    Anderson-APM      16 EVDs  err=5.846e-12  exit=diag_feasible
+[225/270] degen-r50-m5-d1e-06-p4 (n=100)
+    Anderson-APM      17 EVDs  err=1.270e-11  exit=diag_feasible
+[226/270] degen-r50-m5-d1e-08-p0 (n=100)
+    Anderson-APM      16 EVDs  err=6.406e-12  exit=diag_feasible
+[227/270] degen-r50-m5-d1e-08-p1 (n=100)
+    Anderson-APM      16 EVDs  err=1.121e-11  exit=diag_feasible
+[228/270] degen-r50-m5-d1e-08-p2 (n=100)
+    Anderson-APM      16 EVDs  err=1.098e-11  exit=diag_feasible
+[229/270] degen-r50-m5-d1e-08-p3 (n=100)
+    Anderson-APM      16 EVDs  err=7.865e-12  exit=diag_feasible
+[230/270] degen-r50-m5-d1e-08-p4 (n=100)
+    Anderson-APM      16 EVDs  err=7.096e-12  exit=diag_feasible
+[231/270] degen-r50-m5-d1e-10-p0 (n=100)
+    Anderson-APM      16 EVDs  err=7.615e-12  exit=diag_feasible
+[232/270] degen-r50-m5-d1e-10-p1 (n=100)
+    Anderson-APM      17 EVDs  err=4.041e-12  exit=diag_feasible
+[233/270] degen-r50-m5-d1e-10-p2 (n=100)
+    Anderson-APM      16 EVDs  err=5.098e-12  exit=diag_feasible
+[234/270] degen-r50-m5-d1e-10-p3 (n=100)
+    Anderson-APM      16 EVDs  err=7.894e-12  exit=diag_feasible
+[235/270] degen-r50-m5-d1e-10-p4 (n=100)
+    Anderson-APM      17 EVDs  err=6.248e-12  exit=diag_feasible
+[236/270] degen-r50-m5-d0-p0 (n=100)
+    Anderson-APM      16 EVDs  err=6.025e-12  exit=diag_feasible
+[237/270] degen-r50-m5-d0-p1 (n=100)
+    Anderson-APM      17 EVDs  err=3.442e-12  exit=diag_feasible
+[238/270] degen-r50-m5-d0-p2 (n=100)
+    Anderson-APM      16 EVDs  err=4.812e-12  exit=diag_feasible
+[239/270] degen-r50-m5-d0-p3 (n=100)
+    Anderson-APM      16 EVDs  err=7.896e-12  exit=diag_feasible
+[240/270] degen-r50-m5-d0-p4 (n=100)
+    Anderson-APM      17 EVDs  err=5.672e-12  exit=diag_feasible
+[241/270] degen-r50-m20-d0.01-p0 (n=100)
+    Anderson-APM      18 EVDs  err=8.753e-12  exit=diag_feasible
+[242/270] degen-r50-m20-d0.01-p1 (n=100)
+    Anderson-APM      18 EVDs  err=4.032e-12  exit=diag_feasible
+[243/270] degen-r50-m20-d0.01-p2 (n=100)
+    Anderson-APM      18 EVDs  err=4.168e-12  exit=diag_feasible
+[244/270] degen-r50-m20-d0.01-p3 (n=100)
+    Anderson-APM      18 EVDs  err=3.320e-12  exit=diag_feasible
+[245/270] degen-r50-m20-d0.01-p4 (n=100)
+    Anderson-APM      18 EVDs  err=5.001e-12  exit=diag_feasible
+[246/270] degen-r50-m20-d0.0001-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.304e-11  exit=diag_feasible
+[247/270] degen-r50-m20-d0.0001-p1 (n=100)
+    Anderson-APM      18 EVDs  err=4.135e-12  exit=diag_feasible
+[248/270] degen-r50-m20-d0.0001-p2 (n=100)
+    Anderson-APM      18 EVDs  err=3.422e-12  exit=diag_feasible
+[249/270] degen-r50-m20-d0.0001-p3 (n=100)
+    Anderson-APM      18 EVDs  err=3.521e-12  exit=diag_feasible
+[250/270] degen-r50-m20-d0.0001-p4 (n=100)
+    Anderson-APM      17 EVDs  err=1.169e-11  exit=diag_feasible
+[251/270] degen-r50-m20-d1e-06-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.255e-11  exit=diag_feasible
+[252/270] degen-r50-m20-d1e-06-p1 (n=100)
+    Anderson-APM      17 EVDs  err=1.156e-11  exit=diag_feasible
+[253/270] degen-r50-m20-d1e-06-p2 (n=100)
+    Anderson-APM      17 EVDs  err=1.100e-11  exit=diag_feasible
+[254/270] degen-r50-m20-d1e-06-p3 (n=100)
+    Anderson-APM      17 EVDs  err=8.876e-12  exit=diag_feasible
+[255/270] degen-r50-m20-d1e-06-p4 (n=100)
+    Anderson-APM      18 EVDs  err=7.592e-12  exit=diag_feasible
+[256/270] degen-r50-m20-d1e-08-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.243e-11  exit=diag_feasible
+[257/270] degen-r50-m20-d1e-08-p1 (n=100)
+    Anderson-APM      17 EVDs  err=7.916e-12  exit=diag_feasible
+[258/270] degen-r50-m20-d1e-08-p2 (n=100)
+    Anderson-APM      17 EVDs  err=9.045e-12  exit=diag_feasible
+[259/270] degen-r50-m20-d1e-08-p3 (n=100)
+    Anderson-APM      17 EVDs  err=7.437e-12  exit=diag_feasible
+[260/270] degen-r50-m20-d1e-08-p4 (n=100)
+    Anderson-APM      18 EVDs  err=7.138e-12  exit=diag_feasible
+[261/270] degen-r50-m20-d1e-10-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.107e-11  exit=diag_feasible
+[262/270] degen-r50-m20-d1e-10-p1 (n=100)
+    Anderson-APM      17 EVDs  err=7.731e-12  exit=diag_feasible
+[263/270] degen-r50-m20-d1e-10-p2 (n=100)
+    Anderson-APM      17 EVDs  err=7.795e-12  exit=diag_feasible
+[264/270] degen-r50-m20-d1e-10-p3 (n=100)
+    Anderson-APM      17 EVDs  err=6.466e-12  exit=diag_feasible
+[265/270] degen-r50-m20-d1e-10-p4 (n=100)
+    Anderson-APM      18 EVDs  err=4.634e-12  exit=diag_feasible
+[266/270] degen-r50-m20-d0-p0 (n=100)
+    Anderson-APM      17 EVDs  err=1.067e-11  exit=diag_feasible
+[267/270] degen-r50-m20-d0-p1 (n=100)
+    Anderson-APM      17 EVDs  err=7.602e-12  exit=diag_feasible
+[268/270] degen-r50-m20-d0-p2 (n=100)
+    Anderson-APM      17 EVDs  err=7.082e-12  exit=diag_feasible
+[269/270] degen-r50-m20-d0-p3 (n=100)
+    Anderson-APM      17 EVDs  err=5.923e-12  exit=diag_feasible
+[270/270] degen-r50-m20-d0-p4 (n=100)
+    Anderson-APM      18 EVDs  err=4.412e-12  exit=diag_feasible
+
+wrote ranking_kkt270_anderson.csv
