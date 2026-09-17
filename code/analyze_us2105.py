@@ -9,7 +9,7 @@ import statistics as st
 import sys
 from collections import defaultdict
 
-SOLVERS = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual", "Dykstra-APM"]
+SOLVERS = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual", "Dykstra-APM", "Anderson-APM"]
 
 
 def load(paths):
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     # optional: directory holding ranking_us2105_*.csv (default: current directory)
     d = sys.argv[1] if len(sys.argv) > 1 else "."
     kkt = load([f"{d}/ranking_us2105_kkt.csv", f"{d}/ranking_us2105_kkt_part2.csv",
-                f"{d}/ranking_us2105_dykstra.csv"])
+                f"{d}/ranking_us2105_dykstra.csv", f"{d}/ranking_us2105_anderson.csv"])
     table(kkt, lambda i: int(re.search(r"-r(\d+)-", i).group(1)), [50, 100, 200, 400], "KKT instances (exact X*)")
     pert = load([f"{d}/ranking_us2105_pert.csv"])
     table(pert, lambda i: re.search(r"-s([\d.]+)-", i).group(1), ["0.005", "0.01", "0.03", "0.1"],
