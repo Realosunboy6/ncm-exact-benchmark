@@ -73,9 +73,13 @@ compared accepted-only with all-trial accounting.
 \subsection{Cost of the semismooth Newton method across conventions}\label{sec:winner}
 The 11 conventions produce three distinct orderings, and Newton-SIN-BH is
 cheapest in all three: it leads under every accuracy target, under both error
-measures, under either accounting rule and at every solver's own exit. Second
-place is almost as stable: Anderson-APM holds it under 10 of the 11
-conventions, losing only at the loosest dual-residual target. The conventions
+measures, under either accounting rule and at every solver's own exit, and it
+is strictly cheapest on every one of the 270 instances at $10^{-8}$ and
+$10^{-10}$. In median, Anderson-APM is second under 10 of the 11 conventions
+and tied for second, with both AGD variants, under the loosest dual-residual
+target. Per instance its hold is much weaker: it is strictly cheapest after
+Newton-SIN-BH on 136 of the 270 instances at $10^{-8}$ and 139 at $10^{-10}$,
+or on 157 and 142 counting ties. The conventions
 change cost ratios and the order of the remaining places; they never change
 which method is cheapest. The rest of this section is about those remaining
 places, which is where the choice of test set decides the answer.

@@ -71,15 +71,17 @@ eigenvalue separation. Measuring forward error against them
 changes what a comparison reports. The semismooth Newton method with the
 Borsdorf--Higham line search is cheapest under all 11 conventions examined, at
 a cost flat in dimension: five eigendecompositions at
-$n=100$ and again at $n=2105$. Second under 10 of them is Anderson-accelerated
-alternating projections, a method absent from recent NCM comparisons. The
-ordering below is a property of the test set, changing with the accuracy target
-and above all with the solution rank: two published methods exchange places
-between $r=20$ and $r=50$ at $n=100$, and that rank rises with dimension. Two further results are practical. The dimension-scaled rule
-$\nrm{\nabla\theta}_2\le10^{-7}n$ permits 340 times less accuracy at $n=500$ than at
-$n=100$, so a larger problem can appear easier. And a known finite-precision
-failure of objective-value Armijo tests recurs in a second published method,
-where a safeguard from the NCM literature removes it.
+$n=100$ and again at $n=2105$. Second at $n=100$, under every convention, is
+Anderson-accelerated alternating projections, absent from recent NCM
+comparisons. The ordering of the remaining methods is a property of the test
+set, changing with the accuracy target and above all with the solution rank:
+two published methods exchange places between $r=20$ and $r=50$ at $n=100$,
+and that rank rises with dimension. Under the dimension-scaled rule
+$\nrm{\nabla\theta}_2\le10^{-7}n$, first-order methods return about ten times
+less accuracy at $n=500$ than at $n=100$, so a larger problem can appear
+easier. A known finite-precision failure of objective-value Armijo tests
+recurs in a second published method, where a safeguard from the NCM literature
+removes it.
 \end{abstract}
 
 \paragraph{Keywords.} nearest correlation matrix; semidefinite programming;

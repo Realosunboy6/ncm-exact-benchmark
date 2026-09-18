@@ -38,13 +38,12 @@ Dykstra-APM   & 40 & 0.222 & $1.93\times10^{-5}$\\
 \input{figures/fig2-native-accuracy}
 
 At this dimension the best and worst median achieved accuracies differ by a
-factor of 383. That factor is specific to $n=100$: repeating the same run at
-$n=500$ (18 instances, threshold $5\times10^{-5}$) gives a spread of only
-13.8, with medians from $1.74\times10^{-5}$ for Newton-SIN-BH to
-$2.41\times10^{-4}$ for Dykstra-APM. The spread across solvers is therefore
-not itself a stable quantity, and we do not claim it as one. What does grow
-with $n$ is the inaccuracy the rule permits, which is the subject of the next
-paragraph. Newton
+factor of 383 over all 270 instances. Repeating the run at $n=500$ on a subset
+of 18 instances (threshold $5\times10^{-5}$) gives a spread of only 13.8, with
+medians from $1.74\times10^{-5}$ for Newton-SIN-BH to $2.41\times10^{-4}$ for
+Dykstra-APM. The spread across solvers is therefore not itself a stable
+quantity, and we do not claim it as one; the next paragraph compares the two
+dimensions on the same instances. Newton
 overshoots the tolerance because a quadratically convergent step moves far
 past the threshold. First-order methods stop close to it, and Dykstra-APM's
 stopping quantity (the diagonal error of its PSD iterate) is not the dual
@@ -63,19 +62,25 @@ error $7.8\times10^{-4}$. At $n=2000$, both dual first-order methods stopped
 after 3 to 5 iterations with forward errors between $2.7\times10^{-3}$ and
 $4.1\times10^{-3}$. Under this rule, a larger problem can appear easier
 simply because less accuracy is being asked for.
-The paired family makes the same point with the dimension controlled. Under
-this rule Newton-SIN-BH exits at a median forward error of
-$5.04\times10^{-8}$ at $n=100$ but $1.74\times10^{-5}$ at $n=500$, about 345
-times worse. The threshold itself is only five times looser, so most of that
-factor is not the rule: it is Newton's quadratic convergence overshooting the
-threshold, one step of the method squaring the error. The other variants
-degrade by far less, Dykstra-APM by 12.5 ($1.93\times10^{-5}$ to $2.41\times10^{-4}$),
-AGD-SDAJ-BH by 10.0 and SBB-Dual by 6.4. The spread of achieved accuracy
-across solvers at their own exits therefore narrows from 383-fold at $n=100$
-to 13.8-fold at $n=500$: the rule does not degrade the methods equally, and it
-conceals most of the advantage of the method that converges fastest. These
-$n=500$ medians are over 18 instances, the $n=100$ medians over 270. A reader comparing published $n=100$ and $n=500$
-results under this rule is comparing solutions of very different quality.
+The paired family makes the same point with the dimension controlled. Each of
+the 18 instances run at $n=500$ has a counterpart at $n=100$ with the same
+rank, multiplicity, separation and seed label, so the comparison can be made
+instance by instance. The threshold loosens by a factor of five between the
+two. The first-order methods degrade steadily: the paired median ratio of the
+forward error at $n=500$ to that at $n=100$ is 10.1 for AGD-SDAJ-BH, 7.3 for
+SBB-Dual and 12.6 for Dykstra-APM, and no instance falls outside 4 to 25.
+Newton-SIN-BH degrades by a paired median factor of $1.6\times10^{3}$, but
+erratically, from 0.16 to $5.3\times10^{5}$ across the 18 instances. Its exit
+lands far inside the threshold, at a median gradient norm $8\times10^{-4}$ times
+the threshold at $n=100$ but $0.20$ times it at $n=500$: quadratic convergence
+moves in large discrete steps, so the margin by which it overshoots is itself
+erratic and collapses whenever the run exits one step earlier. The first-order
+methods stop at 0.45 to 0.99 of the threshold at both dimensions and so track
+it. On these 18 instances the spread across solvers therefore narrows from
+1653-fold at $n=100$ to 13.8-fold at $n=500$: the rule does not degrade the
+methods equally, and it conceals most of the advantage of the method that
+converges fastest. A reader comparing published $n=100$ and $n=500$ results
+under this rule is comparing solutions of very different quality.
 The real-matrix runs of \cref{sec:real} were made at a matched tolerance
 only, so they give no native-rule spread on real data.
 
