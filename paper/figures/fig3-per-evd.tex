@@ -2,24 +2,26 @@
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-  width=0.8\linewidth, height=5.2cm,
+  width=0.8\linewidth, height=5.6cm,
   xbar, bar width=9pt,
-  xmin=0, xmax=7000,
+  xmin=0, xmax=2000,
   xlabel={\si{\micro\second} per \EVD\ (matched tolerance $10^{-11}$)},
-  ytick={1,...,6},
-  yticklabels={SBB-Dual,AGD-SDAJ-BH,AGD-SDAJ,Newton-SIN,Dykstra-APM,Newton-SIN-BH},
+  ytick=data,
+  % labels come from the data file, so they cannot fall out of step with the bars
+  yticklabels from table={figures/data/per_evd_cost.dat}{name},
   y dir=reverse,
   nodes near coords, nodes near coords align={horizontal},
   every node near coord/.append style={font=\footnotesize},
-  enlarge y limits=0.12,
+  enlarge y limits=0.1,
   axis x line*=bottom, axis y line*=left,
 ]
 \addplot[fill=gray!55, draw=gray!80!black] table[x=usperevd, y=idx] {figures/data/per_evd_cost.dat};
 \end{axis}
 \end{tikzpicture}
-\caption{Median wall-clock time per \EVD. The spread is a factor of 1.37 and
-works against Newton, whose \EVDs\ are accompanied by Krylov solves that the
-\EVD\ count does not record. Anderson-APM was added after these timing runs and
-is not shown; its extra work per \EVD\ is a least-squares update of $O(mn^2)$.}
+\caption{Median wall-clock time per \EVD\ at $n=100$, all seven variants timed
+in one session. The spread is a factor of 1.50 and works against Newton, whose
+\EVDs\ are accompanied by Krylov solves that the \EVD\ count does not record.
+Anderson-APM's \EVDs\ cost 1.17 times SBB-Dual's, the difference being its
+least-squares update of $O(mn^2)$ work per \EVD.}
 \label{fig:perevd}
 \end{figure}

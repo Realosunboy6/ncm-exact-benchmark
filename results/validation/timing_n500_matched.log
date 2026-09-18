@@ -1,0 +1,182 @@
+
+=== degen-r5-m1-d0.01-p0 (n=500)
+    reference ||grad||_2 = 2.27e-14 (converged)
+    SBB-Dual     upd=1074  EVDs=1075   47.632s  EVD  96.4%  ||G-X||=0.2314  ||X-X*||=9.98e-12  lmin=-8.2e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=3     EVDs=4       0.262s  EVD  76.4%  ||G-X||=0.2314  ||X-X*||=3.60e-12  lmin=-7.8e-14  diag=2.3e-13  clamp=--  converged
+    Newton-SIN   upd=3     EVDs=7       0.401s  EVD  85.9%  ||G-X||=0.2314  ||X-X*||=3.60e-12  lmin=-7.8e-14  diag=2.3e-13  clamp=--  converged
+    AGD-SDAJ-BH  upd=10    EVDs=103     5.001s  EVD  98.1%  ||G-X||=0.2314  ||X-X*||=2.91e-11  lmin=-8.8e-14  diag=1.3e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=11    EVDs=127     6.070s  EVD  93.4%  ||G-X||=0.2314  ||X-X*||=3.66e-11  lmin=-9.1e-14  diag=1.5e-12  clamp=--  diag_feasible_at_xpre
+    Dykstra-APM  upd=800   EVDs=800    43.426s  EVD  83.1%  ||G-X||=0.2313  ||X-X*||=7.20e-05  lmin=-7.6e-14  diag=3.8e-07  clamp=--  max_iter
+    Anderson-APM upd=341   EVDs=341    20.004s  EVD  80.7%  ||G-X||=0.2314  ||X-X*||=7.76e-11  lmin=-8.1e-14  diag=1.9e-12  clamp=--  diag_feasible
+
+=== degen-r5-m1-d0-p0 (n=500)
+    reference ||grad||_2 = 3.49e-14 (converged)
+    SBB-Dual     upd=1069  EVDs=1070   56.827s  EVD  97.8%  ||G-X||=0.2335  ||X-X*||=1.11e-11  lmin=-7.5e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.294s  EVD  75.9%  ||G-X||=0.2335  ||X-X*||=6.70e-13  lmin=-8.5e-14  diag=1.0e-14  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.493s  EVD  84.4%  ||G-X||=0.2335  ||X-X*||=6.70e-13  lmin=-8.5e-14  diag=1.0e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=19    EVDs=196     9.828s  EVD  96.9%  ||G-X||=0.2335  ||X-X*||=3.33e-11  lmin=-7.3e-14  diag=1.5e-12  clamp=--  diag_feasible_at_xpre
+    AGD-SDAJ     upd=20    EVDs=221    11.170s  EVD  97.0%  ||G-X||=0.2335  ||X-X*||=3.12e-11  lmin=-7.8e-14  diag=6.8e-13  clamp=--  diag_feasible_at_xpre
+    Dykstra-APM  upd=800   EVDs=800    52.621s  EVD  85.8%  ||G-X||=0.2334  ||X-X*||=6.96e-05  lmin=-7.9e-14  diag=3.7e-07  clamp=--  max_iter
+    Anderson-APM upd=91    EVDs=91      5.028s  EVD  82.5%  ||G-X||=0.2335  ||X-X*||=7.07e-11  lmin=-7.4e-14  diag=5.5e-12  clamp=--  diag_feasible
+
+=== degen-r5-m5-d0.01-p0 (n=500)
+    reference ||grad||_2 = 2.96e-14 (converged)
+    SBB-Dual     upd=1060  EVDs=1061   48.160s  EVD  97.6%  ||G-X||=0.2848  ||X-X*||=1.01e-11  lmin=-8.6e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=3     EVDs=4       0.246s  EVD  76.1%  ||G-X||=0.2848  ||X-X*||=4.28e-12  lmin=-7.9e-14  diag=2.9e-13  clamp=--  converged
+    Newton-SIN   upd=3     EVDs=7       0.388s  EVD  85.2%  ||G-X||=0.2848  ||X-X*||=4.28e-12  lmin=-7.9e-14  diag=2.9e-13  clamp=--  converged
+    AGD-SDAJ-BH  upd=11    EVDs=125     5.968s  EVD  98.7%  ||G-X||=0.2848  ||X-X*||=2.82e-11  lmin=-8.0e-14  diag=8.8e-13  clamp=--  diag_feasible
+    AGD-SDAJ     upd=112   EVDs=4018  208.604s  EVD  97.6%  ||G-X||=0.2848  ||X-X*||=1.69e-08  lmin=-9.4e-14  diag=1.4e-09  clamp=--  evd_budget
+    Dykstra-APM  upd=800   EVDs=800    44.835s  EVD  85.6%  ||G-X||=0.2848  ||X-X*||=5.46e-05  lmin=-8.1e-14  diag=2.8e-07  clamp=--  max_iter
+    Anderson-APM upd=109   EVDs=109     6.051s  EVD  82.1%  ||G-X||=0.2848  ||X-X*||=7.23e-11  lmin=-8.3e-14  diag=4.5e-12  clamp=--  diag_feasible
+
+=== degen-r5-m5-d0-p0 (n=500)
+    reference ||grad||_2 = 3.87e-14 (converged)
+    SBB-Dual     upd=970   EVDs=971    45.589s  EVD  96.4%  ||G-X||=0.2977  ||X-X*||=2.39e-11  lmin=-7.3e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=5     EVDs=6       0.410s  EVD  64.7%  ||G-X||=0.2977  ||X-X*||=7.55e-13  lmin=-7.2e-14  diag=4.3e-15  clamp=--  converged
+    Newton-SIN   upd=6     EVDs=18      0.965s  EVD  78.5%  ||G-X||=0.2977  ||X-X*||=8.91e-13  lmin=-8.4e-14  diag=1.7e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=22    EVDs=209    10.248s  EVD  98.5%  ||G-X||=0.2977  ||X-X*||=6.23e-11  lmin=-8.3e-14  diag=2.4e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=21    EVDs=285    13.931s  EVD  97.8%  ||G-X||=0.2977  ||X-X*||=2.40e-11  lmin=-9.7e-14  diag=3.5e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=800   EVDs=800    45.154s  EVD  84.6%  ||G-X||=0.2977  ||X-X*||=2.65e-05  lmin=-8.4e-14  diag=2.0e-07  clamp=--  max_iter
+    Anderson-APM upd=163   EVDs=163     9.101s  EVD  82.3%  ||G-X||=0.2977  ||X-X*||=6.88e-11  lmin=-8.1e-14  diag=2.1e-12  clamp=--  diag_feasible
+
+=== degen-r5-m20-d0.01-p0 (n=500)
+    reference ||grad||_2 = 6.85e-14 (converged)
+    SBB-Dual     upd=1032  EVDs=1033   47.197s  EVD  97.3%  ||G-X||=0.4189  ||X-X*||=1.01e-11  lmin=-8.0e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=5     EVDs=6       0.331s  EVD  74.3%  ||G-X||=0.4189  ||X-X*||=6.49e-13  lmin=-8.8e-14  diag=2.1e-14  clamp=--  converged
+    Newton-SIN   upd=8     EVDs=29      1.539s  EVD  79.1%  ||G-X||=0.4189  ||X-X*||=7.22e-13  lmin=-8.7e-14  diag=1.0e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=10    EVDs=112     5.297s  EVD  98.2%  ||G-X||=0.4189  ||X-X*||=6.18e-11  lmin=-8.8e-14  diag=2.9e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=11    EVDs=119     5.578s  EVD  95.3%  ||G-X||=0.4189  ||X-X*||=6.57e-11  lmin=-7.3e-14  diag=3.3e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=800   EVDs=800    44.833s  EVD  84.9%  ||G-X||=0.4189  ||X-X*||=3.14e-05  lmin=-8.5e-14  diag=1.6e-07  clamp=--  max_iter
+    Anderson-APM upd=250   EVDs=250    13.594s  EVD  80.3%  ||G-X||=0.4189  ||X-X*||=8.54e-11  lmin=-8.5e-14  diag=3.3e-12  clamp=--  diag_feasible
+
+=== degen-r5-m20-d0-p0 (n=500)
+    reference ||grad||_2 = 9.30e-14 (converged)
+    SBB-Dual     upd=762   EVDs=763    40.804s  EVD  97.3%  ||G-X||=0.4533  ||X-X*||=3.41e-11  lmin=-7.9e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=5     EVDs=6       0.453s  EVD  58.3%  ||G-X||=0.4533  ||X-X*||=2.60e-11  lmin=-7.8e-14  diag=4.8e-12  clamp=--  converged
+    Newton-SIN   upd=8     EVDs=31      1.887s  EVD  79.0%  ||G-X||=0.4533  ||X-X*||=1.81e-11  lmin=-7.2e-14  diag=3.3e-12  clamp=--  converged
+    AGD-SDAJ-BH  upd=18    EVDs=161     7.828s  EVD  98.8%  ||G-X||=0.4533  ||X-X*||=2.06e-11  lmin=-7.1e-14  diag=1.8e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=16    EVDs=181     9.025s  EVD  97.0%  ||G-X||=0.4533  ||X-X*||=2.59e-11  lmin=-6.4e-14  diag=2.3e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=800   EVDs=800    50.549s  EVD  87.0%  ||G-X||=0.4533  ||X-X*||=1.96e-06  lmin=-8.7e-14  diag=1.8e-08  clamp=--  max_iter
+    Anderson-APM upd=195   EVDs=195    11.136s  EVD  83.1%  ||G-X||=0.4533  ||X-X*||=7.77e-11  lmin=-9.0e-14  diag=3.7e-12  clamp=--  diag_feasible
+
+=== degen-r20-m1-d0.01-p0 (n=500)
+    reference ||grad||_2 = 4.43e-14 (converged)
+    SBB-Dual     upd=277   EVDs=278    12.700s  EVD  97.4%  ||G-X||=0.4459  ||X-X*||=1.02e-11  lmin=-3.0e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=3     EVDs=4       0.235s  EVD  82.8%  ||G-X||=0.4459  ||X-X*||=7.72e-12  lmin=-2.8e-14  diag=1.8e-12  clamp=--  converged
+    Newton-SIN   upd=3     EVDs=7       0.393s  EVD  89.5%  ||G-X||=0.4459  ||X-X*||=7.72e-12  lmin=-2.8e-14  diag=1.8e-12  clamp=--  converged
+    AGD-SDAJ-BH  upd=10    EVDs=88      4.116s  EVD  94.4%  ||G-X||=0.4459  ||X-X*||=2.00e-11  lmin=-2.6e-14  diag=1.4e-12  clamp=--  diag_feasible_at_xpre
+    AGD-SDAJ     upd=10    EVDs=88      4.283s  EVD  98.9%  ||G-X||=0.4459  ||X-X*||=2.00e-11  lmin=-2.6e-14  diag=1.4e-12  clamp=--  diag_feasible_at_xpre
+    Dykstra-APM  upd=563   EVDs=563    31.136s  EVD  86.9%  ||G-X||=0.4459  ||X-X*||=4.88e-11  lmin=-2.5e-14  diag=5.4e-13  clamp=--  diag_feasible
+    Anderson-APM upd=115   EVDs=115     6.622s  EVD  83.0%  ||G-X||=0.4459  ||X-X*||=3.85e-11  lmin=-2.7e-14  diag=2.7e-12  clamp=--  diag_feasible
+
+=== degen-r20-m1-d0-p0 (n=500)
+    reference ||grad||_2 = 5.97e-14 (converged)
+    SBB-Dual     upd=273   EVDs=274    12.846s  EVD  97.1%  ||G-X||=0.4477  ||X-X*||=1.09e-11  lmin=-2.7e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.301s  EVD  74.5%  ||G-X||=0.4477  ||X-X*||=9.43e-13  lmin=-2.8e-14  diag=1.6e-14  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.505s  EVD  86.3%  ||G-X||=0.4477  ||X-X*||=9.43e-13  lmin=-2.8e-14  diag=1.6e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=11    EVDs=114     5.364s  EVD  96.3%  ||G-X||=0.4477  ||X-X*||=2.39e-11  lmin=-2.4e-14  diag=1.6e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=11    EVDs=145     6.910s  EVD  96.7%  ||G-X||=0.4477  ||X-X*||=1.11e-11  lmin=-2.7e-14  diag=5.7e-13  clamp=--  diag_feasible
+    Dykstra-APM  upd=554   EVDs=554    31.649s  EVD  84.4%  ||G-X||=0.4477  ||X-X*||=4.80e-11  lmin=-2.8e-14  diag=5.5e-13  clamp=--  diag_feasible
+    Anderson-APM upd=99    EVDs=99      5.618s  EVD  83.1%  ||G-X||=0.4477  ||X-X*||=3.92e-11  lmin=-2.6e-14  diag=2.2e-12  clamp=--  diag_feasible
+
+=== degen-r20-m5-d0.01-p0 (n=500)
+    reference ||grad||_2 = 5.88e-14 (converged)
+    SBB-Dual     upd=276   EVDs=277    12.441s  EVD  95.8%  ||G-X||=0.4715  ||X-X*||=1.01e-11  lmin=-2.8e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.317s  EVD  72.7%  ||G-X||=0.4715  ||X-X*||=8.19e-13  lmin=-2.6e-14  diag=9.1e-15  clamp=--  converged
+    Newton-SIN   upd=6     EVDs=30      1.515s  EVD  89.1%  ||G-X||=0.4715  ||X-X*||=1.58e-12  lmin=-2.4e-14  diag=2.3e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=13    EVDs=118     5.803s  EVD  98.9%  ||G-X||=0.4715  ||X-X*||=1.76e-11  lmin=-2.7e-14  diag=2.5e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=11    EVDs=117     5.686s  EVD  95.8%  ||G-X||=0.4715  ||X-X*||=1.73e-11  lmin=-3.0e-14  diag=1.7e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=561   EVDs=561    31.697s  EVD  85.6%  ||G-X||=0.4715  ||X-X*||=4.83e-11  lmin=-2.6e-14  diag=5.4e-13  clamp=--  diag_feasible
+    Anderson-APM upd=50    EVDs=50      2.762s  EVD  82.6%  ||G-X||=0.4715  ||X-X*||=3.43e-11  lmin=-2.8e-14  diag=2.7e-12  clamp=--  diag_feasible
+
+=== degen-r20-m5-d0-p0 (n=500)
+    reference ||grad||_2 = 8.16e-14 (converged)
+    SBB-Dual     upd=262   EVDs=263    12.327s  EVD  98.3%  ||G-X||=0.4795  ||X-X*||=1.35e-11  lmin=-2.5e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.313s  EVD  70.1%  ||G-X||=0.4795  ||X-X*||=8.07e-13  lmin=-2.7e-14  diag=3.8e-14  clamp=--  converged
+    Newton-SIN   upd=7     EVDs=20      1.459s  EVD  78.8%  ||G-X||=0.4795  ||X-X*||=1.01e-12  lmin=-2.7e-14  diag=1.1e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=13    EVDs=118     5.746s  EVD  96.3%  ||G-X||=0.4795  ||X-X*||=1.87e-11  lmin=-2.6e-14  diag=2.0e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=12    EVDs=125     6.109s  EVD  98.7%  ||G-X||=0.4795  ||X-X*||=2.70e-11  lmin=-2.5e-14  diag=2.2e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=533   EVDs=533    30.283s  EVD  87.7%  ||G-X||=0.4795  ||X-X*||=4.85e-11  lmin=-2.3e-14  diag=5.9e-13  clamp=--  diag_feasible
+    Anderson-APM upd=95    EVDs=95      5.212s  EVD  82.2%  ||G-X||=0.4795  ||X-X*||=4.51e-11  lmin=-2.9e-14  diag=1.1e-12  clamp=--  diag_feasible
+
+=== degen-r20-m20-d0.01-p0 (n=500)
+    reference ||grad||_2 = 4.60e-14 (converged)
+    SBB-Dual     upd=272   EVDs=273    12.665s  EVD  96.8%  ||G-X||=0.5539  ||X-X*||=9.74e-12  lmin=-3.1e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.308s  EVD  72.3%  ||G-X||=0.5539  ||X-X*||=2.02e-12  lmin=-3.0e-14  diag=1.8e-14  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.458s  EVD  86.2%  ||G-X||=0.5539  ||X-X*||=2.02e-12  lmin=-3.0e-14  diag=1.8e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=12    EVDs=104     5.099s  EVD  92.8%  ||G-X||=0.5539  ||X-X*||=2.15e-11  lmin=-2.6e-14  diag=1.1e-12  clamp=--  diag_feasible_at_xpre
+    AGD-SDAJ     upd=10    EVDs=110     5.331s  EVD  96.0%  ||G-X||=0.5539  ||X-X*||=1.99e-11  lmin=-2.6e-14  diag=1.2e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=552   EVDs=552    30.872s  EVD  86.3%  ||G-X||=0.5539  ||X-X*||=4.90e-11  lmin=-2.9e-14  diag=5.4e-13  clamp=--  diag_feasible
+    Anderson-APM upd=84    EVDs=84      4.683s  EVD  83.0%  ||G-X||=0.5539  ||X-X*||=4.17e-11  lmin=-2.7e-14  diag=2.2e-12  clamp=--  diag_feasible
+
+=== degen-r20-m20-d0-p0 (n=500)
+    reference ||grad||_2 = 9.67e-14 (converged)
+    SBB-Dual     upd=220   EVDs=221    10.870s  EVD  98.3%  ||G-X||=0.5793  ||X-X*||=1.96e-11  lmin=-1.9e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=5     EVDs=6       0.475s  EVD  63.1%  ||G-X||=0.5793  ||X-X*||=1.43e-12  lmin=-2.7e-14  diag=4.6e-14  clamp=--  converged
+    Newton-SIN   upd=5     EVDs=11      0.683s  EVD  71.9%  ||G-X||=0.5793  ||X-X*||=1.43e-12  lmin=-2.7e-14  diag=4.6e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=10    EVDs=68      3.313s  EVD  94.5%  ||G-X||=0.5793  ||X-X*||=1.64e-11  lmin=-1.9e-14  diag=1.8e-12  clamp=--  diag_feasible_at_xpre
+    AGD-SDAJ     upd=9     EVDs=63      3.254s  EVD  97.7%  ||G-X||=0.5793  ||X-X*||=3.16e-11  lmin=-1.7e-14  diag=3.2e-12  clamp=--  diag_feasible_at_xpre
+    Dykstra-APM  upd=450   EVDs=450    26.859s  EVD  85.8%  ||G-X||=0.5793  ||X-X*||=4.34e-11  lmin=-1.9e-14  diag=6.7e-13  clamp=--  diag_feasible
+    Anderson-APM upd=88    EVDs=88      5.068s  EVD  82.4%  ||G-X||=0.5793  ||X-X*||=3.42e-11  lmin=-2.3e-14  diag=2.0e-12  clamp=--  diag_feasible
+
+=== degen-r50-m1-d0.01-p0 (n=500)
+    reference ||grad||_2 = 9.56e-14 (converged)
+    SBB-Dual     upd=108   EVDs=109     4.891s  EVD  98.7%  ||G-X||=0.6752  ||X-X*||=9.72e-12  lmin=-1.1e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.305s  EVD  72.5%  ||G-X||=0.6752  ||X-X*||=2.61e-12  lmin=-1.0e-14  diag=2.6e-14  clamp=--  converged
+    Newton-SIN   upd=8     EVDs=31      1.691s  EVD  75.5%  ||G-X||=0.6752  ||X-X*||=2.47e-12  lmin=-1.1e-14  diag=1.5e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=8     EVDs=59      2.947s  EVD  98.6%  ||G-X||=0.6752  ||X-X*||=1.33e-11  lmin=-9.7e-15  diag=3.9e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=125   EVDs=4018  182.573s  EVD  97.0%  ||G-X||=0.6752  ||X-X*||=3.74e-09  lmin=-1.0e-14  diag=2.9e-10  clamp=--  evd_budget
+    Dykstra-APM  upd=227   EVDs=227    12.782s  EVD  83.5%  ||G-X||=0.6752  ||X-X*||=3.09e-11  lmin=-1.2e-14  diag=5.4e-13  clamp=--  diag_feasible
+    Anderson-APM upd=53    EVDs=53      2.944s  EVD  81.4%  ||G-X||=0.6752  ||X-X*||=2.05e-11  lmin=-1.0e-14  diag=3.3e-12  clamp=--  diag_feasible
+
+=== degen-r50-m1-d0-p0 (n=500)
+    reference ||grad||_2 = 6.56e-14 (converged)
+    SBB-Dual     upd=107   EVDs=108     5.377s  EVD  95.3%  ||G-X||=0.6764  ||X-X*||=8.99e-12  lmin=-1.0e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.305s  EVD  76.0%  ||G-X||=0.6764  ||X-X*||=2.68e-12  lmin=-1.1e-14  diag=2.7e-14  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.447s  EVD  84.0%  ||G-X||=0.6764  ||X-X*||=2.68e-12  lmin=-1.1e-14  diag=2.7e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=10    EVDs=97      4.555s  EVD  98.9%  ||G-X||=0.6764  ||X-X*||=1.38e-11  lmin=-1.0e-14  diag=3.7e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=10    EVDs=115     5.291s  EVD  98.9%  ||G-X||=0.6764  ||X-X*||=1.78e-11  lmin=-1.1e-14  diag=2.8e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=224   EVDs=224    13.118s  EVD  86.2%  ||G-X||=0.6764  ||X-X*||=3.09e-11  lmin=-1.0e-14  diag=5.6e-13  clamp=--  diag_feasible
+    Anderson-APM upd=42    EVDs=42      2.183s  EVD  81.7%  ||G-X||=0.6764  ||X-X*||=2.19e-11  lmin=-9.9e-15  diag=6.6e-12  clamp=--  diag_feasible
+
+=== degen-r50-m5-d0.01-p0 (n=500)
+    reference ||grad||_2 = 7.60e-14 (converged)
+    SBB-Dual     upd=108   EVDs=109     4.793s  EVD  98.3%  ||G-X||=0.6906  ||X-X*||=9.11e-12  lmin=-1.0e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.302s  EVD  66.9%  ||G-X||=0.6906  ||X-X*||=1.92e-12  lmin=-1.1e-14  diag=1.5e-14  clamp=--  converged
+    Newton-SIN   upd=8     EVDs=35      1.890s  EVD  82.9%  ||G-X||=0.6906  ||X-X*||=1.97e-12  lmin=-9.5e-15  diag=1.6e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=9     EVDs=84      3.847s  EVD  98.6%  ||G-X||=0.6906  ||X-X*||=2.65e-11  lmin=-1.1e-14  diag=2.3e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=10    EVDs=101     4.743s  EVD  98.8%  ||G-X||=0.6906  ||X-X*||=2.31e-11  lmin=-1.1e-14  diag=7.4e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=227   EVDs=227    12.434s  EVD  85.2%  ||G-X||=0.6906  ||X-X*||=2.89e-11  lmin=-1.0e-14  diag=5.1e-13  clamp=--  diag_feasible
+    Anderson-APM upd=35    EVDs=35      1.934s  EVD  81.9%  ||G-X||=0.6906  ||X-X*||=2.36e-11  lmin=-1.1e-14  diag=1.8e-12  clamp=--  diag_feasible
+
+=== degen-r50-m5-d0-p0 (n=500)
+    reference ||grad||_2 = 9.76e-14 (converged)
+    SBB-Dual     upd=103   EVDs=104     4.951s  EVD  97.8%  ||G-X||=0.6960  ||X-X*||=1.03e-11  lmin=-9.8e-15  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.310s  EVD  70.0%  ||G-X||=0.6960  ||X-X*||=2.93e-12  lmin=-1.2e-14  diag=4.2e-14  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.493s  EVD  82.6%  ||G-X||=0.6960  ||X-X*||=2.93e-12  lmin=-1.2e-14  diag=4.2e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=11    EVDs=90      4.225s  EVD  98.7%  ||G-X||=0.6960  ||X-X*||=1.67e-11  lmin=-1.3e-14  diag=2.3e-12  clamp=--  diag_feasible_at_xpre
+    AGD-SDAJ     upd=10    EVDs=107     5.069s  EVD  98.9%  ||G-X||=0.6960  ||X-X*||=1.43e-11  lmin=-9.2e-15  diag=2.7e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=217   EVDs=217    12.715s  EVD  84.8%  ||G-X||=0.6960  ||X-X*||=2.87e-11  lmin=-9.6e-15  diag=5.5e-13  clamp=--  diag_feasible
+    Anderson-APM upd=42    EVDs=42      2.263s  EVD  82.6%  ||G-X||=0.6960  ||X-X*||=1.16e-11  lmin=-1.1e-14  diag=2.6e-12  clamp=--  diag_feasible
+
+=== degen-r50-m20-d0.01-p0 (n=500)
+    reference ||grad||_2 = 9.13e-14 (converged)
+    SBB-Dual     upd=107   EVDs=108     4.809s  EVD  98.2%  ||G-X||=0.7417  ||X-X*||=8.85e-12  lmin=-1.1e-14  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.329s  EVD  72.1%  ||G-X||=0.7417  ||X-X*||=2.25e-12  lmin=-9.0e-15  diag=3.6e-14  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.491s  EVD  82.4%  ||G-X||=0.7417  ||X-X*||=2.25e-12  lmin=-9.0e-15  diag=3.6e-14  clamp=--  converged
+    AGD-SDAJ-BH  upd=8     EVDs=64      3.003s  EVD  98.9%  ||G-X||=0.7417  ||X-X*||=7.89e-12  lmin=-9.9e-15  diag=1.2e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=8     EVDs=65      3.009s  EVD  98.9%  ||G-X||=0.7417  ||X-X*||=8.43e-12  lmin=-1.1e-14  diag=1.3e-12  clamp=--  diag_feasible
+    Dykstra-APM  upd=224   EVDs=224    12.383s  EVD  84.5%  ||G-X||=0.7417  ||X-X*||=3.15e-11  lmin=-1.1e-14  diag=5.5e-13  clamp=--  diag_feasible
+    Anderson-APM upd=43    EVDs=43      2.299s  EVD  82.7%  ||G-X||=0.7417  ||X-X*||=1.41e-11  lmin=-1.1e-14  diag=1.7e-12  clamp=--  diag_feasible
+
+=== degen-r50-m20-d0-p0 (n=500)
+    reference ||grad||_2 = 6.62e-14 (converged)
+    SBB-Dual     upd=91    EVDs=92      4.396s  EVD  98.9%  ||G-X||=0.7603  ||X-X*||=1.16e-11  lmin=-8.6e-15  diag=0.0e+00  clamp=100.0%  diag_feasible
+    Newton-SIN-BH upd=4     EVDs=5       0.326s  EVD  68.6%  ||G-X||=0.7603  ||X-X*||=3.01e-12  lmin=-9.6e-15  diag=1.3e-13  clamp=--  converged
+    Newton-SIN   upd=4     EVDs=9       0.478s  EVD  81.1%  ||G-X||=0.7603  ||X-X*||=3.01e-12  lmin=-9.6e-15  diag=1.3e-13  clamp=--  converged
+    AGD-SDAJ-BH  upd=12    EVDs=108     5.113s  EVD  98.9%  ||G-X||=0.7603  ||X-X*||=2.61e-11  lmin=-9.9e-15  diag=2.1e-12  clamp=--  diag_feasible
+    AGD-SDAJ     upd=12    EVDs=117     5.316s  EVD  95.4%  ||G-X||=0.7603  ||X-X*||=2.46e-11  lmin=-1.1e-14  diag=5.5e-12  clamp=--  diag_feasible_at_xpre
+    Dykstra-APM  upd=193   EVDs=193    11.495s  EVD  86.4%  ||G-X||=0.7603  ||X-X*||=2.64e-11  lmin=-8.8e-15  diag=6.1e-13  clamp=--  diag_feasible
+    Anderson-APM upd=46    EVDs=46      2.427s  EVD  81.9%  ||G-X||=0.7603  ||X-X*||=2.15e-11  lmin=-9.7e-15  diag=2.0e-12  clamp=--  diag_feasible
+
+wrote timing_n500_matched_v2.csv

@@ -2,14 +2,15 @@
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-  width=0.8\linewidth, height=5.4cm,
+  width=0.8\linewidth, height=5.8cm,
   xbar, bar width=9pt,
   xmode=log, xmin=1e-8, xmax=1e-4, log origin=infty,
   xlabel={median $\fro{X-\Xs}$ at the method-specific exit at threshold $10^{-7}n$},
-  ytick={1,...,6},
-  yticklabels={Newton-SIN-BH,Newton-SIN,AGD-SDAJ-BH,AGD-SDAJ,SBB-Dual,Dykstra-APM},
+  ytick=data,
+  % labels come from the data file, so they cannot fall out of step with the bars
+  yticklabels from table={figures/data/native_accuracy.dat}{name},
   y dir=reverse,
-  enlarge y limits=0.12,
+  enlarge y limits=0.1,
   axis x line*=bottom, axis y line*=left,
   grid=major, grid style={gray!20},
 ]
@@ -20,7 +21,6 @@
 dimension-scaled rule (tolerance $10^{-5}$ at $n=100$). Median forward
 errors range from $5.04\times10^{-8}$ (Newton variants) to
 $1.93\times10^{-5}$ (Dykstra-APM), a factor of 383. Costs measured at these
-exits are therefore costs at different accuracies. Anderson-APM was added after
-these timing runs and is not shown.}
+exits are therefore costs at different accuracies.}
 \label{fig:native}
 \end{figure}

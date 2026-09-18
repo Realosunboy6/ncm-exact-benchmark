@@ -1,0 +1,9 @@
+2026-09-18 09:10:42 n=100 native start
+2026-09-18 09:18:31 n=100 native exit 0
+2026-09-18 09:18:31 n=100 matched start
+2026-09-18 09:40:01 n=100 matched exit 0
+2026-09-18 09:40:01 n=500 matched start
+2026-09-18 10:36:13 n=500 matched exit 0
+2026-09-18 10:36:13 n=500 native start
+2026-09-18 10:53:04 n=500 native exit 0
+2026-09-18 10:53:04 TIMING RERUN DONE

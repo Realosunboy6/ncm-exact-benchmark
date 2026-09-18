@@ -10,8 +10,8 @@ are compared. The comparison then credits a method for stopping early as much
 as for converging quickly. This happens even when all methods share one
 nominal rule. Under the dimension-scaled rule $\nrm{\nabla\theta}_2\le10^{-7}n$
 used by~\cite{huynh2025accelerated}, which at $n=100$ is $10^{-5}$, the six
-timed variants (the five solvers of the original comparison and the
-Newton-SIN control of \cref{sec:ranking}) stop at median forward errors between
+solvers of \cref{sec:ranking} and the Newton-SIN control stop at median
+forward errors between
 $5.04\times10^{-8}$ and $1.93\times10^{-5}$, a factor of 383
 (\cref{sec:stopping}, \cref{fig:native}). A cost comparison taken at these
 exits compares different accuracies.
@@ -69,18 +69,21 @@ row.}
 \toprule
 solver & \EVDs & CG iterations & line-search trials & accepted outer its\\
 \midrule
-Newton-SIN-BH & 5   & 24 & 0  & 4\\
-Newton-SIN    & 11  & 30 & 0  & 5\\
-AGD-SDAJ-BH   & 70  & 0  & 14 & 9\\
-AGD-SDAJ      & 82  & 0  & 25 & 10\\
-SBB-Dual      & 46  & 0  & 0  & 46\\
-Dykstra-APM   & 102 & 0  & 0  & 102\\
+Newton-SIN-BH & 5     & 24   & 0  & 4\\
+Newton-SIN    & 11    & 29.5 & 0  & 5\\
+AGD-SDAJ-BH   & 70    & 0    & 14 & 9\\
+AGD-SDAJ      & 81.5  & 0    & 25 & 10\\
+SBB-Dual      & 46.5  & 0    & 0  & 45.5\\
+Dykstra-APM   & 102.5 & 0    & 0  & 102.5\\
+Anderson-APM  & 34    & 0    & 0  & 34\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Four accepted Newton iterations use 5 \EVDs\ and 24 Krylov iterations. Forty-six
-SBB-Dual iterations use 46 \EVDs\ and nothing else. Nine AGD-SDAJ-BH outer
+Four accepted Newton iterations use 5 \EVDs\ and 24 Krylov iterations. SBB-Dual,
+Dykstra-APM and Anderson-APM use one \EVD\ per iteration and no further
+primitive, although Anderson-APM's least-squares update carries $O(mn^2)$ work
+that the \EVD\ count does not record. Nine AGD-SDAJ-BH outer
 iterations use 70 \EVDs, because each outer iteration contains $q=2$
 quasi-Newton inner steps, each with its own line search. A table of
 `iterations to convergence' across these rows would compare four
@@ -97,6 +100,19 @@ uninstrumented work shows up as `other' time instead of inflating the
 \EVD\ share. Timings were measured on all 270 instances at both the native
 ($10^{-7}n$) and the matched ($10^{-11}$) tolerance. The trajectory runs are
 a separate, untimed pass.
+
+All seven variants were timed back to back in a single session, because
+timings from different sessions are not comparable: an earlier session on the
+same machine, with identical \EVD\ counts on every run, measured the dual
+methods, whose code had not changed, between 3.7 and 4.2 times slower per
+\EVD\ at $n=100$. Each
+method is timed in an implementation that does not add work of its own. The
+projection methods rebuild the projection from the positive eigenpairs, as the
+dual methods do, rather than from all $n$, which removes an $O(n^3)$ product
+per \EVD\ and gives bit-identical iterates on all 1104 runs checked; and
+Anderson-APM is timed in a form that updates its buffers in place, with
+iterates bit-identical to the transcription verified in \cref{app:anderson}.
+Timed as transcribed, it would have cost $2.3$ to $3.8$ times more per \EVD.
 All timings were measured on one machine: Intel Core 7 150U (10 physical
 cores, 12 logical), 32\,GB RAM, Windows 11 (build 26200), Julia 1.12.6 with
 OpenBLAS (ILP64) through libblastrampoline. The timing runs pin
@@ -119,39 +135,47 @@ single-threaded BLAS.}
 \toprule
 solver & \si{\micro\second}/\EVD & relative to cheapest\\
 \midrule
-SBB-Dual      & 4584 & 1.00\\
-AGD-SDAJ-BH   & 4689 & 1.02\\
-AGD-SDAJ      & 4730 & 1.03\\
-Newton-SIN    & 5262 & 1.15\\
-Dykstra-APM   & 5440 & 1.19\\
-Newton-SIN-BH & 6262 & 1.37\\
+SBB-Dual      & 1133 & 1.00\\
+AGD-SDAJ-BH   & 1181 & 1.04\\
+AGD-SDAJ      & 1188 & 1.05\\
+Dykstra-APM   & 1278 & 1.13\\
+Anderson-APM  & 1323 & 1.17\\
+Newton-SIN    & 1341 & 1.18\\
+Newton-SIN-BH & 1695 & 1.50\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \input{figures/fig3-per-evd}
 
-The spread is a factor of 1.37, and the bias works \emph{against} Newton. Each
-Newton outer iteration includes a Krylov solve that no \EVD\ count records, so
-counting \EVDs\ understates Newton's cost. Newton-SIN-BH is cheaper than
-SBB-Dual by a factor of 9.2 in \EVDs\ (5 against 46) but by a factor of 6.3 in
-wall-clock time (0.032\,s against 0.202\,s). On this family, then, \EVD\
+The spread is a factor of 1.50, and the largest bias works \emph{against}
+Newton. Each Newton outer iteration includes a Krylov solve that no \EVD\ count
+records, so counting \EVDs\ understates Newton's cost. Newton-SIN-BH is cheaper
+than SBB-Dual by a factor of 9.3 in \EVDs\ (5 against 46.5) but by a factor of
+5.4 in wall-clock time (0.009\,s against 0.050\,s). Anderson-APM's
+least-squares update takes about 13\% of its time at $n=100$ and 15\% at
+$n=500$, so its \EVDs\ cost 1.17 times SBB-Dual's. On this family, then, \EVD\
 counts are biased in a known direction but preserve rank, and the bias is
 small compared with the gaps being measured. We report both.
 
 \paragraph{The cost metric does not change the ranking.}
-At matched tolerance, ranking the six timed variants by median \EVDs\ and by
-median wall-clock time gives the same order (Anderson-APM was added after the
-timing runs and is not timed):
+At matched tolerance, ranking the seven timed variants by median \EVDs\ and by
+median wall-clock time gives the same order:
 \[
-  \text{Newton-SIN-BH} < \text{Newton-SIN} < \text{SBB-Dual} < \text{AGD-SDAJ-BH} < \text{AGD-SDAJ} < \text{Dykstra-APM}.
+\begin{aligned}
+  &\text{Newton-SIN-BH} < \text{Newton-SIN} < \text{Anderson-APM} < \text{SBB-Dual}\\
+  &\qquad < \text{AGD-SDAJ-BH} < \text{AGD-SDAJ} < \text{Dykstra-APM}.
+\end{aligned}
 \]
 This is a negative control for \cref{sec:ranking}. The reversals reported
 there come from the accuracy target and the instance regime. They are not
 artifacts of using the \EVD\ as the unit of work.
-The same comparison at $n=500$ gives a spread of 1.29 (with Dykstra-APM, not
-Newton, dearest per \EVD) and again an identical ranking under the two cost
-metrics, so this negative control holds at both dimensions.
+The same comparison at $n=500$ gives a spread of 1.32, again with
+Newton-SIN-BH dearest per \EVD, and again an identical ranking under the two
+cost metrics, so this negative control holds at both dimensions. It holds for
+medians; per instance the metric can decide a close pair, as for Anderson-APM
+against AGD-SDAJ-BH at $n=500$, where Anderson-APM needs fewer \EVDs\ on 13 of
+the 18 instances but less time on 11.
 
 \subsection{Summary of the protocol}
 \begin{enumerate}

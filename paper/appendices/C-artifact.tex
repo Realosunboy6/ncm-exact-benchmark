@@ -44,7 +44,7 @@ file & contents\\
 \texttt{code/check\_reference\_accuracy.jl} & two independent references per matrix (\cref{sec:real})\\
 \midrule
 \multicolumn{2}{l}{\emph{Results and analysis}}\\
-\texttt{code/reproduce.sh} & regenerates the analysis tables from \texttt{results/*.csv.gz} and prints which file holds which table; the timing tables are regenerated separately by \texttt{analyze\_timing.py}\\
+\texttt{code/reproduce.sh} & regenerates the analysis tables from \texttt{results/*.csv.gz} and the figure data, and prints which file holds which table\\
 \texttt{results/ranking\_kkt270\_v2.csv.gz} & one row per \EVD, the five original solvers, 270 instances at $n=100$\\
 \texttt{results/ranking\_n500.csv.gz} & the same at $n=500$\\
 \texttt{results/ranking\_highrank\_n500.csv.gz} & $r\in\{75,100,150\}$, Newton-SIN-BH, AGD-SDAJ-BH and SBB-Dual (\cref{tab:highrank})\\
@@ -54,12 +54,13 @@ file & contents\\
 \texttt{results/ranking\_thesis*.csv.gz} & equity sets at $n=550$ (\cref{tab:thesiskkt,tab:thesispert})\\
 \texttt{results/ranking\_us2105\_*.csv.gz} & equity sets at $n=2105$ (\cref{tab:us2105,tab:us2105pert})\\
 \texttt{results/ranking\_real.csv.gz} & four literature matrices (\cref{tab:real})\\
-\texttt{results/timing\_*.csv} & single-threaded timings\\
+\texttt{results/timing\_*.csv} & single-threaded timings of all seven variants, measured in one session (\cref{sec:timing})\\
+\texttt{results/timing\_session1/} & an earlier timing session, kept for comparison; not used in any table\\
 \texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert} and the accounting numbers of \cref{sec:acct-results}\\
 \texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\
-\texttt{code/make\_figure\_data.py} & the data behind \cref{fig:crossover,fig:heatmap,fig:crossoverrank}\\
+\texttt{code/make\_figure\_data.py} & the data behind every figure\\
 \texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py}, \texttt{analyze\_confound.py} & bootstrap intervals for \cref{tab:highrank}, \cref{tab:us2105pert}, and the bulk-level pilot\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
@@ -75,12 +76,11 @@ result files are included, the raw prices are not.
 
 {\sloppy
 \paragraph{Figure data.} The files \texttt{paper/figures/data/*.dat} behind
-\cref{fig:crossover,fig:heatmap,fig:crossoverrank} are written by
-\texttt{code/make\_figure\_data.py} from the result files above, and
-\texttt{reproduce.sh} regenerates them for comparison. The file
-\texttt{evd\_vs\_eps.dat} applies the cost-to-target rule of
+every figure are written by \texttt{code/make\_figure\_data.py} from the result
+files above, and \texttt{reproduce.sh} regenerates them for comparison. The
+file \texttt{evd\_vs\_eps.dat} applies the cost-to-target rule of
 \texttt{analyze\_ranking.py} (accepted-only, reach and hold) on a half-decade
 grid of $\varepsilon$; at the five decade targets it reproduces \cref{tab:fwd},
 up to that table's rounding of half-integer medians. The data behind
-\cref{fig:native,fig:perevd} come from the timing runs, as do
-\cref{tab:primitive,tab:perevd,tab:native}.\par}
+\cref{fig:native,fig:perevd}, like \cref{tab:primitive,tab:perevd,tab:native},
+come from the timing runs.\par}

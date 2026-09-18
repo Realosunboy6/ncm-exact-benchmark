@@ -10,6 +10,9 @@ Writes into paper/figures/data/:
                      fewer EVDs than AGD-SDAJ-BH, by rank and test set
   crossover_pub.dat  the same for the two published pairs: Dykstra-APM and
                      Anderson-APM, each against AGD-SDAJ-BH
+  per_evd_cost.dat   median microseconds per EVD at matched tolerance, n=100,
+                     from the timing runs in results/
+  native_accuracy.dat  median forward error, EVDs and time at the native rule
 
 Cost rule as everywhere else: accepted rows only, EVDs at the start of the
 final suffix with err_raw_fro <= eps (reach and hold). A run that never reaches
@@ -18,7 +21,7 @@ When several CSVs are read as one study, a later file supersedes an earlier one
 for any (instance, solver) it contains.
 
 Usage (from the artifact root, after reproduce.sh has unpacked the results):
-  python code/make_figure_data.py results/reproduced paper/figures/data
+  python code/make_figure_data.py results/reproduced paper/figures/data [timing_dir]
 """
 import csv
 import math
@@ -100,6 +103,38 @@ def heatmap(acc, num, den, out):
             f.write("\n")                          # scanline break, as pgfplots expects
 
 
+TIMING_ORDER = ["Newton-SIN-BH", "Newton-SIN", "AGD-SDAJ-BH", "AGD-SDAJ",
+                "SBB-Dual", "Dykstra-APM", "Anderson-APM"]
+
+
+def timing_figures(native_csv, matched_csv, dst):
+    """per_evd_cost.dat (matched tolerance) and native_accuracy.dat (native rule),
+    both at n=100, with the medians analyze_timing.py reports."""
+    def rows(p):
+        d = defaultdict(list)
+        with open(p) as f:
+            for r in csv.DictReader(f):
+                d[r["solver"]].append(r)
+        return d
+    m, nat = rows(matched_csv), rows(native_csv)
+    per = {s: st.median(1e6 * float(r["elapsed_seconds"]) / float(r["total_evds"])
+                        for r in m[s] if float(r["total_evds"]) > 0)
+           for s in TIMING_ORDER if s in m}
+    lo = min(per.values())
+    with open(os.path.join(dst, "per_evd_cost.dat"), "w", newline="\n") as f:
+        f.write("idx solver name usperevd rel\n")
+        for k, s in enumerate(sorted(per, key=per.get), 1):
+            f.write(f"{k} {s.replace('-', '')} {s} {per[s]:.0f} {per[s] / lo:.2f}\n")
+    with open(os.path.join(dst, "native_accuracy.dat"), "w", newline="\n") as f:
+        f.write("idx solver name err evds time\n")
+        for k, s in enumerate([s for s in TIMING_ORDER if s in nat], 1):
+            rs = nat[s]
+            err = st.median(float(r["err_vs_ref_fro"]) for r in rs)
+            ev = st.median(float(r["total_evds"]) for r in rs)
+            t = st.median(float(r["elapsed_seconds"]) for r in rs)
+            f.write(f"{k} {s.replace('-', '')} {s} {err:.2e} {ev:.0f} {t:.3f}\n")
+
+
 def fraction_cheaper(acc, a, b, eps=1e-8):
     by_rank = defaultdict(list)
     for i in sorted({i for i, _ in acc}):
@@ -120,6 +155,9 @@ def main():
     n500all = {**n500, **hr}
 
     evd_vs_eps(n100, os.path.join(dst, "evd_vs_eps.dat"))
+    tdir = sys.argv[3] if len(sys.argv) > 3 else os.path.join(src, os.pardir)   # results/
+    timing_figures(os.path.join(tdir, "timing_kkt270_native.csv"),
+                   os.path.join(tdir, "timing_kkt270_matched.csv"), dst)
     heatmap(n100, "SBB-Dual", "AGD-SDAJ-BH", os.path.join(dst, "heatmap.dat"))
     heatmap(n100, "Dykstra-APM", "AGD-SDAJ-BH", os.path.join(dst, "heatmap_pub.dat"))
 
