@@ -369,6 +369,41 @@ if cells:
         per = " | ".join(str(sum(c[0] == r for c in cs)) for r in ranks)
         emit(f"| {' < '.join(o)} | {len(cs)} | {per} | r={ex[0]} m={ex[1]} d={ex[2]} |")
     emit("")
+
+    emit("Accounting (Sec. 4) recomputed with the corrected reach rule. Rows"
+         " shown only where the median changed.")
+    emit("")
+    emit("| eps | solver | accepted-only | all-trial | delta |")
+    emit("|---|---|---:|---:|---:|")
+    any_change = False
+    for tg in FWD_EPS:
+        for s2 in SOLVERS:
+            acc_only, all_trial = [], []
+            for i in instances:
+                if (i, s2) not in curves:
+                    continue
+                c = curves[(i, s2)]
+                x = cost_to_fixed(c, tg)
+                allc = [(e, v) for (e, v, _g, _a) in c]
+                y = None
+                if allc and allc[-1][1] <= tg:
+                    k = len(allc) - 1
+                    while k > 0 and allc[k - 1][1] <= tg:
+                        k -= 1
+                    y = allc[k][0]
+                if x is not None:
+                    acc_only.append(x)
+                if y is not None:
+                    all_trial.append(y)
+            if not acc_only or not all_trial:
+                continue
+            ma, mb = median(acc_only), median(all_trial)
+            if ma != mb:
+                any_change = True
+                emit(f"| {tg:.0e} | {s2} | {ma:.1f} | {mb:.1f} | {mb - ma:+.1f} |")
+    if not any_change:
+        emit("| - | *(no solver's median cost changed)* | | | |")
+    emit("")
     cell_orders = fo  # Sec. 11 'observed ordering' = corrected-rule ordering
 
 B = 2000

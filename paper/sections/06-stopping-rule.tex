@@ -65,9 +65,16 @@ $4.1\times10^{-3}$. Under this rule, a larger problem can appear easier
 simply because less accuracy is being asked for.
 The paired family makes the same point with the dimension controlled. Under
 this rule Newton-SIN-BH exits at a median forward error of
-$5.04\times10^{-8}$ at $n=100$ but $1.74\times10^{-5}$ at $n=500$, about 340
-times worse, purely because the threshold is proportional to $n$. Every other
-variant degrades similarly. A reader comparing published $n=100$ and $n=500$
+$5.04\times10^{-8}$ at $n=100$ but $1.74\times10^{-5}$ at $n=500$, about 345
+times worse. The threshold itself is only five times looser, so most of that
+factor is not the rule: it is Newton's quadratic convergence overshooting the
+threshold, one step of the method squaring the error. The other variants
+degrade by far less, Dykstra-APM by 12.5 ($1.93\times10^{-5}$ to $2.41\times10^{-4}$),
+AGD-SDAJ-BH by 10.0 and SBB-Dual by 6.4. The spread of achieved accuracy
+across solvers at their own exits therefore narrows from 383-fold at $n=100$
+to 13.8-fold at $n=500$: the rule does not degrade the methods equally, and it
+conceals most of the advantage of the method that converges fastest. These
+$n=500$ medians are over 18 instances, the $n=100$ medians over 270. A reader comparing published $n=100$ and $n=500$
 results under this rule is comparing solutions of very different quality.
 The real-matrix runs of \cref{sec:real} were made at a matched tolerance
 only, so they give no native-rule spread on real data.
