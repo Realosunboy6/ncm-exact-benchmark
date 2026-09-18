@@ -33,7 +33,7 @@ holds which table. Takes about three minutes. Compare with `results/analysis/`.
 
 ## Reproducing the instances
 
-Deterministic given the seeds in the generator:
+The generator is seeded:
 
 ```sh
 cd code
@@ -42,10 +42,14 @@ python gen_degeneracy_family.py --n 500 --out degen_instances_n500_paired
 python materialize_exact_ystars.py degen_instances_paired
 ```
 
-Check the SHA-256 column of the emitted `manifest.tsv` against
-`data/manifests/<set>/manifest.tsv`; they agree row for row. Instance binaries
-are not shipped (1 GB at n=500); `data/canonical_n100/` is a 12-instance subset
-for smoke tests.
+It is not bit-reproducible across machines. It takes a basis for a degenerate
+eigenspace from LAPACK (`numpy.linalg.eigh`), and which basis LAPACK returns
+depends on the build, so on another machine the regenerated instances have the
+same parameters and pass the same screening but are not hash-identical to the
+ones used in the paper. The manifests in `data/manifests/` and the screening
+logs are the authoritative record of those instances. Instance binaries are not
+shipped (1 GB at n=500); `data/canonical_n100/` is a 12-instance subset for
+smoke tests.
 
 Each instance is `G_<i>.bin`, `Xstar_<i>.bin`, `ystar_<i>.bin`: `n*n` (or `n`)
 float64, little-endian, row-major. `cases.csv` records rank, near-zero

@@ -32,7 +32,8 @@ chosen at one dimension can miss the crossover at another.
 \begin{itemize}
   \item \emph{Problem size.} Results are reported at $n=100$ and $n=500$
     (270 instances each), with 135 more at $n=500$ and $r\in\{75,100,150\}$
-    for three solvers only. The crossover between SBB-Dual and AGD-SDAJ-BH
+    for every variant except unmodified AGD-SDAJ. The crossover between
+    SBB-Dual and AGD-SDAJ-BH
     lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$
     at $n=500$; on data-seeded instances at $n=550$ SBB-Dual is still slightly
     behind at $r=100$, and at $n=2105$ (\cref{sec:us2105}) the gap closes to
@@ -75,12 +76,11 @@ chosen at one dimension can miss the crossover at another.
     \Cref{prop:hd} is stated for $a$ only; no companion bound on $b$ is
     given, since the released family lies in the fixed-rank regime where
     \cref{prop:hd} does not apply.
-  \item \emph{Scope of methods.} We benchmark five variants of four methods.
-    Other methods (e.g.\ Anderson-accelerated alternating
-    projections~\cite{higham2016anderson}) are not included.
-    Neither are the recent semismooth Newton method for general projection
-    equations~\cite{armijo2025semismooth} or the factor-structured
-    variant~\cite{borsdorf2010factor}.
+  \item \emph{Scope of methods.} We benchmark six variants of five methods.
+    Not included are the recent semismooth Newton method for general
+    projection equations~\cite{armijo2025semismooth} and the factor-structured
+    variant~\cite{borsdorf2010factor}, and Anderson acceleration is run only
+    at the authors' default history length $m=2$.
   \item \emph{Attribution of the line search.} We use the Borsdorf--Higham
     globalization but not the rest of their algorithm, and the adaptation of
     their near-equality safeguard to AGD-SDAJ is ours

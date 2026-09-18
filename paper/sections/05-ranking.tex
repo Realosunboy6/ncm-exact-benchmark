@@ -195,14 +195,17 @@ collection of real matrices with uncontrolled spectra, the ordering could not
 be associated with rank in this way.
 
 \paragraph{A crossover between published methods.}
-The pair that reverses is not only ours. Dykstra-APM and AGD-SDAJ-BH exchange
-places over the same rank range, and both are published methods: at $r=5$
+The reversal is not confined to SBB-Dual. Dykstra-APM and AGD-SDAJ-BH, both
+published methods, exchange places over the same rank range. At $r=5$
 AGD-SDAJ-BH is cheaper on all 90 instances at $10^{-8}$ (median difference
-$+223.5$ \EVDs), at $r=20$ on 81 of 90, and at $r=50$ Dykstra-APM is cheaper on
-61 of 90 ($-3.5$) and on 75 of 90 at $10^{-10}$ ($-8.5$). All five seeds agree
-on the sign at $r=5$ and at $r=50$, which is the strongest statement five
-clusters permit. The reversal therefore does not depend on including a method
-of our own, and it moves with dimension in the same direction: at $n=500$
+$+223.5$ \EVDs) and at $r=20$ on 80 of 90, with one tie; at $r=50$ Dykstra-APM
+is cheaper on 61 of 90 (median $-3.5$, cluster-bootstrap 95\% interval
+$[-6,-2]$) and on 75 of 90 at $10^{-10}$ ($-8.5$, $[-12,-5]$). All five seeds
+agree on the sign at $r=5$ and at $r=50$. The direction at $r=50$ is resolved
+but the margin is small, about an eighth of AGD-SDAJ-BH's median cost of 28
+\EVDs, and 26 of the 90 instances go the other way. The reversal is therefore
+reproducible among previously published methods, and it moves with dimension
+in the same direction: at $n=500$
 AGD-SDAJ-BH is still ahead at $r=150$ (Dykstra-APM cheaper on 13 of 45 at
 $10^{-10}$, \cref{sec:highrank}), and on the equity panel at $n=2105$ the
 corresponding pair is Anderson-APM and AGD-SDAJ-BH, which exchange places
@@ -272,9 +275,10 @@ The stall of unmodified AGD-SDAJ recurs (31 of 270 runs exhaust the \EVD\
 budget, against none for AGD-SDAJ-BH, whose worst case is 240 \EVDs\ against
 4039).
 
-\emph{Not reproduced for $r\le50$.} The change of order with the accuracy target seen in
-\cref{tab:fwd} is absent: at $n=500$ a single ordering holds at all five
-targets, with AGD-SDAJ-BH ahead of SBB-Dual throughout. The paired
+\emph{Not reproduced for $r\le50$.} The change of order between SBB-Dual and
+the AGD variants seen in \cref{tab:fwd} is absent: at $n=500$ AGD-SDAJ-BH is
+ahead of SBB-Dual at all five targets. Only Anderson-APM moves, from fourth
+at $10^{-2}$ to second from $10^{-4}$ on (\cref{tab:n500}). The paired
 per-instance comparison is one-sided. SBB-Dual is cheaper on 0 of 270
 instances at $10^{-2}$, 3 at $10^{-4}$ and 15 at $10^{-8}$. We report
 these counts and the cluster-bootstrap intervals of \cref{tab:n500} rather
@@ -391,18 +395,21 @@ invalid, $\lambda_{\min}(G)\in[-4.6,-1.2]\times10^{-3}$.
 \centering
 \caption{KKT instances seeded by equity returns, $n=550$, 27 instances per
 rank. Median \EVDs\ to reach and hold $\fro{X-\Xs}\le10^{-8}$ against the exact
-$\Xs$, and the number of instances (out of 27) on which SBB-Dual is cheaper
-than AGD-SDAJ-BH at $10^{-8}$ and at $10^{-10}$.}
+$\Xs$; bold marks the cheapest, and a bracketed count is the number of
+instances that reached the target where fewer than 27 did. Out of 27
+instances, SBB-Dual is cheaper than AGD-SDAJ-BH on 0, 6 and 11 at $r=20$, 50
+and 100 (0, 6 and 13 at $10^{-10}$), and Anderson-APM on 15, 25 and 23 (15,
+25 and 24 at $10^{-10}$).}
 \label{tab:thesiskkt}
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{rrrrrrrc}
+\begin{tabular}{rrrrrrr}
 \toprule
-$r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM & SBB / AA cheaper\\
+$r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM\\
 \midrule
-20  & \textbf{4} & 108 & 117 & 154 & 249 & 500 & 0, 0 / 15, 15\\
-50  & \textbf{4} & 64  & 92  & 94.5 \tiny[24] & 112 & 228 & 6, 6 / 25, 25\\
-100 & \textbf{4} & 53  & 65  & 79 \tiny[25] & 72  & 148 & 11, 13 / 23, 24\\
+20  & \textbf{4} & 108 & 117 & 154 & 249 & 500\\
+50  & \textbf{4} & 64  & 92  & 94.5 [24] & 112 & 228\\
+100 & \textbf{4} & 53  & 65  & 79 [25] & 72  & 148\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -522,22 +529,27 @@ AGD-SDAJ-BH again narrows with rank, from $+490$ \EVDs\ at $r=50$ to $-0.5$ at
 $r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: the
 median there is $-0.5$ \EVDs\ with a cluster interval of $[-27,+21.5]$, and at
 $10^{-10}$ the sign turns over ($+8$, with AGD-SDAJ-BH cheaper on three of the
-four instances). The honest reading is that the crossover has not been reached
-by $r=200$ and is unresolved at $r=400$. The two rotations per cell are also
-weak replicates for the rotation-invariant methods: SBB-Dual's costs are
-identical across rotations in every cell, so the effective replication for that
-comparison is one instance per $(r,m)$ pair, not two.
+four instances). The crossover is therefore not reached by $r=200$ and is
+unresolved at $r=400$.
 
-Anderson-APM converges on all 16 instances, and it is the one pair here that
-changes order with rank among published methods. It is cheapest after
-Newton-SIN-BH at $r=50$ and $r=400$, but AGD-SDAJ-BH is cheaper at $r=100$ and
-$r=200$. The per-instance counts at $10^{-8}$ and $10^{-10}$ are unanimous on
-both sides: AGD-SDAJ-BH is cheaper on 4 of 4 at $r=200$, by 33 to 70 \EVDs\,
-and Anderson-APM on 4 of 4 at $r=400$, by 6 to 68. Near-zero multiplicity also
-matters here in a way it did not at $n=100$: at $r=100$ the two instances with
-$m=20$ favour AGD-SDAJ-BH by about 190 \EVDs\, while those with $m=1$ favour
-Anderson-APM or tie. With four instances per rank these are descriptive
-counts, not estimates.
+The two rotations per cell are weak replicates for several methods.
+Newton-SIN-BH's costs are identical across rotations in every cell and
+SBB-Dual's in six of eight; only the AGD variants vary with the rotation
+throughout. At $r=200$ and $r=400$ the costs of Anderson-APM and Dykstra-APM
+also differ between rotations by at most two \EVDs, although Anderson-APM's do
+vary at $r=50$ and $r=100$.
+
+Anderson-APM converges on all 16 instances, and with AGD-SDAJ-BH it forms the
+one pair of published methods here whose order changes with rank. It is
+cheapest after Newton-SIN-BH at $r=50$ and $r=400$, but AGD-SDAJ-BH is cheaper
+at $r=100$ and $r=200$. At $10^{-8}$ and $10^{-10}$ AGD-SDAJ-BH is cheaper on 4
+of 4 instances at $r=200$, by 33 to 70 \EVDs, and Anderson-APM on 4 of 4 at
+$r=400$, by 6 to 68; because Anderson-APM is nearly rotation-invariant at these
+ranks, each count rests on two distinct instances, one per multiplicity.
+Near-zero multiplicity also matters here in a way it did not at $n=100$: at
+$r=100$ the two instances with $m=20$ favour AGD-SDAJ-BH by about 190 \EVDs,
+while those with $m=1$ favour Anderson-APM or tie. With four instances per rank
+these are descriptive counts, not estimates.
 
 Dykstra-APM was run on the same 16 instances at a cap of 800 \EVDs, one \EVD\ costing about 1.8\,s at this size. It is last at every rank and target it
 reaches, so it changes no ordering, but its own behaviour across the set is the
@@ -588,8 +600,8 @@ is second on the Rocky Mountain matrix (6 \EVDs), but third on
 \texttt{cor1399} (103 against 66 for AGD-SDAJ-BH) and fourth on
 \texttt{cor3120} (155 against 41), the two matrices where every projection
 method is slow (\cref{tab:real}). A comparison drawn only from the exact
-families would therefore overstate its standing, which is the same warning
-this paper makes about every place below the first.
+families would therefore overstate its standing, consistent with the regime
+dependence reported throughout this section.
 
 \subsection{Four matrices from the literature}\label{sec:real}
 The family of \cref{sec:family} is synthetic. To check that the regime
@@ -615,18 +627,21 @@ $\fro{X_A-X_B}=1.3\times10^{-11}$ and $8.1\times10^{-12}$, so forward errors on
 these matrices are resolved well below the targets used; the residual floor
 near $10^{-12}$ is reached within four to six Newton iterations. We therefore treat
 these runs as a check on external
-validity, not as measurements of the same quality as \cref{tab:fwd}. The common
-target is $10^{-9}$; each solver is capped at 500 \EVDs\ on the two smaller
-matrices and at 300 iterations on the two larger ones.
+validity, not as measurements of the same quality as \cref{tab:fwd}. Every
+solver is run to a common tolerance of $10^{-9}$, capped at 500 \EVDs\ on the
+two smaller matrices and at 300 iterations on the two larger ones, and costs
+are read at the forward-error target $10^{-8}$.
 
 \begin{table}[t]
 \centering
-\caption{Matrices from the literature, common target $10^{-9}$, all six
-solvers from the same run. \EVDs\ to reach and hold $10^{-8}$, total \EVDs\ at
-the solver's own exit, and the forward error there against the computed
-reference. $^{\ddagger}$Reaches its cap and is censored. Per-\EVD\ times were
-measured separately (\cref{tab:perevd}); they are not comparable row by row
-here, because that run stopped each solver under its own rule.}
+\caption{Invalid correlation matrices from the Anymatrix \texttt{CORRINV}
+collection~\cite{higham2022anymatrix}, run to a common tolerance of
+$10^{-9}$. \EVDs\ to reach and hold forward error $10^{-8}$, total \EVDs\ at the
+solver's own exit, and the forward error there, all measured against a
+computed reference solution, not an exact one. $^{\ddagger}$Reaches its cap and
+is censored. Five solvers come from one run; Anderson-APM was run later
+against a recomputed reference, and a replay of AGD-SDAJ-BH against that
+reference reproduces every cost to target in this table.}
 \label{tab:real}
 \small
 \begin{tabular}{llrrr}
@@ -665,17 +680,16 @@ $n=3250$ & SBB-Dual & 5 & 6 & $1.20\times10^{-10}$\\
 \end{table}
 
 The matrices disagree with each other, broadly in the direction the
-synthetic family predicts. At $n=94$, SBB-Dual is the cheapest of the
-first-order methods, 7 \EVDs\ to $10^{-8}$ against 12 for AGD-SDAJ-BH and 11
-for Dykstra-APM, which is the pattern of \cref{tab:cells} at $n=100$. At
+synthetic family predicts. At $n=94$, SBB-Dual needs 7 \EVDs\ to $10^{-8}$
+against 12 for AGD-SDAJ-BH and 11 for Dykstra-APM, which is the pattern of
+\cref{tab:cells} at $n=100$, and Anderson-APM needs 6. At
 $n=1399$, SBB-Dual costs three times AGD-SDAJ-BH (200 against 66), and at
 $n=3120$ six times (255 against 41), which is the pattern of \cref{sec:n500}.
 \texttt{bccd16} is easy for every method: all but one reach $10^{-8}$ within
 8 \EVDs, so it does not discriminate between the first-order methods.
 Newton-SIN-BH is cheapest on all four, as everywhere else in this paper. The
 change of order is therefore visible on matrices with uncontrolled spectra that
-we did not construct, and on the two smaller matrices the same ordering holds
-under wall-clock time. With four matrices that differ in more than dimension,
+we did not construct. With four matrices that differ in more than dimension,
 this is consistent with the dimension effect of \cref{sec:n500}, not an
 independent demonstration of it.
 
@@ -760,7 +774,7 @@ other method needs. We report its position as censored throughout.
 
 
 \subsection{What each solver returns}\label{sec:returned}
-Methods also differ in what they return (\cref{tab:feas}). All five return
+Methods also differ in what they return (\cref{tab:feas}). All six return
 matrices with $\lambda_{\min}$ at roundoff level, so none is meaningfully more
 positive semidefinite than another. The diagonal is a different matter.
 SBB-Dual returns an exactly unit diagonal because of its rescaling epilogue,

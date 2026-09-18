@@ -123,7 +123,9 @@ collection~\cite{higham2022anymatrix}, taken from its repository rather than
 retyped. On the ten small matrices (\texttt{high02}, \texttt{tec03},
 \texttt{bhwi01}, \texttt{mmb13}, \texttt{fing97}, \texttt{beyu11},
 \texttt{tyda99r1}--\texttt{r3}, \texttt{usgs13}), run at tolerance $10^{-10}$,
-the five solvers return valid correlation matrices whose distances
+the five solvers of the original comparison return valid correlation
+matrices (Anderson-APM, added later, is checked in \cref{app:anderson}) whose
+distances
 $\fro{G-X}$ agree to at least eight digits and whose matrices agree with
 Newton-SIN-BH's to within $2\times10^{-10}$, except unmodified AGD-SDAJ on
 \texttt{mmb13} ($8.7\times10^{-10}$), which stops at its budget. The three

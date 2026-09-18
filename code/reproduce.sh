@@ -40,12 +40,23 @@ echo "equity n=550 KKT     -> thesis_kkt_analysis.md"
     "$work/thesis_kkt_analysis.md" > /dev/null
 
 echo "equity n=550 perturbed -> thesis_pert_analysis.md"
-"$PY" "$here/analyze_ranking.py" "$work/ranking_thesis.csv" "$work/thesis_pert_analysis.md" > /dev/null
+"$PY" "$here/analyze_ranking.py" \
+    "$work/ranking_thesis.csv" "$work/ranking_thesis_anderson.csv" \
+    "$work/thesis_pert_analysis.md" > /dev/null
+
+echo "literature matrices -> real_per_instance.md"
+"$PY" "$here/analyze_per_instance.py" "$work/real_per_instance.md" \
+    "$work/ranking_real.csv" "$work/ranking_real_anderson_small.csv" \
+    "$work/ranking_real_anderson_large.csv" > /dev/null
 
 echo "equity n=550 KKT by rank -> thesis_kkt_by_rank.md"
 "$PY" "$here/analyze_by_rank.py" "$work/thesis_kkt_by_rank.md" \
     "$work/ranking_thesis_kkt.csv" "$work/ranking_thesis_kkt_anderson.csv" \
     SBB-Dual:AGD-SDAJ-BH Anderson-APM:AGD-SDAJ-BH > /dev/null
+
+echo "stopping rule, Sec. 6 -> stopping_rule.txt"
+"$PY" "$here/analyze_stopping_rule.py" "$here/../results/timing_kkt270_native.csv" \
+    "$here/../results/timing_n500_native.csv" > "$work/stopping_rule.txt"
 
 echo "equity n=2105       -> us2105_analysis.txt"
 "$PY" "$here/analyze_us2105.py" "$work" > "$work/us2105_analysis.txt"
@@ -57,11 +68,16 @@ echo "scoring-column check -> scoring_column_check.txt"
 echo
 echo "done. table -> file map:"
 cat <<'MAP'
-  Tab. fwd, res, cells, acct, feas, exits   kkt270_analysis.md
+  Tab. fwd, cells, feas; Sec. 5.11 numbers  kkt270_analysis.md
   Tab. n500                                 n500_analysis.md
   Tab. highrank                             highrank_analysis.txt, highrank_by_rank.md
   Tab. thesiskkt                            thesis_kkt_analysis.md, thesis_kkt_by_rank.md
   Tab. thesispert                           thesis_pert_analysis.md
+  Tab. real                                 real_per_instance.md
   Sec. accounting sensitivity               scoring_column_check.txt
   Tab. us2105, us2105pert                   us2105_analysis.txt
+  Sec. 6 cross-dimension comparison         stopping_rule.txt
+
+  Not regenerated here: the timing tables (primitive, perevd, native), from
+  results/timing_*.csv via analyze_timing.py.
 MAP

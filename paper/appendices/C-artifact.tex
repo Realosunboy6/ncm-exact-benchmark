@@ -6,10 +6,14 @@ every table are available at
 relative to the artifact root. An archived snapshot carrying a permanent
 identifier will be deposited on acceptance.
 
-Instance binaries are not stored in full: they reach 1\,GB at $n=500$ and are
-exactly reproducible from the seeded generator, so the manifests carry SHA-256
-hashes instead. A 12-instance subset at $n=100$ (2\,MB) ships with the artifact
-for smoke tests.
+Instance binaries are not stored in full, since they reach 1\,GB at $n=500$;
+the manifests record a hash of every instance used instead. The generator is
+seeded, but it takes a basis for a degenerate eigenspace from LAPACK, so the
+bits it produces depend on the LAPACK build: on another build a regenerated
+set has the same parameters and passes the same screening, but is not
+hash-identical to the one used here. The manifests and the screening logs are
+therefore the authoritative record of the instances. A 12-instance subset at
+$n=100$ (2\,MB) ships with the artifact for smoke tests.
 
 \begin{table}[H]
 \centering
@@ -28,21 +32,29 @@ file & contents\\
 \midrule
 \multicolumn{2}{l}{\emph{Solvers}}\\
 \texttt{code/bench\_sbb\_dual.jl} & \texttt{sbb\_dual}, \texttt{newton\_ncm\_globalized}, \texttt{agd\_sdaj\_ncm}, \texttt{dykstra\_apm}, trajectory recorder, study drivers\\
+\texttt{code/anderson\_apm.jl} & Anderson-APM, transcribed from Higham and Strabi\'c's released code\\
 \texttt{code/agd\_sdaj.jl} & standalone AGD-SDAJ used for verification (\cref{app:agd})\\
-\texttt{code/validation/} & checks against Higham (2002), Higham--Strabi\'c (2016), Borsdorf (2007), Huynh--Hwang (2025); logs in \texttt{results/validation/}\\
+\texttt{code/validation/} & checks against Higham (2002), Higham--Strabi\'c (2016), Borsdorf (2007), Huynh--Hwang (2025), including the Anderson-APM record of \cref{app:anderson}; logs in \texttt{results/validation/}\\
+\texttt{code/highrank\_queue.sh}, \texttt{anderson\_rest\_queue.sh} & drivers for the runs added with Anderson-APM\\
 \texttt{code/check\_reference\_accuracy.jl} & two independent references per matrix (\cref{sec:real})\\
 \midrule
 \multicolumn{2}{l}{\emph{Results and analysis}}\\
-\texttt{code/reproduce.sh} & regenerates every analysis table from \texttt{results/*.csv.gz}\\
-\texttt{results/ranking\_kkt270\_v2.csv.gz} & one row per \EVD, five solvers, 270 instances at $n=100$\\
+\texttt{code/reproduce.sh} & regenerates the analysis tables from \texttt{results/*.csv.gz} and prints which file holds which table; the timing tables are regenerated separately by \texttt{analyze\_timing.py}\\
+\texttt{results/ranking\_kkt270\_v2.csv.gz} & one row per \EVD, the five original solvers, 270 instances at $n=100$\\
 \texttt{results/ranking\_n500.csv.gz} & the same at $n=500$\\
-\texttt{results/ranking\_highrank\_n500.csv.gz} & $r\in\{75,100,150\}$, three solvers (\cref{tab:highrank})\\
+\texttt{results/ranking\_highrank\_n500.csv.gz} & $r\in\{75,100,150\}$, Newton-SIN-BH, AGD-SDAJ-BH and SBB-Dual (\cref{tab:highrank})\\
+\texttt{results/ranking\_highrank\_proj.csv.gz} & the same instances, Dykstra-APM and Anderson-APM\\
+\texttt{results/ranking\_n500\_dykstra1200.csv.gz} & the 90 censored Dykstra-APM runs at $n=500$ rerun at a cap of 1200 (\cref{sec:acct-results})\\
+\texttt{results/ranking\_*anderson*.csv.gz} & Anderson-APM on every other test set, run after the original studies\\
 \texttt{results/ranking\_thesis*.csv.gz} & equity sets at $n=550$ (\cref{tab:thesiskkt,tab:thesispert})\\
 \texttt{results/ranking\_us2105\_*.csv.gz} & equity sets at $n=2105$ (\cref{tab:us2105,tab:us2105pert})\\
 \texttt{results/ranking\_real.csv.gz} & four literature matrices (\cref{tab:real})\\
 \texttt{results/timing\_*.csv} & single-threaded timings\\
-\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500}, and the native-exit and exit-reason tables\\
-\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py}, \texttt{analyze\_confound.py} & \cref{tab:highrank,tab:us2105,tab:us2105pert} and the bulk-level pilot\\
+\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert} and the accounting numbers of \cref{sec:acct-results}\\
+\texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
+\texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
+\texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\
+\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py}, \texttt{analyze\_confound.py} & bootstrap intervals for \cref{tab:highrank}, \cref{tab:us2105pert}, and the bulk-level pilot\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
 \bottomrule

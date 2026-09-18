@@ -9,8 +9,9 @@ Suppose every solver is run to its own exit criterion and the resulting costs
 are compared. The comparison then credits a method for stopping early as much
 as for converging quickly. This happens even when all methods share one
 nominal rule. Under the dimension-scaled rule $\nrm{\nabla\theta}_2\le10^{-7}n$
-used by~\cite{huynh2025accelerated}, which at $n=100$ is $10^{-5}$, the six solver
-variants of \cref{sec:ranking} stop at median forward errors between
+used by~\cite{huynh2025accelerated}, which at $n=100$ is $10^{-5}$, the six
+timed variants (the five solvers of the original comparison and the
+Newton-SIN control of \cref{sec:ranking}) stop at median forward errors between
 $5.04\times10^{-8}$ and $1.93\times10^{-5}$, a factor of 383
 (\cref{sec:stopping}, \cref{fig:native}). A cost comparison taken at these
 exits compares different accuracies.
@@ -139,8 +140,9 @@ counts are biased in a known direction but preserve rank, and the bias is
 small compared with the gaps being measured. We report both.
 
 \paragraph{The cost metric does not change the ranking.}
-At matched tolerance, ranking the six variants by median \EVDs\ and by median
-wall-clock time gives the same order:
+At matched tolerance, ranking the six timed variants by median \EVDs\ and by
+median wall-clock time gives the same order (Anderson-APM was added after the
+timing runs and is not timed):
 \[
   \text{Newton-SIN-BH} < \text{Newton-SIN} < \text{SBB-Dual} < \text{AGD-SDAJ-BH} < \text{AGD-SDAJ} < \text{Dykstra-APM}.
 \]
