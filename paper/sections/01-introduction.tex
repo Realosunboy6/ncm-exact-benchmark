@@ -66,18 +66,25 @@ Each contribution builds on established practice (\cref{sec:related}).
     credit, and accuracy is matched in forward error. Primitive work is
     reported separately.
   \item \emph{An invariant first place above a regime-dependent ordering}
-    (\cref{sec:ranking}). Five verified solver variants were run on 270
-    instances at $n=100$ and 270 at $n=500$, with 135 further instances at
-    higher rank and 125 built from two equity panels at $n=550$ and $n=2105$.
-    The cheapest method is the same under all 11 conventions examined, and its
-    cost is flat in dimension: 5 eigendecompositions at $n=100$ and at
-    $n=2105$. Below it the ordering changes with the accuracy target, with the
-    solution rank, and with how far the input is from a correlation matrix.
-    The rank at which the second and third places exchange is bracketed
-    between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$ at
-    $n=500$, and rises further at $n=2105$ without being resolved there. Only
-    a family that varies one spectral quantity at a time makes such an
-    association visible.
+    (\cref{sec:ranking}). Six verified variants of five methods were run on
+    270 instances at $n=100$ and 270 at $n=500$, with 135 further instances at
+    higher rank, 125 built from two equity panels at $n=550$ and $n=2105$, and
+    four matrices from the literature. The cheapest method is the same under
+    all 11 conventions examined, and its cost is flat in dimension: 5
+    eigendecompositions at $n=100$ and at $n=2105$. Second at $n=100$ is
+    Anderson-accelerated alternating projections~\cite{higham2016anderson},
+    absent from recent NCM comparisons; it keeps that place on the
+    exact-solution families but not on perturbed or literature matrices.
+    Below the first place the ordering changes with the accuracy target, with
+    the solution rank, and with how far the input is from a correlation
+    matrix. The rank dependence holds between published methods alone:
+    Dykstra-APM and AGD-SDAJ-BH exchange places between $r=20$ and $r=50$ at
+    $n=100$, the exchange has not occurred by $r=150$ at $n=500$, and at
+    $n=2105$ Anderson-APM and AGD-SDAJ-BH exchange places between $r=200$ and
+    $r=400$. The same pattern appears between SBB-Dual and AGD-SDAJ-BH, whose
+    exchange is bracketed between $r=5$ and $r=20$ at $n=100$ and between
+    $r=50$ and $r=75$ at $n=500$. Only a family that varies one spectral
+    quantity at a time makes such an association directly observable.
   \item \emph{Replication of a known line-search defect}
     (\cref{sec:traps}). The failure of objective-value sufficient-decrease
     tests near a minimizer is well known~\cite{hager2005new}. For the NCM dual,
@@ -93,19 +100,22 @@ Each contribution builds on established practice (\cref{sec:related}).
     (\cref{sec:stopping}). Dolan, Mor\'e and Munson~\cite{dolan2006optimality}
     warned that native stopping tests confound comparisons. For NCM, the
     widely used rule $\nrm{\nabla\theta}_2\le 10^{-7}n$ leaves the achieved
-    forward error spread over a factor of 383 across solvers.
+    forward error spread over a factor of 383 across solvers at $n=100$, and
+    it degrades accuracy with dimension unequally across methods.
 \end{enumerate}
 
 \paragraph{What we do not claim.}
 We do not claim that any method is best in general. The ranking results are
 for a synthetic family at $n=100$ and $n=500$, with instances built from
-equity returns at $n=550$ (\cref{sec:thesis}) and four matrices from the
-literature (\cref{sec:real}) as external checks, all on one machine.
-SBB-Dual appears here as one of five variants and receives the same
-exposition as the others. Its theory is developed elsewhere and is not needed
-for any result in this paper.
-Its convergence theory is developed in a companion manuscript in
-preparation~\cite{ibrahim2026sbb}; none of the results below depends on it.
+equity returns at $n=550$ and $n=2105$ (\cref{sec:thesis,sec:us2105}) and four
+matrices from the literature (\cref{sec:real}) as external checks, all on one
+machine. SBB-Dual is a new method from the author's companion manuscript in
+preparation~\cite{ibrahim2026sbb}. It is specified in full in
+\cref{app:algorithms}, receives the same exposition as the others, and its
+convergence theory is not used here. No conclusion of this paper depends on
+it: without SBB-Dual, Newton-SIN-BH is still first, Anderson-APM is still
+second at $n=100$, and the rank dependence is still present, between
+Dykstra-APM and AGD-SDAJ-BH.
 
 \subsection{Related work}\label{sec:related}
 
@@ -164,5 +174,6 @@ the protocol, \cref{sec:traps} describes the two implementation traps,
 \cref{sec:ranking} reports the ranking study, and \cref{sec:stopping}
 examines the dimension-scaled stopping rule. \Cref{sec:repro} covers
 reproducibility and \cref{sec:discussion} discusses limitations. The
-appendices contain the proofs for the instance family, the verification record
-for our reimplementation of AGD-SDAJ, and the artifact manifest.
+appendices contain the proofs for the instance family, the verification
+records for our reimplementations of AGD-SDAJ and Anderson-APM, the artifact
+manifest, and pseudocode for every solver.
