@@ -5,11 +5,12 @@
 # reference, so an identical AGD trajectory shows the reference matched too.
 cd "$(dirname "$0")"
 export NCM_STANDALONE=1
-PANEL="C:/Users/ibrah/Documents/Codex/NCM-research/benchmarks-and-missingness/outputs/thesis-missingness-3type-archived/data/thesis_market_panel"
+PANEL="${NCM_PANEL:?set NCM_PANEL to the n=550 equity panel directory}"
+PY="${PYTHON:-python3}"
 J="julia --project=. bench_sbb_dual.jl --solvers AGD-SDAJ-BH,Anderson-APM --blas-threads 4"
 
 echo "$(date) export perturbed n=550 suite"
-/c/Python314/python.exe -W ignore export_thesis_suite.py --panel "$PANEL" --out thesis_suite > export_thesis_suite.log 2>&1
+"$PY" -W ignore export_thesis_suite.py --panel "$PANEL" --out thesis_suite > export_thesis_suite.log 2>&1
 tail -3 export_thesis_suite.log
 
 echo "$(date) perturbed n=550, 20 matrices"

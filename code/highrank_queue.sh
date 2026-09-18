@@ -6,7 +6,7 @@ J="julia --project=. bench_sbb_dual.jl --suite degen_highrank_n500 --blas-thread
 export NCM_STANDALONE=1
 echo "$(date) step 1: AGD-SDAJ-BH replay"
 $J --ranking ranking_highrank_agdcheck.csv --solvers AGD-SDAJ-BH > highrank_agdcheck.log 2>&1
-/c/Python314/python.exe - <<'PY' > highrank_bitcheck.txt
+"${PYTHON:-python3}" - <<'PY' > highrank_bitcheck.txt
 import csv
 def load(p, s):
     return [(r["instance"], r["evds"], r["err_raw_fro"]) for r in csv.DictReader(open(p)) if r["solver"] == s]

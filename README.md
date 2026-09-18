@@ -42,14 +42,24 @@ python gen_degeneracy_family.py --n 500 --out degen_instances_n500_paired
 python materialize_exact_ystars.py degen_instances_paired
 ```
 
-It is not bit-reproducible across machines. It takes a basis for a degenerate
-eigenspace from LAPACK (`numpy.linalg.eigh`), and which basis LAPACK returns
-depends on the build, so on another machine the regenerated instances have the
-same parameters and pass the same screening but are not hash-identical to the
-ones used in the paper. The manifests in `data/manifests/` and the screening
-logs are the authoritative record of those instances. Instance binaries are not
-shipped (1 GB at n=500); `data/canonical_n100/` is a 12-instance subset for
-smoke tests.
+It reproduces the paper's instances up to rounding, not bit for bit. On the
+machine that produced them, a regenerated `G` differs from the original by at
+most 1e-17 relative and `X*` is bit-identical, but the SHA-256 hashes in
+`data/manifests/`, taken on exact bits, fail on the rank-5 and rank-20 rows.
+Check a regenerated set against recorded numerical fingerprints instead:
+
+```sh
+python check_instances.py check degen_instances_paired \
+    ../data/manifests/degen_instances_paired/fingerprints.tsv
+```
+
+On another LAPACK build there is a larger risk: the generator takes a basis for
+a degenerate eigenspace from `numpy.linalg.eigh`, and a build may return that
+subspace in a rotated basis, which gives genuinely different instances of the
+same family. The checker detects that (a rotated basis moves the fingerprints
+by 15 to 20 percent; rounding moves them by under 1e-12). Instance binaries are
+not shipped (1 GB at n=500); `data/canonical_n100/` holds 12 of the original
+instances, hash-identical to the manifest, for smoke tests.
 
 Each instance is `G_<i>.bin`, `Xstar_<i>.bin`, `ystar_<i>.bin`: `n*n` (or `n`)
 float64, little-endian, row-major. `cases.csv` records rank, near-zero

@@ -13,7 +13,11 @@ import sys
 import numpy as np
 import scipy.io as sio
 
-SRC = r"C:\Users\ibrah\Documents\Codex\NCM-research\benchmarks-and-missingness\work\p7-p8-sbb\source-matrices"
+# Directory holding the Anymatrix CORRINV .mat files (not redistributed):
+#   python export_real_suite.py <source_dir>   or   NCM_CORRINV_DIR=<source_dir>
+SRC = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("NCM_CORRINV_DIR")
+if not SRC:
+    sys.exit("usage: python export_real_suite.py <dir with the CORRINV .mat files>")
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "real_suite")
 NAMES = ["Rocky_Mountain_Region_CORR", "cor1399", "bccd16", "cor3120"]
 
