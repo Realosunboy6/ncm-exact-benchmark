@@ -19,6 +19,7 @@
 \end{tikzpicture}
 \caption{Median wall-clock time per \EVD. The spread is a factor of 1.37 and
 works against Newton, whose \EVDs\ are accompanied by Krylov solves that the
-\EVD\ count does not record.}
+\EVD\ count does not record. Anderson-APM was added after these timing runs and
+is not shown; its extra work per \EVD\ is a least-squares update of $O(mn^2)$.}
 \label{fig:perevd}
 \end{figure}

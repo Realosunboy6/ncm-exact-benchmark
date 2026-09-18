@@ -22,7 +22,7 @@ original instances at $n=100$ (2\,MB) ships with the artifact.
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{p{0.40\linewidth}p{0.54\linewidth}}
+\begin{tabular}{p{0.46\linewidth}p{0.48\linewidth}}
 \toprule
 file & contents\\
 \midrule
@@ -59,6 +59,7 @@ file & contents\\
 \texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\
+\texttt{code/make\_figure\_data.py} & the data behind \cref{fig:crossover,fig:heatmap,fig:crossoverrank}\\
 \texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py}, \texttt{analyze\_confound.py} & bootstrap intervals for \cref{tab:highrank}, \cref{tab:us2105pert}, and the bulk-level pilot\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
@@ -73,9 +74,13 @@ data that may not be redistributed; the exporters, the selection rules and all
 result files are included, the raw prices are not.
 
 {\sloppy
-\paragraph{Figure data.} The files \texttt{paper/figures/data/*.dat} were
-extracted from the result files above. The file \texttt{evd\_vs\_eps.dat}
-applies the cost-to-target rule of \texttt{analyze\_ranking.py}
-(accepted-only, reach and hold) on a half-decade grid of $\varepsilon$. At the
-five decade targets it reproduces \cref{tab:fwd}, up to that table's rounding
-of half-integer medians.\par}
+\paragraph{Figure data.} The files \texttt{paper/figures/data/*.dat} behind
+\cref{fig:crossover,fig:heatmap,fig:crossoverrank} are written by
+\texttt{code/make\_figure\_data.py} from the result files above, and
+\texttt{reproduce.sh} regenerates them for comparison. The file
+\texttt{evd\_vs\_eps.dat} applies the cost-to-target rule of
+\texttt{analyze\_ranking.py} (accepted-only, reach and hold) on a half-decade
+grid of $\varepsilon$; at the five decade targets it reproduces \cref{tab:fwd},
+up to that table's rounding of half-integer medians. The data behind
+\cref{fig:native,fig:perevd} come from the timing runs, as do
+\cref{tab:primitive,tab:perevd,tab:native}.\par}

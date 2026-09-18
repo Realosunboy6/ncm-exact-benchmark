@@ -1,18 +1,18 @@
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\begin{axis}[
-  width=0.86\linewidth, height=7.4cm,
-  colormap/viridis,
+\begin{groupplot}[
+  group style={group size=1 by 2, vertical sep=1.9cm},
+  width=0.66\linewidth, height=5.4cm,
+  % one diverging scale on log2 of the ratio, centred on parity (ratio 1)
+  colormap={parity}{rgb255(0cm)=(33,102,172); rgb255(1cm)=(247,247,247); rgb255(2cm)=(178,24,43)},
+  point meta min=-2.6, point meta max=2.6,
   colorbar,
-  colorbar style={
-    title={$\;$median \EVDs: SBB-Dual $/$ AGD-SDAJ-BH},
-    title style={font=\footnotesize, rotate=90, xshift=2.1cm, yshift=-2.4cm},
-    ylabel style={font=\footnotesize},
-  },
-  point meta min=0.3, point meta max=2.8,
+  colorbar style={width=0.3cm, ytick={-2,-1,0,1,2},
+    yticklabels={$\tfrac14$,$\tfrac12$,$1$,$2$,$4$},
+    yticklabel style={font=\footnotesize}},
   xlabel={separation $\rho=\delta/\mu_{\mathrm{bulk}}$},
-  ylabel={rank $r$ and near-zero multiplicity $m$},
+  ylabel={rank $r$ and multiplicity $m$},
   xtick={0,1,2,3,4,5},
   xticklabels={$0$,$10^{-9}$,$10^{-7}$,$10^{-5}$,$10^{-3}$,$10^{-1}$},
   ytick={0,1,2,3,4,5,6,7,8},
@@ -22,21 +22,33 @@
     {$r{=}50,m{=}1$},{$r{=}50,m{=}5$},{$r{=}50,m{=}20$}},
   yticklabel style={font=\footnotesize},
   xticklabel style={font=\footnotesize},
+  label style={font=\small},
   tick style={draw=none},
   enlargelimits=false,
   axis on top,
+  title style={font=\small},
 ]
+\nextgroupplot[title={(a) SBB-Dual $/$ AGD-SDAJ-BH}]
 \addplot[matrix plot*, point meta=explicit, mesh/cols=6]
-  table[x=x, y=y, meta=ratio] {figures/data/heatmap.dat};
-\end{axis}
+  table[x=x, y=y, meta expr={log2(\thisrow{ratio})}] {figures/data/heatmap.dat};
+\nextgroupplot[title={(b) Dykstra-APM $/$ AGD-SDAJ-BH}]
+\addplot[matrix plot*, point meta=explicit, mesh/cols=6]
+  table[x=x, y=y, meta expr={log2(\thisrow{ratio})}] {figures/data/heatmap_pub.dat};
+\end{groupplot}
 \end{tikzpicture}
-\caption{Ratio of median \EVDs\ to reach and hold $\fro{X-\Xs}\le10^{-8}$,
-SBB-Dual divided by AGD-SDAJ-BH, for each of the 54 cells at $n=100$ (five
-paired instances per cell). Values above 1 mean AGD-SDAJ-BH is cheaper; below
-1, SBB-Dual is. The ratio is organized primarily by rank: it exceeds 1 in
-every $r=5$ cell and is below 1 in every $r=50$ cell. The near-zero
-multiplicity $m$ modulates the level within a rank, most visibly at $r=20$
-(from $1.03$ at $m=1$ to $0.40$ at $m=20$), whereas the separation $\rho$ has
-little effect, as the near-constancy along each row shows.}
+\caption{Ratio of median \EVDs\ to reach and hold $\fro{X-\Xs}\le10^{-8}$ for
+each of the 54 cells at $n=100$ (five paired instances per cell), on one shared
+logarithmic colour scale: red cells favour AGD-SDAJ-BH, blue cells the other
+method, white is parity. (a)~SBB-Dual over AGD-SDAJ-BH. The ratio is organized
+primarily by rank: it exceeds 1 in every $r=5$ cell and is below 1 in every
+$r=50$ cell. The near-zero multiplicity $m$ modulates the level within a rank,
+most visibly at $r=20$ (from $1.03$ at $m=1$ to $0.40$ at $m=20$), whereas the
+separation $\rho$ has little effect. (b)~Dykstra-APM over AGD-SDAJ-BH, two
+published methods. The organization is the same, because Dykstra-APM costs
+between 1.6 and 2.7 times SBB-Dual in every cell, so the whole map is shifted
+towards AGD-SDAJ-BH: the ratio lies between 2.7 and 5.7 at $r=5$, between 0.94
+and 2.2 at $r=20$ and between 0.58 and 1.35 at $r=50$, and it falls below 1 in
+14 cells, all 12 with $r=50$ and $m\in\{5,20\}$ and two with $r=20$ and
+$m=20$.}
 \label{fig:heatmap}
 \end{figure}

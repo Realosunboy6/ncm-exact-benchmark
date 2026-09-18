@@ -54,6 +54,10 @@ echo "equity n=550 KKT by rank -> thesis_kkt_by_rank.md"
     "$work/ranking_thesis_kkt.csv" "$work/ranking_thesis_kkt_anderson.csv" \
     SBB-Dual:AGD-SDAJ-BH Anderson-APM:AGD-SDAJ-BH > /dev/null
 
+echo "figure data         -> figure_data/"
+mkdir -p "$work/figure_data"
+"$PY" "$here/make_figure_data.py" "$work" "$work/figure_data" > /dev/null
+
 echo "stopping rule, Sec. 6 -> stopping_rule.txt"
 "$PY" "$here/analyze_stopping_rule.py" "$here/../results/timing_kkt270_native.csv" \
     "$here/../results/timing_n500_native.csv" > "$work/stopping_rule.txt"
@@ -77,6 +81,7 @@ cat <<'MAP'
   Sec. accounting sensitivity               scoring_column_check.txt
   Tab. us2105, us2105pert                   us2105_analysis.txt
   Sec. 6 cross-dimension comparison         stopping_rule.txt
+  Figures 2, 3, 4 (data)                    figure_data/ (compare paper/figures/data/)
 
   Not regenerated here: the timing tables (primitive, perevd, native), from
   results/timing_*.csv via analyze_timing.py.

@@ -1,8 +1,9 @@
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\begin{axis}[
-  width=0.82\linewidth, height=6.0cm,
+\begin{groupplot}[
+  group style={group size=1 by 2, vertical sep=1.5cm, xlabels at=edge bottom},
+  width=0.58\linewidth, height=5.0cm,
   xmode=log, log basis x=10,
   xmin=4, xmax=520,
   ymin=-0.05, ymax=1.08,
@@ -12,27 +13,41 @@
   xticklabels={5,20,50,100,200,400},
   ytick={0,0.25,0.5,0.75,1},
   legend cell align=left,
-  legend style={font=\footnotesize, at={(1.02,1)}, anchor=north west, draw=none},
+  legend style={font=\footnotesize, at={(1.03,1)}, anchor=north west, draw=none},
   every axis plot/.append style={thick, mark size=2pt},
   axis x line*=bottom, axis y line*=left,
   unbounded coords=discard,
+  title style={font=\small, at={(0.5,1.0)}, anchor=south},
 ]
+\nextgroupplot[title={(a) SBB-Dual against AGD-SDAJ-BH}]
 \addplot[gray, dashed, forget plot, domain=4:520, samples=2] {0.5};
 \addplot[black, mark=*] table[x=rank, y=frac100] {figures/data/crossover.dat};
 \addplot[blue!60!black, mark=square*] table[x=rank, y=frac500] {figures/data/crossover.dat};
 \addplot[orange!80!black, mark=triangle*] table[x=rank, y=frac550] {figures/data/crossover.dat};
 \addplot[red!70!black, mark=diamond*] table[x=rank, y=frac2105] {figures/data/crossover.dat};
 \legend{$n=100$, $n=500$, equity $n=550$, equity $n=2105$}
-\end{axis}
+\nextgroupplot[title={(b) Published pairs against AGD-SDAJ-BH}]
+\addplot[gray, dashed, forget plot, domain=4:520, samples=2] {0.5};
+\addplot[black, mark=*] table[x=rank, y=dyk100] {figures/data/crossover_pub.dat};
+\addplot[blue!60!black, mark=square*] table[x=rank, y=dyk500] {figures/data/crossover_pub.dat};
+\addplot[violet, mark=pentagon*] table[x=rank, y=and2105] {figures/data/crossover_pub.dat};
+\legend{Dykstra-APM{,} $n=100$, Dykstra-APM{,} $n=500$, Anderson-APM{,} equity $n=2105$}
+\end{groupplot}
 \end{tikzpicture}
-\caption{Where the second and third places exchange. Each point is the
-fraction of instances at one rank on which SBB-Dual reaches
-$\fro{X-\Xs}\le10^{-8}$ in fewer \EVDs\ than AGD-SDAJ-BH; the dashed line marks
-parity. The exchange happens between $r=5$ and $r=20$ at $n=100$, between
-$r=50$ and $r=75$ at $n=500$, and has not been reached by $r=100$ on the
-equity instances at $n=550$ or by $r=200$ at $n=2105$. The rightmost point
-rests on four instances and its ordering reverses at $10^{-10}$
-(\cref{sec:us2105}), so the rise is reported as a bracket per dimension and no
-trend is fitted to it.}
+\caption{Where pairs of methods exchange places. Each point is the fraction of
+instances at one rank on which the named method reaches
+$\fro{X-\Xs}\le10^{-8}$ in fewer \EVDs\ than AGD-SDAJ-BH; a run that never
+reaches the target counts as the more expensive one, and the dashed line marks
+parity. (a)~SBB-Dual: the exchange happens between $r=5$ and $r=20$ at
+$n=100$, between $r=50$ and $r=75$ at $n=500$, and has not been reached by
+$r=100$ on the equity instances at $n=550$ or by $r=200$ at $n=2105$; the
+rightmost point rests on four instances and its ordering reverses at
+$10^{-10}$ (\cref{sec:us2105}). (b)~Two published methods: Dykstra-APM
+overtakes AGD-SDAJ-BH between $r=20$ and $r=50$ at $n=100$ but not by $r=150$
+at $n=500$. At $n=2105$, where each point rests on four instances,
+Anderson-APM is ahead at $r=50$, behind at $r=100$ and $r=200$, and ahead again
+at $r=400$, so its order is not monotone in rank. For SBB-Dual and for
+Dykstra-APM the rank at which the exchange occurs rises with dimension; it is
+reported as a bracket per dimension and no trend is fitted to it.}
 \label{fig:crossoverrank}
 \end{figure}
