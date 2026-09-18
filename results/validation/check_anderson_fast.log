@@ -1,0 +1,48 @@
+instance                     tol        EVDs   fast exit            max rel err     ||X-Xf||
+degen-r5-m1-d0-p0            native       25     25 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m1-d0-p0            matched      75     75 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m1-d1e-08-p0        native       25     25 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m1-d1e-08-p0        matched      76     76 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m5-d0-p0            native       36     36 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m5-d0-p0            matched      91     91 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m5-d1e-08-p0        native       36     36 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m5-d1e-08-p0        matched      79     79 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m20-d0-p0           native       26     26 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m20-d0-p0           matched      83     83 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m20-d1e-08-p0       native       26     26 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m20-d1e-08-p0       matched      76     76 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m1-d0-p0           native       13     13 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m1-d0-p0           matched      37     37 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m1-d1e-08-p0       native       13     13 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m1-d1e-08-p0       matched      37     37 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m5-d0-p0           native       14     14 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m5-d0-p0           matched      40     40 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m5-d1e-08-p0       native       14     14 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m5-d1e-08-p0       matched      40     40 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m20-d0-p0          native       13     13 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m20-d0-p0          matched      34     34 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m20-d1e-08-p0      native       13     13 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m20-d1e-08-p0      matched      39     39 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m1-d0-p0           native        8      8 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m1-d0-p0           matched      17     17 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m1-d1e-08-p0       native        8      8 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m1-d1e-08-p0       matched      17     17 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m5-d0-p0           native        7      7 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m5-d0-p0           matched      16     16 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m5-d1e-08-p0       native        7      7 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m5-d1e-08-p0       matched      16     16 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m20-d0-p0          native        7      7 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m20-d0-p0          matched      17     17 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m20-d1e-08-p0      native        7      7 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m20-d1e-08-p0      matched      17     17 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m1-d0-p0            native       27     27 diag_feasible       0.0e+00      0.0e+00
+degen-r5-m1-d0-p0            matched      91     91 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m20-d1e-08-p0      native       22     22 diag_feasible       0.0e+00      0.0e+00
+degen-r20-m20-d1e-08-p0      matched      77     77 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m5-d0-p0           native       15     15 diag_feasible       0.0e+00      0.0e+00
+degen-r50-m5-d0-p0           matched      42     42 diag_feasible       0.0e+00      0.0e+00
+Rocky_Mountain_Region_CORR   native        4      4 diag_feasible       0.0e+00      0.0e+00
+Rocky_Mountain_Region_CORR   matched       8      8 diag_feasible       0.0e+00      0.0e+00
+
+44 run pairs; EVD count or exit differs in 0; largest relative difference in the returned X 0.0e+00
+FAST CHECK DONE

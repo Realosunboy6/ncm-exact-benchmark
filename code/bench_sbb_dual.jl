@@ -1344,7 +1344,7 @@ function main()
     cols = ["instance","n","solver","tol_rule","tol_value","updates","total_evds",
             "elapsed_seconds","evd_seconds","evd_percent","bb_seconds",
             "certificate_seconds","rescale_seconds","newton_cg_seconds",
-            "dykstra_update_seconds","other_seconds",
+            "dykstra_update_seconds","anderson_update_seconds","other_seconds",
             "dist_G_X_fro","err_vs_ref_fro","lambda_min_X","diag_error_pre",
             "diag_error_post","certificate_2","certificate_inf",
             "ceiling_clamp_pct","exit",
@@ -1392,7 +1392,17 @@ function main()
                                               max_evds=timing_evd_budget)),
                 ("Dykstra-APM",   (to) -> dykstra_apm(G; tol=tolv_run, to=to,
                                               maxit=dykstra_maxit)),
+                # the timing form: same iterates as anderson_apm, bit for bit
+                # (validation/check_anderson_fast.jl), without its allocations
+                ("Anderson-APM",  (to) -> anderson_apm_fast(G; tol=tolv_run, to=to,
+                                              maxit=dykstra_maxit, m=2)),
             ]
+            if haskey(args, "timing-solvers")
+                keep = String.(strip.(split(args["timing-solvers"], ",")))
+                bad = setdiff(keep, [s[1] for s in solvers])
+                isempty(bad) || error("unknown solver(s) $(bad)")
+                solvers = Any[s for s in solvers if s[1] in keep]
+            end
 
             for (sname, f) in solvers
                 # --no-warmup (disclosed; intended only for n>=3000 where one
@@ -1414,7 +1424,8 @@ function main()
                 resc = section_seconds(to, "bh_rescale_epilogue")
                 cg = section_seconds(to, "newton_cg")
                 dyk = section_seconds(to, "dykstra_update")
-                other = max(elapsed - ev - bb - cert - resc - cg - dyk, 0.0)
+                aa = section_seconds(to, "anderson_update")
+                other = max(elapsed - ev - bb - cert - resc - cg - dyk - aa, 0.0)
                 tot = elapsed
 
                 X = res.X
@@ -1428,7 +1439,7 @@ function main()
 
                 vals = [name, n, sname, "1e-7*n", tolv, res.updates, res.evds,
                         elapsed, ev, (tot > 0 ? 100ev / tot : NaN), bb, cert,
-                        resc, cg, dyk, other, dist, err, lmin, dpre, dpost,
+                        resc, cg, dyk, aa, other, dist, err, lmin, dpre, dpost,
                         res.cert2, res.certinf, clamp, res.exit,
                         getprop(res, :cg_iters_total, 0),
                         getprop(res, :jacobian_vector_products,

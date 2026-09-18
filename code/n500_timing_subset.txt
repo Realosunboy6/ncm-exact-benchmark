@@ -1,0 +1,1 @@
+degen-r5-m1-d0.01-p0,degen-r5-m1-d0-p0,degen-r5-m5-d0.01-p0,degen-r5-m5-d0-p0,degen-r5-m20-d0.01-p0,degen-r5-m20-d0-p0,degen-r20-m1-d0.01-p0,degen-r20-m1-d0-p0,degen-r20-m5-d0.01-p0,degen-r20-m5-d0-p0,degen-r20-m20-d0.01-p0,degen-r20-m20-d0-p0,degen-r50-m1-d0.01-p0,degen-r50-m1-d0-p0,degen-r50-m5-d0.01-p0,degen-r50-m5-d0-p0,degen-r50-m20-d0.01-p0,degen-r50-m20-d0-p0

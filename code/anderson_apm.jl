@@ -257,3 +257,133 @@ function anderson_apm(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
             exit=r.converged ? "diag_feasible" : r.breakdown ? "ls_breakdown" : "max_iter",
             cert=g, cert2=norm(g), certinf=maximum(abs.(g)))
 end
+
+"""
+Timing form of `anderson_apm`, for the wall-clock study only.
+
+`nearcorr_aa` above is written for fidelity to the MATLAB original: every
+iteration it concatenates vectors of length 2n^2, copies the history matrix to
+drop a column, and reallocates the QR factors. Timed as it stands, Anderson-APM
+would be charged for that transcription style rather than for the method, while
+the other solvers update in place. This version performs the same arithmetic in
+the same order on preallocated buffers: the history is shifted in place, the
+oldest column leaves through Givens rotations applied in place (the operation
+MATLAB's qrdelete performs), and products go through `mul!`. Its iterates agree
+with `anderson_apm` to rounding (validation/check_anderson_fast.jl), and the work
+outside the eigendecomposition is timed as "anderson_update", as the Dykstra
+update is timed as "dykstra_update".
+"""
+function anderson_apm_fast(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
+                           maxit::Int=5000, m::Int=2, to::TimerOutput=TimerOutput(),
+                           traj=nothing)
+    n = size(G, 1); N = n * n; L = 2N
+    τ = tol === nothing ? 1e-7 * n : tol
+    x = zeros(L); g = zeros(L); f = zeros(L)
+    f_old = zeros(L); g_old = zeros(L); df = zeros(L); tmp = zeros(L)
+    DG = zeros(L, m); Q = zeros(L, m); R = zeros(m, m)
+    gam = zeros(m); qf = zeros(m)
+    copyto!(x, 1, vec(G), 1, N)                  # Yin = G, Sin = 0
+    Rm = similar(G)
+    Xout = copy(G)
+    mAA = 0; evds = 0; its = 0; exitreason = "max_iter"
+    for it in 1:maxit
+        @timeit to "anderson_update" begin
+            @inbounds for k in 1:N               # R = Yin - Sin
+                Rm[k] = x[k] - x[N+k]
+            end
+        end
+        Xout = hs_proj_spd(Rm, 0.0, to)          # one EVD, timed inside
+        evds += 1
+        snap!(traj, Xout, diag(Xout) .- 1.0)
+        if norm(diag(Xout) .- 1.0) <= τ
+            its = it; exitreason = "diag_feasible"; break
+        end
+        breakdown = false
+        @timeit to "anderson_update" begin
+            # g = [vec(Yout); vec(Sout)], Yout = Xout with unit diagonal, Sout = Xout - R
+            @inbounds for k in 1:N
+                g[k] = Xout[k]
+                g[N+k] = Xout[k] - Rm[k]
+            end
+            @inbounds for i in 1:n
+                g[(i-1)*n+i] = 1.0
+            end
+            f .= g .- x
+            if it > 1                            # AAstart = 1
+                df .= f .- f_old
+                if mAA < m
+                    DG[:, mAA+1] .= g .- g_old
+                else
+                    for j in 1:m-1
+                        copyto!(view(DG, :, j), view(DG, :, j+1))
+                    end
+                    DG[:, m] .= g .- g_old
+                end
+                mAA += 1
+            end
+            copyto!(f_old, f); copyto!(g_old, g)
+            if mAA == 0
+                copyto!(x, g)
+            else
+                if mAA == 1
+                    R[1, 1] = norm(df)
+                    Q[:, 1] .= df ./ R[1, 1]
+                else
+                    if mAA > m                   # qrdelete(Q, R, 1), in place
+                        k = m
+                        for c in 1:k-1           # R(:,1) = []
+                            for r in 1:k
+                                R[r, c] = R[r, c+1]
+                            end
+                        end
+                        for j in 1:k-1           # restore triangularity by Givens
+                            x1 = R[j, j]; x2 = R[j+1, j]
+                            if x2 != 0
+                                # the same 2x2 products as hs_qrdelete_first, so
+                                # the rounding is identical, not just equivalent
+                                rr = hypot(x1, x2)
+                                Gm = [x1 x2; -x2 x1] ./ rr
+                                R[j, j] = rr; R[j+1, j] = 0.0
+                                if j < k - 1
+                                    R[j:j+1, j+1:k-1] = Gm * R[j:j+1, j+1:k-1]
+                                end
+                                Q[:, j:j+1] = Q[:, j:j+1] * Gm'
+                            end
+                        end
+                        mAA -= 1
+                        for r in 1:m, c in 1:m   # drop the last row and column
+                            (r > mAA - 1 || c > mAA - 1) && (R[r, c] = 0.0)
+                        end
+                    end
+                    for j in 1:mAA-1             # modified Gram-Schmidt
+                        R[j, mAA] = dot(view(Q, :, j), df)
+                        df .-= R[j, mAA] .* view(Q, :, j)
+                    end
+                    for c in 1:mAA-1
+                        R[mAA, c] = 0.0
+                    end
+                    R[mAA, mAA] = norm(df)
+                    Q[:, mAA] .= df ./ R[mAA, mAA]
+                end
+                if any(iszero, (R[j, j] for j in 1:mAA))
+                    breakdown = true
+                else
+                    # m x m copies, so the solve takes the same LAPACK path as
+                    # the transcription's R\(Q'*f); the O(n^2) work stays in place
+                    Qv = view(Q, :, 1:mAA)
+                    mul!(view(qf, 1:mAA), Qv', f)
+                    gv = UpperTriangular(R[1:mAA, 1:mAA]) \ qf[1:mAA]
+                    mul!(tmp, view(DG, :, 1:mAA), gv)
+                    x .= g .- tmp
+                end
+            end
+        end
+        its = it
+        if breakdown
+            exitreason = "ls_breakdown"; break
+        end
+    end
+    gd = diag(Xout) .- 1.0
+    return (X=Xout, updates=its, evds=evds, exit=exitreason,
+            cert=gd, cert2=norm(gd), certinf=maximum(abs.(gd)))
+end

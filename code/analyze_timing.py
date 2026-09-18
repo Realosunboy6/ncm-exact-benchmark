@@ -29,7 +29,7 @@ native_path = args[0] if args else "timing_kkt270_native.csv"
 matched_path = args[1] if len(args) > 1 else "timing_kkt270_matched.csv"
 
 ORDER = ["Newton-SIN-BH", "Newton-SIN", "AGD-SDAJ-BH", "AGD-SDAJ",
-         "SBB-Dual", "Dykstra-APM"]
+         "SBB-Dual", "Dykstra-APM", "Anderson-APM"]
 
 L = []
 
