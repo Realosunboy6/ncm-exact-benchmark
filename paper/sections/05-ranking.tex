@@ -436,14 +436,15 @@ computed reference, and the number of draws (out of 5) on which SBB-Dual is
 cheaper than AGD-SDAJ-BH.}
 \label{tab:thesispert}
 \small
-\begin{tabular}{rrrrrrc}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrrrrc}
 \toprule
-$\sigma$ & Newton-SIN-BH & SBB-Dual & Dykstra-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB cheaper\\
+$\sigma$ & Newton-SIN-BH & SBB-Dual & Anderson-APM & Dykstra-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB cheaper\\
 \midrule
-0.005 & \textbf{5} & 10 & 17  & 20 & 24 & 5\\
-0.01  & \textbf{5} & 15 & 30  & 20 & 30 & 5\\
-0.03  & \textbf{6} & 29 & 60  & 29 & 29 & 2 (1 tie)\\
-0.1   & \textbf{7} & 67 & 140 & 38 & 42.5 \tiny[4] & 0\\
+0.005 & \textbf{5} & 10 & 11 & 17  & 20 & 24 & 5\\
+0.01  & \textbf{5} & 15 & 18 & 30  & 20 & 30 & 5\\
+0.03  & \textbf{6} & 29 & 31 & 60  & 29 & 29 & 2 (1 tie)\\
+0.1   & \textbf{7} & 67 & 59 & 140 & 38 & 42.5 \tiny[4] & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -568,6 +569,19 @@ Unmodified AGD-SDAJ exhausted its 800-\EVD\ budget on two of the 16 KKT
 instances, both at $r=400$, where AGD-SDAJ-BH converged in 119 and 164 \EVDs;
 this is the stall of \cref{sec:trap2} at the largest size we tested.
 
+\paragraph{Where Anderson-APM is not second.}
+Its second place is a property of the KKT families, not of the method. On the
+perturbed equity matrices it is third at every $\sigma$, cheaper than
+AGD-SDAJ-BH on all five draws at $\sigma\in\{0.005,0.01\}$ and on none at
+$\sigma\in\{0.03,0.1\}$, so the degree of invalidity reorders it exactly as it
+reorders SBB-Dual (\cref{tab:thesispert}). On the four literature matrices it
+is second on the Rocky Mountain matrix (6 \EVDs), but third on
+	exttt{cor1399} (103 against 66 for AGD-SDAJ-BH) and fourth on
+	exttt{cor3120} (155 against 41), the two matrices where every projection
+method is slow (\cref{tab:real}). A comparison drawn only from the exact
+families would therefore overstate its standing, which is the same warning
+this paper makes about every place below the first.
+
 \subsection{Four matrices from the literature}\label{sec:real}
 The family of \cref{sec:family} is synthetic. To check that the regime
 dependence above is not an artifact of the construction, we ran the same
@@ -601,7 +615,8 @@ measured only on the two smaller matrices.
 \centering
 \caption{Real matrices, target $10^{-9}$. \EVDs\ to reach and hold $10^{-8}$,
 total \EVDs, measured time at the matched tolerance (smaller two matrices
-only) and final error. $^{\ddagger}$Stops at its cap and is censored.}
+only; Anderson-APM was added later and not timed) and final error.
+$^{\ddagger}$Stops at its cap and is censored.}
 \label{tab:real}
 \small
 \begin{tabular}{llrrrr}
@@ -613,21 +628,25 @@ $n=94$         & SBB-Dual      & \textbf{7} & 8 & 0.011 & $1.53\times10^{-10}$\\
                & Dykstra-APM   & 11 & 13 & 0.023 & $2.57\times10^{-10}$\\
                & AGD-SDAJ-BH   & 12 & 17 & 0.023 & $3.47\times10^{-10}$\\
                & AGD-SDAJ      & 12 & 25 & 0.036 & $3.47\times10^{-10}$\\
+               & Anderson-APM  & 6 & 7 & -- & $2.52\times10^{-10}$\\
 \midrule
 \texttt{cor1399} & Newton-SIN-BH & \textbf{7} & 7 & 7.00 & $1.27\times10^{-9}$\\
 $n=1399$         & AGD-SDAJ-BH   & \textbf{66} & 91 & 65.00 & $6.92\times10^{-10}$\\
                  & AGD-SDAJ      & 67 & 136 & 100.04 & $2.29\times10^{-9}$\\
+                 & Anderson-APM  & 103 & 109 & -- & $3.08\times10^{-9}$\\
                  & SBB-Dual      & 200 & 212 & 152.69 & $1.89\times10^{-9}$\\
                  & Dykstra-APM$^{\ddagger}$ & 406 & 300 & 288.90 & $1.49\times10^{-6}$\\
 \midrule
 \texttt{cor3120} & Newton-SIN-BH & \textbf{6} & 6 & -- & $2.33\times10^{-9}$\\
 $n=3120$         & AGD-SDAJ-BH   & 41 & 42 & -- & $1.32\times10^{-9}$\\
                  & AGD-SDAJ      & 56 & 59 & -- & $2.17\times10^{-10}$\\
+                 & Anderson-APM  & 155 & 160 & -- & $3.21\times10^{-9}$\\
                  & SBB-Dual      & 255 & 270 & -- & $3.38\times10^{-9}$\\
                  & Dykstra-APM$^{\ddagger}$ & -- & 300 & -- & $1.16\times10^{-5}$\\
 \midrule
 \texttt{bccd16}  & Newton-SIN-BH & \textbf{4} & 5 & -- & $2.71\times10^{-11}$\\
 $n=3250$         & SBB-Dual      & 5 & 6 & -- & $1.20\times10^{-10}$\\
+                 & Anderson-APM  & 6 & 6 & -- & $4.22\times10^{-10}$\\
                  & Dykstra-APM   & 6 & 7 & -- & $1.46\times10^{-10}$\\
                  & AGD-SDAJ-BH   & 8 & 9 & -- & $8.88\times10^{-10}$\\
                  & AGD-SDAJ$^{\ddagger}$ & -- & 323 & -- & $3.93\times10^{-5}$\\

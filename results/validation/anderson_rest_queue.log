@@ -1,0 +1,8 @@
+Thu Sep 17 17:40:56 CDT 2026 export perturbed n=550 suite
+  thesis-s0.1-r4         lambda_min=-4.2694  negative=243  clipped=40
+wrote 20 matrices to thesis_suite
+all matrices are invalid (lambda_min < 0)
+Thu Sep 17 17:40:58 CDT 2026 perturbed n=550, 20 matrices
+Thu Sep 17 17:48:45 CDT 2026 literature matrices, smaller two (cap 500)
+Thu Sep 17 17:56:40 CDT 2026 literature matrices, larger two (cap 300)
+Thu Sep 17 20:38:32 CDT 2026 ANDERSON REST QUEUE DONE

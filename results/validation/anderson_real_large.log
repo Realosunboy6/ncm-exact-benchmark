@@ -1,0 +1,10 @@
+[1/2] bccd16 (n=3250)
+    reference (computed, NOT exact): ||grad||_2=8.070e-13 ||grad||_inf=6.283e-13 exit=evd_budget evds=30  626.9s
+    AGD-SDAJ-BH        9 EVDs  err=8.880e-10  exit=diag_feasible_at_xpre
+    Anderson-APM       6 EVDs  err=4.220e-10  exit=diag_feasible
+[2/2] cor3120 (n=3120)
+    reference (computed, NOT exact): ||grad||_2=1.575e-12 ||grad||_inf=6.670e-13 exit=evd_budget evds=30  2101.7s
+    AGD-SDAJ-BH       42 EVDs  err=1.320e-09  exit=diag_feasible_at_xpre
+    Anderson-APM     160 EVDs  err=3.209e-09  exit=diag_feasible
+
+wrote ranking_real_anderson_large.csv

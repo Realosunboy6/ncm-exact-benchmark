@@ -1,0 +1,82 @@
+[1/20] thesis-s0.005-r0 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.004e-14 ||grad||_inf=2.887e-14 exit=converged evds=5  2.8s
+    AGD-SDAJ-BH       25 EVDs  err=1.487e-10  exit=diag_feasible
+    Anderson-APM      13 EVDs  err=1.049e-09  exit=diag_feasible
+[2/20] thesis-s0.005-r1 (n=550)
+    reference (computed, NOT exact): ||grad||_2=7.298e-14 ||grad||_inf=4.330e-14 exit=converged evds=5  1.6s
+    AGD-SDAJ-BH       23 EVDs  err=1.202e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      13 EVDs  err=5.860e-10  exit=diag_feasible
+[3/20] thesis-s0.005-r2 (n=550)
+    reference (computed, NOT exact): ||grad||_2=7.067e-14 ||grad||_inf=2.931e-14 exit=converged evds=5  1.8s
+    AGD-SDAJ-BH       20 EVDs  err=1.074e-09  exit=diag_feasible
+    Anderson-APM      13 EVDs  err=2.538e-10  exit=diag_feasible
+[4/20] thesis-s0.005-r3 (n=550)
+    reference (computed, NOT exact): ||grad||_2=7.528e-14 ||grad||_inf=1.399e-14 exit=converged evds=5  1.7s
+    AGD-SDAJ-BH       27 EVDs  err=6.199e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      13 EVDs  err=3.718e-10  exit=diag_feasible
+[5/20] thesis-s0.005-r4 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.641e-14 ||grad||_inf=6.528e-14 exit=converged evds=5  1.6s
+    AGD-SDAJ-BH       17 EVDs  err=4.465e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      13 EVDs  err=2.554e-10  exit=diag_feasible
+[6/20] thesis-s0.01-r0 (n=550)
+    reference (computed, NOT exact): ||grad||_2=7.927e-14 ||grad||_inf=1.554e-14 exit=converged evds=6  2.3s
+    AGD-SDAJ-BH       29 EVDs  err=8.506e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      21 EVDs  err=1.319e-09  exit=diag_feasible
+[7/20] thesis-s0.01-r1 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.615e-14 ||grad||_inf=5.085e-14 exit=converged evds=6  2.0s
+    AGD-SDAJ-BH       36 EVDs  err=1.514e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      19 EVDs  err=1.006e-09  exit=diag_feasible
+[8/20] thesis-s0.01-r2 (n=550)
+    reference (computed, NOT exact): ||grad||_2=9.921e-14 ||grad||_inf=2.198e-14 exit=converged evds=7  3.1s
+    AGD-SDAJ-BH       29 EVDs  err=8.951e-10  exit=diag_feasible
+    Anderson-APM      20 EVDs  err=6.854e-10  exit=diag_feasible
+[9/20] thesis-s0.01-r3 (n=550)
+    reference (computed, NOT exact): ||grad||_2=7.166e-14 ||grad||_inf=2.109e-14 exit=converged evds=6  2.2s
+    AGD-SDAJ-BH       23 EVDs  err=6.195e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      20 EVDs  err=5.869e-10  exit=diag_feasible
+[10/20] thesis-s0.01-r4 (n=550)
+    reference (computed, NOT exact): ||grad||_2=5.554e-14 ||grad||_inf=1.510e-14 exit=converged evds=6  2.1s
+    AGD-SDAJ-BH       23 EVDs  err=3.366e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      19 EVDs  err=7.534e-10  exit=diag_feasible
+[11/20] thesis-s0.03-r0 (n=550)
+    reference (computed, NOT exact): ||grad||_2=9.334e-14 ||grad||_inf=1.554e-14 exit=converged evds=13  6.3s
+    AGD-SDAJ-BH       35 EVDs  err=1.375e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      34 EVDs  err=9.568e-10  exit=diag_feasible
+[12/20] thesis-s0.03-r1 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.180e-14 ||grad||_inf=1.632e-14 exit=converged evds=9  4.2s
+    AGD-SDAJ-BH       30 EVDs  err=3.960e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      34 EVDs  err=1.019e-09  exit=diag_feasible
+[13/20] thesis-s0.03-r2 (n=550)
+    reference (computed, NOT exact): ||grad||_2=1.121e-13 ||grad||_inf=2.287e-14 exit=evd_budget evds=30  14.6s
+    AGD-SDAJ-BH       35 EVDs  err=6.660e-10  exit=diag_feasible
+    Anderson-APM      34 EVDs  err=1.038e-09  exit=diag_feasible
+[14/20] thesis-s0.03-r3 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.846e-14 ||grad||_inf=1.676e-14 exit=converged evds=9  3.3s
+    AGD-SDAJ-BH       29 EVDs  err=7.012e-11  exit=diag_feasible_at_xpre
+    Anderson-APM      35 EVDs  err=1.588e-09  exit=diag_feasible
+[15/20] thesis-s0.03-r4 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.559e-14 ||grad||_inf=2.109e-14 exit=converged evds=7  2.5s
+    AGD-SDAJ-BH       31 EVDs  err=7.351e-10  exit=diag_feasible
+    Anderson-APM      34 EVDs  err=9.491e-10  exit=diag_feasible
+[16/20] thesis-s0.1-r0 (n=550)
+    reference (computed, NOT exact): ||grad||_2=9.908e-14 ||grad||_inf=2.864e-14 exit=converged evds=8  2.6s
+    AGD-SDAJ-BH       39 EVDs  err=1.032e-09  exit=diag_feasible_at_xpre
+    Anderson-APM      67 EVDs  err=1.744e-09  exit=diag_feasible
+[17/20] thesis-s0.1-r1 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.758e-14 ||grad||_inf=1.377e-14 exit=converged evds=16  6.2s
+    AGD-SDAJ-BH       49 EVDs  err=6.451e-10  exit=diag_feasible
+    Anderson-APM      59 EVDs  err=1.659e-09  exit=diag_feasible
+[18/20] thesis-s0.1-r2 (n=550)
+    reference (computed, NOT exact): ||grad||_2=8.751e-14 ||grad||_inf=1.510e-14 exit=converged evds=26  13.2s
+    AGD-SDAJ-BH       39 EVDs  err=1.049e-09  exit=diag_feasible_at_xpre
+    Anderson-APM      64 EVDs  err=2.026e-09  exit=diag_feasible
+[19/20] thesis-s0.1-r3 (n=550)
+    reference (computed, NOT exact): ||grad||_2=6.707e-14 ||grad||_inf=1.110e-14 exit=converged evds=20  8.9s
+    AGD-SDAJ-BH       42 EVDs  err=5.443e-10  exit=diag_feasible_at_xpre
+    Anderson-APM      65 EVDs  err=1.862e-09  exit=diag_feasible
+[20/20] thesis-s0.1-r4 (n=550)
+    reference (computed, NOT exact): ||grad||_2=9.789e-14 ||grad||_inf=1.854e-14 exit=converged evds=22  9.9s
+    AGD-SDAJ-BH       43 EVDs  err=1.131e-09  exit=diag_feasible
+    Anderson-APM      64 EVDs  err=1.936e-09  exit=diag_feasible
+
+wrote ranking_thesis_anderson.csv

@@ -1,0 +1,10 @@
+[1/2] Rocky_Mountain_Region_CORR (n=94)
+    reference (computed, NOT exact): ||grad||_2=1.434e-14 ||grad||_inf=8.660e-15 exit=converged evds=4  1.1s
+    AGD-SDAJ-BH       17 EVDs  err=3.466e-10  exit=diag_feasible
+    Anderson-APM       7 EVDs  err=2.521e-10  exit=diag_feasible
+[2/2] cor1399 (n=1399)
+    reference (computed, NOT exact): ||grad||_2=3.681e-13 ||grad||_inf=3.897e-14 exit=evd_budget evds=30  100.4s
+    AGD-SDAJ-BH       69 EVDs  err=1.982e-09  exit=diag_feasible
+    Anderson-APM     109 EVDs  err=3.080e-09  exit=diag_feasible
+
+wrote ranking_real_anderson_small.csv
