@@ -82,6 +82,10 @@ Rockyfe  0.0     m=3     12 |     12     12     12 | default matches
 Rockyfe  0.0     m=4     12 |     12     12     12 | default matches
 Rockyfe  0.0     m=5     12 |     12     12     12 | default matches
 
+exact matches under syevr: 57 of 64 excluding mmb13, 4 of 18 on mmb13
+exact matches under syevd: 61 of 64 excluding mmb13, 5 of 18 on mmb13
+exact matches under syev: 59 of 64 excluding mmb13, 2 of 18 on mmb13
+
 Excluding mmb13: default eigensolver matches 57 of 64; published count matched or bracketed by the three eigensolvers in 62 of 64.
 mmb13: published count matched or bracketed in 13 of 18.
 

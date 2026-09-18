@@ -44,6 +44,15 @@ for c in cases
             cs[1], cs[2], cs[3], tag)
     flush(stdout)
 end
+# Headline: exact matches per eigensolver. "Matched or bracketed" below is a
+# weaker, secondary criterion and is reported only alongside it.
+for sv in SOLVERS
+    ex_o = count(c -> c.name != "mmb13" && count_with(sv, c) == c.pub, cases)
+    ex_m = count(c -> c.name == "mmb13" && count_with(sv, c) == c.pub, cases)
+    @printf("\nexact matches under %s: %d of %d excluding mmb13, %d of %d on mmb13",
+            sv, ex_o, length(cases) - mmb, ex_m, mmb)
+end
+println()
 nsmall = length(cases) - mmb
 @printf("\nExcluding mmb13: default eigensolver matches %d of %d; published count matched or bracketed by the three eigensolvers in %d of %d.\n",
         exact, nsmall, within, nsmall)

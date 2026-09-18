@@ -1194,8 +1194,11 @@ Solvers:
   AGD-SDAJ            Huynh--Hwang 2025, verified against published counts
   Dykstra-APM         alternating projections
   Anderson-APM        alternating projections with Anderson acceleration,
-                      m = 2 (Higham--Strabic 2016, verified against their
-                      published counts; see validation/validate_anderson.jl)
+                      m = 2 (Higham--Strabic 2016). Iterates agree with an
+                      independent implementation to 2e-12; published counts
+                      match where rounding at n*eps does not decide them
+                      (61/64 small and both large under syevd, 57/64 and 0/2
+                      under the default syevr). See validation/.
 
 Every row is one EVD. Rejected line-search trials carry accepted=false: they cost
 work and receive no accuracy credit. Forward error is measured against the EXACT

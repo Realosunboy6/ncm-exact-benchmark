@@ -51,8 +51,13 @@ fixed-point map is one alternating-projections step on the pair $(Y,\Delta S)$,
 and the acceleration solves a least-squares problem over the last $m$ differences
 of its residuals, taken here at the authors' default $m=2$. It costs one \EVD\ per
 iteration plus $O(mn^2)$ work, and like Dykstra-APM it is scored on the PSD
-half-iterate. Our implementation is a transcription of their released code and
-reproduces their published iteration counts (\cref{app:agd}, \cref{sec:repro}).
+half-iterate. Our implementation transcribes their released code. Its iterates
+agree with an independent implementation to $2.3\times10^{-12}$, and it
+reproduces their published iteration counts where rounding at their stopping
+tolerance does not decide them: under the same eigensolver, both large-matrix
+counts exactly and 61 of 64 small ones, with the rest one iteration apart; on
+one ill-conditioned matrix the counts are decided by rounding and differ by up
+to 56 iterations (\cref{app:anderson}).
 
 \subsection{Design}
 All six variants were run on the 270 instances of \cref{sec:family} at
