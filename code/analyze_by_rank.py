@@ -9,10 +9,10 @@ final suffix with err_raw_fro <= eps (reach and hold). A solver that never
 reaches the target is reported as '--' and excluded from the pairwise counts.
 
 Usage:
-  python analyze_by_rank.py out.md file1.csv[,file2.csv...] [pairA:pairB ...]
+  python analyze_by_rank.py out.md file1.csv [file2.csv ...] [pairA:pairB ...]
 
 Example:
-  python analyze_by_rank.py t.md ranking_thesis_kkt.csv,ranking_thesis_kkt_anderson.csv \\
+  python analyze_by_rank.py t.md ranking_thesis_kkt.csv ranking_thesis_kkt_anderson.csv \\
       SBB-Dual:AGD-SDAJ-BH Anderson-APM:AGD-SDAJ-BH
 """
 import csv
@@ -49,8 +49,11 @@ def cost(tr, eps):
 
 
 def main():
-    outpath, files = sys.argv[1], sys.argv[2].split(",")
-    pairs = [tuple(a.split(":")) for a in sys.argv[3:]]
+    args = sys.argv[1:]
+    files = [a for a in args if a.lower().endswith(".csv")]
+    outpath = next(a for a in args if a.lower().endswith(".md"))
+    pairs = [tuple(a.split(":")) for a in args
+             if ":" in a and not a.lower().endswith((".csv", ".md"))]
     rows = load(files)
     inst = sorted({i for i, _ in rows})
     solvers = [s for s in SOLVER_ORDER if any((i, s) in rows for i in inst)]

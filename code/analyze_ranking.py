@@ -19,19 +19,21 @@ Two honesty rules carried over from analyze_trajectory.py:
   * rejected trials cost EVDs always, but under accepted-only accounting they can
     never be credited with reaching a target.
 
-Usage: python analyze_ranking.py ranking_kkt270.csv[,more.csv...] [out.md]
+Usage: python analyze_ranking.py ranking_kkt270.csv [more.csv ...] [out.md]
 
-Several comma-separated CSVs are read as one study, so a solver run later (and
-written to its own file) joins the tables of the run it extends. The solver
-list is taken from the data.
+Several CSVs are read as one study, so a solver run later (and written to its
+own file) joins the tables of the run it extends. The solver list is taken
+from the data.
 """
 import csv
 import re
 import sys
 from collections import defaultdict
 
-paths = (sys.argv[1] if len(sys.argv) > 1 else "ranking_kkt270.csv").split(",")
-outpath = sys.argv[2] if len(sys.argv) > 2 else None
+args = sys.argv[1:]
+paths = [a for a in args if a.lower().endswith(".csv")] or ["ranking_kkt270.csv"]
+_out = [a for a in args if not a.lower().endswith(".csv")]
+outpath = _out[0] if _out else None
 
 SOLVER_ORDER = ["Newton-SIN-BH", "AGD-SDAJ-BH", "AGD-SDAJ", "SBB-Dual",
                 "Dykstra-APM", "Anderson-APM"]

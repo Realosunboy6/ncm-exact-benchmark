@@ -1,53 +1,61 @@
 
 KKT instances (exact X*), eps=0.0001: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-      50  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=71.5(4/4)  AGD-SDAJ=71.5(4/4)  SBB-Dual=278.5(4/4) | SBB cheaper 0/4, median diff +207
-     100  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=86(4/4)  AGD-SDAJ=86(4/4)  SBB-Dual=189.5(4/4) | SBB cheaper 0/4, median diff +103.5
-     200  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=73.5(4/4)  AGD-SDAJ=73.5(4/4)  SBB-Dual=103.5(4/4) | SBB cheaper 0/4, median diff +29.5
-     400  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=58.5(4/4)  AGD-SDAJ=58.5(4/4)  SBB-Dual=46(4/4) | SBB cheaper 3/4, median diff -12.5
+      50  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=71.5(4/4)  AGD-SDAJ=71.5(4/4)  SBB-Dual=278.5(4/4)  Dykstra-APM=556(4/4)  Anderson-APM=56.5(4/4) | SBB cheaper 0/4, median diff +207
+     100  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=86(4/4)  AGD-SDAJ=86(4/4)  SBB-Dual=189.5(4/4)  Dykstra-APM=378.5(4/4)  Anderson-APM=93(4/4) | SBB cheaper 0/4, median diff +103.5
+     200  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=73.5(4/4)  AGD-SDAJ=73.5(4/4)  SBB-Dual=103.5(4/4)  Dykstra-APM=206.5(4/4)  Anderson-APM=65(4/4) | SBB cheaper 0/4, median diff +29.5
+     400  Newton-SIN-BH=4(4/4)  AGD-SDAJ-BH=58.5(4/4)  AGD-SDAJ=58.5(4/4)  SBB-Dual=46(4/4)  Dykstra-APM=93(4/4)  Anderson-APM=30(4/4) | SBB cheaper 3/4, median diff -12.5
 
 KKT instances (exact X*), eps=1e-06: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-      50  Newton-SIN-BH=4.5(4/4)  AGD-SDAJ-BH=117.5(4/4)  AGD-SDAJ=118.5(4/4)  SBB-Dual=464.5(4/4) | SBB cheaper 0/4, median diff +347
-     100  Newton-SIN-BH=4.5(4/4)  AGD-SDAJ-BH=100.5(4/4)  AGD-SDAJ=108.5(4/4)  SBB-Dual=315(4/4) | SBB cheaper 0/4, median diff +214
-     200  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=93.5(4/4)  AGD-SDAJ=92(4/4)  SBB-Dual=173(4/4) | SBB cheaper 0/4, median diff +79
-     400  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=79.5(4/4)  AGD-SDAJ=76(4/4)  SBB-Dual=76.5(4/4) | SBB cheaper 2/4, median diff -3
+      50  Newton-SIN-BH=4.5(4/4)  AGD-SDAJ-BH=117.5(4/4)  AGD-SDAJ=118.5(4/4)  SBB-Dual=464.5(4/4)  Dykstra-APM=--  Anderson-APM=94(4/4) | SBB cheaper 0/4, median diff +347
+     100  Newton-SIN-BH=4.5(4/4)  AGD-SDAJ-BH=100.5(4/4)  AGD-SDAJ=108.5(4/4)  SBB-Dual=315(4/4)  Dykstra-APM=630.5(4/4)  Anderson-APM=162(4/4) | SBB cheaper 0/4, median diff +214
+     200  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=93.5(4/4)  AGD-SDAJ=92(4/4)  SBB-Dual=173(4/4)  Dykstra-APM=347(4/4)  Anderson-APM=110.5(4/4) | SBB cheaper 0/4, median diff +79
+     400  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=79.5(4/4)  AGD-SDAJ=76(4/4)  SBB-Dual=76.5(4/4)  Dykstra-APM=156(4/4)  Anderson-APM=53(4/4) | SBB cheaper 2/4, median diff -3
 
 KKT instances (exact X*), eps=1e-08: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-      50  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=159.5(4/4)  AGD-SDAJ=201.5(4/4)  SBB-Dual=650(4/4) | SBB cheaper 0/4, median diff +490.5
-     100  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=143(4/4)  AGD-SDAJ=179(4/4)  SBB-Dual=442(4/4) | SBB cheaper 0/4, median diff +298
-     200  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=111(4/4)  AGD-SDAJ=116.5(4/4)  SBB-Dual=244(4/4) | SBB cheaper 0/4, median diff +132.5
-     400  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=109.5(4/4)  AGD-SDAJ=130(4/4)  SBB-Dual=109(4/4) | SBB cheaper 2/4, median diff -0.5
+      50  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=159.5(4/4)  AGD-SDAJ=201.5(4/4)  SBB-Dual=650(4/4)  Dykstra-APM=--  Anderson-APM=147.5(4/4) | SBB cheaper 0/4, median diff +490.5
+     100  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=143(4/4)  AGD-SDAJ=179(4/4)  SBB-Dual=442(4/4)  Dykstra-APM=--  Anderson-APM=233(4/4) | SBB cheaper 0/4, median diff +298
+     200  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=111(4/4)  AGD-SDAJ=116.5(4/4)  SBB-Dual=244(4/4)  Dykstra-APM=491(4/4)  Anderson-APM=158.5(4/4) | SBB cheaper 0/4, median diff +132.5
+     400  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=109.5(4/4)  AGD-SDAJ=130(4/4)  SBB-Dual=109(4/4)  Dykstra-APM=222.5(4/4)  Anderson-APM=78(4/4) | SBB cheaper 2/4, median diff -0.5
 
 KKT instances (exact X*), eps=1e-10: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-      50  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=180.5(4/4)  AGD-SDAJ=228(4/4)  SBB-Dual=835.5(4/4) | SBB cheaper 0/4, median diff +655
-     100  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=168.5(4/4)  AGD-SDAJ=237.5(4/4)  SBB-Dual=569.5(4/4) | SBB cheaper 0/4, median diff +399
-     200  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=129(4/4)  AGD-SDAJ=176(4/4)  SBB-Dual=316(4/4) | SBB cheaper 0/4, median diff +186.5
-     400  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=132.5(4/4)  AGD-SDAJ=122(3/4)  SBB-Dual=141.5(4/4) | SBB cheaper 1/4, median diff +8
+      50  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=180.5(4/4)  AGD-SDAJ=228(4/4)  SBB-Dual=835.5(4/4)  Dykstra-APM=--  Anderson-APM=195.5(4/4) | SBB cheaper 0/4, median diff +655
+     100  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=168.5(4/4)  AGD-SDAJ=237.5(4/4)  SBB-Dual=569.5(4/4)  Dykstra-APM=--  Anderson-APM=268.5(4/4) | SBB cheaper 0/4, median diff +399
+     200  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=129(4/4)  AGD-SDAJ=176(4/4)  SBB-Dual=316(4/4)  Dykstra-APM=637(4/4)  Anderson-APM=181(4/4) | SBB cheaper 0/4, median diff +186.5
+     400  Newton-SIN-BH=5(4/4)  AGD-SDAJ-BH=132.5(4/4)  AGD-SDAJ=122(3/4)  SBB-Dual=141.5(4/4)  Dykstra-APM=289(4/4)  Anderson-APM=95(4/4) | SBB cheaper 1/4, median diff +8
 
 exit reasons at the cap (evd_budget / max_iter):
+  thesiskkt-r100-m1-d0-p0 Dykstra-APM: 800 EVDs, final error 6.67e-08
+  thesiskkt-r100-m1-d0-p1 Dykstra-APM: 800 EVDs, final error 6.68e-08
+  thesiskkt-r100-m20-d0-p0 Dykstra-APM: 800 EVDs, final error 3.15e-08
+  thesiskkt-r100-m20-d0-p1 Dykstra-APM: 800 EVDs, final error 2.89e-08
+  thesiskkt-r50-m1-d0-p0 Dykstra-APM: 800 EVDs, final error 8.84e-06
+  thesiskkt-r50-m1-d0-p1 Dykstra-APM: 800 EVDs, final error 8.88e-06
+  thesiskkt-r50-m20-d0-p0 Dykstra-APM: 800 EVDs, final error 2.54e-06
+  thesiskkt-r50-m20-d0-p1 Dykstra-APM: 800 EVDs, final error 2.50e-06
 
 perturbed matrix (computed reference), eps=0.0001: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-   0.005  Newton-SIN-BH=5(2/2)  AGD-SDAJ-BH=13(2/2)  AGD-SDAJ=13(2/2)  SBB-Dual=10(2/2) | SBB cheaper 2/2, median diff -3
-    0.01  Newton-SIN-BH=5(2/2)  AGD-SDAJ-BH=15.5(2/2)  AGD-SDAJ=15.5(2/2)  SBB-Dual=14(2/2) | SBB cheaper 1/2, median diff -1.5
-    0.03  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=21.5(2/2)  AGD-SDAJ=21.5(2/2)  SBB-Dual=33(2/2) | SBB cheaper 0/2, median diff +11.5
-     0.1  Newton-SIN-BH=7(2/2)  AGD-SDAJ-BH=28(2/2)  AGD-SDAJ=28(2/2)  SBB-Dual=80(2/2) | SBB cheaper 0/2, median diff +52
+   0.005  Newton-SIN-BH=5(2/2)  AGD-SDAJ-BH=13(2/2)  AGD-SDAJ=13(2/2)  SBB-Dual=10(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 2/2, median diff -3
+    0.01  Newton-SIN-BH=5(2/2)  AGD-SDAJ-BH=15.5(2/2)  AGD-SDAJ=15.5(2/2)  SBB-Dual=14(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 1/2, median diff -1.5
+    0.03  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=21.5(2/2)  AGD-SDAJ=21.5(2/2)  SBB-Dual=33(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 0/2, median diff +11.5
+     0.1  Newton-SIN-BH=7(2/2)  AGD-SDAJ-BH=28(2/2)  AGD-SDAJ=28(2/2)  SBB-Dual=80(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 0/2, median diff +52
 
 perturbed matrix (computed reference), eps=1e-06: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-   0.005  Newton-SIN-BH=5(2/2)  AGD-SDAJ-BH=17.5(2/2)  AGD-SDAJ=38(2/2)  SBB-Dual=14(2/2) | SBB cheaper 2/2, median diff -3.5
-    0.01  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=21(2/2)  AGD-SDAJ=22(2/2)  SBB-Dual=21(2/2) | SBB cheaper 1/2, median diff +0
-    0.03  Newton-SIN-BH=6.5(2/2)  AGD-SDAJ-BH=31(2/2)  AGD-SDAJ=31.5(2/2)  SBB-Dual=50.5(2/2) | SBB cheaper 0/2, median diff +19.5
-     0.1  Newton-SIN-BH=7.5(2/2)  AGD-SDAJ-BH=50.5(2/2)  AGD-SDAJ=47.5(2/2)  SBB-Dual=121.5(2/2) | SBB cheaper 0/2, median diff +71
+   0.005  Newton-SIN-BH=5(2/2)  AGD-SDAJ-BH=17.5(2/2)  AGD-SDAJ=38(2/2)  SBB-Dual=14(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 2/2, median diff -3.5
+    0.01  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=21(2/2)  AGD-SDAJ=22(2/2)  SBB-Dual=21(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 1/2, median diff +0
+    0.03  Newton-SIN-BH=6.5(2/2)  AGD-SDAJ-BH=31(2/2)  AGD-SDAJ=31.5(2/2)  SBB-Dual=50.5(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 0/2, median diff +19.5
+     0.1  Newton-SIN-BH=7.5(2/2)  AGD-SDAJ-BH=50.5(2/2)  AGD-SDAJ=47.5(2/2)  SBB-Dual=121.5(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 0/2, median diff +71
 
 perturbed matrix (computed reference), eps=1e-08: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-   0.005  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=28(2/2)  AGD-SDAJ=55(2/2)  SBB-Dual=19(2/2) | SBB cheaper 2/2, median diff -9
-    0.01  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=30.5(2/2)  AGD-SDAJ=33.5(2/2)  SBB-Dual=28.5(2/2) | SBB cheaper 2/2, median diff -2
-    0.03  Newton-SIN-BH=7(2/2)  AGD-SDAJ-BH=40.5(2/2)  AGD-SDAJ=43(2/2)  SBB-Dual=69(2/2) | SBB cheaper 0/2, median diff +28.5
-     0.1  Newton-SIN-BH=8(2/2)  AGD-SDAJ-BH=67(2/2)  AGD-SDAJ=59.5(2/2)  SBB-Dual=163.5(2/2) | SBB cheaper 0/2, median diff +96.5
+   0.005  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=28(2/2)  AGD-SDAJ=55(2/2)  SBB-Dual=19(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 2/2, median diff -9
+    0.01  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=30.5(2/2)  AGD-SDAJ=33.5(2/2)  SBB-Dual=28.5(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 2/2, median diff -2
+    0.03  Newton-SIN-BH=7(2/2)  AGD-SDAJ-BH=40.5(2/2)  AGD-SDAJ=43(2/2)  SBB-Dual=69(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 0/2, median diff +28.5
+     0.1  Newton-SIN-BH=8(2/2)  AGD-SDAJ-BH=67(2/2)  AGD-SDAJ=59.5(2/2)  SBB-Dual=163.5(2/2)  Dykstra-APM=--  Anderson-APM=-- | SBB cheaper 0/2, median diff +96.5
 
 perturbed matrix (computed reference), eps=1e-10: median EVDs (reached/total); SBB-Dual vs AGD-SDAJ-BH
-   0.005  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=--  AGD-SDAJ=--  SBB-Dual=--
-    0.01  Newton-SIN-BH=6(1/2)  AGD-SDAJ-BH=41(1/2)  AGD-SDAJ=--  SBB-Dual=--
-    0.03  Newton-SIN-BH=7(2/2)  AGD-SDAJ-BH=40(1/2)  AGD-SDAJ=41(1/2)  SBB-Dual=--
-     0.1  Newton-SIN-BH=8(2/2)  AGD-SDAJ-BH=--  AGD-SDAJ=--  SBB-Dual=--
+   0.005  Newton-SIN-BH=6(2/2)  AGD-SDAJ-BH=--  AGD-SDAJ=--  SBB-Dual=--  Dykstra-APM=--  Anderson-APM=--
+    0.01  Newton-SIN-BH=6(1/2)  AGD-SDAJ-BH=41(1/2)  AGD-SDAJ=--  SBB-Dual=--  Dykstra-APM=--  Anderson-APM=--
+    0.03  Newton-SIN-BH=7(2/2)  AGD-SDAJ-BH=40(1/2)  AGD-SDAJ=41(1/2)  SBB-Dual=--  Dykstra-APM=--  Anderson-APM=--
+     0.1  Newton-SIN-BH=8(2/2)  AGD-SDAJ-BH=--  AGD-SDAJ=--  SBB-Dual=--  Dykstra-APM=--  Anderson-APM=--
 
 exit reasons at the cap (evd_budget / max_iter):
   thesis-s0.01-r1 SBB-Dual: 31 EVDs, final error 1.24e-09
