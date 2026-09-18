@@ -1335,7 +1335,7 @@ function main()
     end
 
     gitsha = try
-        strip(read(`git -C $(dirname(dirname(@__DIR__))) rev-parse --short HEAD`, String))
+        strip(read(`git -C $(dirname(@__DIR__)) rev-parse --short HEAD`, String))
     catch
         "unknown"
     end
