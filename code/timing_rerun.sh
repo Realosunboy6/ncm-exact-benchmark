@@ -2,8 +2,9 @@
 # Re-time all seven variants in one session, Anderson-APM included, with the
 # settings of the original timing runs. One CPU-heavy job at a time.
 cd "$(dirname "$0")"
-export NCM_STANDALONE=1
-J="julia --project=. bench_sbb_dual.jl"
+# Real TimerOutputs (not the standalone stub), as in the original timing runs.
+export NCM_STANDALONE=0
+J="julia --pkgimages=no --project=. bench_sbb_dual.jl"
 stamp() { echo "$(date '+%F %T') $*"; }
 stamp "n=100 native start"
 $J --suite degen_instances_paired --out timing_kkt270_native_v2.csv --tol-mode native > timing_n100_native_v2.log 2>&1

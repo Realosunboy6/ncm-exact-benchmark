@@ -1019,6 +1019,10 @@ end
 
 # ------------------------------------------------- Dykstra / APM comparator
 
+# :full is the reconstruction the ranking studies were run with; :positive
+# gives the same bits at lower cost and is what the timing study uses.
+const DYKSTRA_REBUILD = Ref(:positive)
+
 function dykstra_apm(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
                      maxit::Int=5000, to::TimerOutput=TimerOutput(),
                      traj=nothing)
@@ -1031,7 +1035,15 @@ function dykstra_apm(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
         local Y
         @timeit to "spectral_projection/eigen" begin
             F = eigen(Symmetric((X + Pc + (X + Pc)') / 2))
-            Y = F.vectors * Diagonal(max.(F.values, 0.0)) * F.vectors'
+            if DYKSTRA_REBUILD[] === :positive
+                # rebuilt from the positive eigenpairs, as the dual methods are;
+                # bit-identical to the full rebuild (check_projection_rebuild.jl)
+                pos = F.values .> 0.0
+                Vp = F.vectors[:, pos]
+                Y = Vp * Diagonal(F.values[pos]) * Vp'
+            else
+                Y = F.vectors * Diagonal(max.(F.values, 0.0)) * F.vectors'
+            end
         end
         evds += 1
         Xpsd = (Y + Y') / 2

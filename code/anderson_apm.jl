@@ -60,6 +60,14 @@ end
 # change of eigensolver alone.
 const HS_EIG = Ref(:syevr)
 
+# How the projection is rebuilt from the eigendecomposition. :full forms
+# V*diag(max(w,delta))*V' as nearcorr_aa.m does; :positive (delta = 0 only)
+# forms Vp*diag(wp)*Vp' from the positive eigenpairs, as the dual methods here do.
+# The columns :full adds carry weight exactly zero, so the two agree bit for bit
+# (validation/check_projection_rebuild.jl), but :full costs an extra O(n^3)
+# product. :positive is used everywhere; :full is kept for that check.
+const HS_REBUILD = Ref(:positive)
+
 "proj_spd: nearest positive semidefinite matrix with smallest eigenvalue >= delta."
 function hs_proj_spd(A::Matrix{Float64}, delta::Float64, to::TimerOutput)
     local X
@@ -71,7 +79,13 @@ function hs_proj_spd(A::Matrix{Float64}, delta::Float64, to::TimerOutput)
         else
             w, V = LAPACK.syev!('V', 'U', copy(A))
         end
-        X = V * Diagonal(max.(w, delta)) * V'
+        if delta == 0.0 && HS_REBUILD[] === :positive
+            pos = w .> 0.0
+            Vp = V[:, pos]
+            X = Vp * Diagonal(w[pos]) * Vp'
+        else
+            X = V * Diagonal(max.(w, delta)) * V'
+        end
     end
     return (X + X') / 2
 end
@@ -282,6 +296,7 @@ function anderson_apm_fast(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothi
     f_old = zeros(L); g_old = zeros(L); df = zeros(L); tmp = zeros(L)
     DG = zeros(L, m); Q = zeros(L, m); R = zeros(m, m)
     gam = zeros(m); qf = zeros(m)
+    Qbuf = zeros(L, 2)                           # target of the Givens product
     copyto!(x, 1, vec(G), 1, N)                  # Yin = G, Sin = 0
     Rm = similar(G)
     Xout = copy(G)
@@ -347,7 +362,10 @@ function anderson_apm_fast(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothi
                                 if j < k - 1
                                     R[j:j+1, j+1:k-1] = Gm * R[j:j+1, j+1:k-1]
                                 end
-                                Q[:, j:j+1] = Q[:, j:j+1] * Gm'
+                                # same BLAS product as the transcription,
+                                # written into a buffer instead of a new array
+                                mul!(Qbuf, view(Q, :, j:j+1), Gm')
+                                copyto!(view(Q, :, j:j+1), Qbuf)
                             end
                         end
                         mAA -= 1
