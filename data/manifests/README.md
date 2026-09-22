@@ -16,8 +16,12 @@ exactly reproducible, so only their manifests and screening logs are kept here.
 The three equity-derived sets (`thesis_suite`, `thesis_kkt`, `us2105_kkt`) are built
 from vendor price data that cannot be redistributed. Their manifests and fingerprints
 let a holder of the same data check a rebuilt set with `code/check_instances.py`. The
-perturbed equity set at n = 2105 and the bulk-level pilot (`degen_confound_mu*`) are
-not manifested here.
+perturbed equity set at n = 2105 and the bulk-level pilot (`degen_confound_mu*`,
+synthetic and exactly regenerable, but not shipped here) are not manifested. The
+bulk-level pilot's cost numbers do not need the raw instances to reproduce: its
+ranking results are in `results/ranking_confound_mu*.csv.gz`, and
+`code/analyze_confound.py` reads those directly (only its optional
+`lambda_min(G)` column needs the raw instances).
 
 ## Files
 

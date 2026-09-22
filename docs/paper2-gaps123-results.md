@@ -49,8 +49,12 @@ The attempt was stopped after instance 1; its partial files are kept as
 `ranking_n500_aborted_full.{log,csv}` and are not used for results.
 
 **What was kept.** All 54 (r, m, delta) cells, with paired seeds **p0, p1, p2** (the first
-three accepted seeds per rank), for 162 instances. The list is in
-`n500_subset_p012.txt`. Caps: `--sbb-maxit 1200 --apm-maxit 800`. `--max-evds 4000` and
+three accepted seeds per rank), for 162 instances. The list was in
+`n500_subset_p012.txt`, a file from this interim step that was not retained; the current
+repo ships `n500_timing_subset.txt` instead, which is a later, different subset used for
+the timing study of Sec. 3.6, not for this run. The command below cannot be replayed
+verbatim from what is shipped; the 270-instance run that superseded this one is what the
+paper reports. Caps: `--sbb-maxit 1200 --apm-maxit 800`. `--max-evds 4000` and
 `--ranking-tol 1e-11` are unchanged. Command:
 
 ```

@@ -86,13 +86,25 @@ crossover at another.
   \item \emph{Our adaptation.} The Borsdorf--Higham adaptation to AGD-SDAJ is
     ours, not the original authors'. It is reported beside the unmodified
     method throughout.
-  \item \emph{Parameters.} Each method ran at one parameter setting: the
-    published values for Newton-SIN-BH, AGD-SDAJ, Dykstra-APM and
+  \item \emph{Parameters.} Each method in the main study ran at one parameter
+    setting: the published values for Newton-SIN-BH, AGD-SDAJ, Dykstra-APM and
     Anderson-APM (history length $m=2$), and the specification of
-    \cref{app:algorithms} for SBB-Dual, whose step-size clamp is
-    $\eta=0.01$. No parameter was varied in this study, so the sensitivity of
-    the orderings to them, and in particular to $m$ and $\eta$, was not
-    measured.
+    \cref{app:algorithms} for SBB-Dual, whose step-size clamp is $\eta=0.01$.
+    As a check, we reran the 270 $n=100$ instances against AGD-SDAJ-BH at
+    $\eta\in\{0.001,0.01,0.05,0.1,0.2\}$ and at
+    $m\in\{1,2,3,5,10\}$ (\texttt{code/sensitivity\_eta\_m.jl}). SBB-Dual's
+    median cost to $10^{-8}$ moves from 33.5 to 38.5 \EVDs\ over two orders of
+    magnitude in $\eta$, and the count of instances on which it is cheaper
+    than AGD-SDAJ-BH stays at 165--167 of 270 throughout, so the second-place
+    comparison is not sensitive to this parameter. Anderson-APM is more
+    sensitive: its median cost falls from 36 at $m=1$ to 19--20 at $m=5$--$10$,
+    and the count cheaper than AGD-SDAJ-BH rises from 210 to 258--261 of 270,
+    non-monotonically past $m=5$. The published default $m=2$ (median 24,
+    240/270) is therefore not the most favourable setting for Anderson-APM;
+    a larger $m$ would only strengthen its standing in \cref{sec:winner}, not
+    weaken it. The sensitivity of the rank-dependent orderings of
+    \cref{sec:cells,sec:n500,sec:highrank,sec:thesis,sec:us2105} to these
+    parameters was not checked.
   \item \emph{Feasibility propositions.} \Cref{prop:det} assumes uniform
     $\mu$, and the extension to mixed $\mu$ is open (\cref{app:family}).
     \Cref{prop:hd} is stated for $a$ only; no companion bound on $b$ is

@@ -75,6 +75,9 @@ echo "scoring-column check -> scoring_column_check.txt"
 "$PY" "$here/check_scoring_column.py" "$work/ranking_kkt270_v2.csv" "$work/ranking_n500.csv" \
       "$work/ranking_highrank_n500.csv" "$work/ranking_thesis_kkt.csv" > "$work/scoring_column_check.txt"
 
+echo "bulk-level pilot, Sec. 5.10 -> confound_mu_bulk_analysis.txt"
+"$PY" "$here/analyze_confound.py" "$work" > "$work/confound_mu_bulk_analysis.txt"
+
 echo
 echo "done. table -> file map:"
 cat <<'MAP'
@@ -88,5 +91,6 @@ cat <<'MAP'
   Tab. us2105, us2105pert                   us2105_analysis.txt
   Sec. 6 cross-dimension comparison         stopping_rule.txt
   Tab. primitive, perevd, native            timing_n100.md (and timing_n500.md)
+  Sec. 5.10 bulk-level pilot (48 instances)  confound_mu_bulk_analysis.txt
   Figure data                               figure_data/ (compare paper/figures/data/)
 MAP

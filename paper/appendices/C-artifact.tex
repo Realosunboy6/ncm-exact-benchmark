@@ -43,6 +43,7 @@ file & contents\\
 \texttt{code/validation/} & checks against Higham (2002), Higham--Strabi\'c (2016), Borsdorf (2007), Huynh--Hwang (2025), including the Anderson-APM record of \cref{app:anderson}; logs in \texttt{results/validation/}\\
 \texttt{code/highrank\_queue.sh}, \texttt{anderson\_rest\_queue.sh} & drivers for the runs added with Anderson-APM\\
 \texttt{code/check\_reference\_accuracy.jl} & two independent references per matrix (\cref{sec:real})\\
+\texttt{code/sensitivity\_eta\_m.jl} & the $\eta$/$m$ sweep of \cref{sec:discussion}; output in \texttt{results/analysis/sensitivity\_eta\_m.md}\\
 \midrule
 \multicolumn{2}{l}{\emph{Results and analysis}}\\
 \texttt{code/reproduce.sh} & regenerates the analysis tables from \texttt{results/*.csv.gz} and the figure data, and prints which file holds which table\\
@@ -57,17 +58,25 @@ file & contents\\
 \texttt{results/ranking\_real.csv.gz} & four literature matrices (\cref{tab:real})\\
 \texttt{results/timing\_*.csv} & single-threaded timings of all seven variants, measured in one session (\cref{sec:timing})\\
 \texttt{results/timing\_session1/} & an earlier timing session, kept for comparison; not used in any table\\
-\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert}, the paired comparison of \cref{sec:cells} and the accounting numbers of \cref{sec:acct-results}; sections 2 to 7 of its output use an earlier reach rule, kept for reproducibility, and the paper's tables come from sections 9 to 12\\
+\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert}, the paired comparison of \cref{sec:cells} and the accounting numbers of \cref{sec:acct-results}; sections 2, 3, 4, 5 and 7 of its output use an earlier reach rule, kept for reproducibility and flagged in the output itself, and every number the paper cites comes instead from the corrected recomputation from section 12 on, or, for \cref{tab:feas}, from section 6, which does not use that rule\\
 \texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\
 \texttt{code/make\_figure\_data.py} & the data behind every figure\\
-\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py}, \texttt{analyze\_confound.py} & bootstrap intervals for \cref{tab:highrank}, \cref{tab:us2105pert}, and the bulk-level pilot\\
+\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py} & bootstrap intervals for \cref{tab:highrank} and \cref{tab:us2105pert}\\
+\texttt{code/analyze\_confound.py} & the bulk-level pilot of \cref{sec:highrank}, from \texttt{results/ranking\_confound\_mu*.csv.gz}\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\paragraph{Development notes.}
+\texttt{docs/} keeps the session-by-session run notes behind this paper's
+results, including the equity-export commands and the timing re-run
+protocol. They are a working log, not a specification: where a note cites a
+file that a later run superseded, the note says so rather than being edited
+to match.
 
 \paragraph{Data not redistributed.}
 The Anymatrix \texttt{CORRINV} matrices carry their own terms and are obtained

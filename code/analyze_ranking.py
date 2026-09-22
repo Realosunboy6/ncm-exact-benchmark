@@ -95,6 +95,17 @@ def median(v):
 
 emit("# Paper 2 Sec. 5 - ranking under different conventions")
 emit("")
+emit("**Sections 2, 3, 4, 5 and 7 below use `cost_to`, an earlier reach rule kept**")
+emit("**verbatim for provenance (it scores a run 'not reached' on its first**")
+emit("**sub-target dip even if it later settles below target). It does NOT match**")
+emit("**the paper's definition (Sec. 3.2) and is superseded by `cost_to_fixed`.**")
+emit("**Every number those sections' rule affects, and that the paper cites**")
+emit("**(tab:fwd, tab:cells, tab:n500, tab:thesispert, the accounting-sensitivity**")
+emit("**numbers of Sec. 5.12), comes instead from the corrected recomputation in**")
+emit("**the second half of this file (from '## 12' on), not from Sections 2-5/7.**")
+emit("**Sections 1 and 6 (native exit, feasibility) do not use `cost_to` and are**")
+emit("**unaffected; tab:feas is read directly from Sec. 6.**")
+emit("")
 emit(f"Instances: {len(instances)} (n={ns[instances[0]]}). "
      f"Solvers: {', '.join(SOLVERS)}.")
 emit("")
@@ -319,7 +330,8 @@ def cost_to_fixed(curve, target, col=1):
     """Accepted-only EVDs at the first accepted iterate from which the target holds
     to the end of the run. cost_to (Sec. 2-7, kept verbatim for reproducibility)
     returns None at the FIRST dip below target if that dip is not held, even when
-    the run later settles below target; see audit_cost_to.py."""
+    the run later settles below target; see
+    results/analysis/ranking_kkt270_v2_cost_to_audit.md for the affected rows."""
     acc = [p for p in curve if p[3]]
     if not acc or acc[-1][col] > target:
         return None

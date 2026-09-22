@@ -1,5 +1,16 @@
 # Paper 2 Sec. 5 - ranking under different conventions
 
+**Sections 2, 3, 4, 5 and 7 below use `cost_to`, an earlier reach rule kept**
+**verbatim for provenance (it scores a run 'not reached' on its first**
+**sub-target dip even if it later settles below target). It does NOT match**
+**the paper's definition (Sec. 3.2) and is superseded by `cost_to_fixed`.**
+**Every number those sections' rule affects, and that the paper cites**
+**(tab:fwd, tab:cells, tab:n500, tab:thesispert, the accounting-sensitivity**
+**numbers of Sec. 5.12), comes instead from the corrected recomputation in**
+**the second half of this file (from '## 12' on), not from Sections 2-5/7.**
+**Sections 1 and 6 (native exit, feasibility) do not use `cost_to` and are**
+**unaffected; tab:feas is read directly from Sec. 6.**
+
 Instances: 270 (n=500). Solvers: Newton-SIN-BH, AGD-SDAJ-BH, AGD-SDAJ, SBB-Dual, Dykstra-APM, Anderson-APM.
 
 ## 1. Native stopping rules
