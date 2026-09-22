@@ -54,7 +54,7 @@ spectrum vector of \cref{def:family}).
 
 \paragraph{Semismooth Newton.}
 With the naive test~\eqref{eq:armijo}, Newton stalls on 56 of the 270 KKT
-instances, using 55{,}402 backtracks. With Borsdorf--Higham globalization
+instances, using 151{,}471 backtracks. With Borsdorf--Higham globalization
 (parameters $\mubh=0.9$, $\sigma=10^{-4}$, halving, and $\gamma=100$ in the
 near-equality test), it converges on all 270 with 8 backtracks. The count of
 56 was reproduced exactly in a separate timing run on a separate code path: at
@@ -64,11 +64,14 @@ matched tolerance, the naive-Armijo control exits at \texttt{max\_iter} on
 \texttt{timing\_kkt270\_matched.csv}, and the 8 is the
 \texttt{linesearch\_trials} total of the \texttt{Newton-SIN-BH} rows of that
 file, which agrees with the \texttt{backtracks} column of
-\texttt{ranking\_kkt270\_v2.csv.gz}. A predictor based on the ULP margin between the two sides
-of~\eqref{eq:armijo} separates stalling from non-stalling iterations with
-AUC $0.934$. In all 2{,}181 affected iterations, the full step that was
-\emph{rejected} would have reduced both the gradient norm and the exact
-forward error.
+\texttt{ranking\_kkt270\_v2.csv.gz}. The backtrack total of 151{,}471 is the
+same run's own count of rejected trials, independently verified from its
+recorded trajectory (\texttt{code/trace\_armijo\_stall.jl}). Of the 5{,}677
+trials that rejected the undamped Newton step ($\alpha=1$, before any
+backtracking), every one, without exception, would, if accepted, have
+reduced both the gradient norm and the exact forward error; counting every
+rejected trial, including those reached only after backtracking, 115{,}211
+of the 151{,}471 (76\%) would have.
 
 \paragraph{AGD-SDAJ.}
 The same failure occurs in AGD-SDAJ~\cite{huynh2025accelerated}, a separately

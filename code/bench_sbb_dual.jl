@@ -391,7 +391,8 @@ function newton_ncm(G::Matrix{Float64}; tol::Float64, maxit::Int=100,
                     max_evds::Int=typemax(Int),
                     y0::Union{Nothing,Vector{Float64}}=nothing,
                     to::TimerOutput=TimerOutput(), traj=nothing,
-                    cached::Bool=false, omega_beta::Float64=0.0, log=nothing)
+                    cached::Bool=false, omega_beta::Float64=0.0, log=nothing,
+                    trial_log=nothing)
     n = size(G, 1)
     y = y0 === nothing ? zeros(n) : copy(y0)
     θ, g, X, λc, Pc = theta_grad_full(G, y, to; traj=traj)
@@ -446,6 +447,9 @@ function newton_ncm(G::Matrix{Float64}; tol::Float64, maxit::Int=100,
         step = 1.0; ok = false; trial = 0
         budget_exhausted = false
         θt = θ; gt = g; Xt = X; λt = λc; Pt = Pc
+        gn_before = gn
+        err_before = (trial_log !== nothing && traj !== nothing) ? norm(X .- traj.Xref) : NaN
+        gtd = dot(g, d)
         for _ in 1:50
             if evds >= max_evds
                 budget_exhausted = true
@@ -458,7 +462,18 @@ function newton_ncm(G::Matrix{Float64}; tol::Float64, maxit::Int=100,
             # but never receive matched-accuracy credit.
             θt, gt, Xt, λt, Pt = theta_grad_full(G, y .+ step .* d, to; traj=nothing)
             evds += 1
-            if θt <= θ + 1e-4 * step * dot(g, d)
+            predicted_decrease = 1e-4 * step * gtd            # <= 0
+            accepted_trial = θt <= θ + predicted_decrease
+            if trial_log !== nothing
+                err_trial = traj !== nothing ? norm(Xt .- traj.Xref) : NaN
+                push!(trial_log, (outer=it, trial=trial, step=step,
+                                   theta=θ, theta_t=θt,
+                                   predicted_decrease=predicted_decrease,
+                                   grad2_before=gn_before, grad2_trial=norm(gt),
+                                   err_before=err_before, err_trial=err_trial,
+                                   accepted=accepted_trial))
+            end
+            if accepted_trial
                 snap!(traj, Xt, gt; accepted=true, event="armijo_trial",
                       outer=it, trial=trial)
                 ok = true; break
