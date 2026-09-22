@@ -54,10 +54,10 @@ iteration plus $O(mn^2)$ work, and like Dykstra-APM it is scored on the PSD
 half-iterate. Our implementation transcribes their released code. Its iterates
 agree with an independent implementation to $2.3\times10^{-12}$, and it
 reproduces their published iteration counts where rounding at their stopping
-tolerance does not decide them: under the same eigensolver, both large-matrix
-counts exactly and 61 of 64 small ones, with the rest one iteration apart; on
-one ill-conditioned matrix the counts are decided by rounding and differ by up
-to 56 iterations (\cref{app:anderson}).
+tolerance does not decide them. Under the same eigensolver it matches both
+large-matrix counts exactly and 61 of 64 small ones, with the rest one
+iteration apart; on one ill-conditioned matrix the counts are decided by
+rounding and differ by up to 56 iterations (\cref{app:anderson}).
 
 \subsection{Design}
 All six variants were run on the 270 instances of \cref{sec:family} at
@@ -329,7 +329,7 @@ behind at every rank tested at $n=500$, while it led at $r\ge20$ at $n=100$.
 The shrinking gap, however, points to a crossover beyond the grid, which
 \cref{sec:highrank} confirms.
 
-This is not an artifact of the caps. SBB-Dual converged on all 270 instances
+This is not an artefact of the caps. SBB-Dual converged on all 270 instances
 (worst case 1075 \EVDs\ against its 1200 cap) and reached every target except
 $10^{-10}$ on nine instances. $^{\ddagger}$Dykstra-APM, by contrast, \emph{is}
 censored: 90 of 270 runs stop at the 800-iteration cap, and from $10^{-6}$
@@ -641,7 +641,7 @@ dependence reported throughout this section.
 
 \subsection{Four matrices from the literature}\label{sec:real}
 The family of \cref{sec:family} is synthetic. To check that the regime
-dependence above is not an artifact of the construction, we ran the same
+dependence above is not an artefact of the construction, we ran the same
 protocol on four invalid correlation matrices from the literature: the
 Rocky Mountain carbon-storage matrix ($n=94$), \texttt{cor1399} ($n=1399$),
 \texttt{cor3120} ($n=3120$) and \texttt{bccd16} ($n=3250$), all from the
@@ -743,7 +743,7 @@ safeguard accepts the step, converges in four more \EVDs\ to
 $8.9\times10^{-10}$; unmodified AGD-SDAJ rejects trial after trial in its
 monotone line search, with the error unchanged in its first eight digits, until
 it exhausts the budget at 323 \EVDs. The defect of \cref{sec:trap2} is thus not
-an artifact of the constructed family, and it affects both published methods on
+an artefact of the constructed family, and it affects both published methods on
 real data, but neither is it universal: whether it appears depends on the
 matrix. Unmodified AGD-SDAJ also stalls on 10 of the 81 data-seeded and 1 of
 the 20 perturbed instances of \cref{sec:thesis}, and on \texttt{mmb13},

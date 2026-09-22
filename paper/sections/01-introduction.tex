@@ -38,8 +38,8 @@ first and third cannot be separated.
 \paragraph{Contributions.}
 In brief, we give an exact-solution NCM family and a matched-accuracy
 protocol, and use them to show that conclusions drawn from NCM solver
-comparisons do not transfer across benchmark regimes: the rank at which an
-ordering established at $n=100$ reverses moves higher at $n=500$, the order
+comparisons do not transfer across benchmark regimes. The rank at which an
+ordering established at $n=100$ reverses moves higher at $n=500$; the order
 also changes with the degree of invalidity on matrices built from equity
 returns, and four matrices from the literature are consistent with this
 dependence. We also show that a known
@@ -54,12 +54,12 @@ Each contribution builds on established practice (\cref{sec:related}).
     Wolkowicz~\cite{wei2010generating}. The parts specific to NCM are the
     projection identity $\Proj(G+\Diag\ys)=\Xs$, independent control of the
     rank, the multiplicity of the smallest eigenvalue of $C(\ys)$ and its
-    distance from zero (the strict-complementarity defect equals the
-    multiplicity when that distance is zero and vanishes otherwise, so 45 of
-    the 270 instances at each dimension are not strictly complementary), a paired-seed
-    design, sufficient conditions for $|G_{ij}|\le1$ together with a
-    fixed-rank saturation result for $\max_{i\ne j}|\Xs_{ij}|$, and released
-    instance sets at $n=100$ and $n=500$.
+    distance from zero, a paired-seed design, sufficient conditions for
+    $|G_{ij}|\le1$ together with a fixed-rank saturation result for
+    $\max_{i\ne j}|\Xs_{ij}|$, and released instance sets at $n=100$ and
+    $n=500$. The strict-complementarity defect equals that multiplicity when
+    the distance is zero and vanishes otherwise, so 45 of the 270 instances at
+    each dimension are not strictly complementary.
   \item \emph{A matched-accuracy protocol for NCM} (\cref{sec:protocol}). We
     adapt data profiles~\cite{more2009benchmarking}, fixed-target
     evaluation~\cite{hansen2021coco} and work--precision
