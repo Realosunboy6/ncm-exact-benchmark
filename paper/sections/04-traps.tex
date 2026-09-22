@@ -59,7 +59,12 @@ instances, using 55{,}402 backtracks. With Borsdorf--Higham globalization
 near-equality test), it converges on all 270 with 8 backtracks. The count of
 56 was reproduced exactly in a separate timing run on a separate code path: at
 matched tolerance, the naive-Armijo control exits at \texttt{max\_iter} on
-56/270. A predictor based on the ULP margin between the two sides
+56/270. Both counts are in the shipped result files: the 56 is the
+\texttt{exit} column of the \texttt{Newton-SIN} rows of
+\texttt{timing\_kkt270\_matched.csv}, and the 8 is the
+\texttt{linesearch\_trials} total of the \texttt{Newton-SIN-BH} rows of that
+file, which agrees with the \texttt{backtracks} column of
+\texttt{ranking\_kkt270\_v2.csv.gz}. A predictor based on the ULP margin between the two sides
 of~\eqref{eq:armijo} separates stalling from non-stalling iterations with
 AUC $0.934$. In all 2{,}181 affected iterations, the full step that was
 \emph{rejected} would have reduced both the gradient norm and the exact
