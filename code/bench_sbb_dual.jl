@@ -1087,8 +1087,23 @@ include(joinpath(@__DIR__, "anderson_apm.jl"))
 
 # ---------------------------------------------------------------- metrics
 
-section_seconds(to, key) = hasproperty(to, :inner_timers) && haskey(to.inner_timers, key) ?
-    TimerOutputs.time(to.inner_timers[key]) / 1e9 : 0.0
+function section_seconds(to, key)
+    # `hasproperty(to, :inner_timers)` is NOT a safe guard here: the real
+    # TimerOutputs.TimerOutput forwards `.inner_timers` through a custom
+    # getproperty (its actual fields are :root/:stack/...), so hasproperty
+    # (which only checks fieldnames) wrongly reports false and this
+    # silently returned 0.0 for every section of every REAL timing run
+    # between commits c3a7dd8 and the fix that added this comment -- the
+    # NCM_STANDALONE stub was the only thing that needed guarding. A
+    # try/catch is correct for both: it does nothing extra on the real
+    # type (whose property access succeeds) and degrades to 0.0 only on
+    # the stub (whose empty struct has no such property at all).
+    try
+        return haskey(to.inner_timers, key) ? TimerOutputs.time(to.inner_timers[key]) / 1e9 : 0.0
+    catch
+        return 0.0
+    end
+end
 
 function evd_seconds(to)
     s = 0.0

@@ -10,11 +10,14 @@
 # tab:perevd -- do not "fix" this script to use it. Native-tolerance timing
 # is not repeated here since it is not what feeds tab:perevd/tab:primitive.
 #
-# On this development machine, `using TimerOutputs` itself currently fails
-# (a Windows Application Control policy blocks loading its compiled package
-# cache, and MAT's separately); this is an environment issue, not a code
-# issue -- see docs/repeat-timing-attempt.md. Run this on a machine where
-# `julia --project=. -e "using TimerOutputs, MAT"` succeeds.
+# An earlier attempt on this machine hit two problems, both resolved -- see
+# docs/repeat-timing-attempt.md: a Windows Application Control policy
+# transiently blocked TimerOutputs'/MAT's compiled package caches (gone on
+# retry, apparently transient), and a real bug this attempt introduced into
+# section_seconds() (hasproperty is not a safe guard for TimerOutputs.
+# TimerOutput's custom getproperty; fixed with a try/catch). If
+# `julia --project=. -e "using TimerOutputs, MAT"` fails again, that is the
+# Application Control policy blocking again, not this script.
 #
 # Usage: sh repeat_timing.sh <n_repeats> <out_dir>
 cd "$(dirname "$0")"
