@@ -15,10 +15,10 @@ methods with quasi-Newton preconditioning~\cite{huynh2025accelerated}. Most of t
 papers include numerical comparisons, and those comparisons are how a reader
 decides which method to use.
 
-This paper is about how such comparisons are made. We ask a narrow question:
-\emph{when NCM solvers are compared, which methodological choices change the
-conclusion, and which only change the numbers?} We identify four candidate
-confounds:
+This paper is about how such comparisons are made. Its scope is narrow: to
+determine which methodological choices, when NCM solvers are compared, change
+the conclusion and which only change the numbers. Four candidate confounds are
+examined:
 \begin{enumerate}
   \item \emph{Native stopping rules.} Each method stops when its own criterion
     is met, so the solvers stop at different accuracies.
@@ -160,7 +160,11 @@ same idea to the NCM problem. Their generator does not apply directly: it
 builds a linear-objective SDP and chooses the constraint operator as part of
 the construction, whereas NCM fixes the constraint operator as $\diag(X)=e$
 and leaves only $G$ free. As far as we have found, no NCM study uses
-instances with a known exact solution. The test sets
+instances with a known exact solution; the closest prior device is the pair of
+computable bounds on the distance $\fro{\Xs-G}$ of Higham and
+Strabi\'c~\cite{higham2016bounds}, which bracket the optimal \emph{value}
+without exhibiting the optimal $\Xs$, and so cannot serve as a forward-error
+reference. The test sets
 of~\cite{higham2002nearest,qisun2006quadratically,borsdorf2007newton,borsdorf2010preconditioned,higham2016anderson,armijo2025semismooth}
 are random or data-derived, as are the Anymatrix \texttt{CORRINV}
 matrices~\cite{higham2022anymatrix} used in~\cite{huynh2025accelerated}, and
@@ -176,6 +180,21 @@ square root of the rounding error in $\theta$ (about $10^{-8}$), noted that
 the problem is general to Armijo backtracking, and proposed the alternatives
 that became the modified step selection of~\cite{borsdorf2010preconditioned}.
 \Cref{sec:traps} replicates this known phenomenon; it does not rediscover it.
+
+\paragraph{Methods not compared here.}
+A substantial augmented-Lagrangian and semismooth-Newton line of work
+addresses matrix-optimization problems adjacent to~\eqref{eq:ncm}: the
+$H$-weighted nearest correlation matrix~\cite{qisun2011augmented}, the
+rank-constrained variant~\cite{gao2010majorized}, and general convex conic and
+quadratic semidefinite programs~\cite{zhao2010newtoncg,jiang2012inexact,cui2019superlinear}.
+Those methods are not included in the comparison of \cref{sec:ranking}: they
+solve a different problem class, for which the unweighted,
+full-rank~\eqref{eq:ncm} is either a special case that their formulations do
+not exploit or a constraint set they do not impose, so a matched-accuracy
+comparison on the present instance family would not be informative about
+either side. The instance family itself is built from the KKT system
+of~\eqref{eq:ncm} alone and does not extend to those problems without a
+separate construction.
 
 \subsection{Outline}
 \Cref{sec:family} constructs the instance family. \Cref{sec:protocol} states
