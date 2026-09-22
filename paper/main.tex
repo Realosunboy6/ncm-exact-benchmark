@@ -3,9 +3,17 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+% Latin Modern has no T1 bold small caps and no small-caps italic, so \EVD
+% (\textsc{evd}) inside a bold subsection heading or inside \emph raised two
+% "Font shape undefined" warnings per run. Declare the substitutions LaTeX was
+% already choosing silently, so the warnings go and the output is unchanged.
+\input{t1lmr.fd}
+\DeclareFontShape{T1}{lmr}{bx}{sc}{<->ssub*lmr/bx/n}{}
+\DeclareFontShape{T1}{lmr}{m}{scit}{<->ssub*lmr/m/scsl}{}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{siunitx}
 \usepackage{xcolor}
 \usepackage{float}
@@ -45,7 +53,6 @@
 \newcommand{\ys}{y^\star}
 \newcommand{\fro}[1]{\lVert #1\rVert_F}
 \newcommand{\nrm}[1]{\lVert #1\rVert}
-\newcommand{\solver}[1]{\textsf{#1}}
 \newcommand{\EVD}{\textsc{evd}}
 \newcommand{\EVDs}{\textsc{evd}s}
 \newcommand{\sep}{\mathrm{sep}}
@@ -56,7 +63,7 @@
   Department of Industrial and Systems Engineering \\
   Northern Illinois University \\
   \texttt{ibrahimoyeyinka@gmail.com}}
-\date{Draft of \today}
+\date{}
 
 \begin{document}
 \maketitle

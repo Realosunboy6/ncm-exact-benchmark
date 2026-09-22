@@ -20,13 +20,25 @@ members of the same family; the check detects this, since a rotated basis
 moves the invariants by 15 to 20 per cent. A 12-instance subset of the
 original instances at $n=100$ (2\,MB) ships with the artifact.
 
-\begin{table}[H]
-\centering
+\begingroup
 \small
-\begin{tabular}{p{0.46\linewidth}p{0.48\linewidth}}
+\begin{longtable}{p{0.46\linewidth}p{0.48\linewidth}}
+\caption{Artifact manifest: the files behind the instance family, the solvers
+and every table and figure in the paper.}\label{tab:artifact}\\
 \toprule
 file & contents\\
 \midrule
+\endfirsthead
+\caption[]{Artifact manifest \emph{(continued)}.}\\
+\toprule
+file & contents\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\emph{continued on the next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 \multicolumn{2}{l}{\emph{Instances}}\\
 \texttt{code/gen\_degeneracy\_family.py} & generator and screening (\cref{sec:family})\\
 \texttt{code/materialize\_exact\_ystars.py} & exact $\ys=-\diag(W)$ for a suite\\
@@ -67,9 +79,8 @@ file & contents\\
 \texttt{code/analyze\_confound.py} & the bulk-level pilot of \cref{sec:highrank}, from \texttt{results/ranking\_confound\_mu*.csv.gz}\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 
 \paragraph{Development notes.}
 \texttt{docs/} keeps the session-by-session run notes behind this paper's

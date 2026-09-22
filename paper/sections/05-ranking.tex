@@ -22,7 +22,7 @@ globalization uses the Borsdorf--Higham modified line
 search~\cite[Alg.~4.1, Step~6]{borsdorf2010preconditioned}. We adopt their
 globalization only: their Algorithm~4.1 also solves the Newton system with
 preconditioned \textsc{minres} rather than \textsc{cg}, which we do not
-adopt, so \solver{Newton-SIN-BH} is not a reimplementation of their
+adopt, so Newton-SIN-BH is not a reimplementation of their
 algorithm. \emph{Newton-SIN} is the same method with the
 naive Armijo test; it appears only as a control in
 \cref{sec:protocol,sec:traps}.
@@ -285,8 +285,8 @@ are below 270. The Dykstra-APM row is censored (see text): its medians cover
 270 instances at $10^{-2}$ and $10^{-4}$ and 180 from $10^{-6}$, which is why
 195 at $10^{-4}$ exceeds 191 at $10^{-6}$.}
 \label{tab:n500}
-\small
-\setlength{\tabcolsep}{4pt}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lrrrrr}
 \toprule
 solver & $10^{-2}$ & $10^{-4}$ & $10^{-6}$ & $10^{-8}$ & $10^{-10}$\\
@@ -484,8 +484,8 @@ $\sigma$. Median \EVDs\ to reach and hold forward error $10^{-8}$ against the
 computed reference, and the number of draws (out of 5) on which SBB-Dual is
 cheaper than AGD-SDAJ-BH.}
 \label{tab:thesispert}
-\small
-\setlength{\tabcolsep}{4pt}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{rrrrrrrc}
 \toprule
 $\sigma$ & Newton-SIN-BH & SBB-Dual & Anderson-APM & Dykstra-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB cheaper\\
@@ -541,8 +541,8 @@ of instances on which SBB-Dual is cheaper than AGD-SDAJ-BH at $10^{-8}$ and at
 $10^{-10}$. A dash marks a method that did not reach the target within its cap
 of 800 \EVDs.}
 \label{tab:us2105}
-\small
-\setlength{\tabcolsep}{4pt}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{rrrrrrrc}
 \toprule
 $r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra-APM & SBB cheaper\\

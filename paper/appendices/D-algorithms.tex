@@ -1,3 +1,7 @@
+% [H] throughout plus this \clearpage: the algorithms are placed exactly where
+% they appear, in reading order, and the appendix starts on a fresh page so
+% Algorithm 1 is not stranded alone below a part-page of Appendix D prose.
+\clearpage
 \section{Solver pseudocode}\label{app:algorithms}
 
 Four of the solvers of \cref{sec:solvers} as implemented. Parameter values and
@@ -5,7 +9,7 @@ the sources they are transcribed from are given there; the verification record
 for AGD-SDAJ is \cref{app:agd}, and Anderson-APM, transcribed from the released
 code of its authors, is documented in \cref{app:anderson}.
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
 \caption{Newton-SIN-BH (semismooth Newton, cached factorization, BH line search)}\label{alg:newton}
 \begin{algorithmic}[1]
 \Require $G$, tolerance $\tau$; $\sigma=10^{-4}$, $\mubh=0.9$, $\gamma=100$, $u=2^{-53}$
@@ -30,7 +34,7 @@ code of its authors, is documented in \cref{app:anderson}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
 \caption{AGD-SDAJ~\cite{huynh2025accelerated} (AGD-SDAJ-BH: with the marked branch)}\label{alg:agd}
 \begin{algorithmic}[1]
 \Require $G$, $\tau$; $q=2$, $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$, $\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$
@@ -63,7 +67,7 @@ code of its authors, is documented in \cref{app:anderson}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
 \caption{SBB-Dual (clamped spectral gradient on the dual)}\label{alg:sbb}
 \begin{algorithmic}[1]
 \Require $G$, $\tau$, $\eta=0.01$
@@ -81,7 +85,7 @@ code of its authors, is documented in \cref{app:anderson}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
 \caption{Dykstra-APM (alternating projections with Dykstra correction)}\label{alg:apm}
 \begin{algorithmic}[1]
 \Require $G$, $\tau$
@@ -96,7 +100,7 @@ code of its authors, is documented in \cref{app:anderson}.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
 \caption{Anderson-APM (alternating projections with Anderson acceleration,
 history $m$; Higham and Strabi\'{c}~\cite{higham2016anderson})}\label{alg:anderson}
 \begin{algorithmic}[1]
