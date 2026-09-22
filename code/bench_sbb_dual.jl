@@ -1072,7 +1072,7 @@ include(joinpath(@__DIR__, "anderson_apm.jl"))
 
 # ---------------------------------------------------------------- metrics
 
-section_seconds(to, key) = haskey(to.inner_timers, key) ?
+section_seconds(to, key) = hasproperty(to, :inner_timers) && haskey(to.inner_timers, key) ?
     TimerOutputs.time(to.inner_timers[key]) / 1e9 : 0.0
 
 function evd_seconds(to)
