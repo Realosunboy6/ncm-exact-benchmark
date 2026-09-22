@@ -61,8 +61,11 @@ to 56 iterations (\cref{app:anderson}).
 
 \subsection{Design}
 All six variants were run on the 270 instances of \cref{sec:family} at
-$n=100$, to a common tolerance of $10^{-11}$ with a budget of 4000 \EVDs, and
-a trajectory was recorded as described in \cref{sec:traj}. We evaluated 11
+$n=100$, to a common tolerance of $10^{-11}$, and a trajectory was recorded as
+described in \cref{sec:traj}. Each solver ran under its own cap: 4000 \EVDs\
+for the Newton and AGD variants, 20000 iterations for SBB-Dual and 2000 for the
+two projection methods. Only unmodified AGD-SDAJ reached its cap at $n=100$
+(\cref{sec:trap2}). We evaluated 11
 conventions: the native exit; a common forward-error target
 $\fro{X-\Xs}\le\varepsilon$ for
 $\varepsilon\in\{10^{-2},10^{-4},10^{-6},10^{-8},10^{-10}\}$; and a common
@@ -88,13 +91,16 @@ places, which is where the choice of test set decides the answer.
 \Cref{tab:fwd} and \cref{fig:crossover} show median cost to a common
 target. Anderson-APM is second at every target, from 5 \EVDs\ at $10^{-2}$ to 32
 at $10^{-10}$, where AGD-SDAJ-BH needs 63.5 and SBB-Dual 43.5. The places
-below it move. At loose targets ($10^{-2}$, $10^{-4}$), both AGD variants are
-cheaper than SBB-Dual. From $10^{-6}$ onward, SBB-Dual is cheaper. The same reversal
+below it move. In the pooled medians, both AGD variants are cheaper than
+SBB-Dual at the two loosest targets ($10^{-2}$, $10^{-4}$), and SBB-Dual is
+cheaper from $10^{-6}$ onward. The same reversal
 occurs at the same point under the forward-error and the dual-residual
 criteria, so it does not depend on which error measure is used. A paper that
 reports at a loose tolerance would place AGD-SDAJ above SBB-Dual, and a paper
 that reports at a tight tolerance would place them the other way. Both are
-defensible one-number summaries of the same runs.
+defensible one-number summaries of the same runs, although, as the paired
+comparison below shows, the two methods are level at $10^{-4}$ and the change
+of order is concentrated in one rank.
 
 \input{figures/fig1-evd-vs-eps}
 
@@ -103,7 +109,9 @@ defensible one-number summaries of the same runs.
 \caption{Median \EVDs\ to reach and hold $\fro{X-\Xs}\le\varepsilon$
 (accepted-only) at $n=100$, with cluster-bootstrap 95\% intervals in brackets
 ($B=2000$, resampling the five paired seeds within each rank, so that all 18
-$(m,\delta)$ cells of a drawn seed move together). Rows are ordered by the
+$(m,\delta)$ cells of a drawn seed move together: 15 clusters in all). The
+medians pool the three ranks with equal weight, and the $r=5$ seeds are
+screened differently from the others (\cref{sec:paired}). Rows are ordered by the
 $10^{-8}$ column. Entries marked $^{*}$ are medians over the subset of instances
 that reached the target, the subset size in small type; all other entries are
 over 270/270.}
@@ -138,22 +146,45 @@ medians over the instances it reached, and are therefore optimistic. The
 second/third-place reversal is the same whether or not those entries are
 included.
 \paragraph{Uncertainty.}
-The bootstrap intervals in \cref{tab:fwd} are narrow and do not overlap between
-SBB-Dual and the AGD variants at any target, so the change of order between
-$10^{-4}$ and $10^{-6}$ is not a sampling artefact.
-
-The paired per-instance picture at $n=100$ is, however, much closer than the
-aggregate medians suggest. Against AGD-SDAJ-BH at $\varepsilon=10^{-2}$ the
-median paired difference is only $+2$ \EVDs\ (95\% CI $[1,2]$), SBB-Dual is
-cheaper on 40.4\% of the 270 instances, and 10 instances tie. The $n=100$
-ordering between these two is therefore a modest average effect with
-substantial per-instance overlap, in contrast to $n=500$ (\cref{sec:n500}),
-where SBB-Dual is cheaper on 0 of 270 instances at the same target.
+The bootstrap intervals in \cref{tab:fwd} resample 15 clusters, so they
+describe the variation between seeds and are narrow by construction; they do
+not test the ordering. The test that does is the paired per-instance
+comparison, which is much closer than the pooled medians suggest. The median
+paired difference in \EVDs, SBB-Dual minus AGD-SDAJ-BH, with its cluster
+interval, the share of the 270 instances on which SBB-Dual is cheaper, and the
+two-sided sign test with ties excluded, is
+$+2$ $[1,2]$, 40.4\%, $p=0.011$ at $10^{-2}$;
+$+1.5$ $[-1,2]$, 48.5\%, $p=0.81$ at $10^{-4}$;
+$-4$ $[-5,-4]$, 54.1\%, $p=0.14$ at $10^{-6}$;
+$-11$ $[-13.5,-9]$, 61.9\%, $p=1.2\times10^{-4}$ at $10^{-8}$; and
+$-19$ $[-22,-17]$, 65.6\%, $p=3.6\times10^{-7}$ at $10^{-10}$.
+The sign test treats the 270 comparisons as independent although they form 15
+clusters (\cref{sec:n500}), so it overstates the evidence, and it is quoted
+only to show where even it does not resolve the sign. The two methods are
+therefore level at $10^{-4}$; AGD-SDAJ-BH is cheaper at $10^{-2}$ by a modest
+average margin with substantial per-instance overlap; and SBB-Dual is cheaper
+in the median from $10^{-6}$, with a cluster interval that excludes zero, but
+on only 54\%, 62\% and 66\% of the instances at $10^{-6}$, $10^{-8}$ and
+$10^{-10}$. Within a
+rank the sign of the paired median does not change with the target at $r=5$
+(AGD-SDAJ-BH cheaper, by 13.5 to 97.5 \EVDs) or at $r=50$ (SBB-Dual cheaper, by
+1 to 26); it changes only at $r=20$, between $10^{-4}$ ($+1.5$) and $10^{-6}$
+($-5$). The dependence of the pooled comparison on the target is thus
+largely the rank dependence of \cref{sec:cells}, weighted by the grid, and
+its position between $10^{-4}$ and $10^{-6}$ is not a property of the
+methods alone. At $n=500$ (\cref{sec:n500}), SBB-Dual is cheaper than
+AGD-SDAJ-BH on 0 of 270 instances at $10^{-2}$.
 
 \subsection{Dependence of the ordering on the degeneracy parameters}\label{sec:cells}
 Aggregate medians can hide dependence on the regime. At a fixed target
 (forward error $10^{-8}$), the 54 $(r,m,\delta)$ cells produce 10
-distinct orderings (\cref{tab:cells}).
+distinct orderings (\cref{tab:cells}). This description is exploratory: each
+cell holds five instances, no correction for multiple comparisons is applied to
+the cell-level orderings, and where two cell medians are equal the order
+follows the fixed listing of the solvers. That affects seven cells in which
+SBB-Dual and Anderson-APM tie exactly (six at $r=50$, one at $r=20$), so the
+count of 10 depends on the tie-break. What is claimed below is the rank effect,
+which is present in every one of the five seeds.
 
 \begin{table}[t]
 \centering
@@ -204,12 +235,13 @@ $[-6,-2]$) and on 75 of 90 at $10^{-10}$ ($-8.5$, $[-12,-5]$). All five seeds
 agree on the sign at $r=5$ and at $r=50$. The direction at $r=50$ is resolved
 but the margin is small, about an eighth of AGD-SDAJ-BH's median cost of 28
 \EVDs, and 26 of the 90 instances go the other way. The reversal is therefore
-reproducible among previously published methods, and it moves with dimension
-in the same direction: at $n=500$
+reproducible among previously published methods. It does not occur by the
+same rank at higher dimension: at $n=500$
 AGD-SDAJ-BH is still ahead at $r=150$ (Dykstra-APM cheaper on 13 of 45 at
-$10^{-10}$, \cref{sec:highrank}), and on the equity panel at $n=2105$ the
-corresponding pair is Anderson-APM and AGD-SDAJ-BH, which exchange places
-between $r=200$ and $r=400$ (\cref{sec:us2105}).
+$10^{-10}$, \cref{sec:highrank}). On the equity panel at $n=2105$ the
+corresponding pair is Anderson-APM and AGD-SDAJ-BH, whose order is not
+monotone in rank: Anderson-APM is cheaper at $r=50$ and $r=400$ and
+AGD-SDAJ-BH at $r=100$ and $r=200$ (\cref{sec:us2105}).
 
 The location of the crossover is nevertheless specific to $n=100$. At
 $n=500$ (\cref{sec:n500,sec:highrank}) SBB-Dual is behind at every rank up to
@@ -237,9 +269,9 @@ almost no effect.
 
 \subsection{The same design at $n=500$}\label{sec:n500}
 The instance family was regenerated at $n=500$ with the same grid. All 270
-instances screened successfully; the acceptance rate at $r=5$ fell to 5 of 7
-candidate seeds, the first rank to show rejections, which is what
-\cref{prop:sat} predicts. The ranking study uses all five paired seeds of
+instances screened successfully, with the same acceptance pattern as at
+$n=100$: 5 of 7 candidate seeds at $r=5$ and 5 of 5 at $r=20$ and $r=50$. The
+ranking study uses all five paired seeds of
 each rank, 270 instances, with caps of 1200 iterations for SBB-Dual and 800
 for Dykstra-APM. It was run in two parts, seeds 0--2 (about 8.6\,h) and seeds
 3--4 (about 7.1\,h), with identical code and settings.
@@ -249,7 +281,9 @@ for Dykstra-APM. It was run in two parts, seeds 0--2 (about 8.6\,h) and seeds
 \caption{$n=500$, 270 instances. Median \EVDs\ to reach and hold
 $\fro{X-\Xs}\le\varepsilon$, with cluster-bootstrap 95\% intervals
 ($B=2000$, resampling paired seeds within rank) and reach counts where these
-are below 270.}
+are below 270. The Dykstra-APM row is censored (see text): its medians cover
+270 instances at $10^{-2}$ and $10^{-4}$ and 180 from $10^{-6}$, which is why
+195 at $10^{-4}$ exceeds 191 at $10^{-6}$.}
 \label{tab:n500}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -306,8 +340,7 @@ The scaling is the cleaner way to state the difference. Between $n=100$ and
 $n=500$ the median cost to $10^{-8}$ rises by a factor of 6.1 for SBB-Dual
 (34 to 207.5 \EVDs) and by 1.8 for AGD-SDAJ-BH (45 to 79), while Newton-SIN-BH
 is unchanged at 5. The order below first place therefore reflects the test set,
-including its dimension, rather than a fixed property of the methods --- which
-is the paper's point, in a stronger form than the $n=100$ data alone supports.
+including its dimension, rather than a fixed property of the methods.
 
 \subsection{Higher ranks at $n=500$}\label{sec:highrank}
 The grid of \cref{sec:family} stops at $r=50$. To locate the crossover we
@@ -319,10 +352,9 @@ variant except unmodified AGD-SDAJ (\cref{tab:highrank}).
 \begin{table}[t]
 \centering
 \caption{$n=500$, higher ranks, 45 instances per rank. Median \EVDs\ to reach
-and hold $\fro{X-\Xs}\le10^{-8}$; instances (out of 45) on which SBB-Dual is
-cheaper than AGD-SDAJ-BH at three targets; and the median paired difference
-SBB-Dual minus AGD-SDAJ-BH at $10^{-8}$ with a 95\% interval from resampling
-the five seeds ($B=2000$). All runs converged.}
+and hold $\fro{X-\Xs}\le10^{-8}$, and the number of instances (out of 45) at
+$10^{-8}$ on which SBB-Dual, and on which Anderson-APM, is cheaper than
+AGD-SDAJ-BH. All runs converged.}
 \label{tab:highrank}
 \small
 \begin{tabular}{rrrrrrrr}
@@ -345,7 +377,8 @@ the two methods are level at $10^{-4}$ (median differences $+1$ and $0$), with
 AGD-SDAJ-BH ahead for $m=1$, while SBB-Dual is ahead at $10^{-8}$ and
 $10^{-10}$. Both patterns of \cref{sec:cells} therefore survive at $n=500$;
 what changes with dimension is the rank at which they appear, from between
-$r=5$ and $r=20$ at $n=100$ to between $r=50$ and $r=75$ at $n=500$. We report
+$r=5$ and $r=20$ at $n=100$ to between $r=50$ and $r=75$ at $n=500$
+(\cref{fig:crossoverrank}). We report
 these as brackets and fit no trend to them: three dimensions with three or four
 grid points each cannot separate proportional growth from any other increasing
 rule, and the equity instances of \cref{sec:thesis,sec:us2105} sit outside the
@@ -398,8 +431,8 @@ rank. Median \EVDs\ to reach and hold $\fro{X-\Xs}\le10^{-8}$ against the exact
 $\Xs$; bold marks the cheapest, and a bracketed count is the number of
 instances that reached the target where fewer than 27 did. Out of 27
 instances, SBB-Dual is cheaper than AGD-SDAJ-BH on 0, 6 and 11 at $r=20$, 50
-and 100 (0, 6 and 13 at $10^{-10}$), and Anderson-APM on 15, 25 and 23 (15,
-25 and 24 at $10^{-10}$).}
+and 100 (0, 6 and 13 at $10^{-10}$), and Anderson-APM is cheaper than
+AGD-SDAJ-BH on 15, 25 and 23 (15, 25 and 24 at $10^{-10}$).}
 \label{tab:thesiskkt}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -525,7 +558,7 @@ $r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra
 Newton-SIN-BH takes 5 \EVDs\ on every instance, as at $n=100$ and $n=500$: the
 cost of the leading method is flat in $n$ over a twenty-fold range, while the
 first-order methods grow by an order of magnitude. The gap between SBB-Dual and
-AGD-SDAJ-BH again narrows with rank, from $+490$ \EVDs\ at $r=50$ to $-0.5$ at
+AGD-SDAJ-BH again narrows with rank, from $+490.5$ \EVDs\ at $r=50$ to $-0.5$ at
 $r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: the
 median there is $-0.5$ \EVDs\ with a cluster interval of $[-27,+21.5]$, and at
 $10^{-10}$ the sign turns over ($+8$, with AGD-SDAJ-BH cheaper on three of the
@@ -547,14 +580,17 @@ of 4 instances at $r=200$, by 33 to 70 \EVDs, and Anderson-APM on 4 of 4 at
 $r=400$, by 6 to 68; because Anderson-APM is nearly rotation-invariant at these
 ranks, each count rests on two distinct instances, one per multiplicity.
 Near-zero multiplicity also matters here in a way it did not at $n=100$: at
-$r=100$ the two instances with $m=20$ favour AGD-SDAJ-BH by about 190 \EVDs,
-while those with $m=1$ favour Anderson-APM or tie. With four instances per rank
+$r=100$ the two instances with $m=20$ favour AGD-SDAJ-BH by 176 to 211 \EVDs,
+while for $m=1$ Anderson-APM is ahead by 27 to 33 on one instance and within
+3 \EVDs\ of AGD-SDAJ-BH on the other (2 behind at $10^{-8}$, 3 ahead at
+$10^{-10}$). With four instances per rank
 these are descriptive counts, not estimates.
 
 Dykstra-APM was run on the same 16 instances at a cap of 800 \EVDs, one \EVD\ costing about 1.8\,s at this size. It is last at every rank and target it
 reaches, so it changes no ordering, but its own behaviour across the set is the
 sharpest rank dependence we observed. At $r=50$ and $r=100$ it exhausts the cap,
-ending at forward errors of $8.8\times10^{-6}$ and $6.7\times10^{-8}$; at $r=200$
+ending at forward errors of $2.5\times10^{-6}$ to $8.9\times10^{-6}$ and
+$2.9\times10^{-8}$ to $6.7\times10^{-8}$; at $r=200$
 and $r=400$ it converges on its own diagonal-feasibility test, in 647 to 662 and
 301 to 305 \EVDs. Its cost to a loose target falls monotonically with rank,
 from 556 \EVDs\ at $r=50$ to 93 at $r=400$ for $\varepsilon=10^{-4}$, a sixfold
@@ -620,8 +656,10 @@ $\nrm{\nabla\theta}_2=4.59\times10^{-13}$. At $n\approx3000$ an absolute
 tolerance of $10^{-13}$ is not attainable in double precision, so for
 \texttt{cor3120} and \texttt{bccd16} the reference solve is capped at 30
 \EVDs\ and its achieved residual is reported instead:
-$\nrm{\nabla\theta}_2=1.58\times10^{-12}$ and $8.07\times10^{-13}$, after
-2201\,s and 895\,s. A second, independent reference for each (SBB-Dual driven
+$\nrm{\nabla\theta}_2=1.25\times10^{-12}$ and $5.03\times10^{-13}$, after
+2506\,s and 444\,s in the recorded check run
+(\texttt{results/validation/reference\_check.log}). A second, independent
+reference for each (SBB-Dual driven
 to its floor, then the same Newton polish) agrees with the first to
 $\fro{X_A-X_B}=1.3\times10^{-11}$ and $8.1\times10^{-12}$, so forward errors on
 these matrices are resolved well below the targets used; the residual floor
@@ -712,7 +750,8 @@ the 20 perturbed instances of \cref{sec:thesis}, and on \texttt{mmb13},
 \texttt{tyda99r2} and \texttt{bhwi01} (\cref{app:agd}).
 
 \paragraph{The cost of a reference.}
-At $n\approx3000$ the reference solve alone took 15 to 37 minutes, and a first
+At $n\approx3000$ the reference solve alone took 7 to 42 minutes in the
+recorded check run, and a first
 attempt at \texttt{bccd16} with an uncapped absolute tolerance ran for four
 hours without finishing. A reference accurate enough to measure forward error
 can cost more than the solves being measured. That is a practical argument for
@@ -741,7 +780,7 @@ does not return. Both columns are recorded. Rescoring every study on the
 rescaled iterate leaves the ordering unchanged at 19 of the 20
 (dataset, target) pairs, and moves SBB-Dual's median at $n=500$ and
 $\varepsilon=10^{-8}$ from 207.5 to 188 \EVDs: the reported numbers are the
-conservative choice for our own method. The single exception is the
+conservative choice for SBB-Dual. The single exception is the
 data-seeded set at $10^{-10}$, where rescoring lowers SBB-Dual's reach count
 from 81 to 45 instances, so the apparent change of order is a comparison over
 an easier subset rather than a reversal. Second, the AGD line searches return

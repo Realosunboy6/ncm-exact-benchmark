@@ -6,6 +6,7 @@ scored on a quantity it does not return. Both columns are recorded for every sol
 Usage: python check_scoring_column.py <ranking csv> [...]
 """
 import csv
+import os
 import statistics as st
 import sys
 from collections import defaultdict
@@ -33,7 +34,7 @@ def cost(tr, eps):
 
 
 for path in sys.argv[1:]:
-    print(f"\n=== {path}")
+    print(f"\n=== {os.path.basename(path)}")
     raw, bh = load(path, "err_raw_fro"), load(path, "err_bh_fro")
     inst = sorted({k[0] for k in raw})
     print(f"{len(inst)} instances")

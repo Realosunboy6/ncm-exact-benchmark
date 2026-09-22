@@ -26,17 +26,19 @@ the pair
 together with $\nrm{\nabla\theta}_2$ and a flag indicating whether the
 evaluated point was accepted. Here $\Xs$ is the exact solution from
 \cref{prop:exact}, not the output of another solver. All runs use a common,
-tight tolerance of $10^{-11}$ and a budget of 4000 \EVDs. These trajectories are work--precision diagrams in the sense
+tight tolerance of $10^{-11}$, and each solver has its own cap (\cref{sec:ranking}). These trajectories are work--precision diagrams in the sense
 of~\cite{hairer1996solving}, and reading costs off them at a ladder of targets
 follows data profiles~\cite{more2009benchmarking} and fixed-target
 evaluation~\cite{hansen2021coco}. The difference is that the reference is the
 exact solution, not the best value found by any solver. For any target
 $\varepsilon$, the cost can then be read off the trajectory after the run. We
 define the \emph{cost to $\varepsilon$} as the cumulative \EVD\ count at the
-first accepted iterate that satisfies $\fro{X_k-\Xs}\le\varepsilon$ and
-continues to satisfy it for every later accepted iterate. A solver that never
-reaches the target, or reaches it and later loses it, is recorded as not
-reaching it at that $\varepsilon$.
+first accepted iterate from which $\fro{X_k-\Xs}\le\varepsilon$ holds for
+every later accepted iterate, that is, at the start of the final sub-$\varepsilon$
+stretch of the run. A solver whose last accepted iterate lies above the target
+is recorded as not reaching it at that $\varepsilon$. A run that dips below the
+target, leaves it, and settles below it again is credited from the point at
+which it settles.
 
 Trajectories also expose \emph{plateaus}. The cost of a quadratically
 convergent method takes very few distinct values across many decades of
@@ -104,7 +106,7 @@ a separate, untimed pass.
 All seven variants were timed back to back in a single session, because
 timings from different sessions are not comparable: an earlier session on the
 same machine, with identical \EVD\ counts on every run, measured the dual
-methods, whose code had not changed, between 3.7 and 4.2 times slower per
+methods, whose code had not changed, between 3.7 and 4.0 times slower per
 \EVD\ at $n=100$. Each
 method is timed in an implementation that does not add work of its own. The
 projection methods rebuild the projection from the positive eigenpairs, as the
@@ -120,7 +122,7 @@ OpenBLAS (ILP64) through libblastrampoline. The timing runs pin
 run with four BLAS threads, which changes wall-clock only and not the \EVD\
 counts it records.
 
-\subsection{Is the \EVD\ a fair unit of work?}\label{sec:evd-unit}
+\subsection{Fairness of the \EVD\ as a unit of work}\label{sec:evd-unit}
 The \EVD\ count is a good proxy for cost only if one \EVD\ costs about the same
 in every method. \Cref{tab:perevd} and \cref{fig:perevd} give the median
 wall-clock time per \EVD\ at matched tolerance.

@@ -11,12 +11,12 @@ taken against measured elapsed time, so uninstrumented work appears as
 
 | solver | median EVDs | median time (s) | median err vs X* | us/EVD | EVD % | CG iters | LS trials |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Newton-SIN-BH | 3 | 0.177 | 1.74e-05 | 57590 | 85.6 | 8 | 0 |
-| Newton-SIN | 5 | 0.261 | 1.74e-05 | 50584 | 90.5 | 8 | 0 |
+| Newton-SIN-BH | 3 | 0.177 | 1.74e-05 | 57590 | 85.6 | 8.5 | 0 |
+| Newton-SIN | 5 | 0.261 | 1.74e-05 | 50584 | 90.5 | 8.5 | 0 |
 | AGD-SDAJ-BH | 26 | 1.144 | 9.62e-05 | 44339 | 98.8 | 0 | 9 |
 | AGD-SDAJ | 26 | 1.176 | 9.62e-05 | 44785 | 98.8 | 0 | 9 |
-| SBB-Dual | 88 | 3.925 | 4.97e-05 | 45838 | 98.3 | 0 | 0 |
-| Dykstra-APM | 178 | 9.796 | 2.41e-04 | 56350 | 86.3 | 0 | 0 |
+| SBB-Dual | 88.5 | 3.925 | 4.97e-05 | 45838 | 98.3 | 0 | 0 |
+| Dykstra-APM | 177.5 | 9.796 | 2.41e-04 | 56350 | 86.3 | 0 | 0 |
 | Anderson-APM | 19 | 0.963 | 1.36e-04 | 51275 | 82.3 | 0 | 0 |
 
 **Achieved accuracy spans 13.8x across solvers at their native
@@ -31,12 +31,12 @@ the confound Sec. 3.1 exists to name.
 | solver | median EVDs | median time (s) | median err vs X* | us/EVD | EVD % | CG iters | LS trials |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Newton-SIN-BH | 5 | 0.309 | 2.13e-12 | 61787 | 72.4 | 24 | 0 |
-| Newton-SIN | 9 | 0.499 | 2.13e-12 | 54663 | 82.7 | 26 | 0 |
-| AGD-SDAJ-BH | 106 | 5.106 | 2.11e-11 | 48149 | 98.6 | 0 | 38 |
+| Newton-SIN | 9 | 0.499 | 2.13e-12 | 54663 | 82.7 | 25.5 | 0 |
+| AGD-SDAJ-BH | 106 | 5.106 | 2.11e-11 | 48149 | 98.6 | 0 | 38.5 |
 | AGD-SDAJ | 118 | 5.632 | 2.43e-11 | 48128 | 97.3 | 0 | 54 |
-| SBB-Dual | 274 | 12.553 | 1.01e-11 | 46632 | 97.5 | 0 | 0 |
+| SBB-Dual | 273.5 | 12.553 | 1.01e-11 | 46632 | 97.5 | 0 | 0 |
 | Dykstra-APM | 553 | 31.004 | 4.84e-11 | 56471 | 85.6 | 0 | 0 |
-| Anderson-APM | 90 | 5.048 | 3.88e-11 | 55379 | 82.3 | 0 | 0 |
+| Anderson-APM | 89.5 | 5.048 | 3.88e-11 | 55379 | 82.3 | 0 | 0 |
 
 ## 3. Is the EVD a fair unit of work?
 
@@ -71,12 +71,12 @@ of choosing a spectral-work unit.
 | solver | median EVDs | CG iterations | line-search trials | accepted outer its |
 |---|---:|---:|---:|---:|
 | Newton-SIN-BH | 5 | 24 | 0 | 4 |
-| Newton-SIN | 9 | 26 | 0 | 4 |
-| AGD-SDAJ-BH | 106 | 0 | 38 | 11 |
+| Newton-SIN | 9 | 25.5 | 0 | 4 |
+| AGD-SDAJ-BH | 106 | 0 | 38.5 | 11 |
 | AGD-SDAJ | 118 | 0 | 54 | 11 |
-| SBB-Dual | 274 | 0 | 0 | 272 |
+| SBB-Dual | 273.5 | 0 | 0 | 272.5 |
 | Dykstra-APM | 553 | 0 | 0 | 553 |
-| Anderson-APM | 90 | 0 | 0 | 90 |
+| Anderson-APM | 89.5 | 0 | 0 | 89.5 |
 
 An 'iteration' means a different amount of work in each row: a Newton
 outer iteration carries a Krylov solve, a Dykstra iteration is one

@@ -16,7 +16,7 @@ Everything happens inside `code/`.
 ## One-time setup (PowerShell)
 
 ```powershell
-cd C:\Users\ibrah\Documents\Codex\NCM-research\ncm-exact-benchmark\code
+cd <repo>\code
 julia --project=. -e "using Pkg; Pkg.instantiate()"
 ```
 
@@ -44,7 +44,7 @@ makes it invalid, and the solvers then repair it. No missing data are involved.
 ### 1a. Export the matrices
 
 ```powershell
-$PANEL = "C:\Users\ibrah\Documents\Codex\NCM-research\benchmarks-and-missingness\outputs\thesis-missingness-3type-archived\data\thesis_market_panel"
+$PANEL = "<directory holding the daily-return panel>"
 C:\Python314\python.exe export_thesis_suite.py --panel "$PANEL" --out thesis_suite
 ```
 

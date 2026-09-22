@@ -1,5 +1,5 @@
 
-=== C:/Users/ibrah/Documents/Codex/NCM-research/ncm-exact-benchmark/results/reproduced/ranking_kkt270_v2.csv
+=== ranking_kkt270_v2.csv
 270 instances
   eps=0.01
     raw: NewtonBH=3(270) AGDBH=6(270) AGD=6(270) SBB=8(270) Dykstra=15(270)
@@ -22,7 +22,7 @@
     bh : NewtonBH=5(270) AGDBH=60(270) AGD=67(256) SBB=41.5(270) Dykstra=92(270)
     -> SAME ORDER
 
-=== C:/Users/ibrah/Documents/Codex/NCM-research/ncm-exact-benchmark/results/reproduced/ranking_n500.csv
+=== ranking_n500.csv
 270 instances
   eps=0.01
     raw: NewtonBH=3(270) AGDBH=9(270) AGD=9(270) SBB=44(270) Dykstra=87(270)
@@ -45,7 +45,7 @@
     bh : NewtonBH=5(270) AGDBH=95.5(270) AGD=108(247) SBB=243.5(270) Dykstra=305.5(180)
     -> SAME ORDER
 
-=== C:/Users/ibrah/Documents/Codex/NCM-research/ncm-exact-benchmark/results/reproduced/ranking_highrank_n500.csv
+=== ranking_highrank_n500.csv
 135 instances
   eps=0.01
     raw: NewtonBH=3(135) AGDBH=7(135) SBB=10(135)
@@ -68,7 +68,7 @@
     bh : NewtonBH=5(135) AGDBH=65(135) SBB=44(135)
     -> SAME ORDER
 
-=== C:/Users/ibrah/Documents/Codex/NCM-research/ncm-exact-benchmark/results/reproduced/ranking_thesis_kkt.csv
+=== ranking_thesis_kkt.csv
 81 instances
   eps=0.01
     raw: NewtonBH=2(81) AGDBH=12(81) AGD=12(81) SBB=12(81) Dykstra=22(81)

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # Regenerate every analysis table in the paper from the shipped result files.
-# No solver is run: this reads results/*.csv.gz only. Runtime: about 3 minutes.
+# No solver is run: this reads results/*.csv.gz only. Runtime: five to ten minutes.
 #
 #   sh code/reproduce.sh [python]        (default python: python3)
 #
@@ -15,7 +15,7 @@ mkdir -p "$work"
 echo "unpacking result files"
 for f in "$root"/results/*.csv.gz; do
   base=$(basename "$f" .gz)
-  [ -f "$work/$base" ] || gunzip -c "$f" > "$work/$base"
+  gunzip -c "$f" > "$work/$base"
 done
 
 echo "n=100 ranking study  -> kkt270_analysis.md"

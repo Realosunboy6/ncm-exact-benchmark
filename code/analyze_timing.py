@@ -43,6 +43,11 @@ def med(v):
     return statistics.median(v) if v else float("nan")
 
 
+def hm(x):
+    """Median of counts: keep the half-integer, drop a trailing .0."""
+    return f"{x:g}"
+
+
 def load(path):
     rows = defaultdict(list)
     try:
@@ -87,8 +92,8 @@ def section(title, rows, tol_label):
         per = [1e6 * t / e for t, e in zip(secs, evds) if e > 0]
         stats[s] = dict(evds=med(evds), secs=med(secs), err=med(errs),
                         per=med(per), cg=med(cg), ls=med(ls))
-        emit(f"| {s} | {med(evds):.0f} | {med(secs):.3f} | {med(errs):.2e} | "
-             f"{med(per):.0f} | {med(evpc):.1f} | {med(cg):.0f} | {med(ls):.0f} |")
+        emit(f"| {s} | {hm(med(evds))} | {med(secs):.3f} | {med(errs):.2e} | "
+             f"{med(per):.0f} | {med(evpc):.1f} | {hm(med(cg))} | {hm(med(ls))} |")
     emit("")
     return stats
 
@@ -171,10 +176,10 @@ if s_mat:
     emit("|---|---:|---:|---:|---:|")
     for s in [x for x in ORDER if x in mat]:
         rs = mat[s]
-        emit(f"| {s} | {med([fnum(r,'total_evds') for r in rs]):.0f} | "
-             f"{med([fnum(r,'cg_iters_total') for r in rs]):.0f} | "
-             f"{med([fnum(r,'linesearch_trials') for r in rs]):.0f} | "
-             f"{med([fnum(r,'accepted_outer_iterations') for r in rs]):.0f} |")
+        emit(f"| {s} | {hm(med([fnum(r,'total_evds') for r in rs]))} | "
+             f"{hm(med([fnum(r,'cg_iters_total') for r in rs]))} | "
+             f"{hm(med([fnum(r,'linesearch_trials') for r in rs]))} | "
+             f"{hm(med([fnum(r,'accepted_outer_iterations') for r in rs]))} |")
     emit("")
     emit("An 'iteration' means a different amount of work in each row: a Newton")
     emit("outer iteration carries a Krylov solve, a Dykstra iteration is one")

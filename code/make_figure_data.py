@@ -132,7 +132,7 @@ def timing_figures(native_csv, matched_csv, dst):
             err = st.median(float(r["err_vs_ref_fro"]) for r in rs)
             ev = st.median(float(r["total_evds"]) for r in rs)
             t = st.median(float(r["elapsed_seconds"]) for r in rs)
-            f.write(f"{k} {s.replace('-', '')} {s} {err:.2e} {ev:.0f} {t:.3f}\n")
+            f.write(f"{k} {s.replace('-', '')} {s} {err:.2e} {ev:g} {t:.3f}\n")
 
 
 def fraction_cheaper(acc, a, b, eps=1e-8):

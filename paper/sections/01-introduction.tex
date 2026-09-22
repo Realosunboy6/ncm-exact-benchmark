@@ -52,8 +52,11 @@ Each contribution builds on established practice (\cref{sec:related}).
     conditions~\cite{lenard1984randomly,calamai1993new} to the NCM problem.
     For semidefinite programs, the same idea is due to Wei and
     Wolkowicz~\cite{wei2010generating}. The parts specific to NCM are the
-    projection identity $\Proj(G+\Diag\ys)=\Xs$, independent control of rank,
-    strict-complementarity defect and eigenvalue separation, a paired-seed
+    projection identity $\Proj(G+\Diag\ys)=\Xs$, independent control of the
+    rank, the multiplicity of the smallest eigenvalue of $C(\ys)$ and its
+    distance from zero (the strict-complementarity defect equals the
+    multiplicity when that distance is zero and vanishes otherwise, so 45 of
+    the 270 instances at each dimension are not strictly complementary), a paired-seed
     design, sufficient conditions for $|G_{ij}|\le1$ together with a
     fixed-rank saturation result for $\max_{i\ne j}|\Xs_{ij}|$, and released
     instance sets at $n=100$ and $n=500$.
@@ -73,18 +76,22 @@ Each contribution builds on established practice (\cref{sec:related}).
     all 11 conventions examined, and its cost is flat in dimension: 5
     eigendecompositions at $n=100$ and at $n=2105$. Second at $n=100$ is
     Anderson-accelerated alternating projections~\cite{higham2016anderson},
-    absent from recent NCM comparisons; it keeps that place on the
-    exact-solution families but not on perturbed or literature matrices.
-    Below the first place the ordering changes with the accuracy target, with
-    the solution rank, and with how far the input is from a correlation
-    matrix. The rank dependence holds between published methods alone:
+    under 10 of the 11 conventions and tied for second under the eleventh; it
+    keeps that place on the exact-solution families but not on perturbed or
+    literature matrices.
+    Below the first place the ordering changes with the solution rank and
+    with how far the input is from a correlation matrix, and, for SBB-Dual
+    against AGD-SDAJ-BH, with the accuracy target. The rank dependence holds
+    between published methods alone:
     Dykstra-APM and AGD-SDAJ-BH exchange places between $r=20$ and $r=50$ at
-    $n=100$, the exchange has not occurred by $r=150$ at $n=500$, and at
-    $n=2105$ Anderson-APM and AGD-SDAJ-BH exchange places between $r=200$ and
-    $r=400$. The same pattern appears between SBB-Dual and AGD-SDAJ-BH, whose
-    exchange is bracketed between $r=5$ and $r=20$ at $n=100$ and between
-    $r=50$ and $r=75$ at $n=500$. Only a family that varies one spectral
-    quantity at a time makes such an association directly observable.
+    $n=100$, and the exchange has not occurred by $r=150$ at $n=500$. At
+    $n=2105$ the order of Anderson-APM and AGD-SDAJ-BH is not monotone in
+    rank: Anderson-APM is cheaper at $r=50$ and $r=400$, AGD-SDAJ-BH at $r=100$
+    and $r=200$. The same rank pattern appears between SBB-Dual and
+    AGD-SDAJ-BH, whose exchange is bracketed between $r=5$ and $r=20$ at
+    $n=100$ and between $r=50$ and $r=75$ at $n=500$. Only a family that varies
+    the spectral structure at the solution in controlled steps makes such an
+    association directly observable.
   \item \emph{Replication of a known line-search defect}
     (\cref{sec:traps}). The failure of objective-value sufficient-decrease
     tests near a minimizer is well known~\cite{hager2005new}. For the NCM dual,
@@ -112,10 +119,12 @@ matrices from the literature (\cref{sec:real}) as external checks, all on one
 machine. SBB-Dual is a new method from the author's companion manuscript in
 preparation~\cite{ibrahim2026sbb}. It is specified in full in
 \cref{app:algorithms}, receives the same exposition as the others, and its
-convergence theory is not used here. No conclusion of this paper depends on
-it: without SBB-Dual, Newton-SIN-BH is still first, Anderson-APM is still
+convergence theory is not used here. Three findings do not depend on it:
+without SBB-Dual, Newton-SIN-BH is still first, Anderson-APM is still
 second at $n=100$, and the rank dependence is still present, between
-Dykstra-APM and AGD-SDAJ-BH.
+Dykstra-APM and AGD-SDAJ-BH. Two findings do use it: the dependence of the
+order on the accuracy target, and the bracketed positions of the rank
+crossover at $n=100$ and $n=500$ (\cref{sec:cells,sec:highrank}).
 
 \subsection{Related work}\label{sec:related}
 

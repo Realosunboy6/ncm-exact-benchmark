@@ -8,9 +8,23 @@ exactly reproducible, so only their manifests and screening logs are kept here.
 | `degen_instances_paired` | 270 | 100 | ~44 MB |
 | `degen_instances_n500_paired` | 270 | 500 | ~1.0 GB |
 | `real_suite` | 4 | 94–3250 | ~170 MB |
+| `degen_highrank_n500` | 135 | 500 | ~0.5 GB |
+| `thesis_suite` | 20 | 550 | ~47 MB |
+| `thesis_kkt` | 81 | 550 | ~375 MB |
+| `us2105_kkt` | 16 | 2105 | ~1.1 GB |
+
+The three equity-derived sets (`thesis_suite`, `thesis_kkt`, `us2105_kkt`) are built
+from vendor price data that cannot be redistributed. Their manifests and fingerprints
+let a holder of the same data check a rebuilt set with `code/check_instances.py`. The
+perturbed equity set at n = 2105 and the bulk-level pilot (`degen_confound_mu*`) are
+not manifested here.
 
 ## Files
 
+- `fingerprints.tsv` — four numerical invariants of every `G` (Frobenius norm,
+  absolute sum, extreme eigenvalues), recorded to full precision. `code/check_instances.py`
+  compares a regenerated set with them at a relative tolerance; last-bit rounding passes and
+  a rotated eigenbasis fails.
 - `manifest.tsv` — one row per instance: index, name, dimension, SHA-256 of the upper
   triangle of `G`. Regenerating the set and comparing this column verifies an exact
   bit-for-bit reproduction.

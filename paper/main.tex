@@ -66,17 +66,16 @@ Nearest correlation matrix (NCM) solvers are usually compared on matrices whose
 solutions are unknown, so the accuracy each delivers goes unmeasured. We
 specialize the known technique of generating test problems from prescribed
 optimality conditions to the NCM problem, obtaining instances with closed-form
-primal and dual solutions and independently controlled rank, multiplicity and
-eigenvalue separation. Measuring forward error against them
-changes what a comparison reports. The semismooth Newton method with the
+primal and dual solutions and prescribed rank, multiplicity and
+eigenvalue separation. The semismooth Newton method with the
 Borsdorf--Higham line search is cheapest under all 11 conventions examined, at
 a cost flat in dimension: five eigendecompositions at
-$n=100$ and again at $n=2105$. Second at $n=100$, under every convention, is
-Anderson-accelerated alternating projections, absent from recent NCM
-comparisons. The ordering of the remaining methods is a property of the test
-set, changing with the accuracy target and above all with the solution rank:
-two published methods exchange places between $r=20$ and $r=50$ at $n=100$,
-and that rank rises with dimension. Under the dimension-scaled rule
+$n=100$ and again at $n=2105$. Second at $n=100$, under ten of the eleven
+conventions and tied under the other, is Anderson-accelerated alternating
+projections. The ordering of the remaining methods is a property
+of the test set, changing above all with the solution rank: two published
+methods exchange places between $r=20$ and $r=50$ at $n=100$. Under the
+dimension-scaled rule
 $\nrm{\nabla\theta}_2\le10^{-7}n$, first-order methods return about ten times
 less accuracy at $n=500$ than at $n=100$, so a larger problem can appear
 easier. A known finite-precision failure of objective-value Armijo tests

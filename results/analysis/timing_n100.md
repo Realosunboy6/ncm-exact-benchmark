@@ -15,7 +15,7 @@ taken against measured elapsed time, so uninstrumented work appears as
 | Newton-SIN | 7 | 0.009 | 5.04e-08 | 1298 | 88.4 | 11 | 0 |
 | AGD-SDAJ-BH | 20 | 0.024 | 9.58e-06 | 1107 | 98.6 | 0 | 2 |
 | AGD-SDAJ | 20 | 0.024 | 9.58e-06 | 1132 | 98.6 | 0 | 2 |
-| SBB-Dual | 18 | 0.020 | 7.73e-06 | 1087 | 98.3 | 0 | 0 |
+| SBB-Dual | 18.5 | 0.020 | 7.73e-06 | 1087 | 98.3 | 0 | 0 |
 | Dykstra-APM | 40 | 0.045 | 1.93e-05 | 1195 | 93.9 | 0 | 0 |
 | Anderson-APM | 13 | 0.016 | 1.37e-05 | 1279 | 84.2 | 0 | 0 |
 
@@ -31,11 +31,11 @@ the confound Sec. 3.1 exists to name.
 | solver | median EVDs | median time (s) | median err vs X* | us/EVD | EVD % | CG iters | LS trials |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Newton-SIN-BH | 5 | 0.009 | 0.00e+00 | 1695 | 73.8 | 24 | 0 |
-| Newton-SIN | 11 | 0.017 | 1.72e-13 | 1341 | 85.2 | 30 | 0 |
+| Newton-SIN | 11 | 0.017 | 1.72e-13 | 1341 | 85.2 | 29.5 | 0 |
 | AGD-SDAJ-BH | 70 | 0.084 | 1.10e-11 | 1181 | 98.8 | 0 | 14 |
-| AGD-SDAJ | 82 | 0.097 | 1.16e-11 | 1188 | 98.8 | 0 | 25 |
-| SBB-Dual | 46 | 0.050 | 7.61e-12 | 1133 | 98.6 | 0 | 0 |
-| Dykstra-APM | 102 | 0.118 | 1.99e-11 | 1278 | 93.5 | 0 | 0 |
+| AGD-SDAJ | 81.5 | 0.097 | 1.16e-11 | 1188 | 98.8 | 0 | 25 |
+| SBB-Dual | 46.5 | 0.050 | 7.61e-12 | 1133 | 98.6 | 0 | 0 |
+| Dykstra-APM | 102.5 | 0.118 | 1.99e-11 | 1278 | 93.5 | 0 | 0 |
 | Anderson-APM | 34 | 0.047 | 1.57e-11 | 1323 | 84.2 | 0 | 0 |
 
 ## 3. Is the EVD a fair unit of work?
@@ -71,11 +71,11 @@ of choosing a spectral-work unit.
 | solver | median EVDs | CG iterations | line-search trials | accepted outer its |
 |---|---:|---:|---:|---:|
 | Newton-SIN-BH | 5 | 24 | 0 | 4 |
-| Newton-SIN | 11 | 30 | 0 | 5 |
+| Newton-SIN | 11 | 29.5 | 0 | 5 |
 | AGD-SDAJ-BH | 70 | 0 | 14 | 9 |
-| AGD-SDAJ | 82 | 0 | 25 | 10 |
-| SBB-Dual | 46 | 0 | 0 | 46 |
-| Dykstra-APM | 102 | 0 | 0 | 102 |
+| AGD-SDAJ | 81.5 | 0 | 25 | 10 |
+| SBB-Dual | 46.5 | 0 | 0 | 45.5 |
+| Dykstra-APM | 102.5 | 0 | 0 | 102.5 |
 | Anderson-APM | 34 | 0 | 0 | 34 |
 
 An 'iteration' means a different amount of work in each row: a Newton

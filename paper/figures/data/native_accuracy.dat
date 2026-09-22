@@ -3,6 +3,6 @@ idx solver name err evds time
 2 NewtonSIN Newton-SIN 5.04e-08 7 0.009
 3 AGDSDAJBH AGD-SDAJ-BH 9.58e-06 20 0.024
 4 AGDSDAJ AGD-SDAJ 9.58e-06 20 0.024
-5 SBBDual SBB-Dual 7.73e-06 18 0.020
+5 SBBDual SBB-Dual 7.73e-06 18.5 0.020
 6 DykstraAPM Dykstra-APM 1.93e-05 40 0.045
 7 AndersonAPM Anderson-APM 1.37e-05 13 0.016

@@ -1,8 +1,9 @@
 \section{Solver pseudocode}\label{app:algorithms}
 
-The four solvers of \cref{sec:solvers} as implemented. Parameter values and
+Four of the solvers of \cref{sec:solvers} as implemented. Parameter values and
 the sources they are transcribed from are given there; the verification record
-for AGD-SDAJ is \cref{app:agd}.
+for AGD-SDAJ is \cref{app:agd}, and Anderson-APM, transcribed from the released
+code of its authors, is documented in \cref{app:anderson}.
 
 \begin{algorithm}[htbp]
 \caption{Newton-SIN-BH (semismooth Newton, cached factorization, BH line search)}\label{alg:newton}
@@ -18,7 +19,7 @@ for AGD-SDAJ is \cref{app:agd}.
     \State $(\theta_t,g_t,X_t,\Lambda_t,P_t)\gets\textsc{Eval}(y+\alpha d)$
     \If{$\theta_t\le\theta+\sigma\alpha g^{\mathsf T}d$} accept; \textbf{break} \EndIf
     \If{$|\theta_t-\theta|<\gamma u(1+|\theta_t|+|\theta|)$} \Comment{BH near-equality branch}
-      \If{full step has $\nrm{g_{t}^{(\alpha=1)}}\le(1-\mu)\nrm g$} accept the full step; \textbf{break} \EndIf
+      \If{full step has $\nrm{g_{t}^{(\alpha=1)}}\le(1-\mubh)\nrm g$} accept the full step; \textbf{break} \EndIf
       \State accept the unit steepest-descent step $y-g$ (one further \EVD); \textbf{break}
     \EndIf
     \State $\alpha\gets\alpha/2$

@@ -22,8 +22,8 @@ conditions~\cite{lenard1984randomly,calamai1993new}, and in particular Wei and
 Wolkowicz's generator of semidefinite programs with prescribed complementarity
 nullity~\cite{wei2010generating}, specialized here to the NCM problem. What is
 specific to NCM is the exact projection identity of \cref{prop:exact}, the
-independent control of the three spectral quantities in
-\cref{sec:spectrum}, and the entrywise conditions of \cref{sec:feasibility}.
+control of the rank, multiplicity and separation in \cref{sec:spectrum}, and
+the entrywise conditions of \cref{sec:feasibility}.
 Their construction does not cover the present problem: it generates the data
 of a \emph{linear}-objective SDP and is free to choose the constraint operator
 itself (their Algorithm~2.3, Steps 3--4), whereas the NCM problem fixes both
@@ -64,9 +64,9 @@ solution is classical~\cite{higham2002nearest,qisun2006quadratically}.
 \end{proof}
 
 In floating point, the generator recomputes the projection rather than relying
-on the identity. Over the 270 released instances, the KKT residual is about
-$1.6\times10^{-14}$ and the exactness error $\fro{\Proj(C(\ys))-\Xs}$ is about
-$8.2\times10^{-14}$.
+on the identity. Over the 270 released instances at $n=100$, the KKT residual
+is at most $1.7\times10^{-14}$ and the exactness error
+$\fro{\Proj(C(\ys))-\Xs}$ at most $8.4\times10^{-14}$.
 
 \subsection{Prescribed spectral structure}\label{sec:spectrum}
 Because the ranges are orthogonal, the spectrum of $C(\ys)=\Xs-W$ is the
@@ -83,6 +83,9 @@ positive, zero and negative eigenvalues of $C(\ys)$. Then
   \item an entry $\mu_j=\delta>0$ produces an eigenvalue $-\delta$, which moves
     toward the nonsmooth boundary of $\Proj$ as $\delta\to0$.
 \end{itemize}
+The multiplicity and the separation are therefore not varied independently in
+their effect on strict complementarity: $|\beta|=m$ when $\delta=0$ and
+$|\beta|=0$ otherwise.
 
 \paragraph{Terminology.}
 Qi and Sun~\cite{qisun2006quadratically} showed that constraint
@@ -142,7 +145,7 @@ $1-\eta$,
 \[
   a\;\le\;\sqrt{\frac{2}{r}\Bigl(2\log n+\log\frac{2}{\eta}\Bigr)} .
 \]
-In particular $a\to0$ whenever $r/\log n\to\infty$.
+In particular $a\to0$ in probability whenever $r/\log n\to\infty$.
 \end{proposition}
 
 The bound follows from the subgaussianity of the uniform distribution on the
@@ -176,7 +179,8 @@ bound on $c$ implied by \cref{prop:det} shrinks sharply as the rank decreases.
 \begin{table}[t]
 \centering
 \caption{Empirical $(a,b)$ at $n=100$, 30 seeds per rank. The last column is
-the mean over seeds of the sufficient bound $(1-a)/b$ from \cref{prop:det}.}
+the sufficient bound $(1-a)/b$ of \cref{prop:det} evaluated at the mean values
+of $a$ and $b$.}
 \label{tab:ab}
 \small
 \begin{tabular}{rrrrrr}
@@ -191,8 +195,8 @@ $r$ & mean $a$ & max $a$ & mean $b$ & max $b$ & mean $(1-a)/b$\\
 \end{table}
 
 The table is consistent with the screening outcomes. At
-$\mu_{\mathrm{bulk}}=0.1$, the mean sufficient bound at $r=5$ ($0.162$)
-exceeds $0.1$, but the worst seeds (max $a=0.9981$) fall below it. In the
+$\mu_{\mathrm{bulk}}=0.1$, the sufficient bound at the mean values at $r=5$
+($0.162$) exceeds $0.1$, but the worst seeds (max $a=0.9981$) fall below it. In the
 paired design (\cref{sec:paired}), 5 of the 7 candidate seeds were accepted at
 $r=5$; the 2 rejections were for $|G_{ij}|>1$. At $r=20$ and $r=50$, 5 of 5
 were accepted. With $\mu_{\mathrm{bulk}}=1$, the sufficient bound fails at
@@ -212,6 +216,23 @@ silently discarded.
 Because of the screening, the $r=5$ sample is conditioned differently from the
 $r=20$ and $r=50$ samples: at $r=5$ it excludes the seeds with the largest
 $a$. Comparisons across ranks should be read with this in mind.
+
+\paragraph{Extent of the family.}
+Every synthetic instance is close to feasible: $\lambda_{\min}(G)$ lies between
+$-0.075$ and $-0.017$ at $n=100$ and between $-0.047$ and $-0.011$ at $n=500$.
+With $\mu_{\mathrm{bulk}}=1$ the entrywise bound fails at every rank tested, so
+the family cannot be extended to strongly invalid inputs with the same
+construction, and the degree of invalidity is not a controlled factor here.
+Findings that depend on it (\cref{sec:thesis,sec:us2105}) rest on perturbed
+matrices whose reference is computed, not exact.
+
+\paragraph{Regeneration.}
+The seed of candidate $c$ at rank $r$ and dimension $n$ is $100000n+1000r+c$.
+The multiplicity is limited by the kernel dimension, $m\le n-r$, and the $m$
+entries equal to $\delta$ occupy the last $m$ columns of the eigenvector basis
+of $\Xs$ returned by the symmetric eigensolver, which is the point at which a
+different LAPACK build can yield a different member of the family
+(\cref{app:artifact}).
 
 \subsection{Release}
 We release the 270 paired instances ($G$, $\Xs$, $\ys$, SHA-256 hashes of the

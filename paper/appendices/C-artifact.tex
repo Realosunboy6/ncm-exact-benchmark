@@ -8,7 +8,8 @@ identifier will be deposited on acceptance.
 
 Instance binaries are not stored in full, since they reach 1\,GB at $n=500$;
 the manifests record a hash and four numerical invariants of every instance
-used. The generator is seeded and reproduces those instances up to rounding:
+in every set except the perturbed equity panel at $n=2105$ and the bulk-level
+pilot. The generator is seeded and reproduces those instances up to rounding:
 regenerated on the original machine, each $G$ differs from the original by at
 most $10^{-17}$ in relative Frobenius norm and each $\Xs$ is bit-identical,
 although the hashes, taken on exact bits, differ. The script
@@ -30,7 +31,7 @@ file & contents\\
 \texttt{code/gen\_degeneracy\_family.py} & generator and screening (\cref{sec:family})\\
 \texttt{code/materialize\_exact\_ystars.py} & exact $\ys=-\diag(W)$ for a suite\\
 \texttt{data/canonical\_n100/} & 12 instances with $G$, $\Xs$, $\ys$, manifest and cases\\
-\texttt{data/manifests/} & SHA-256 manifests, numerical fingerprints and screening logs for every set\\
+\texttt{data/manifests/} & SHA-256 manifests, numerical fingerprints and screening logs for the synthetic sets, the equity-derived sets with exact solutions and the perturbed panel at $n=550$, and the four literature matrices\\
 \texttt{code/check\_instances.py} & checks a regenerated set against the fingerprints\\
 \texttt{code/export\_real\_suite.py} & literature matrices from Anymatrix \texttt{CORRINV}\\
 \texttt{code/export\_thesis\_kkt.py}, \texttt{export\_thesis\_suite.py} & equity-derived sets (\cref{sec:thesis,sec:us2105})\\
@@ -56,7 +57,7 @@ file & contents\\
 \texttt{results/ranking\_real.csv.gz} & four literature matrices (\cref{tab:real})\\
 \texttt{results/timing\_*.csv} & single-threaded timings of all seven variants, measured in one session (\cref{sec:timing})\\
 \texttt{results/timing\_session1/} & an earlier timing session, kept for comparison; not used in any table\\
-\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert} and the accounting numbers of \cref{sec:acct-results}\\
+\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert}, the paired comparison of \cref{sec:cells} and the accounting numbers of \cref{sec:acct-results}; sections 2 to 7 of its output use an earlier reach rule, kept for reproducibility, and the paper's tables come from sections 9 to 12\\
 \texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\

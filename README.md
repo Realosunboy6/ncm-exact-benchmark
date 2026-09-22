@@ -29,7 +29,7 @@ sh code/reproduce.sh python3
 ```
 
 Reads `results/*.csv.gz`, writes `results/reproduced/`, and prints which file
-holds which table. Takes about three minutes. Compare with `results/analysis/`.
+holds which table. Takes five to ten minutes. Compare with `results/analysis/`.
 
 ## Reproducing the instances
 
@@ -80,7 +80,7 @@ python analyze_ranking.py ranking_kkt270_v2.csv kkt270_analysis.md
 ## Requirements
 
 - Julia 1.12 or later (`code/Project.toml`, `code/Manifest.toml`)
-- Python 3.10 or later with NumPy (pandas for the equity exporters)
+- Python 3.10 or later with NumPy and SciPy (pandas for the equity exporters)
 - Only for the literature matrices: the Anymatrix `CORRINV` collection
   (<https://github.com/higham/anymatrix>), not redistributed here
 

@@ -10,13 +10,12 @@ returns the degree of invalidity reverses the order as well
 (\cref{sec:thesis}). The stopping rule
 changed the achieved accuracy by a factor of 383. The cost unit (\EVDs\ against wall-clock time) and the accounting rule
 (accepted-only against all-trial) changed cost ratios but no ordering. Two
-line-search details changed whether methods converged at all. We think the
-correct summary is conservative. The protocol matters mainly for the
-\emph{magnitude} of reported advantages and for the ordering of methods that
-are close in cost. On the evidence here, it does not matter for identifying a
-clear first place. We expect this to hold wherever one method is ahead by a
-large factor; where methods are within a factor of about two, conclusions
-drawn under a single convention should be treated with caution.
+line-search details changed whether methods converged at all. The summary
+that the evidence supports is conservative: the protocol matters mainly for
+the \emph{magnitude} of reported advantages and for the ordering of methods
+that are close in cost, and it did not matter for identifying a clear first
+place. Where methods are within a factor of about two, conclusions drawn under
+a single convention should be treated with caution.
 
 \paragraph{Why an exact family.}
 The regime dependence in \cref{sec:cells} is organized mainly by rank, one of
@@ -24,9 +23,10 @@ the three quantities the construction controls. Finding it requires both an
 exact $\Xs$, so that forward error is not contaminated by an approximate
 reference, and independent control of the spectral structure at the
 solution. Real matrices supply neither. The same machinery then showed the
-dimension dependence of that finding: at $n=500$ the same rank effect changes
-the order only between $r=50$ and $r=75$ (\cref{sec:highrank}), so a grid
-chosen at one dimension can miss the crossover at another.
+dimension dependence of that finding: at $n=500$ the same rank effect, for
+SBB-Dual against AGD-SDAJ-BH, changes the order only between $r=50$ and
+$r=75$ (\cref{sec:highrank}), so a grid chosen at one dimension can miss the
+crossover at another.
 
 \paragraph{Limitations.}
 \begin{itemize}
@@ -37,13 +37,21 @@ chosen at one dimension can miss the crossover at another.
     lies between $r=5$ and $r=20$ at $n=100$ and between $r=50$ and $r=75$
     at $n=500$; on data-seeded instances at $n=550$ SBB-Dual is still slightly
     behind at $r=100$, and at $n=2105$ (\cref{sec:us2105}) the gap closes to
-    within one \EVD\ by $r=400$ without a resolved crossover. The crossover is
-    therefore bracketed at each dimension and rises with it; the data do not
-    support a functional form, and the largest panel contributes four
-    instances per rank with weak replication.
+    within one \EVD\ by $r=400$ without a resolved crossover. For this pair
+    the crossover is therefore bracketed at each dimension and lies higher at
+    the larger dimensions; the data do not support a functional form, and the
+    largest panel contributes four instances per rank with weak replication.
+    Among published methods alone, the Dykstra-APM and AGD-SDAJ-BH exchange of
+    $n=100$ has not occurred by $r=150$ at $n=500$, and at $n=2105$ the order
+    of Anderson-APM and AGD-SDAJ-BH is not monotone in rank.
     Dykstra-APM is censored at $n=500$ by its iteration cap.
   \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
-    matrices are correlation-like but are not estimated from data.
+    matrices are correlation-like but are not estimated from data, and all of
+    them are close to feasible: $\lambda_{\min}(G)$ lies between $-0.075$ and
+    $-0.011$ over the 540 instances. The degree of invalidity, which reorders
+    the methods on the equity-derived matrices, is therefore not a controlled
+    factor of the family, and the findings that depend on it rest on perturbed
+    matrices with computed references.
     \Cref{sec:real} adds four matrices from the literature, from $n=94$ to
     $n=3250$, measured against a computed rather than an exact reference; for
     the two largest that reference is capped and reaches
@@ -65,12 +73,26 @@ chosen at one dimension can miss the crossover at another.
     distinct orderings should not be read as a count of real regime changes.
     We report counts and intervals rather than significance tests, because the
     reuse of each drawn $U$ across all cells of its rank makes instance-level
-    comparisons strongly dependent.
-  \item \emph{Single machine.} All timings come from one machine with
-    single-threaded BLAS.
+    comparisons strongly dependent. The pooled medians at $n=100$ weight the
+    three ranks equally, so the target at which a pooled median changes sign
+    depends on the rank grid, and no correction for multiple comparisons is
+    applied to the cell-level and target-level comparisons, which are
+    exploratory.
+  \item \emph{Single machine, single timing.} All timings come from one
+    machine with single-threaded BLAS, and each solve was timed once. A
+    session on the same machine changed the per-\EVD\ cost of unchanged code
+    by a factor of about four (\cref{sec:timing}), so per-\EVD\ ratios that
+    differ by less than about 15\% should not be read as ordered.
   \item \emph{Our adaptation.} The Borsdorf--Higham adaptation to AGD-SDAJ is
     ours, not the original authors'. It is reported beside the unmodified
     method throughout.
+  \item \emph{Parameters.} Each method ran at one parameter setting: the
+    published values for Newton-SIN-BH, AGD-SDAJ, Dykstra-APM and
+    Anderson-APM (history length $m=2$), and the specification of
+    \cref{app:algorithms} for SBB-Dual, whose step-size clamp is
+    $\eta=0.01$. No parameter was varied in this study, so the sensitivity of
+    the orderings to them, and in particular to $m$ and $\eta$, was not
+    measured.
   \item \emph{Feasibility propositions.} \Cref{prop:det} assumes uniform
     $\mu$, and the extension to mixed $\mu$ is open (\cref{app:family}).
     \Cref{prop:hd} is stated for $a$ only; no companion bound on $b$ is
