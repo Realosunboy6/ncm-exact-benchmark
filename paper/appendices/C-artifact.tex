@@ -69,7 +69,8 @@ file & contents\\
 \texttt{results/ranking\_thesis*.csv.gz} & equity sets at $n=550$ (\cref{tab:thesiskkt,tab:thesispert})\\
 \texttt{results/ranking\_us2105\_*.csv.gz} & equity sets at $n=2105$ (\cref{tab:us2105,tab:us2105pert})\\
 \texttt{results/ranking\_real.csv.gz} & four literature matrices (\cref{tab:real})\\
-\texttt{results/timing\_*.csv} & single-threaded timings of all seven variants, measured in one session (\cref{sec:timing})\\
+\texttt{results/timing\_kkt270\_native.csv}, \texttt{timing\_kkt270\_matched.csv}, \texttt{timing\_n500\_native.csv}, \texttt{timing\_n500\_matched.csv} & single-threaded timings of all seven variants, the session reported in \cref{tab:primitive,tab:perevd,tab:native} (\cref{sec:timing})\\
+\texttt{results/timing\_kkt270\_matched\_rep$k$.csv}, \texttt{timing\_n500\_matched\_rep$k$.csv}, $k=1,\dots,4$ & four further matched-tolerance timing sessions, same instances and code, behind the session-to-session spread of \cref{sec:evd-unit}\\
 \texttt{results/timing\_session1/} & an earlier timing session, kept for comparison; not used in any table\\
 \texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert}, the paired comparison of \cref{sec:cells} and the accounting numbers of \cref{sec:acct-results}; sections 2, 3, 4, 5 and 7 of its output use an earlier reach rule, kept for reproducibility and flagged in the output itself, and every number the paper cites comes instead from the corrected recomputation from section 12 on, or, for \cref{tab:feas}, from section 6, which does not use that rule\\
 \texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
@@ -80,6 +81,8 @@ file & contents\\
 \texttt{code/analyze\_confound.py} & the bulk-level pilot of \cref{sec:highrank}, from \texttt{results/ranking\_confound\_mu*.csv.gz}\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
+\texttt{code/analyze\_timing\_repeats.py} & the five-session spread and the EVD-vs-wall-clock agreement check of \cref{sec:evd-unit}; output in \texttt{results/analysis/timing\_repeats.md}\\
+\texttt{code/repeat\_timing.sh} & the driver that produced the four further timing sessions above\\
 \texttt{results/analysis/us2105\_kkt\_cases.csv}, \texttt{us2105\_pert\_cases.csv} & per-instance descriptives of the two $n=2105$ sets, written by \texttt{export\_thesis\_kkt.py} and \texttt{export\_thesis\_suite.py}: the $\lambda_{\min}(G)$ range, the negative-eigenvalue counts and the clipped-entry counts quoted in \cref{sec:us2105}\\
 \end{longtable}
 \endgroup

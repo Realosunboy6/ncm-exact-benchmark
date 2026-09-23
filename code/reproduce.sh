@@ -64,6 +64,20 @@ echo "timing, n=100 and n=500 -> timing_n100.md, timing_n500.md"
 "$PY" "$here/analyze_timing.py" "$here/../results/timing_n500_native.csv" \
     "$here/../results/timing_n500_matched.csv" "$work/timing_n500.md" > /dev/null
 
+echo "timing repeats, Sec. 3.6 -> timing_repeats.md"
+"$PY" "$here/analyze_timing_repeats.py" \
+    "$here/../results/timing_kkt270_matched.csv" \
+    "$here/../results/timing_kkt270_matched_rep1.csv" \
+    "$here/../results/timing_kkt270_matched_rep2.csv" \
+    "$here/../results/timing_kkt270_matched_rep3.csv" \
+    "$here/../results/timing_kkt270_matched_rep4.csv" -- \
+    "$here/../results/timing_n500_matched.csv" \
+    "$here/../results/timing_n500_matched_rep1.csv" \
+    "$here/../results/timing_n500_matched_rep2.csv" \
+    "$here/../results/timing_n500_matched_rep3.csv" \
+    "$here/../results/timing_n500_matched_rep4.csv" \
+    "$work/timing_repeats.md" > /dev/null
+
 echo "stopping rule, Sec. 6 -> stopping_rule.txt"
 "$PY" "$here/analyze_stopping_rule.py" "$here/../results/timing_kkt270_native.csv" \
     "$here/../results/timing_n500_native.csv" > "$work/stopping_rule.txt"
@@ -91,6 +105,7 @@ cat <<'MAP'
   Tab. us2105, us2105pert                   us2105_analysis.txt
   Sec. 6 cross-dimension comparison         stopping_rule.txt
   Tab. primitive, perevd, native            timing_n100.md (and timing_n500.md)
+  Sec. 3.6 session-to-session repeats       timing_repeats.md
   Sec. 5.10 bulk-level pilot (48 instances)  confound_mu_bulk_analysis.txt
   Figure data                               figure_data/ (compare paper/figures/data/)
 MAP

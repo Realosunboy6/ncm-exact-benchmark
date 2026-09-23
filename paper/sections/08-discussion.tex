@@ -79,11 +79,18 @@ crossover at another.
     depends on the rank grid, and no correction for multiple comparisons is
     applied to the cell-level and target-level comparisons, which are
     exploratory.
-  \item \emph{Single machine, single timing.} All timings come from one
-    machine with single-threaded BLAS, and each solve was timed once. A
-    session on the same machine changed the per-\EVD\ cost of unchanged code
-    by a factor of about four (\cref{sec:timing}), so per-\EVD\ ratios that
-    differ by less than about 15\% should not be read as ordered.
+  \item \emph{Single machine, five timings.} All timings come from one
+    machine with single-threaded BLAS. \Cref{sec:evd-unit} repeats the
+    matched-tolerance measurement five times in all (the session reported in
+    \cref{tab:perevd} and four further sessions): a given solver's per-\EVD\
+    cost varies by up to a factor of 4.9 across sessions, an order of
+    magnitude more than the $\le\!1.50\times$ spread between solvers within
+    one session, so per-\EVD\ ratios that differ by less than about 50\%
+    should not be read as ordered, and the specific rank of the middle four
+    or five solvers, by either \EVD\ count or wall-clock time, should not be
+    treated as a fixed property of the methods (\cref{sec:evd-unit}). The
+    leading and trailing positions (Newton-SIN-BH cheapest, Dykstra-APM
+    dearest) are robust across every session.
   \item \emph{Our adaptation.} The Borsdorf--Higham adaptation to AGD-SDAJ is
     ours, not the original authors'. It is reported beside the unmodified
     method throughout.
