@@ -73,8 +73,10 @@ Each contribution builds on established practice (\cref{sec:related}).
     270 instances at $n=100$ and 270 at $n=500$, with 135 further instances at
     higher rank, 125 built from two equity panels at $n=550$ and $n=2105$, and
     four matrices from the literature. The cheapest method is the same under
-    all 11 conventions examined, and its cost is flat in dimension: 5
-    eigendecompositions at $n=100$ and at $n=2105$. Second at $n=100$ is
+    all 11 conventions examined, and its median eigendecomposition count
+    stays at 5 across the tested exact-solution families, from $n=100$ to
+    $n=2105$; wall-clock time is not flat, since each eigendecomposition
+    itself costs more at larger $n$. Second at $n=100$ is
     Anderson-accelerated alternating projections~\cite{higham2016anderson},
     under 10 of the 11 conventions and tied for second under the eleventh; it
     keeps that place on the exact-solution families but not on perturbed or

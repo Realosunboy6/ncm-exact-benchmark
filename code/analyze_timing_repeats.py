@@ -81,6 +81,8 @@ def section(label, files):
     emit("target; \"same\" means the two rankings agree exactly):")
     emit("")
     agree = 0
+    cheapest_agree = 0
+    priciest_agree = 0
     for i, r in enumerate(runs):
         med_evd, med_time = {}, {}
         for s in solvers:
@@ -91,17 +93,25 @@ def section(label, files):
         order_time = sorted(solvers, key=med_time.get)
         same = order_evd == order_time
         agree += same
+        cheap_ok = order_evd[0] == order_time[0]
+        price_ok = order_evd[-1] == order_time[-1]
+        cheapest_agree += cheap_ok
+        priciest_agree += price_ok
         emit(f"session {i}: {'SAME' if same else 'DIFFERENT'}")
         emit(f"  by EVDs:  {' < '.join(order_evd)}")
         if not same:
             emit(f"  by time:  {' < '.join(order_time)}")
-        emit(f"  cheapest overall: {order_evd[0]} (both metrics agree in "
-             f"every session); priciest overall: {order_evd[-1]} "
-             f"(both metrics agree in every session)")
+        emit(f"  cheapest overall: {order_evd[0]} by EVDs, {order_time[0]} by "
+             f"time ({'agree' if cheap_ok else 'DISAGREE'}); priciest overall: "
+             f"{order_evd[-1]} by EVDs, {order_time[-1]} by time "
+             f"({'agree' if price_ok else 'DISAGREE'})")
     emit("")
-    emit(f"Full agreement in {agree} of {len(runs)} sessions. The extremes "
-         "(cheapest and priciest overall) agree in every session; "
-         "disagreements are confined to the middle of the ranking.")
+    emit(f"Full agreement in {agree} of {len(runs)} sessions. Cheapest overall "
+         f"agrees between the two metrics in {cheapest_agree} of {len(runs)} "
+         f"sessions; priciest overall agrees in {priciest_agree} of "
+         f"{len(runs)}. Disagreements, where they occur, are not necessarily "
+         "confined to the middle of the ranking -- check the per-session lines "
+         "above rather than assuming it.")
     emit("")
 
 

@@ -8,15 +8,20 @@ accuracy target and with rank that we found at $n=100$ recur at $n=500$ only
 above $r=50$ (\cref{sec:n500,sec:highrank}), and on matrices built from equity
 returns the degree of invalidity reverses the order as well
 (\cref{sec:thesis}). The stopping rule changed the achieved accuracy by a
-factor of 383. The cost unit (\EVDs\ against wall-clock time) and the
-accounting rule
-(accepted-only against all-trial) changed cost ratios but no ordering. Two
+factor of 383. The accounting rule (accepted-only against all-trial) changed
+cost ratios but no ordering. The cost unit (\EVDs\ against wall-clock time)
+changed cost ratios and, in most but not all repeated timing sessions, no
+ordering: repeating the matched-tolerance timing measurement five times
+(\cref{sec:evd-unit}) shows the single cheapest method is unaffected in
+every session, but which method is dearest is not, at $n=100$. Two
 line-search details changed whether methods converged at all. The summary
-that the evidence supports is conservative: the protocol matters mainly for
-the \emph{magnitude} of reported advantages and for the ordering of methods
-that are close in cost, and it did not matter for identifying a clear first
-place. Where methods are within a factor of about two, conclusions drawn under
-a single convention should be treated with caution.
+that the evidence supports is conservative: the protocol matters for the
+\emph{magnitude} of reported advantages, for the ordering of methods that
+are close in cost, and, for the cost unit specifically, sometimes for which
+method is worst; it did not matter for identifying a clear first place.
+Where methods are within a factor of about two, conclusions drawn under a
+single convention or a single timing session should be treated with
+caution.
 
 \paragraph{Why an exact family.}
 The regime dependence in \cref{sec:cells} is organized mainly by rank, one of
@@ -42,10 +47,19 @@ crossover at another.
     the crossover is therefore bracketed at each dimension and lies higher at
     the larger dimensions; the data do not support a functional form, and the
     largest panel contributes four instances per rank with weak replication.
-    Among published methods alone, the Dykstra-APM and AGD-SDAJ-BH exchange of
+    Without SBB-Dual, the Dykstra-APM and AGD-SDAJ-BH exchange of
     $n=100$ has not occurred by $r=150$ at $n=500$, and at $n=2105$ the order
     of Anderson-APM and AGD-SDAJ-BH is not monotone in rank.
     Dykstra-APM is censored at $n=500$ by its iteration cap.
+  \item \emph{Exact recovery of the released instances.} The full instance
+    binaries are not deposited (\cref{app:artifact}); a reader who regenerates
+    them can only check the result against the recorded fingerprints, which
+    detect a mismatch (for instance, from a LAPACK build that returns the
+    degenerate kernel basis in a rotated form) but do not by themselves let
+    the reader recover the exact instances used here if one occurs. Only a
+    12-instance subset at $n=100$ ships in full. Depositing the complete
+    instance sets in a persistent archive would remove this gap; it has not
+    been done as of this draft.
   \item \emph{Synthetic family.} The KKT family is synthetic. Its $G$
     matrices are correlation-like but are not estimated from data, and all of
     them are close to feasible: $\lambda_{\min}(G)$ lies between $-0.075$ and
@@ -88,9 +102,10 @@ crossover at another.
     one session, so per-\EVD\ ratios that differ by less than about 50\%
     should not be read as ordered, and the specific rank of the middle four
     or five solvers, by either \EVD\ count or wall-clock time, should not be
-    treated as a fixed property of the methods (\cref{sec:evd-unit}). The
-    leading and trailing positions (Newton-SIN-BH cheapest, Dykstra-APM
-    dearest) are robust across every session.
+    treated as a fixed property of the methods (\cref{sec:evd-unit}). Only
+    the leading position (Newton-SIN-BH cheapest) is robust across every
+    session; Dykstra-APM is dearest in 8 of the 10 sessions across both
+    dimensions, but not all.
   \item \emph{Our adaptation.} The Borsdorf--Higham adaptation to AGD-SDAJ is
     ours, not the original authors'. It is reported beside the unmodified
     method throughout.

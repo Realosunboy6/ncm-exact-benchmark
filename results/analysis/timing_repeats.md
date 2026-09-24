@@ -19,24 +19,24 @@ target; "same" means the two rankings agree exactly):
 
 session 0: SAME
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < SBB-Dual < AGD-SDAJ-BH < AGD-SDAJ < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 session 1: DIFFERENT
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < SBB-Dual < AGD-SDAJ-BH < AGD-SDAJ < Dykstra-APM
   by time:  Newton-SIN-BH < Newton-SIN < SBB-Dual < Anderson-APM < AGD-SDAJ-BH < Dykstra-APM < AGD-SDAJ
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, AGD-SDAJ by time (DISAGREE)
 session 2: SAME
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < SBB-Dual < AGD-SDAJ-BH < AGD-SDAJ < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 session 3: DIFFERENT
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < SBB-Dual < AGD-SDAJ-BH < AGD-SDAJ < Dykstra-APM
   by time:  Newton-SIN-BH < Newton-SIN < SBB-Dual < Anderson-APM < AGD-SDAJ-BH < Dykstra-APM < AGD-SDAJ
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, AGD-SDAJ by time (DISAGREE)
 session 4: DIFFERENT
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < SBB-Dual < AGD-SDAJ-BH < AGD-SDAJ < Dykstra-APM
   by time:  Newton-SIN-BH < Newton-SIN < SBB-Dual < Anderson-APM < AGD-SDAJ-BH < AGD-SDAJ < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 
-Full agreement in 2 of 5 sessions. The extremes (cheapest and priciest overall) agree in every session; disagreements are confined to the middle of the ranking.
+Full agreement in 2 of 5 sessions. Cheapest overall agrees between the two metrics in 5 of 5 sessions; priciest overall agrees in 3 of 5. Disagreements, where they occur, are not necessarily confined to the middle of the ranking -- check the per-session lines above rather than assuming it.
 
 ## n=500 (18-instance timing subset)
 
@@ -59,21 +59,21 @@ target; "same" means the two rankings agree exactly):
 
 session 0: SAME
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < AGD-SDAJ-BH < AGD-SDAJ < SBB-Dual < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 session 1: SAME
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < AGD-SDAJ-BH < AGD-SDAJ < SBB-Dual < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 session 2: DIFFERENT
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < AGD-SDAJ-BH < AGD-SDAJ < SBB-Dual < Dykstra-APM
   by time:  Newton-SIN-BH < Newton-SIN < AGD-SDAJ-BH < Anderson-APM < AGD-SDAJ < SBB-Dual < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 session 3: SAME
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < AGD-SDAJ-BH < AGD-SDAJ < SBB-Dual < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 session 4: DIFFERENT
   by EVDs:  Newton-SIN-BH < Newton-SIN < Anderson-APM < AGD-SDAJ-BH < AGD-SDAJ < SBB-Dual < Dykstra-APM
   by time:  Newton-SIN-BH < Newton-SIN < AGD-SDAJ-BH < AGD-SDAJ < Anderson-APM < SBB-Dual < Dykstra-APM
-  cheapest overall: Newton-SIN-BH (both metrics agree in every session); priciest overall: Dykstra-APM (both metrics agree in every session)
+  cheapest overall: Newton-SIN-BH by EVDs, Newton-SIN-BH by time (agree); priciest overall: Dykstra-APM by EVDs, Dykstra-APM by time (agree)
 
-Full agreement in 3 of 5 sessions. The extremes (cheapest and priciest overall) agree in every session; disagreements are confined to the middle of the ranking.
+Full agreement in 3 of 5 sessions. Cheapest overall agrees between the two metrics in 5 of 5 sessions; priciest overall agrees in 5 of 5. Disagreements, where they occur, are not necessarily confined to the middle of the ranking -- check the per-session lines above rather than assuming it.
 

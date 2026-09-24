@@ -144,24 +144,32 @@ $10^{-10}$ (264 and 254 for the residual), which is consistent with its 18
 budget-exhausting stalls (\cref{sec:trap2}). Its entries marked $^{*}$ are
 medians over the instances it reached, and are therefore optimistic. The
 second/third-place reversal is the same whether or not those entries are
-included.
+included. A first-hit rule (the first accepted iterate with error at or below
+the target, whether or not it holds) gives the same median for every solver
+at every target: the two rules disagree only on individual instances of the
+two AGD variants, at the tighter targets (53 to 62 of 270 instances at
+$10^{-8}$ and $10^{-10}$, median 5 to 8 \EVDs\ apart there, at most 1542), and
+never for the other five solvers. The rankings in \cref{tab:fwd} therefore do
+not depend on requiring sustained accuracy rather than a first crossing.
 \paragraph{Uncertainty.}
 The bootstrap intervals in \cref{tab:fwd} resample 15 clusters, so they
 describe the variation between seeds and are narrow by construction; they do
-not test the ordering. The test that does is the paired per-instance
-comparison, which is much closer than the pooled medians suggest. The median
-paired difference in \EVDs, SBB-Dual minus AGD-SDAJ-BH, with its cluster
-interval, the share of the 270 instances on which SBB-Dual is cheaper, and the
-two-sided sign test with ties excluded, is
-$+2$ $[1,2]$, 40.4\%, $p=0.011$ at $10^{-2}$;
-$+1.5$ $[-1,2]$, 48.5\%, $p=0.81$ at $10^{-4}$;
-$-4$ $[-5,-4]$, 54.1\%, $p=0.14$ at $10^{-6}$;
-$-11$ $[-13.5,-9]$, 61.9\%, $p=1.2\times10^{-4}$ at $10^{-8}$; and
-$-19$ $[-22,-17]$, 65.6\%, $p=3.6\times10^{-7}$ at $10^{-10}$.
-The sign test treats the 270 comparisons as independent although they form 15
-clusters (\cref{sec:n500}), so it overstates the evidence, and it is quoted
-only to show where even it does not resolve the sign. The two methods are
-therefore level at $10^{-4}$; AGD-SDAJ-BH is cheaper at $10^{-2}$ by a modest
+not test the ordering. What does is the paired per-instance comparison, which
+is much closer than the pooled medians suggest. The median paired difference
+in \EVDs, SBB-Dual minus AGD-SDAJ-BH, with its cluster interval and the share
+of the 270 instances on which SBB-Dual is cheaper, is
+$+2$ $[1,2]$, 40.4\% at $10^{-2}$;
+$+1.5$ $[-1,2]$, 48.5\% at $10^{-4}$;
+$-4$ $[-5,-4]$, 54.1\% at $10^{-6}$;
+$-11$ $[-13.5,-9]$, 61.9\% at $10^{-8}$; and
+$-19$ $[-22,-17]$, 65.6\% at $10^{-10}$.
+An instance-level sign test would treat the 270 comparisons as independent
+although they form only 15 clusters, so it would overstate the evidence at
+every target; we therefore do not report one, and read the ordering only from
+the cluster interval, which respects the true number of independent units.
+By that standard the two methods are level at $10^{-4}$ (interval spans zero,
+and the win share sits at 48.5\%, essentially even); AGD-SDAJ-BH is cheaper at
+$10^{-2}$ by a modest
 average margin with substantial per-instance overlap; and SBB-Dual is cheaper
 in the median from $10^{-6}$, with a cluster interval that excludes zero, but
 on only 54\%, 62\% and 66\% of the instances at $10^{-6}$, $10^{-8}$ and
@@ -225,9 +233,10 @@ instance family was built to vary these quantities one at a time. On a
 collection of real matrices with uncontrolled spectra, the ordering could not
 be associated with rank in this way.
 
-\paragraph{A crossover between published methods.}
-The reversal is not confined to SBB-Dual. Dykstra-APM and AGD-SDAJ-BH, both
-published methods, exchange places over the same rank range. At $r=5$
+\paragraph{A crossover between a published method and our adaptation of one.}
+The reversal is not confined to SBB-Dual. Dykstra-APM, a published method,
+and AGD-SDAJ-BH, our Borsdorf--Higham adaptation of a published method
+(\cref{sec:trap2}), exchange places over the same rank range. At $r=5$
 AGD-SDAJ-BH is cheaper on all 90 instances at $10^{-8}$ (median difference
 $+223.5$ \EVDs) and at $r=20$ on 80 of 90, with one tie; at $r=50$ Dykstra-APM
 is cheaper on 61 of 90 (median $-3.5$, cluster-bootstrap 95\% interval
@@ -235,7 +244,8 @@ $[-6,-2]$) and on 75 of 90 at $10^{-10}$ ($-8.5$, $[-12,-5]$). All five seeds
 agree on the sign at $r=5$ and at $r=50$. The direction at $r=50$ is resolved
 but the margin is small, about an eighth of AGD-SDAJ-BH's median cost of 28
 \EVDs, and 26 of the 90 instances go the other way. The reversal is therefore
-reproducible among previously published methods. It does not occur by the
+reproducible without SBB-Dual, on a pair neither of which is the author's own
+new method. It does not occur by the
 same rank at higher dimension: at $n=500$
 AGD-SDAJ-BH is still ahead at $r=150$ (Dykstra-APM cheaper on 13 of 45 at
 $10^{-10}$, \cref{sec:highrank}). On the equity panel at $n=2105$ the
@@ -557,9 +567,11 @@ $r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra
 \end{tabular}
 \end{table}
 
-Newton-SIN-BH takes 5 \EVDs\ on every instance, as at $n=100$ and $n=500$: the
-cost of the leading method is flat in $n$ over a twenty-fold range, while the
-first-order methods grow by an order of magnitude. The gap between SBB-Dual and
+Newton-SIN-BH takes 5 \EVDs\ on every instance, as at $n=100$ and $n=500$: its
+\EVD\ count is flat in $n$ over a twenty-fold range, while the first-order
+methods' \EVD\ counts grow by an order of magnitude; wall-clock time is not
+flat for either, since each \EVD\ itself costs more at larger $n$
+(\cref{sec:evd-unit}). The gap between SBB-Dual and
 AGD-SDAJ-BH again narrows with rank, from $+490.5$ \EVDs\ at $r=50$ to $-0.5$ at
 $r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: the
 median there is $-0.5$ \EVDs\ with a cluster interval of $[-27,+21.5]$, and at
@@ -575,7 +587,7 @@ also differ between rotations by at most two \EVDs, although Anderson-APM's do
 vary at $r=50$ and $r=100$.
 
 Anderson-APM converges on all 16 instances, and with AGD-SDAJ-BH it forms the
-one pair of published methods here whose order changes with rank. It is
+one pair here, neither of them SBB-Dual, whose order changes with rank. It is
 cheapest after Newton-SIN-BH at $r=50$ and $r=400$, but AGD-SDAJ-BH is cheaper
 at $r=100$ and $r=200$. At $10^{-8}$ and $10^{-10}$ AGD-SDAJ-BH is cheaper on 4
 of 4 instances at $r=200$, by 33 to 70 \EVDs, and Anderson-APM on 4 of 4 at
@@ -660,11 +672,13 @@ tolerance of $10^{-13}$ is not attainable in double precision, so for
 \EVDs\ and its achieved residual is reported instead:
 $\nrm{\nabla\theta}_2=1.25\times10^{-12}$ and $5.03\times10^{-13}$, after
 2506\,s and 444\,s in the recorded check run
-(\texttt{results/validation/reference\_check.log}). A second, independent
-reference for each (SBB-Dual driven
-to its floor, then the same Newton polish) agrees with the first to
+(\texttt{results/validation/reference\_check.log}). A second reference for
+each, differently initialized (SBB-Dual driven
+to its floor, then the same Newton polish that produced the first reference)
+rather than by an independent algorithm, agrees with the first to
 $\fro{X_A-X_B}=1.3\times10^{-11}$ and $8.1\times10^{-12}$, so forward errors on
-these matrices are resolved well below the targets used; the residual floor
+these matrices are resolved well below the targets used, and are insensitive
+to the starting point; the residual floor
 near $10^{-12}$ is reached within four to six Newton iterations. We therefore treat
 these runs as a check on external
 validity, not as measurements of the same quality as \cref{tab:fwd}. Every

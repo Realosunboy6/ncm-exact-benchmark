@@ -56,8 +56,10 @@ All timings come from one machine with single-threaded BLAS: Intel Core 7
 Julia 1.12.6 with OpenBLAS (ILP64) through libblastrampoline. Per-\EVD\ ratios
 (\cref{tab:perevd}) may differ on other hardware and BLAS libraries, and with
 multithreading.
-Each configuration was timed once, after a discarded warm-up, so we do not
-report run-to-run variance.
+Each configuration in \cref{tab:primitive,tab:native} was timed once, after a
+discarded warm-up. The matched-tolerance measurement behind \cref{tab:perevd}
+was repeated five times in total; \cref{sec:evd-unit} reports the resulting
+run-to-run variance, which is large.
 
 \paragraph{Artifact.}
 The generator, the instances with hashes, all solver code, the trajectory
