@@ -73,8 +73,9 @@ Each contribution builds on established practice (\cref{sec:related}).
     270 instances at $n=100$ and 270 at $n=500$, with 135 further instances at
     higher rank, 125 built from two equity panels at $n=550$ and $n=2105$, and
     four matrices from the literature. The cheapest method is the same under
-    all 11 conventions examined, and its median eigendecomposition count
-    stays at 5 across the tested exact-solution families, from $n=100$ to
+    all 11 conventions examined, and its median eigendecomposition count,
+    at the tightest target, stays at 5 across the tested exact-solution
+    families, from $n=100$ to
     $n=2105$; wall-clock time is not flat, since each eigendecomposition
     itself costs more at larger $n$. Second at $n=100$ is
     Anderson-accelerated alternating projections~\cite{higham2016anderson},
@@ -124,9 +125,15 @@ preparation~\cite{ibrahim2026sbb}. It is specified in full in
 convergence theory is not used here. Three findings do not depend on it:
 without SBB-Dual, Newton-SIN-BH is still first, Anderson-APM is still
 second at $n=100$, and the rank dependence is still present, between
-Dykstra-APM and AGD-SDAJ-BH. Two findings do use it: the dependence of the
-order on the accuracy target, and the bracketed positions of the rank
-crossover at $n=100$ and $n=500$ (\cref{sec:cells,sec:highrank}).
+Dykstra-APM and AGD-SDAJ-BH. Four findings do use it: the dependence of the
+order on the accuracy target, the bracketed positions of the rank
+crossover at $n=100$ and $n=500$ (\cref{sec:cells,sec:highrank}), the
+reversal of the order with the degree of invalidity on the equity-derived
+matrices (\cref{sec:thesis}), and the claim that the target- and
+rank-dependent orderings found at $n=100$ recur at $n=500$
+(\cref{sec:discussion}): all four are stated for SBB-Dual against
+AGD-SDAJ-BH specifically, and none has been checked for a pair that
+excludes SBB-Dual.
 
 \subsection{Related work}\label{sec:related}
 

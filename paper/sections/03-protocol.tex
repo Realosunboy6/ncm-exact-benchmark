@@ -161,22 +161,25 @@ than SBB-Dual by a factor of 9.3 in \EVDs\ (5 against 46.5) but by a factor of
 5.4 in wall-clock time (0.009\,s against 0.050\,s). Anderson-APM's
 least-squares update takes about 13\% of its time at $n=100$ and 15\% at
 $n=500$, so its \EVDs\ cost 1.17 times SBB-Dual's. On this family, then, \EVD\
-counts are biased in a known direction but preserve rank, and the bias is
-small compared with the gaps being measured. We report both.
+counts are biased in a known direction, and in this single session the bias
+is small compared with the gaps being measured; whether it preserves the
+full ranking under repeated measurement is examined next. We report both.
 
 \paragraph{Session-to-session variation.}
 \Cref{tab:perevd} is a single measured session. Repeating the matched-tolerance
 timing measurement four further times, on the same instances and the same
 code, shows that a given solver's median microseconds/\EVD\ varies far more
 across sessions than the solvers differ from each other within one session:
-up to a factor of 4.9 at both $n=100$ and $n=500$ across the five sessions
-(\texttt{results/analysis/timing\_repeats.md}), against a $\le\!1.50\times$
+by at least a factor of 4.9 at both $n=100$ and $n=500$ across these five
+sessions (a lower bound on the true session-to-session spread, since five
+sessions need not have sampled its extremes;
+\texttt{results/analysis/timing\_repeats.md}), against a $\le\!1.50\times$
 spread between solvers in \cref{tab:perevd}. The cheapest end is nonetheless
 consistent: the cheapest solver per \EVD\ is always SBB-Dual or an AGD
-variant, at both dimensions. The dearest end is consistent at $n=100$
+variant, at both dimensions. The dearest-per-\EVD\ end is consistent at $n=100$
 (Newton-SIN-BH in four of the five sessions, Anderson-APM in the fifth) and
-at $n=500$ (Newton-SIN-BH in four, Dykstra-APM in the fifth, by a 4\%
-margin over Anderson-APM). It is the middle of the ranking that reorders
+at $n=500$ (Newton-SIN-BH in four, Dykstra-APM in the fifth, by about
+1.6\% over Anderson-APM). It is the middle of the ranking that reorders
 between sessions. The specific ratios in \cref{tab:perevd} --- 1.04, 1.05,
 1.13, 1.17, 1.18 --- are therefore one session's draw, not stable constants;
 read them as evidence that these five solvers cost within about a fifth of

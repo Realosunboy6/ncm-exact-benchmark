@@ -99,7 +99,7 @@ The generator uses
 $\mu=(\mu_{\mathrm{bulk}},\dots,\mu_{\mathrm{bulk}},\delta,\dots,\delta)$ with
 $m$ copies of $\delta$ and $\mu_{\mathrm{bulk}}=0.1$. The separation parameter
 is $\sep=\delta/\mu_{\mathrm{bulk}}$ (we avoid $\rho$, which denotes the
-line-search backtracking factor in \cref{sec:traps,sec:ranking}). The released grid is
+line-search backtracking factor in \cref{sec:traps,app:algorithms}). The released grid is
 \[
   r\in\{5,20,50\},\quad m\in\{1,5,20\},\quad
   \delta\in\{10^{-2},10^{-4},10^{-6},10^{-8},10^{-10},0\},
@@ -132,7 +132,8 @@ $S^{r-1}$. Then $a\to1$ as $n\to\infty$, along every realization.
 
 \Cref{prop:sat} says only that $a$ saturates. It does \emph{not} imply that a
 fixed $c>0$ eventually violates \cref{prop:det}: at fixed $r$ the quantity $b$
-also decreases with $n$, so whether $a+cb$ exceeds 1 depends on the relative
+is observed to decrease with $n$ as well, but we do not prove
+this, so whether $a+cb$ exceeds 1 depends on the relative
 rates of $1-a$ and $b$, which we do not establish. We therefore make no
 asymptotic feasibility claim, and the generator relies on entrywise
 screening.
@@ -148,8 +149,10 @@ $1-\eta$,
 In particular $a\to0$ in probability whenever $r/\log n\to\infty$.
 \end{proposition}
 
-The bound follows from the subgaussianity of the uniform distribution on the
-sphere~\cite[Thm.~3.4.5]{vershynin2026high} and a union bound; see
+The bound follows from the explicit cap estimate
+of~\cite[Lem.~2.2]{ball1997elementary} (subgaussianity in the sense
+of~\cite[Thm.~3.4.5]{vershynin2026high} gives the same tail without a
+specific constant) and a union bound; see
 \cref{app:family}. We state it only for $a$, the quantity that governs
 \cref{prop:det} in the regime of interest. A companion bound on $b$ would
 require a model for $\range U$ that we do not need here, since the released
@@ -185,7 +188,7 @@ of $a$ and $b$.}
 \small
 \begin{tabular}{rrrrrr}
 \toprule
-$r$ & mean $a$ & max $a$ & mean $b$ & max $b$ & mean $(1-a)/b$\\
+$r$ & mean $a$ & max $a$ & mean $b$ & max $b$ & $(1-\bar a)/\bar b$\\
 \midrule
 5  & 0.9905 & 0.9981 & 0.0590 & 0.0708 & 0.162\\
 20 & 0.7495 & 0.8340 & 0.1483 & 0.1871 & 1.690\\

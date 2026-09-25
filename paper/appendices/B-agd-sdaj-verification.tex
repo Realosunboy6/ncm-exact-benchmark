@@ -28,7 +28,8 @@ rule~\cite{li2000derivative} on the residual:
 \end{equation}
 where, as implemented, $k$ is the index of the inner step within its outer
 iteration ($\epsilon_i$ in Algorithm~\ref{alg:agd}), so that
-$\epsilon_k\in\{1,\tfrac14\}$ for $q=2$; with $\lambda_1=\lambda_2=0.01$ and $\alpha=\rho^{\,j}$ backtracked from 1 over
+$\epsilon_k\in\{1,\tfrac14\}$ for $q=2$. The test uses
+$\lambda_1=\lambda_2=0.01$, and $\alpha=\rho^{\,j}$ is backtracked from 1 over
 $j=0,1,2,\dots$ (we write $j$ for the backtracking exponent, since $m$ is the
 near-zero multiplicity of Definition~\ref{def:family}). The
 merit function is $\tfrac12\nrm{\nabla\theta}^2$. The quasi-Newton direction

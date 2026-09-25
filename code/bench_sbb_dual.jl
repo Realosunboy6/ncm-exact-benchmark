@@ -1097,14 +1097,10 @@ function section_seconds(to, key)
     # NCM_STANDALONE stub was the only thing that needed guarding. Check
     # for the stub explicitly rather than catching every exception, so a
     # real error (e.g. a future TimerOutputs API change) still fails
-    # loudly instead of silently degrading to 0.0 again.
+    # loudly instead of silently degrading to 0.0 again. With the stub
+    # handled here, nothing else legitimately needs catching.
     NCM_STANDALONE && return 0.0
-    try
-        return haskey(to.inner_timers, key) ? TimerOutputs.time(to.inner_timers[key]) / 1e9 : 0.0
-    catch e
-        e isa InterruptException && rethrow()
-        return 0.0
-    end
+    return haskey(to.inner_timers, key) ? TimerOutputs.time(to.inner_timers[key]) / 1e9 : 0.0
 end
 
 function evd_seconds(to)

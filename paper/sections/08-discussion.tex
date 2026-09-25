@@ -3,17 +3,21 @@
 \paragraph{What changed the conclusions, and what did not.}
 On this family, none of the conventions we tested changed which method was
 cheapest. The accuracy target, the instance regime and the problem dimension
-did change the order below it. The changes of lower-place ordering with the
+did change the order below it. For SBB-Dual against AGD-SDAJ-BH, the changes
+of lower-place ordering with the
 accuracy target and with rank that we found at $n=100$ recur at $n=500$ only
-above $r=50$ (\cref{sec:n500,sec:highrank}), and on matrices built from equity
+above $r=50$ (\cref{sec:n500,sec:highrank}); the pair that does not involve
+SBB-Dual, Dykstra-APM against AGD-SDAJ-BH, does not recur by $r=150$ at
+$n=500$. Also for SBB-Dual against AGD-SDAJ-BH, on matrices built from equity
 returns the degree of invalidity reverses the order as well
 (\cref{sec:thesis}). The stopping rule changed the achieved accuracy by a
 factor of 383. The accounting rule (accepted-only against all-trial) changed
 cost ratios but no ordering. The cost unit (\EVDs\ against wall-clock time)
-changed cost ratios and, in most but not all repeated timing sessions, no
-ordering: repeating the matched-tolerance timing measurement five times
+changed cost ratios and, in half of the ten repeated timing sessions, the
+ordering below first place too: repeating the matched-tolerance timing
+measurement five times per dimension
 (\cref{sec:evd-unit}) shows the single cheapest method is unaffected in
-every session, but which method is dearest is not, at $n=100$. Two
+every session, but which method is dearest overall is not, at $n=100$. Two
 line-search details changed whether methods converged at all. The summary
 that the evidence supports is conservative: the protocol matters for the
 \emph{magnitude} of reported advantages, for the ordering of methods that
@@ -110,9 +114,9 @@ crossover at another.
     should not be read as ordered, and the specific rank of the middle four
     or five solvers, by either \EVD\ count or wall-clock time, should not be
     treated as a fixed property of the methods (\cref{sec:evd-unit}). Only
-    the leading position (Newton-SIN-BH cheapest) is robust across every
-    session; Dykstra-APM is dearest in 8 of the 10 sessions across both
-    dimensions, but not all.
+    the leading position (Newton-SIN-BH cheapest overall) is robust across
+    every session; Dykstra-APM is dearest overall in 8 of the 10 sessions
+    across both dimensions, but not all.
   \item \emph{Parameters.} Each method in the main study ran at one parameter
     setting: the published values for Newton-SIN-BH, AGD-SDAJ, Dykstra-APM and
     Anderson-APM (history length $m=2$), and the specification of
@@ -122,14 +126,17 @@ crossover at another.
     $m\in\{1,2,3,5,10\}$ (\texttt{code/sensitivity\_eta\_m.jl}). SBB-Dual's
     median cost to $10^{-8}$ moves from 33.5 to 38.5 \EVDs\ over two orders of
     magnitude in $\eta$, and the count of instances on which it is cheaper
-    than AGD-SDAJ-BH stays at 165--167 of 270 throughout, so the second-place
-    comparison is not sensitive to this parameter. Anderson-APM is more
+    than AGD-SDAJ-BH stays at 165--167 of 270 throughout, so the
+    SBB-Dual/AGD-SDAJ-BH comparison is not sensitive to this parameter.
+    Anderson-APM is more
     sensitive: its median cost falls from 36 at $m=1$ to 19--20 at $m=5$--$10$,
     and the count cheaper than AGD-SDAJ-BH rises from 210 to 258--261 of 270,
     non-monotonically past $m=5$. The published default $m=2$ (median 24,
-    240/270) is therefore not the most favourable setting for Anderson-APM;
-    a larger $m$ would only strengthen its standing in \cref{sec:winner}, not
-    weaken it. The sensitivity of the rank-dependent orderings of
+    240/270) is therefore not the most favourable setting for Anderson-APM
+    against AGD-SDAJ-BH at $n=100$ and $10^{-8}$; a larger $m$ would only
+    improve that comparison at those conditions, not weaken it, though this
+    was not checked against the full 11 conventions of \cref{sec:winner} or
+    at other dimensions. The sensitivity of the rank-dependent orderings of
     \cref{sec:cells,sec:n500,sec:highrank,sec:thesis,sec:us2105} to these
     parameters was not checked.
   \item \emph{Feasibility propositions.} \Cref{prop:det} assumes uniform
@@ -142,12 +149,13 @@ crossover at another.
     projection equations~\cite{armijo2025semismooth} and the factor-structured
     variant~\cite{borsdorf2010factor}. The main study runs Anderson
     acceleration only at the authors' default history length $m=2$; the
-    \emph{Parameters} item below reports a sensitivity check covering
+    \emph{Parameters} item above reports a sensitivity check covering
     $m\le10$, but at $n=100$ only.
-  \item \emph{Attribution of the line search.} We use the Borsdorf--Higham
-    globalization but not the rest of their algorithm, and the adaptation of
-    their near-equality safeguard to AGD-SDAJ is ours, not the original
-    authors', for both Newton-SIN-BH and AGD-SDAJ-BH; each is reported beside
+  \item \emph{Attribution of the line search.} Newton-SIN-BH uses the
+    published Borsdorf--Higham globalization, but not the rest of their
+    algorithm (\cref{sec:solvers}); adapting their near-equality safeguard to
+    AGD-SDAJ, which gives AGD-SDAJ-BH, is ours, not the original authors'.
+    Each of the two is reported beside
     its unmodified counterpart throughout (\cref{sec:solvers,sec:trap2}).
   \item \emph{Unweighted problem.} Only the unweighted Frobenius problem is
     considered.
@@ -159,12 +167,18 @@ possible to separate stopping-rule, reference, accounting and
 primitive-work effects in NCM benchmarks. On 270 instances at $n=100$, these
 effects changed cost ratios and the lower places of the ranking, but not the
 cheapest method. Repeating the study on 270 instances at $n=500$ sharpened
-that finding: Newton-SIN-BH remains the leading method, and the changes of
+that finding: Newton-SIN-BH remains the leading method, and, for SBB-Dual
+against AGD-SDAJ-BH, the changes of
 lower-place ordering with the accuracy target and with rank recur, but only
-above $r=50$, a rank the original grid did not reach. Rankings
-below the leading method are therefore not intrinsic properties of the
-solvers; they depend materially on the benchmark regime, including its
-dimension, the rank of the solution and the size of the violation. The one clear failure we found is a known finite-precision
+above $r=50$, a rank the original grid did not reach; for Dykstra-APM
+against AGD-SDAJ-BH, the same rank-dependent reversal seen at $n=100$ has
+not recurred by $r=150$ at $n=500$. Rankings
+below the leading method are therefore not stable properties of the
+solvers across the regimes tested; they depend materially on the benchmark
+regime, including its
+dimension, the rank of the solution and the size of the violation, and, for
+the specific rank at which a reversal occurs, on which pair of methods is
+compared. The one clear failure we found is a known finite-precision
 line-search defect, which appears in two separately published methods, on
 the constructed family and on real matrices. It is
 removed in the semismooth Newton method by the published Borsdorf--Higham

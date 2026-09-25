@@ -15,9 +15,12 @@ implementation that recomputes it pays one extra \EVD\ per outer iteration and
 gains nothing. On the instances where both variants converge, recomputing the
 decomposition raises Newton's cost from 7 to 13 \EVDs, an increase of about
 86\% (a factor of $1.86$), with an
-identical final error. Every Newton variant in this paper caches the
-decomposition. The same class of defect turned up in our first reimplementation
-of AGD-SDAJ (\cref{app:agd}, defect~1). It was found in the same way, by
+identical final error. Newton-SIN-BH caches the decomposition throughout
+this paper; Newton-SIN, the naive-Armijo control of \cref{sec:trap2}, does
+not, so its \EVD\ counts already include this redundant factorization on top
+of the naive test's own cost. The same class of defect turned up in our first
+reimplementation of AGD-SDAJ (\cref{app:agd}, defect~1). It was found in the
+same way, by
 counting primitives one at a time against a published count.
 
 \subsection{Trap 2: the finite-precision Armijo test}\label{sec:trap2}
@@ -25,17 +28,19 @@ An objective-value sufficient-decrease test,
 \begin{equation}\label{eq:armijo}
   \theta(y_k+\alpha d_k)\le\theta(y_k)+c\,\alpha\,\nabla\theta(y_k)^{\mathsf T}d_k,
 \end{equation}
-fails in floating point once the predicted decrease
-$c\,\alpha\,|\nabla\theta(y_k)^{\mathsf T}d_k|$ falls below the rounding
-error in $\theta(y_k)$. Near the solution
+becomes a plain comparison of two rounded copies of $\theta_k$ once the
+predicted decrease $c\,\alpha\,|\nabla\theta(y_k)^{\mathsf T}d_k|$ falls
+below half an ulp of $\theta_k$: the right-hand side then rounds to
+$\theta_k$ itself, and the test degenerates to $\mathrm{fl}(\theta_t)\le
+\mathrm{fl}(\theta_k)$. It stops judging the step correctly once the
+achieved decrease is itself buried in that same rounding error, near
+$\theta_k$. Near the solution
 $|\nabla\theta^{\mathsf T}d|\gtrsim\nrm{\nabla\theta}^2$ (equality for a
-gradient-type step; for Newton's step it can be considerably larger), so the
-achieved decrease drops below the resolution of $\theta$ at a gradient norm
-of roughly $\sqrt{u\,|\theta|}$, where $u$ is the unit roundoff. Once the
-computed values of $\theta_k$ and $\theta_k+c\alpha\nabla\theta^{\mathsf T}d$
-round to the same value, the test degenerates to comparing two rounded
-copies of $\theta_k$ against each other, and whether a trial passes is
-decided by rounding noise rather than by the step's real merit: a step that
+gradient-type step; for Newton's step it can be considerably larger), so
+this second, more severe threshold falls at a gradient norm of roughly
+$\sqrt{u\,|\theta|}$, where $u$ is the unit roundoff. Past that point,
+whether a trial passes is decided by rounding noise rather than by the
+step's real merit: a step that
 improves both the gradient and the forward error can still be rejected, and
 the search must halve until it happens to land where the noise lets a
 trial through. In this regime Newton does not stall outright so much as
@@ -61,8 +66,10 @@ $\mubh$ for their gradient-reduction parameter, since $\mu$ denotes the
 spectrum vector of Definition~\ref{def:family}).
 
 \paragraph{Semismooth Newton.}
-With the naive test~\eqref{eq:armijo}, Newton stalls on 56 of the 270 KKT
-instances, using 151{,}471 backtracks. With Borsdorf--Higham globalization
+With the naive test~\eqref{eq:armijo}, Newton stalls (exits at
+\texttt{max\_iter} without converging) on 56 of the 270 KKT
+instances; across all 270 instances it uses 151{,}471 backtracks in total.
+With Borsdorf--Higham globalization
 (parameters $\mubh=0.9$, $\sigma=10^{-4}$, halving, and $\gamma=100$ in the
 near-equality test), it converges on all 270 with 8 backtracks. The count of
 56 was reproduced exactly in a separate timing run on a separate code path: at
@@ -73,8 +80,8 @@ matched tolerance, the naive-Armijo control exits at \texttt{max\_iter} on
 \texttt{linesearch\_trials} total of the \texttt{Newton-SIN-BH} rows of that
 file, which agrees with the \texttt{backtracks} column of
 \texttt{ranking\_kkt270\_v2.csv.gz}. The backtrack total of 151{,}471 is the
-same run's own count of rejected trials, independently verified from its
-recorded trajectory (\texttt{code/trace\_armijo\_stall.jl}). Of the 5{,}677
+same run's own count of rejected trials, cross-checked against its
+recorded per-trial trajectory (\texttt{code/trace\_armijo\_stall.jl}). Of the 5{,}677
 trials that rejected the undamped Newton step ($\alpha=1$, before any
 backtracking), every one, without exception, would, if accepted, have
 reduced both the gradient norm and the exact forward error; counting every

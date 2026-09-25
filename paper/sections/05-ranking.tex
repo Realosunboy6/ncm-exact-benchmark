@@ -24,7 +24,9 @@ globalization only: their Algorithm~4.1 also solves the Newton system with
 preconditioned \textsc{minres} rather than \textsc{cg}, which we do not
 adopt, so Newton-SIN-BH is not a reimplementation of their
 algorithm. \emph{Newton-SIN} is the same method with the
-naive Armijo test; it appears only as a control in
+naive Armijo test in place of the Borsdorf--Higham globalization, and
+without the cached factorization of \cref{sec:trap1} (so its \EVD\ counts
+carry both traps at once); it appears only as a control in
 \cref{sec:protocol,sec:traps}.
 
 \paragraph{AGD-SDAJ} (\cref{alg:agd}) is Algorithm~4 of Huynh and
@@ -153,7 +155,7 @@ $10^{-8}$ and from 63.5 to 62.5 at $10^{-10}$; AGD-SDAJ from 50 to 48 (also
 reaching 266 instead of 264) and from 72 to 70 (257 instead of 253). The
 disagreement is on 53 to 62 of 270 instances at those two targets (one
 instance each at $10^{-6}$, not enough to move the median), 5 to 8 \EVDs\
-apart there on median, at most 1542. Both shifts leave AGD-SDAJ-BH and
+apart there in median, at most 1542. Both shifts leave AGD-SDAJ-BH and
 AGD-SDAJ well above SBB-Dual's 34 and 43.5, so \cref{tab:fwd}'s median
 ordering does not depend on requiring sustained accuracy rather than a first
 crossing, though the exact AGD medians do.
@@ -254,8 +256,16 @@ and AGD-SDAJ-BH, our Borsdorf--Higham adaptation of a published method
 AGD-SDAJ-BH is cheaper on all 90 instances at $10^{-8}$ (median difference
 $+223.5$ \EVDs) and at $r=20$ on 80 of 90, with one tie; at $r=50$ Dykstra-APM
 is cheaper on 61 of 90 (median $-3.5$, cluster-bootstrap 95\% interval
-$[-6,-2]$) and on 75 of 90 at $10^{-10}$ ($-8.5$, $[-12,-5]$). All five seeds
-agree on the sign at $r=5$ and at $r=50$. The direction at $r=50$ is resolved
+$[-6,-2]$) and on 75 of 90 at $10^{-10}$ ($-8.5$, $[-12,-5]$); with only 5
+seed clusters at this rank, these within-rank intervals are close to the
+range of the 5 seed medians, so the evidence for the direction is really
+the unanimous sign across those 5, not an independent interval on top of
+it. All five seeds
+agree on the sign at $r=5$ and at $r=50$, though 5-of-5 agreement alone
+gives a two-sided sign-test $p=0.0625$, above the conventional 0.05
+threshold for either rank taken alone; it is the same sign recurring at
+$r=20$ and, oppositely, at $r=5$ that gives the pooled 10-of-10 pattern its
+strength ($p\approx0.002$). The direction at $r=50$ is resolved
 but the margin is small, about an eighth of AGD-SDAJ-BH's median cost of 28
 \EVDs, and 26 of the 90 instances go the other way. The reversal is therefore
 reproducible without SBB-Dual, on a pair neither of which is the author's own
@@ -267,7 +277,7 @@ corresponding pair is Anderson-APM and AGD-SDAJ-BH, whose order is not
 monotone in rank: Anderson-APM is cheaper at $r=50$ and $r=400$ and
 AGD-SDAJ-BH at $r=100$ and $r=200$ (\cref{sec:us2105}).
 
-The location of the crossover is nevertheless specific to $n=100$. At
+The location of the SBB-Dual/AGD-SDAJ-BH crossover is nevertheless specific to $n=100$. At
 $n=500$ (\cref{sec:n500,sec:highrank}) SBB-Dual is behind at every rank up to
 $r=50$ and ahead from $r=75$: both the direction of the effect and the
 crossover survive, but the crossover moves to a higher rank.
@@ -348,7 +358,9 @@ direction but no longer produces a crossover: the median paired difference at
 $10^{-8}$ falls from $+669.5$ \EVDs\ at $r=5$ to $+129$ at $r=20$ and $+13$ at
 $r=50$, where SBB-Dual is cheaper on 17\% of instances. Cell by cell, SBB-Dual
 is ahead of AGD-SDAJ-BH in 0 of the 54 cells with a resolved bootstrap
-interval (47 resolved in favour of AGD-SDAJ-BH, 7 unresolved). SBB-Dual is thus
+interval (47 resolved in favour of AGD-SDAJ-BH, 7 unresolved); with 5 seed
+clusters per cell, a resolved interval here is again close to unanimous
+agreement across those 5, not independent confirmation on top of it. SBB-Dual is thus
 behind at every rank tested at $n=500$, while it led at $r\ge20$ at $n=100$.
 The shrinking gap, however, points to a crossover beyond the grid, which
 \cref{sec:highrank} confirms.
@@ -550,7 +562,7 @@ the boundary of the feasible set.
 Two sets were generated from it. The perturbed set adds
 $\sigma E$ as in \cref{sec:thesis} for $\sigma\in\{0.005,0.01,0.03,0.1\}$ with
 two draws each; the resulting matrices are strongly invalid, with
-$\lambda_{\min}(G)$ from $-0.34$ to $-8.7$ and 599 to 970 negative eigenvalues.
+$\lambda_{\min}(G)$ from $-0.35$ to $-8.7$ and 599 to 970 negative eigenvalues.
 The per-instance values behind these ranges are shipped
 (\cref{app:artifact}).
 The KKT set uses the rank-$r$ factor model of $C$ as $\Xs$ with
@@ -658,10 +670,12 @@ this is the stall of \cref{sec:trap2} at the largest size we tested.
 
 \paragraph{Where Anderson-APM is not second.}
 Its second place is a property of the KKT families, not of the method. On the
-perturbed equity matrices it is third at every $\sigma$, cheaper than
-AGD-SDAJ-BH on all five draws at $\sigma\in\{0.005,0.01\}$ and on none at
+perturbed equity matrices it is third at the two smallest $\sigma$, level with
+both AGD variants in a three-way tie at $\sigma=0.03$, and behind both at
+$\sigma=0.1$ (fourth of the five, per \cref{tab:thesispert}); it is cheaper
+than AGD-SDAJ-BH on all five draws at $\sigma\in\{0.005,0.01\}$ and on none at
 $\sigma\in\{0.03,0.1\}$, so the degree of invalidity reorders it exactly as it
-reorders SBB-Dual (\cref{tab:thesispert}). On the four literature matrices it
+reorders SBB-Dual. On the four literature matrices it
 is second on the Rocky Mountain matrix (6 \EVDs), but third on
 \texttt{cor1399} (103 against 66 for AGD-SDAJ-BH) and fourth on
 \texttt{cor3120} (155 against 41), the two matrices where every projection
@@ -812,10 +826,14 @@ does not return. Both columns are recorded. Rescoring every study on the
 rescaled iterate leaves the ordering unchanged at 19 of the 20
 (dataset, target) pairs, and moves SBB-Dual's median at $n=500$ and
 $\varepsilon=10^{-8}$ from 207.5 to 188 \EVDs: the reported numbers are the
-conservative choice for SBB-Dual. The single exception is the
-data-seeded set at $10^{-10}$, where rescoring lowers SBB-Dual's reach count
-from 81 to 45 instances, so the apparent change of order is a comparison over
-an easier subset rather than a reversal. Second, the AGD line searches return
+conservative choice for SBB-Dual on cost, in the 19 pairs where the ordering
+is unaffected. The exception cuts the other way: on the data-seeded set at
+$10^{-10}$, rescoring lowers SBB-Dual's reach count from 81 to 45 instances,
+so the raw-projection score used throughout this paper is actually the
+\emph{favourable} choice for SBB-Dual there (it lets more of its runs count
+as reaching the target), and the apparent change of order at that one
+(dataset, target) pair is a comparison over an easier subset rather than a
+genuine reversal. Second, the AGD line searches return
 their last trial if a backtracking limit of 60 is reached, and the method then
 moves to a point the trajectory records as rejected. This never occurs in the
 reported runs: no line search in any study exceeded 60 trials, and every

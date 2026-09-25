@@ -4,7 +4,13 @@
 #
 #   sh code/reproduce.sh [python]        (default python: python3)
 #
-# Output goes to results/reproduced/. Compare it with results/analysis/.
+# Output goes to results/reproduced/. Compare it with results/analysis/, using
+# the table -> file map this script prints at the end as the list of what it
+# covers. results/analysis/ also holds files this script does NOT regenerate:
+# two come from Julia (armijo_stall_trace.md, sensitivity_eta_m.md -- run
+# code/trace_armijo_stall.jl / sensitivity_eta_m.jl to reproduce those), and
+# the rest are working files from earlier analysis passes, kept for
+# provenance but not cited by any table or number in the paper.
 set -e
 here=$(cd "$(dirname "$0")" && pwd)
 root=$(cd "$here/.." && pwd)

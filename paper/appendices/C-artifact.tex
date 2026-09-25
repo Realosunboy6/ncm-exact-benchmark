@@ -53,13 +53,16 @@ file & contents\\
 \texttt{code/anderson\_apm.jl} & Anderson-APM, transcribed from Higham and Strabi\'c's released code\\
 \texttt{code/agd\_sdaj.jl} & standalone AGD-SDAJ used for verification (\cref{app:agd})\\
 \texttt{code/validation/} & checks against Higham (2002), Higham--Strabi\'c (2016), Borsdorf (2007), Huynh--Hwang (2025), including the Anderson-APM record of \cref{app:anderson}; logs in \texttt{results/validation/}\\
+\texttt{code/export\_agd\_verify\_matrices.jl} & writes the three matrices used to check the AGD-SDAJ reimplementation (\cref{app:agd}) from a local copy of Huynh and Hwang's own test matrices, not included\\
+\texttt{code/timing\_rerun.sh} & the driver behind the canonical (session 0) timing files in \texttt{results/}; \texttt{repeat\_timing.sh} reuses its commands for the four further sessions\\
+\texttt{code/analyze\_trajectory.py} & an earlier prototype of \texttt{analyze\_ranking.py}'s cost-to-target logic, reading a \texttt{trajectory.csv} not shipped here; superseded, kept for provenance\\
 \texttt{code/highrank\_queue.sh}, \texttt{anderson\_rest\_queue.sh} & drivers for the runs added with Anderson-APM\\
 \texttt{code/check\_reference\_accuracy.jl} & two differently initialized references per matrix (\cref{sec:real})\\
 \texttt{code/sensitivity\_eta\_m.jl} & the $\eta$/$m$ sweep of \cref{sec:discussion}; output in \texttt{results/analysis/sensitivity\_eta\_m.md}\\
 \texttt{code/trace\_armijo\_stall.jl} & the backtrack and affected-iteration counts of \cref{sec:trap2}; output in \texttt{results/analysis/armijo\_stall\_trace.md}\\
 \midrule
 \multicolumn{2}{l}{\emph{Results and analysis}}\\
-\texttt{code/reproduce.sh} & regenerates the analysis tables from \texttt{results/*.csv.gz} and the figure data, and prints which file holds which table\\
+\texttt{code/reproduce.sh} & regenerates the analysis tables from \texttt{results/*.csv.gz} and the figure data, and prints which file holds which table; \texttt{results/analysis/} also holds working files from earlier analysis passes that this script does not regenerate and that no table or number in the paper cites\\
 \texttt{results/ranking\_kkt270\_v2.csv.gz} & one row per \EVD, the five original solvers, 270 instances at $n=100$\\
 \texttt{results/ranking\_n500.csv.gz} & the same at $n=500$\\
 \texttt{results/ranking\_highrank\_n500.csv.gz} & $r\in\{75,100,150\}$, Newton-SIN-BH, AGD-SDAJ-BH and SBB-Dual (\cref{tab:highrank})\\
@@ -77,7 +80,7 @@ file & contents\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\
 \texttt{code/make\_figure\_data.py} & the data behind every figure\\
-\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py} & bootstrap intervals for \cref{tab:highrank} and \cref{tab:us2105pert}\\
+\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py} & supplementary seed-level diagnostics for \cref{sec:highrank,sec:us2105}, in \texttt{results/analysis/highrank\_analysis.txt} and \texttt{us2105\_analysis.txt}; neither \cref{tab:highrank} nor \cref{tab:us2105pert} itself carries a bootstrap interval column, and the cluster-bootstrap intervals quoted in the surrounding prose (e.g. the $r=50$ crossover) come from \texttt{analyze\_ranking.py}, above\\
 \texttt{code/analyze\_confound.py} & the bulk-level pilot of \cref{sec:highrank}, from \texttt{results/ranking\_confound\_mu*.csv.gz}\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
