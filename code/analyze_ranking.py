@@ -532,6 +532,12 @@ else:
     emit("reached are counted, not dropped: the 'fail-as-loss' sign test counts a")
     emit("solver that failed while the other reached as the more expensive one.")
     emit("Ties (d = 0) are excluded from sign tests. CI: cluster bootstrap as Sec. 9.")
+    emit("CAVEAT: the sign-test p-values below treat all instances as independent")
+    emit("draws. The paper does not report them for exactly this reason -- with only")
+    emit("5 seeds x 3 ranks (15 clusters) generating the 270 instances, treating each")
+    emit("instance as an independent draw overstates the evidence at every target.")
+    emit("Use the cluster-bootstrap CI and Sec. 5's cluster-level agreement counts")
+    emit("instead of these p-values for any claim of statistical significance.")
     emit("")
     for agd in ("AGD-SDAJ-BH", "AGD-SDAJ"):
         emit(f"### SBB-Dual vs {agd}")

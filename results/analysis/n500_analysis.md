@@ -206,6 +206,12 @@ median, CI, fraction and sign test use only these. Instances where only one
 reached are counted, not dropped: the 'fail-as-loss' sign test counts a
 solver that failed while the other reached as the more expensive one.
 Ties (d = 0) are excluded from sign tests. CI: cluster bootstrap as Sec. 9.
+CAVEAT: the sign-test p-values below treat all instances as independent
+draws. The paper does not report them for exactly this reason -- with only
+5 seeds x 3 ranks (15 clusters) generating the 270 instances, treating each
+instance as an independent draw overstates the evidence at every target.
+Use the cluster-bootstrap CI and Sec. 5's cluster-level agreement counts
+instead of these p-values for any claim of statistical significance.
 
 ### SBB-Dual vs AGD-SDAJ-BH
 

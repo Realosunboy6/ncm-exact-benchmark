@@ -8,9 +8,9 @@ starts from $y_0=0$ (Dykstra-APM starts from $X_0=G$). The algorithms below
 are written at the same level of detail and use the notation
 $\bigl(\theta_k,g_k,X_k\bigr)\leftarrow\textsc{Eval}(y_k)$ for one \EVD\ of
 $C(y_k)$, with $X_k=\Proj(C(y_k))$ and $g_k=\diag(X_k)-e$. The stopping
-criterion in all algorithms is $\nrm{g_k}_2\le\tau$ (Dykstra-APM applies it to
-the diagonal of its PSD iterate). Here $\tau=10^{-11}$ unless stated
-otherwise.
+criterion in all algorithms is $\nrm{g_k}_2\le\tau$ (Dykstra-APM and
+Anderson-APM, which have no dual iterate, apply it to the diagonal of their
+PSD iterate). Here $\tau=10^{-11}$ unless stated otherwise.
 
 \paragraph{Newton-SIN-BH} (\cref{alg:newton}) is the semismooth Newton
 method of Qi and Sun~\cite{qisun2006quadratically}. The Newton system is solved inexactly by
