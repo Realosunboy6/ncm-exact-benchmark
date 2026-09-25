@@ -4,9 +4,11 @@ numbers. Runs Newton-SIN (the naive Armijo control, `newton_ncm` with
 cached=false) on the 270 released n=100 instances at tol=1e-11, uncapped in
 EVDs, exactly the configuration `code/bench_sbb_dual.jl`'s timing harness
 uses by default for Newton-SIN -- this is the run whose 56/270 max_iter
-stall count matches `results/timing_kkt270_matched.csv`, and whose total
-backtrack count (151,471) matches that file's own `linesearch_trials` sum
-and the solver's own internal `backtracks` counter exactly (asserted below).
+stall count matches `results/timing_kkt270_matched.csv`. Its total backtrack
+count (151,471) matches the solver's own internal `backtracks` counter
+exactly (asserted below) and was separately checked by hand against that
+file's `linesearch_trials` sum for the `Newton-SIN` rows, which agrees;
+that second check is not repeated in code here.
 
 History: an earlier version of the paper cited 55,402 backtracks, an AUC of
 0.934 for a "ULP-margin" predictor, and 2,181 "affected" iterations for this

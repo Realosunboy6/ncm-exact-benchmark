@@ -145,12 +145,18 @@ budget-exhausting stalls (\cref{sec:trap2}). Its entries marked $^{*}$ are
 medians over the instances it reached, and are therefore optimistic. The
 second/third-place reversal is the same whether or not those entries are
 included. A first-hit rule (the first accepted iterate with error at or below
-the target, whether or not it holds) gives the same median for every solver
-at every target: the two rules disagree only on individual instances of the
-two AGD variants, at the tighter targets (53 to 62 of 270 instances at
-$10^{-8}$ and $10^{-10}$, median 5 to 8 \EVDs\ apart there, at most 1542), and
-never for the other five solvers. The rankings in \cref{tab:fwd} therefore do
-not depend on requiring sustained accuracy rather than a first crossing.
+the target, whether or not it holds) leaves four of the six solvers'
+medians unchanged at every target, and moves Anderson-APM on 5 instances at
+$10^{-2}$ (by 2 \EVDs\ each, median unaffected). It lowers the two AGD
+variants' medians at the two tightest targets: AGD-SDAJ-BH from 45 to 43 at
+$10^{-8}$ and from 63.5 to 62.5 at $10^{-10}$; AGD-SDAJ from 50 to 48 (also
+reaching 266 instead of 264) and from 72 to 70 (257 instead of 253). The
+disagreement is on 53 to 62 of 270 instances at those two targets (one
+instance each at $10^{-6}$, not enough to move the median), 5 to 8 \EVDs\
+apart there on median, at most 1542. Both shifts leave AGD-SDAJ-BH and
+AGD-SDAJ well above SBB-Dual's 34 and 43.5, so \cref{tab:fwd}'s median
+ordering does not depend on requiring sustained accuracy rather than a first
+crossing, though the exact AGD medians do.
 \paragraph{Uncertainty.}
 The bootstrap intervals in \cref{tab:fwd} resample 15 clusters, so they
 describe the variation between seeds and are narrow by construction; they do
@@ -165,22 +171,30 @@ $-11$ $[-13.5,-9]$, 61.9\% at $10^{-8}$; and
 $-19$ $[-22,-17]$, 65.6\% at $10^{-10}$.
 An instance-level sign test would treat the 270 comparisons as independent
 although they form only 15 clusters, so it would overstate the evidence at
-every target; we therefore do not report one, and read the ordering only from
-the cluster interval, which respects the true number of independent units.
-By that standard the two methods are level at $10^{-4}$ (interval spans zero,
-and the win share sits at 48.5\%, essentially even); AGD-SDAJ-BH is cheaper at
-$10^{-2}$ by a modest
-average margin with substantial per-instance overlap; and SBB-Dual is cheaper
-in the median from $10^{-6}$, with a cluster interval that excludes zero, but
-on only 54\%, 62\% and 66\% of the instances at $10^{-6}$, $10^{-8}$ and
-$10^{-10}$. Within a
+every target; we therefore do not report one. The cluster interval is a
+better guide, but it is not free-standing evidence either: the bootstrap
+resamples the five seed clusters within each rank separately and always
+keeps the three ranks in equal proportion, so its sign is fixed whenever
+every cluster within a rank already agrees on direction, as happens here.
+Within a
 rank the sign of the paired median does not change with the target at $r=5$
 (AGD-SDAJ-BH cheaper, by 13.5 to 97.5 \EVDs) or at $r=50$ (SBB-Dual cheaper, by
 1 to 26); it changes only at $r=20$, between $10^{-4}$ ($+1.5$) and $10^{-6}$
-($-5$). The dependence of the pooled comparison on the target is thus
-largely the rank dependence of \cref{sec:cells}, weighted by the grid, and
-its position between $10^{-4}$ and $10^{-6}$ is not a property of the
-methods alone. At $n=500$ (\cref{sec:n500}), SBB-Dual is cheaper than
+($-5$). From $10^{-6}$ on, then, the pooled interval excludes zero because
+two of the three ranks agree with each other and outnumber the third under
+equal weighting, not because 15 exchangeable clusters were resampled and
+happened to concur: resampling all 15 together without stratifying by rank
+spans zero at $10^{-6}$, $10^{-8}$ and $10^{-10}$ alike. The finding that
+survives is the per-rank one stated above, not the pooled interval as an
+independent confirmation of it. By the pooled standard the two methods are
+level at $10^{-4}$ (win share 48.5\%, essentially even); AGD-SDAJ-BH is
+cheaper at $10^{-2}$ by a modest median margin with substantial per-instance
+overlap; and SBB-Dual is cheaper in the pooled median from $10^{-6}$, but on
+only 54\%, 62\% and 66\% of the instances at $10^{-6}$, $10^{-8}$ and
+$10^{-10}$. The dependence of the pooled comparison on the target is thus
+entirely the rank dependence of \cref{sec:cells}, weighted equally across
+the three ranks by the grid, and its position between $10^{-4}$ and
+$10^{-6}$ is not a property of the methods alone. At $n=500$ (\cref{sec:n500}), SBB-Dual is cheaper than
 AGD-SDAJ-BH on 0 of 270 instances at $10^{-2}$.
 
 \subsection{Dependence of the ordering on the degeneracy parameters}\label{sec:cells}
@@ -567,11 +581,13 @@ $r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra
 \end{tabular}
 \end{table}
 
-Newton-SIN-BH takes 5 \EVDs\ on every instance, as at $n=100$ and $n=500$: its
-\EVD\ count is flat in $n$ over a twenty-fold range, while the first-order
-methods' \EVD\ counts grow by an order of magnitude; wall-clock time is not
-flat for either, since each \EVD\ itself costs more at larger $n$
-(\cref{sec:evd-unit}). The gap between SBB-Dual and
+Newton-SIN-BH takes 5 \EVDs\ on every one of these 16 instances, and its
+median is 5 at $n=100$ and $n=500$ too (individual instances there range
+from 4 to 15): its median \EVD\ count is flat in $n$ over a twenty-fold
+range, while the first-order methods' median \EVD\ counts grow by an order
+of magnitude; wall-clock time is not flat for either, since each \EVD\
+itself costs more at larger $n$ (\cref{sec:evd-unit}). The gap between
+SBB-Dual and
 AGD-SDAJ-BH again narrows with rank, from $+490.5$ \EVDs\ at $r=50$ to $-0.5$ at
 $r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: the
 median there is $-0.5$ \EVDs\ with a cluster interval of $[-27,+21.5]$, and at
@@ -780,7 +796,7 @@ then be credited with reaching a target, but one that lies above the target
 also breaks a hold. On this family the second effect dominates slightly.
 Median costs change only for the two AGD variants, and all-trial accounting
 is marginally the more expensive: for AGD-SDAJ-BH the median rises by 1.0, 1.5
-and 2.0 \EVDs at $\varepsilon=10^{-4},10^{-8},10^{-10}$, and for unmodified
+and 2.0 \EVDs\ at $\varepsilon=10^{-4},10^{-8},10^{-10}$, and for unmodified
 AGD-SDAJ by 1.0, 2.0 and 2.0.
 Newton-SIN-BH, SBB-Dual and Dykstra-APM are unaffected, because they have few
 or no rejected trials here. The effect is negligible on this family and never

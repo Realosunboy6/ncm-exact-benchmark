@@ -1094,13 +1094,15 @@ function section_seconds(to, key)
     # (which only checks fieldnames) wrongly reports false and this
     # silently returned 0.0 for every section of every REAL timing run
     # between commits c3a7dd8 and the fix that added this comment -- the
-    # NCM_STANDALONE stub was the only thing that needed guarding. A
-    # try/catch is correct for both: it does nothing extra on the real
-    # type (whose property access succeeds) and degrades to 0.0 only on
-    # the stub (whose empty struct has no such property at all).
+    # NCM_STANDALONE stub was the only thing that needed guarding. Check
+    # for the stub explicitly rather than catching every exception, so a
+    # real error (e.g. a future TimerOutputs API change) still fails
+    # loudly instead of silently degrading to 0.0 again.
+    NCM_STANDALONE && return 0.0
     try
         return haskey(to.inner_timers, key) ? TimerOutputs.time(to.inner_timers[key]) / 1e9 : 0.0
-    catch
+    catch e
+        e isa InterruptException && rethrow()
         return 0.0
     end
 end

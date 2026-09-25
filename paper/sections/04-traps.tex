@@ -28,12 +28,20 @@ An objective-value sufficient-decrease test,
 fails in floating point once the predicted decrease
 $c\,\alpha\,|\nabla\theta(y_k)^{\mathsf T}d_k|$ falls below the rounding
 error in $\theta(y_k)$. Near the solution
-$|\nabla\theta^{\mathsf T}d|\approx\nrm{\nabla\theta}^2$, so the achieved
-decrease drops below the resolution of $\theta$ at a gradient norm of roughly
-$\sqrt{u\,|\theta|}$, where $u$ is the unit roundoff, and once the computed
-values of $\theta$ coincide the required decrease, which is negative, can no
-longer be met. From that point, no step can be accepted, even a step that
-improves both the gradient and the forward error. None of this is new. The
+$|\nabla\theta^{\mathsf T}d|\gtrsim\nrm{\nabla\theta}^2$ (equality for a
+gradient-type step; for Newton's step it can be considerably larger), so the
+achieved decrease drops below the resolution of $\theta$ at a gradient norm
+of roughly $\sqrt{u\,|\theta|}$, where $u$ is the unit roundoff. Once the
+computed values of $\theta_k$ and $\theta_k+c\alpha\nabla\theta^{\mathsf T}d$
+round to the same value, the test degenerates to comparing two rounded
+copies of $\theta_k$ against each other, and whether a trial passes is
+decided by rounding noise rather than by the step's real merit: a step that
+improves both the gradient and the forward error can still be rejected, and
+the search must halve until it happens to land where the noise lets a
+trial through. In this regime Newton does not stall outright so much as
+creep, accepting a string of steps far smaller than warranted until it
+exhausts its iteration budget without converging, as the counts just below
+show. None of this is new. The
 cancellation problem is well known in general
 optimization~\cite{hager2005new}. For the NCM dual,
 Borsdorf~\cite[\S4.7.1]{borsdorf2007newton} derived the threshold (about
@@ -50,7 +58,7 @@ $\nrm{\nabla f(y_k+\alpha_kd_k)}_2/\nrm{\nabla f(y_k)}_2\le1-\mu$, falling
 back to a unit steepest-descent step otherwise. Our implementation uses their
 parameter values, $\mubh=0.9$, $\rho=0.5$ and $\sigma=10^{-4}$ (we write
 $\mubh$ for their gradient-reduction parameter, since $\mu$ denotes the
-spectrum vector of \cref{def:family}).
+spectrum vector of Definition~\ref{def:family}).
 
 \paragraph{Semismooth Newton.}
 With the naive test~\eqref{eq:armijo}, Newton stalls on 56 of the 270 KKT

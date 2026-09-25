@@ -150,7 +150,11 @@ Newton-SIN-BH & 1695 & 1.50\\
 
 \input{figures/fig3-per-evd}
 
-The spread is a factor of 1.50, and the largest bias works \emph{against}
+The median is taken over every run, including any that exhausted its budget
+without converging (Newton-SIN's 56 naive-Armijo stalls of \cref{sec:trap2}
+foremost among them); their cost to that exit counts as their cost, as
+throughout this section. The spread is a factor of 1.50, and the largest
+bias works \emph{against}
 Newton. Each Newton outer iteration includes a Krylov solve that no \EVD\ count
 records, so counting \EVDs\ understates Newton's cost. Newton-SIN-BH is cheaper
 than SBB-Dual by a factor of 9.3 in \EVDs\ (5 against 46.5) but by a factor of
@@ -165,18 +169,22 @@ small compared with the gaps being measured. We report both.
 timing measurement four further times, on the same instances and the same
 code, shows that a given solver's median microseconds/\EVD\ varies far more
 across sessions than the solvers differ from each other within one session:
-up to a factor of 4.9 at $n=100$ and 4.7 at $n=500$ across the five sessions
+up to a factor of 4.9 at both $n=100$ and $n=500$ across the five sessions
 (\texttt{results/analysis/timing\_repeats.md}), against a $\le\!1.50\times$
-spread between solvers in \cref{tab:perevd}. The two ends are nonetheless
+spread between solvers in \cref{tab:perevd}. The cheapest end is nonetheless
 consistent: the cheapest solver per \EVD\ is always SBB-Dual or an AGD
-variant, and the dearest is Newton-SIN-BH in four of the five sessions and
-Anderson-APM in the fifth. It is the middle of the ranking that reorders
+variant, at both dimensions. The dearest end is consistent at $n=100$
+(Newton-SIN-BH in four of the five sessions, Anderson-APM in the fifth) and
+at $n=500$ (Newton-SIN-BH in four, Dykstra-APM in the fifth, by a 4\%
+margin over Anderson-APM). It is the middle of the ranking that reorders
 between sessions. The specific ratios in \cref{tab:perevd} --- 1.04, 1.05,
 1.13, 1.17, 1.18 --- are therefore one session's draw, not stable constants;
 read them as evidence that these five solvers cost within about a fifth of
-each other per \EVD, not as an ordering among them. The 9.3-against-5.4
-comparison above, between the two ends of the full ranking, is not affected:
-that gap is an order of magnitude larger than the session-to-session noise.
+each other per \EVD, not as an ordering among them. The 9.3-in-\EVDs\
+comparison above is unaffected, since it does not involve a timing
+measurement at all; the 5.4-in-time comparison is a real wall-clock ratio
+of the same order as the largest session-to-session swing above, so it too
+should be read as approximate rather than to two significant figures.
 
 \paragraph{The cost metric usually agrees, and always picks the same winner.}
 At matched tolerance, ranking the seven timed variants by median \EVDs\ and by
@@ -198,15 +206,18 @@ the 10 --- all five at $n=500$, but only three of five at $n=100$, where in
 two sessions AGD-SDAJ overtakes it as the most expensive by wall-clock time
 even though it needs far fewer \EVDs. So it is not only the middle of the
 ranking that can reorder: the trailing position is usually, but not always,
-robust, and only the leading one always is. Where the ranking does move,
-it is not scattered: SBB-Dual consistently overtakes Anderson-APM in
-wall-clock time in the sessions where the two metrics disagree, consistent
-with Anderson-APM's per-\EVD\ premium above being large enough, in a
-noisier session, to outweigh its \EVD-count advantage. This is therefore a
-genuine further source of instability in the ranking, alongside the
-accuracy target and the instance regime, not evidence that \EVD-counting is
-biased for any specific pair. It confirms only that the identity of the
-single cheapest method does not depend on the choice of cost metric. Per instance
+robust, and only the leading one always is. Where the ranking does move, it
+is not scattered: at $n=100$, SBB-Dual overtakes Anderson-APM in wall-clock
+time in every session where the two metrics disagree; at $n=500$, it is
+instead AGD-SDAJ-BH (and, in one session, AGD-SDAJ) that overtakes
+Anderson-APM. Both are consistent with Anderson-APM's per-\EVD\ premium
+above being large enough, in a noisier session, to outweigh its \EVD-count
+advantage against whichever solver is closest to it in EVDs. This is
+therefore a genuine further source of instability in the ranking, alongside
+the accuracy target and the instance regime, not evidence that
+\EVD-counting is biased for any specific pair. It confirms only that the
+identity of the single cheapest method does not depend on the choice of
+cost metric. Per instance
 the metric can also decide a close pair even within one session, as for
 Anderson-APM against AGD-SDAJ-BH at $n=500$, where Anderson-APM needs fewer
 \EVDs\ on 13 of the 18 instances but less time on 11.

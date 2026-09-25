@@ -54,7 +54,7 @@ file & contents\\
 \texttt{code/agd\_sdaj.jl} & standalone AGD-SDAJ used for verification (\cref{app:agd})\\
 \texttt{code/validation/} & checks against Higham (2002), Higham--Strabi\'c (2016), Borsdorf (2007), Huynh--Hwang (2025), including the Anderson-APM record of \cref{app:anderson}; logs in \texttt{results/validation/}\\
 \texttt{code/highrank\_queue.sh}, \texttt{anderson\_rest\_queue.sh} & drivers for the runs added with Anderson-APM\\
-\texttt{code/check\_reference\_accuracy.jl} & two independent references per matrix (\cref{sec:real})\\
+\texttt{code/check\_reference\_accuracy.jl} & two differently initialized references per matrix (\cref{sec:real})\\
 \texttt{code/sensitivity\_eta\_m.jl} & the $\eta$/$m$ sweep of \cref{sec:discussion}; output in \texttt{results/analysis/sensitivity\_eta\_m.md}\\
 \texttt{code/trace\_armijo\_stall.jl} & the backtrack and affected-iteration counts of \cref{sec:trap2}; output in \texttt{results/analysis/armijo\_stall\_trace.md}\\
 \midrule
@@ -72,7 +72,7 @@ file & contents\\
 \texttt{results/timing\_kkt270\_native.csv}, \texttt{timing\_kkt270\_matched.csv}, \texttt{timing\_n500\_native.csv}, \texttt{timing\_n500\_matched.csv} & single-threaded timings of all seven variants, the session reported in \cref{tab:primitive,tab:perevd,tab:native} (\cref{sec:timing})\\
 \texttt{results/timing\_kkt270\_matched\_rep$k$.csv}, \texttt{timing\_n500\_matched\_rep$k$.csv}, $k=1,\dots,4$ & four further matched-tolerance timing sessions, same instances and code, behind the session-to-session spread of \cref{sec:evd-unit}\\
 \texttt{results/timing\_session1/} & an earlier timing session, kept for comparison; not used in any table\\
-\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert}, the paired comparison of \cref{sec:cells} and the accounting numbers of \cref{sec:acct-results}; sections 2, 3, 4, 5 and 7 of its output use an earlier reach rule, kept for reproducibility and flagged in the output itself, and every number the paper cites comes instead from the corrected recomputation from section 12 on, or, for \cref{tab:feas}, from section 6, which does not use that rule\\
+\texttt{code/analyze\_ranking.py} & \cref{tab:fwd,tab:cells,tab:feas,tab:n500,tab:thesispert}, the paired comparison of \cref{sec:cells} and the accounting numbers of \cref{sec:acct-results}; output blocks 2, 3, 4, 5 and 7 of the script's own markdown report (headed \texttt{\#\# 2} etc., not this paper's section numbers) use an earlier reach rule, kept for reproducibility and flagged in the output itself, and every number the paper cites comes instead from the corrected recomputation from output block 12 on, or, for \cref{tab:feas}, from output block 6, which does not use that rule\\
 \texttt{code/analyze\_by\_rank.py} & \cref{tab:highrank,tab:thesiskkt,tab:us2105}\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\

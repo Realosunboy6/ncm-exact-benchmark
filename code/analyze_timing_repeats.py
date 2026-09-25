@@ -13,6 +13,12 @@ solvers on the same instances, and reports, per solver:
     (median EVDs and median elapsed time to the matched target) agree in
     each session (the "cost metric does not change the ranking" claim).
 
+`totals()` takes the median over every row for a solver, including any run
+that hit its EVD/iteration cap without converging (Newton-SIN's 56/270
+naive-Armijo stalls at n=100 are the largest such group; see Sec. 4.2).
+Their cost-to-exit is counted as their cost, which is the same convention
+tab:perevd and tab:primitive already use, not a new one introduced here.
+
 Usage: python analyze_timing_repeats.py canonical_n100.csv rep_n100_1.csv ... \
            -- canonical_n500.csv rep_n500_1.csv ... [out.md]
 (a bare "--" separates the n=100 file list from the n=500 file list; the

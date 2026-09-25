@@ -84,7 +84,7 @@ Each contribution builds on established practice (\cref{sec:related}).
     Below the first place the ordering changes with the solution rank and
     with how far the input is from a correlation matrix, and, for SBB-Dual
     against AGD-SDAJ-BH, with the accuracy target. The rank dependence holds
-    between published methods alone:
+    without SBB-Dual:
     Dykstra-APM and AGD-SDAJ-BH exchange places between $r=20$ and $r=50$ at
     $n=100$, and the exchange has not occurred by $r=150$ at $n=500$. At
     $n=2105$ the order of Anderson-APM and AGD-SDAJ-BH is not monotone in
@@ -189,12 +189,13 @@ addresses matrix-optimization problems adjacent to~\eqref{eq:ncm}: the
 $H$-weighted nearest correlation matrix~\cite{qisun2011augmented}, the
 rank-constrained variant~\cite{gao2010majorized}, and general convex conic and
 quadratic semidefinite programs~\cite{zhao2010newtoncg,jiang2012inexact,cui2019superlinear}.
-Those methods are not included in the comparison of \cref{sec:ranking}: they
-solve a different problem class, for which the unweighted,
-full-rank~\eqref{eq:ncm} is either a special case that their formulations do
-not exploit or a constraint set they do not impose, so a matched-accuracy
-comparison on the present instance family would not be informative about
-either side. The instance family itself is built from the KKT system
+Those methods are not included in the comparison of \cref{sec:ranking}.
+Specialized to the unweighted, rank-unconstrained~\eqref{eq:ncm}, the
+$H$-weighted and augmented-Lagrangian formulations reduce to or embed the
+same semismooth Newton iteration this paper already tests; the general
+convex-conic and quadratic-SDP codes were not run here, and a
+matched-accuracy comparison against them on this instance family is left
+open, not ruled out. The instance family itself is built from the KKT system
 of~\eqref{eq:ncm} alone and does not extend to those problems without a
 separate construction.
 

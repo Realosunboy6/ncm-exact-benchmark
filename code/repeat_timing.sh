@@ -20,9 +20,12 @@
 # Application Control policy blocking again, not this script.
 #
 # Usage: sh repeat_timing.sh <n_repeats> <out_dir>
-cd "$(dirname "$0")"
+# <out_dir>, if relative, is resolved BEFORE the cd below, so it lands next
+# to wherever you ran this from, not under code/.
 NREP=${1:-4}
 OUT=${2:-repeat_timing_out}
+case "$OUT" in /*) ;; *) OUT="$(pwd)/$OUT" ;; esac
+cd "$(dirname "$0")"
 mkdir -p "$OUT"
 export NCM_STANDALONE=0
 J="julia --pkgimages=no --project=. bench_sbb_dual.jl"
