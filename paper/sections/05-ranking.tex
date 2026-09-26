@@ -56,10 +56,14 @@ iteration plus $O(mn^2)$ work, and like Dykstra-APM it is scored on the PSD
 half-iterate. Our implementation transcribes their released code. Its iterates
 agree with an independent implementation to $2.3\times10^{-12}$, and it
 reproduces their published iteration counts where rounding at their stopping
-tolerance does not decide them. Under the same eigensolver it matches both
-large-matrix counts exactly and 61 of 64 small ones, with the rest one
-iteration apart; on one ill-conditioned matrix the counts are decided by
-rounding and differ by up to 56 iterations (\cref{app:anderson}).
+tolerance does not decide them. Under \texttt{syevr}, the eigensolver used for
+every result in this paper, it matches 57 of 64 small-matrix counts; switching
+only the eigensolver to \texttt{syevd} matches both large-matrix counts
+exactly and 61 of 64 small ones, with the rest one iteration apart, confirming
+the remaining gap under \texttt{syevr} is rounding at the stopping tolerance
+rather than a transcription error; on one ill-conditioned matrix the counts
+are decided by rounding and differ by up to 56 iterations
+(\cref{app:anderson}).
 
 \subsection{Design}
 All six variants were run on the 270 instances of \cref{sec:family} at
@@ -264,10 +268,11 @@ it. All five seeds
 agree on the sign at $r=5$ and at $r=50$, though 5-of-5 agreement alone
 gives a two-sided sign-test $p=0.0625$, above the conventional 0.05
 threshold for either rank taken alone; it is the same sign recurring at
-$r=20$ and, oppositely, at $r=5$ that gives the pooled 10-of-10 pattern its
+$r=50$ and, oppositely, at $r=5$, on two independently seeded sets of
+instances at different ranks, that gives the pooled 10-of-10 pattern its
 strength ($p\approx0.002$). The direction at $r=50$ is resolved
 but the margin is small, about an eighth of AGD-SDAJ-BH's median cost of 28
-\EVDs, and 26 of the 90 instances go the other way. The reversal is therefore
+\EVDs, and 29 of the 90 instances go the other way at $10^{-8}$. The reversal is therefore
 reproducible without SBB-Dual, on a pair neither of which is the author's own
 new method. It does not occur by the
 same rank at higher dimension: at $n=500$
