@@ -46,17 +46,17 @@ Dykstra-APM. The spread across solvers is therefore not itself a stable
 quantity, and we do not claim it as one; the next paragraph compares the two
 dimensions on the same instances. Newton
 overshoots the tolerance because a quadratically convergent step moves far
-past the threshold. First-order methods stop close to it, and Dykstra-APM's
-stopping quantity (the diagonal error of its PSD iterate) is not the dual
-gradient norm at all. The cost column is therefore a comparison at different
+past the threshold. First-order methods stop close to it, and the stopping
+quantity of Dykstra-APM and Anderson-APM (the diagonal error of the PSD
+iterate) is not the dual gradient norm at all. The cost column is therefore a comparison at different
 accuracies, and it favours methods that stop early. At this tolerance the
 native costs also place SBB-Dual (18.5 \EVDs) slightly ahead of both AGD
-variants (20 \EVDs), with Anderson-APM ahead of all three (13 \EVDs). That
-comparison sits at the
-crossover of \cref{fig:crossover}: the accuracies reached, near $10^{-5}$,
-lie where the matched-accuracy order changes, so the native ranking agrees
-with neither the loose-target nor the tight-target regime and should not be
-read as evidence for either.
+variants (20 \EVDs), with Anderson-APM ahead of all three (13 \EVDs). This
+native order happens to coincide with the tight-target order of
+\cref{tab:fwd}, apart from the tie between the two AGD variants, but it is
+obtained at accuracies near $10^{-5}$, which lie at the crossover of
+\cref{fig:crossover} where the matched-accuracy order is changing; the
+agreement is therefore not evidence for either regime.
 
 \paragraph{Growth with $n$.}
 The rule loosens as $n$ grows. In earlier runs, outside the ranking study, a

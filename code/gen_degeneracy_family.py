@@ -8,7 +8,7 @@ span ker(X*) and set W = Q0 Diag(mu) Q0^T >= 0. Then with
     G  = X* - W + Diag(diag W),      y* = -diag(W)
 
 we get G + Diag(y*) = X* - W, and since X* W = 0 the two ranges are orthogonal
-complements, so Pi_{S+}(X* - W) = X* exactly and grad theta(y*) = 0. X* is the
+(complementary only when every mu_j > 0), so Pi_{S+}(X* - W) = X* exactly and grad theta(y*) = 0. X* is the
 exact nearest correlation matrix -- no approximate reference is required.
 
 mu controls the degeneracy exactly. The eigenvalues of C(y*) = X* - W are the
@@ -19,7 +19,8 @@ r positive eigenvalues of X* together with {-mu_j}:
     mu_j = 0    ->  exact zero eigenvalue          (beta)
 
 so the beta multiplicity equals #{j : mu_j = 0}. mu is laid out as
-(1, ..., 1, delta, ..., delta) with `m` copies of delta, keeping the instance
+(mu_bulk, ..., mu_bulk, delta, ..., delta) with `m` copies of delta and
+mu_bulk = 0.1 by default, keeping the instance
 nontrivial while only m directions approach the nonsmooth boundary.
 
 Screening

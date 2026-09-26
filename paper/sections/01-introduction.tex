@@ -41,7 +41,8 @@ protocol, and use them to show that conclusions drawn from NCM solver
 comparisons do not transfer across benchmark regimes. The rank at which an
 ordering established at $n=100$ reverses moves higher at $n=500$; the order
 also changes with the degree of invalidity on matrices built from equity
-returns, and four matrices from the literature are consistent with this
+returns, and of four matrices from the literature, the three that
+discriminate between the first-order methods are consistent with this
 dependence. We also show that a known
 finite-precision line-search defect recurs in a second published method and
 occurs on real matrices.
@@ -53,8 +54,8 @@ Each contribution builds on established practice (\cref{sec:related}).
     For semidefinite programs, the same idea is due to Wei and
     Wolkowicz~\cite{wei2010generating}. The parts specific to NCM are the
     projection identity $\Proj(G+\Diag\ys)=\Xs$, independent control of the
-    rank, the multiplicity of the smallest eigenvalue of $C(\ys)$ and its
-    distance from zero, a paired-seed design, sufficient conditions for
+    rank, the multiplicity of the nonpositive eigenvalue of $C(\ys)$ nearest
+    zero and its distance from zero, a paired-seed design, sufficient conditions for
     $|G_{ij}|\le1$ together with a fixed-rank saturation result for
     $\max_{i\ne j}|\Xs_{ij}|$, and released instance sets at $n=100$ and
     $n=500$. The strict-complementarity defect equals that multiplicity when
@@ -69,24 +70,29 @@ Each contribution builds on established practice (\cref{sec:related}).
     credit, and accuracy is matched in forward error. Primitive work is
     reported separately.
   \item \emph{An invariant first place above a regime-dependent ordering}
-    (\cref{sec:ranking}). Six verified variants of five methods were run on
-    270 instances at $n=100$ and 270 at $n=500$, with 135 further instances at
-    higher rank, 125 built from two equity panels at $n=550$ and $n=2105$, and
-    four matrices from the literature. The cheapest method is the same under
+    (\cref{sec:ranking}). Six variants of five methods, the published ones
+    verified against their authors' own results, were run on 270 instances
+    at $n=100$ and 270 at $n=500$; all or most of them were also run on 135
+    further instances at higher rank, 125 built from two equity panels at
+    $n=550$ and $n=2105$, and four matrices from the literature
+    (\cref{sec:ranking} states which). The cheapest method is the same under
     all 11 conventions examined, and its median eigendecomposition count,
-    at the tightest target, stays at 5 across the tested exact-solution
-    families, from $n=100$ to
-    $n=2105$; wall-clock time is not flat, since each eigendecomposition
-    itself costs more at larger $n$. Second at $n=100$ is
-    Anderson-accelerated alternating projections~\cite{higham2016anderson},
-    under 10 of the 11 conventions and tied for second under the eleventh; it
-    keeps that place on the exact-solution families but not on perturbed or
-    literature matrices.
-    Below the first place the ordering changes with the solution rank and
-    with how far the input is from a correlation matrix, and, for SBB-Dual
-    against AGD-SDAJ-BH, with the accuracy target. The rank dependence holds
-    without SBB-Dual:
-    Dykstra-APM and AGD-SDAJ-BH exchange places between $r=20$ and $r=50$ at
+    at the tightest target, is four or five on every tested exact-solution
+    family, from $n=100$ to $n=2105$; wall-clock time is not flat, since
+    each eigendecomposition itself costs more at larger $n$. Second at
+    $n=100$ is Anderson-accelerated alternating
+    projections~\cite{higham2016anderson} (Anderson-APM), under 10 of the 11
+    conventions and tied for second under the eleventh; it is second on most
+    of the other exact-solution sets too, but not all (it is fourth at
+    $10^{-2}$ at $n=500$, and behind both AGD variants at $r=100$ and $r=200$
+    at $n=2105$), and not on perturbed or literature matrices.
+    Below the first place the ordering changes with the solution rank, with
+    how far the input is from a correlation matrix, and with the accuracy
+    target. The rank dependence holds without SBB-Dual, the author's own
+    method (see below): Dykstra-APM (alternating projections with Dykstra's
+    correction~\cite{higham2002nearest}) and AGD-SDAJ-BH (our line-search
+    adaptation of the accelerated method of Huynh and
+    Hwang~\cite{huynh2025accelerated}) exchange places between $r=20$ and $r=50$ at
     $n=100$, and the exchange has not occurred by $r=150$ at $n=500$. At
     $n=2105$ the order of Anderson-APM and AGD-SDAJ-BH is not monotone in
     rank: Anderson-APM is cheaper at $r=50$ and $r=400$, AGD-SDAJ-BH at $r=100$
@@ -103,14 +109,17 @@ Each contribution builds on established practice (\cref{sec:related}).
     Higham~\cite{borsdorf2010preconditioned}. The new content is limited to
     two points. First, the defect recurs in a separately published
     first-order method~\cite{huynh2025accelerated}. Second, we quantify it on
-    the controlled family: 56/270 stalls for semismooth Newton and 18/270 for
-    AGD-SDAJ, both removed by the Borsdorf--Higham correction. We also
+    the controlled family: 56/270 stalls for semismooth Newton, removed by
+    the Borsdorf--Higham globalization, and 18/270 for AGD-SDAJ, removed by
+    our adaptation of its safeguard. We also
     document a second, simpler trap (a redundant Jacobian factorization).
   \item \emph{An NCM quantification of the stopping-rule confound}
     (\cref{sec:stopping}). Dolan, Mor\'e and Munson~\cite{dolan2006optimality}
     warned that native stopping tests confound comparisons. For NCM, the
-    widely used rule $\nrm{\nabla\theta}_2\le 10^{-7}n$ leaves the achieved
-    forward error spread over a factor of 383 across solvers at $n=100$, and
+    widely used rule $\nrm{\nabla\theta}_2\le 10^{-7}n$ (applied by the two
+    projection methods to the diagonal of their positive semidefinite
+    iterate) leaves the achieved forward error spread over a factor of 383
+    across solvers at $n=100$, and
     it degrades accuracy with dimension unequally across methods.
 \end{enumerate}
 
@@ -122,18 +131,19 @@ matrices from the literature (\cref{sec:real}) as external checks, all on one
 machine. SBB-Dual is a new method from the author's companion manuscript in
 preparation~\cite{ibrahim2026sbb}. It is specified in full in
 \cref{app:algorithms}, receives the same exposition as the others, and its
-convergence theory is not used here. Three findings do not depend on it:
-without SBB-Dual, Newton-SIN-BH is still first, Anderson-APM is still
-second at $n=100$, and the rank dependence is still present, between
-Dykstra-APM and AGD-SDAJ-BH. Four findings do use it: the dependence of the
-order on the accuracy target, the bracketed positions of the rank
-crossover at $n=100$ and $n=500$ (\cref{sec:cells,sec:highrank}), the
-reversal of the order with the degree of invalidity on the equity-derived
-matrices (\cref{sec:thesis}), and the claim that the target- and
-rank-dependent orderings found at $n=100$ recur at $n=500$
-(\cref{sec:discussion}): all four are stated for SBB-Dual against
-AGD-SDAJ-BH specifically, and none has been checked for a pair that
-excludes SBB-Dual.
+convergence theory is not used here. Without SBB-Dual, Newton-SIN-BH is
+still first, Anderson-APM is still second at $n=100$, and each kind of
+dependence is still present for a pair that excludes it: on the rank,
+between Dykstra-APM and AGD-SDAJ-BH (\cref{sec:cells}); on the accuracy
+target, between Anderson-APM and AGD-SDAJ-BH at $n=500$ (\cref{sec:n500});
+and on the degree of invalidity, between Anderson-APM and AGD-SDAJ-BH on the
+equity-derived matrices (\cref{sec:thesis}). Two findings rest on SBB-Dual
+against AGD-SDAJ-BH specifically: the bracketed positions of the rank
+crossover at $n=100$ and $n=500$ (\cref{sec:cells,sec:highrank}), and the
+claim that the rank-dependent ordering found at $n=100$ recurs at a higher
+rank at $n=500$ (\cref{sec:discussion}). For the one pair without SBB-Dual
+checked for that recurrence, Dykstra-APM against AGD-SDAJ-BH, the exchange
+has not occurred by $r=150$ at $n=500$.
 
 \subsection{Related work}\label{sec:related}
 
@@ -153,8 +163,8 @@ rankings below the leading solver can change when solvers are added or
 removed. Beiranvand, Hare and Lucet~\cite{beiranvand2017best} survey best
 practice, including known-solution test problems and reproducibility. Our
 protocol follows these principles; our contribution is to make their
-exact-reference versions possible for the NCM problem. The second/third-place
-reversals of \cref{sec:ranking} arise with a \emph{fixed} solver set, from the
+exact-reference versions possible for the NCM problem. The reversals below
+second place in \cref{sec:ranking} arise with a \emph{fixed} solver set, from the
 accuracy target and the instance regime, so the mechanism differs from the one
 studied by Gould and Scott.
 

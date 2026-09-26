@@ -10,14 +10,15 @@ counts and forward errors to every printed digit.
 AGD-SDAJ exists only in Julia. Because this paper argues that implementation
 details can reverse conclusions, we did not report any result for our
 reimplementation on the KKT family until it had reproduced Huynh and Hwang's
-own published counts on their own instances. Those instances are three
+own published counts on their own instances, two of three exactly and the
+third to within one backtracking decision. Those instances are three
 matrices from their test set, loaded under the same convention used elsewhere
 in this project (\cref{tab:agd-verify}).
 
 \begin{table}[t]
 \centering
 \caption{AGD-SDAJ ($q=2$): published counts (outer iterations / \EVDs\ /
-nonmonotone backtracks / $\fro{A-\Xs}$) against our reimplementation.
+nonmonotone backtracks / $\fro{G-\Xs}$) against our reimplementation.
 Published values are from Table~3 and Table~A1 of~\cite{huynh2025accelerated}.}
 \label{tab:agd-verify}
 \small
@@ -62,9 +63,10 @@ once, after a discarded warm-up. The matched-tolerance measurement behind
 run-to-run variance, which is large.
 
 \paragraph{Artifact.}
-The generator, the instances with hashes, all solver code, the trajectory
-and timing CSV files, and the analysis scripts that produce every table in
-this paper are listed in \cref{app:artifact}.
-They are available at \url{https://github.com/Realosunboy6/ncm-exact-benchmark}. The full
-instance sets are archived separately, with a permanent identifier, at
-\url{https://doi.org/10.5281/zenodo.22967421}.
+The generator, the instance manifests with hashes, all solver code, the
+trajectory and timing CSV files, and the analysis scripts that produce every
+table in this paper are listed in \cref{app:artifact}.
+They are available at \url{https://github.com/Realosunboy6/ncm-exact-benchmark}. The three
+synthetic instance sets are archived in full, with a permanent identifier, at
+\url{https://doi.org/10.5281/zenodo.22967421}; the equity-derived sets are not
+redistributed (\cref{app:artifact}).

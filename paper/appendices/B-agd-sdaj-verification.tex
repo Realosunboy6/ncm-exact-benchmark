@@ -28,7 +28,9 @@ rule~\cite{li2000derivative} on the residual:
 \end{equation}
 where, as implemented, $k$ is the index of the inner step within its outer
 iteration ($\epsilon_i$ in Algorithm~\ref{alg:agd}), so that
-$\epsilon_k\in\{1,\tfrac14\}$ for $q=2$. The test uses
+$\epsilon_k\in\{1,\tfrac14\}$ for $q=2$. This indexing is our reading of the
+text, not stated explicitly there; with it, the published counts of
+\cref{tab:agd-full} are reproduced exactly on P8 and P9. The test uses
 $\lambda_1=\lambda_2=0.01$, and $\alpha=\rho^{\,j}$ is backtracked from 1 over
 $j=0,1,2,\dots$ (we write $j$ for the backtracking exponent, since $m$ is the
 near-zero multiplicity of Definition~\ref{def:family}). The
@@ -36,21 +38,24 @@ merit function is $\tfrac12\nrm{\nabla\theta}^2$. The quasi-Newton direction
 $d=-B^{-1}\nabla\theta$ need not be a descent direction for it, which is why a
 nonmonotone rule is needed. The paper also confirms that $B_k$ is reset to the
 identity once $x_k^{\mathrm{pre}}$ is generated, and that Step~4 discards
-$x_k^{\mathrm{pre}}$ if it does not decrease $\theta$.
+$x_k^{\mathrm{pre}}$ if it increases $\theta$.
 
 Before the full text was available, we tried two guesses: a
-Grippo--Lampariello--Lucidi rule on $\theta$, and a Li--Fukushima rule with
-unsquared norms and $\epsilon_k=0$. Both had the right general form but three
-wrong details: unsquared norms, a missing $(1+\epsilon_k)$ slack, and
-$\lambda_1,\lambda_2$ attached to the wrong terms. Because the two guesses
-bracketed the published counts, they helped locate the remaining gap.
+Grippo--Lampariello--Lucidi rule on $\theta$, and a Li--Fukushima rule. The
+second had the right general form but three wrong details: unsquared norms, a
+missing $(1+\epsilon_k)$ slack, and $\lambda_1,\lambda_2$ attached to the
+wrong terms. The guess columns of \cref{tab:agd-full} were run before the
+acceleration-factor correction described below, so they are not directly
+comparable with the final column. On P8 their \EVD\ counts bracketed the
+published one; on P7 both were well above it, which pointed to a remaining
+defect outside the line search (item~3 below).
 
 \paragraph{Results.}
 \begin{table}[h]
 \centering
 \caption{Outer iterations / \EVDs\ / nonmonotone backtracks, and
-$\fro{A-\Xs}$, under the final transcription (\texttt{eq6}) and the two
-superseded guesses.}
+$\fro{G-\Xs}$, under the final transcription (\texttt{eq6}) and the two
+superseded guesses (run at an earlier code state; see text).}
 \label{tab:agd-full}
 \small
 \begin{tabular}{lllll}
@@ -63,9 +68,9 @@ P7 \texttt{cor1399} & 4/31/8, 21.03 & 4/32/7, 21.0339 & 6/40/3 & 5/48/17\\
 \bottomrule
 \end{tabular}
 \end{table}
-Under every variant, $\fro{A-\Xs}$ matched the published value to the
-displayed precision on all three instances. This showed early on that the
-objective, gradient, projection and stopping rule were correct, and that the
+Under the final transcription, $\fro{G-\Xs}$ matched the published value to
+the displayed precision on all three instances. This showed that the
+objective, gradient, projection and stopping rule were correct, and that any
 discrepancy lay in the amount of work per iteration.
 
 \paragraph{Three hazards when reimplementing Algorithm~4.}
@@ -86,16 +91,19 @@ iterations on P7 remained once the line search was correct.
   \item \emph{Missing early termination at the preconditioned point.} The
     note to Table~3 of~\cite{huynh2025accelerated} states that the loop also stops
     whenever $x_k^{\mathrm{pre}}$ satisfies the stopping criterion, which
-    saves fewer than two \EVDs. Without this check, the outer gradient step is
-    always paid.
+    saves at least one \EVD\ (the trial at $\alpha=1$), and two when
+    $\beta\ne1$. Without this check, the outer gradient step is always
+    paid.
   \item \emph{Wrong acceleration factor in Algorithm~3.} The factor
     $\beta_k^{\mathrm{pre}}$ had been implemented with Algorithm~1's
     $a_k=\nrm{g}^2$. That formula is the special case for $d=-\nabla\theta$.
     In Algorithm~3, $d=-B^{-1}g$, so the general form of their Section~2.3
     (the acceleration of Andrei~\cite{andrei2006acceleration}) is needed:
     \[
-      \beta=\frac{-g^{\mathsf T}d}{(g_y-g)^{\mathsf T}d}\quad\text{if the denominator is positive, else }\beta=1.
+      \beta=\frac{-g^{\mathsf T}d}{(g_t-g)^{\mathsf T}d}\quad\text{if the denominator is positive, else }\beta=1,
     \]
+    where $g_t$ is the gradient at the accepted trial point, as in
+    \cref{alg:agd}.
     This form reduces exactly to Algorithm~1's when $d=-g$, so it is
     consistent with both statements in the paper. \emph{This defect caused
     the gap in outer iterations}: correcting it reduced P7 from 6 outer
@@ -129,10 +137,11 @@ retyped. On the ten small matrices (\texttt{high02}, \texttt{tec03},
 the five solvers of the original comparison return valid correlation
 matrices (Anderson-APM, added later, is checked in \cref{app:anderson}) whose
 distances
-$\fro{G-X}$ agree to at least eight digits and whose matrices agree with
-Newton-SIN-BH's to within $2\times10^{-10}$, except unmodified AGD-SDAJ on
+$\fro{G-X}$ agree to at least eight decimal places and whose matrices agree
+with Newton-SIN-BH's to within $2\times10^{-10}$, except unmodified AGD-SDAJ on
 \texttt{mmb13} ($8.7\times10^{-10}$), which stops at its budget. The three
-large matrices were compared only at the published tolerances.
+large matrices (\texttt{cor1399}, \texttt{cor3120} and \texttt{bccd16}) were
+compared only at the published tolerances.
 
 \begin{table}[h]
 \centering
@@ -167,10 +176,10 @@ bits. $^{b}$The residual floor near $10^{-12}$ lies above
 $n\,\mathrm{eps}=6.9\times10^{-13}$ with our eigensolver; the solution itself
 matches to all published digits.\par}
 
-On three of these matrices unmodified AGD-SDAJ shows the stall of
-\cref{sec:trap2} (\texttt{mmb13}: budget of 200\,000 \EVDs\ exhausted, against
-210 for AGD-SDAJ-BH; \texttt{tyda99r2}: 549 against 35; \texttt{bhwi01}: 66
-against 21).
+On three of these matrices unmodified AGD-SDAJ shows the effect of
+\cref{sec:trap2}: on \texttt{mmb13} it stalls (budget of 200\,000 \EVDs\
+exhausted, against 210 for AGD-SDAJ-BH), and on \texttt{tyda99r2} and
+\texttt{bhwi01} it converges, but slowly (549 against 35, and 66 against 21).
 
 \paragraph{The Borsdorf--Higham adaptation.}
 AGD-SDAJ-BH changes only the monotone Armijo test of Algorithm~1, line~5

@@ -85,28 +85,27 @@ optimality conditions to the NCM problem, obtaining instances with closed-form
 primal and dual solutions and prescribed rank, multiplicity and
 eigenvalue separation. The semismooth Newton method with the
 Borsdorf--Higham line search is cheapest under all 11 conventions examined,
-with a median eigendecomposition count, at the tightest target, that stays
-at five across the tested
-exact-solution families, from $n=100$ to $n=2105$. Second at $n=100$, under ten of the eleven
-conventions and tied under the other, is Anderson-accelerated alternating
-projections. The ordering of the remaining methods is a property
-of the test set, changing above all with the solution rank: a published
-method and our line-search adaptation of another exchange places between
-$r=20$ and $r=50$ at $n=100$. Under the
+with a median eigendecomposition count, at the tightest target, of four or
+five on every tested exact-solution family, from $n=100$ to $n=2105$. Second
+at $n=100$, under ten of the eleven conventions and tied under the other, is
+Anderson-accelerated alternating projections. The ordering of the remaining
+methods is a property of the test set, changing above all with the solution
+rank: a published method, and our line-search adaptation of another method,
+exchange places between $r=20$ and $r=50$ at $n=100$. Under the
 dimension-scaled rule
 $\nrm{\nabla\theta}_2\le10^{-7}n$, first-order methods return, in median on
 18 paired instances, about ten times
 less accuracy at $n=500$ than at $n=100$, so a larger problem can appear
 easier. A known finite-precision failure of objective-value Armijo tests
-recurs in a second published method, where a safeguard from the NCM literature
-removes it.
+recurs in a second published method, where our adaptation of a safeguard from
+the NCM literature removes it.
 \end{abstract}
 
 {\sloppy\paragraph{Keywords.} nearest correlation matrix; semidefinite programming;
 test problem generation; benchmarking; semismooth Newton method;
 reproducibility.\par}
 
-\paragraph{2010 Mathematics Subject Classification.} 65F30; 90C22; 90C25;
+\paragraph{2020 Mathematics Subject Classification.} 65F30; 90C22; 90C25;
 65K05; 65Y20.
 
 
@@ -126,7 +125,7 @@ reproducibility.\par}
 \input{appendices/C-artifact}
 \input{appendices/D-algorithms}
 
-% refs.bib = paper2-lit.bib from the literature audit (26 Crossref-verified
+% refs.bib = paper2-lit.bib from the literature audit (Crossref-verified
 % entries), merged 2026-09-11; the earlier draft entries were superseded.
 \clearpage
 \bibliographystyle{plain}

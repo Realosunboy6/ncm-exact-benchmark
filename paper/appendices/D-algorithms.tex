@@ -4,7 +4,10 @@
 \clearpage
 \section{Solver pseudocode}\label{app:algorithms}
 
-Four of the solvers of \cref{sec:solvers} as implemented. Parameter values and
+The solvers of \cref{sec:solvers} as implemented; Newton-SIN is
+\cref{alg:newton} with the naive test~\eqref{eq:armijo} in place of the
+near-equality branch and without the cached factorization. The iteration
+subscript $k$ of \cref{sec:solvers} is dropped throughout. Parameter values and
 the sources they are transcribed from are given there; the verification record
 for AGD-SDAJ is \cref{app:agd}, and Anderson-APM, transcribed from the released
 code of its authors, is documented in \cref{app:anderson}.
@@ -24,9 +27,9 @@ code of its authors, is documented in \cref{app:anderson}.
     \If{$\theta_t\le\theta+\sigma\alpha g^{\mathsf T}d$} accept; \textbf{break} \EndIf
     \If{$|\theta_t-\theta|<\gamma u(1+|\theta_t|+|\theta|)$} \Comment{BH near-equality branch}
       \If{full step has $\nrm{g_{t}^{(\alpha=1)}}\le(1-\mubh)\nrm g$} accept the full step; \textbf{break} \EndIf
-      \State accept the unit steepest-descent step $y-g$ (one further \EVD); \textbf{break}
+      \State accept the unit steepest-descent step $y-g$ (one further \EVD, unless $d=-g$ already); \textbf{break}
     \EndIf
-    \State $\alpha\gets\alpha/2$
+    \State $\alpha\gets\alpha/2$ \Comment{at most 50 trials, else exit}
   \EndLoop
   \State update $(y,\theta,g,X,\Lambda,P)$ from the accepted trial \Comment{no recomputation}
 \EndWhile
@@ -37,21 +40,21 @@ code of its authors, is documented in \cref{app:anderson}.
 \begin{algorithm}[H]
 \caption{AGD-SDAJ~\cite{huynh2025accelerated} (AGD-SDAJ-BH: with the marked branch)}\label{alg:agd}
 \begin{algorithmic}[1]
-\Require $G$, $\tau$; $q=2$, $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$, $\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$
+\Require $G$, $\tau$; $q=2$, $c=10^{-4}$, $\rho=0.5$, $\lambda_1=\lambda_2=0.01$, $\epsilon_l=10^{-5}$, $\epsilon_u=10^{8}$; for \textsc{bh}, $\gamma=100$, $u=2^{-53}$
 \State $y\gets0$;\ $(\theta,g,X)\gets\textsc{Eval}(y)$
 \While{$\nrm{g}>\tau$}
-  \State $(y^{p},\theta^{p},g^{p})\gets(y,\theta,g)$;\ $b\gets e$ \Comment{$B_0=I$, reset every outer iteration}
+  \State $(y^{p},\theta^{p},g^{p},X^{p})\gets(y,\theta,g,X)$;\ $b\gets e$ \Comment{$B_0=I$, reset every outer iteration}
   \For{$i=0,\dots,q-1$ \textbf{while} $\nrm{g^p}>\tau$} \Comment{QN-SDAJ inner steps}
     \State $d\gets-g^p\oslash b$;\ $\epsilon_i\gets1/(i+1)^2$;\ $\alpha\gets1$
     \State backtrack $\alpha\gets\rho\alpha$ until, with $g_t=\nabla\theta(y^p+\alpha d)$,
     \Statex \hspace{2\algorithmicindent}$\nrm{g_t}^2\le(1+\epsilon_i)\nrm{g^p}^2-\lambda_1\alpha^2\nrm{g^p}^2-\lambda_2\alpha^2\nrm{d}^2$ \Comment{eq.~(6)}
     \State $\beta\gets a/b'$ with $a=-g^{p\mathsf T}d$, $b'=(g_t-g^p)^{\mathsf T}d$ if $b'>0$, else $\beta\gets1$ \Comment{general direction}
-    \State $s\gets\beta\alpha d$;\ $y^+\gets y^p+s$;\ evaluate at $y^+$ (reuse the trial if $\beta=1$)
-    \State $b_j\gets z_j/s_j$ if $z_j/s_j\in[\epsilon_l,\epsilon_u]$, else $1$, where $z=g^+-g^p$
-    \State $(y^p,\theta^p,g^p)\gets(y^+,\theta^+,g^+)$
+    \State $s\gets\beta\alpha d$;\ $y^+\gets y^p+s$;\ $(\theta^+,g^+,X^+)\gets\textsc{Eval}(y^+)$ (reuse the trial if $\beta=1$)
+    \State $b_\ell\gets z_\ell/s_\ell$ if $z_\ell/s_\ell\in[\epsilon_l,\epsilon_u]$, else $1$, for each entry $\ell$, where $z=g^+-g^p$
+    \State $(y^p,\theta^p,g^p,X^p)\gets(y^+,\theta^+,g^+,X^+)$
   \EndFor
-  \If{$\theta^p>\theta$} $(y^p,\theta^p,g^p)\gets(y,\theta,g)$ \EndIf
-  \If{$\nrm{g^p}\le\tau$} $y\gets y^p$; \textbf{break} \Comment{early exit at $x^{\mathrm{pre}}$}
+  \If{$\theta^p>\theta$} $(y^p,\theta^p,g^p,X^p)\gets(y,\theta,g,X)$ \EndIf
+  \If{$\nrm{g^p}\le\tau$} $(y,X)\gets(y^p,X^p)$; \textbf{break} \Comment{early exit at $x^{\mathrm{pre}}$}
   \EndIf
   \State $d\gets-g^p$;\ $\alpha\gets1$
   \Loop \Comment{Algorithm 1, line 5}
@@ -110,11 +113,11 @@ history $m$; Higham and Strabi\'{c}~\cite{higham2016anderson})}\label{alg:anders
   \State $X\gets\Proj(Y-\Delta S)$ \Comment{one \EVD}
   \State $\Delta S'\gets X-(Y-\Delta S)$;\ $Y'\gets X$ with $\diag(Y')\gets e$
   \State $g\gets(\operatorname{vec}Y',\operatorname{vec}\Delta S')$;\ $f\gets g-z$
-  \If{$\fro{Y'-X}/\fro{Y'}\le\tau$} \Return $X$ \Comment{PSD half-iterate}
+  \If{$\nrm{\diag(X)-e}_2\le\tau$} \Return $X$ \Comment{PSD half-iterate; the study's rule}
   \EndIf
   \State $m_k\gets\min(m,k-1)$; form $\Delta F_k$, $\Delta G_k$ from the last $m_k$ differences of $f$, $g$
-  \State $\gamma\gets\arg\min_\gamma\nrm{f-\Delta F_k\gamma}_2$ \Comment{QR with updating}
-  \State $z\gets g-\Delta G_k\gamma$; unpack $z$ into $Y,\Delta S$
+  \State $\omega\gets\arg\min_\omega\nrm{f-\Delta F_k\omega}_2$ \Comment{QR with updating}
+  \State $z\gets g-\Delta G_k\omega$; unpack $z$ into $Y,\Delta S$
 \EndFor
 \end{algorithmic}
 \end{algorithm}

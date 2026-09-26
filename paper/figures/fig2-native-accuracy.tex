@@ -17,8 +17,9 @@
 \addplot[fill=gray!55, draw=gray!80!black] table[x=err, y=idx] {figures/data/native_accuracy.dat};
 \end{axis}
 \end{tikzpicture}
-\caption{Achieved accuracy when each solver exits under the same published
-dimension-scaled rule (tolerance $10^{-5}$ at $n=100$). Median forward
+\caption{Achieved accuracy when each solver exits once its own stopping
+quantity reaches the threshold of the published dimension-scaled rule
+(tolerance $10^{-5}$ at $n=100$; see \cref{tab:native}). Median forward
 errors range from $5.04\times10^{-8}$ (Newton variants) to
 $1.93\times10^{-5}$ (Dykstra-APM), a factor of 383. Costs measured at these
 exits are therefore costs at different accuracies.}

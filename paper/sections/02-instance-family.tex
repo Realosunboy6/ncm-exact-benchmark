@@ -83,9 +83,10 @@ positive, zero and negative eigenvalues of $C(\ys)$. Then
   \item an entry $\mu_j=\delta>0$ produces an eigenvalue $-\delta$, which moves
     toward the nonsmooth boundary of $\Proj$ as $\delta\to0$.
 \end{itemize}
-The multiplicity and the separation are therefore not varied independently in
-their effect on strict complementarity: $|\beta|=m$ when $\delta=0$ and
-$|\beta|=0$ otherwise.
+With the layout used below ($m$ entries of $\mu$ equal to $\delta$, the rest
+equal to $\mu_{\mathrm{bulk}}>0$), the multiplicity and the separation are
+therefore not varied independently in their effect on strict
+complementarity: $|\beta|=m$ when $\delta=0$ and $|\beta|=0$ otherwise.
 
 \paragraph{Terminology.}
 Qi and Sun~\cite{qisun2006quadratically} showed that constraint
@@ -140,8 +141,8 @@ screening.
 
 \begin{proposition}[High-dimensional regime]\label{prop:hd}
 Let the rows of $U$ be independent and uniform on $S^{r-1}$ and let
-$\eta\in(0,1)$ be a failure probability (distinct from the separation
-parameter $\delta$ of Definition~\ref{def:family}). Then with probability at least
+$\eta\in(0,1)$ be a failure probability (distinct from the near-zero value
+$\delta$ in $\mu$). Then with probability at least
 $1-\eta$,
 \[
   a\;\le\;\sqrt{\frac{2}{r}\Bigl(2\log n+\log\frac{2}{\eta}\Bigr)} .
@@ -203,9 +204,11 @@ $\mu_{\mathrm{bulk}}=0.1$, the sufficient bound at the mean values at $r=5$
 itself falls below $0.1$. In the
 paired design (\cref{sec:paired}), 5 of the 7 candidate seeds were accepted at
 $r=5$; the 2 rejections were for $|G_{ij}|>1$. At $r=20$ and $r=50$, 5 of 5
-were accepted. With $\mu_{\mathrm{bulk}}=1$, the sufficient bound fails at
-every rank tested, and in an earlier design every $r=5$ candidate was
-rejected. This is why the generator uses $\mu_{\mathrm{bulk}}=0.1$.
+were accepted. With $\mu_{\mathrm{bulk}}=1$, the sufficient bound at the mean
+values still holds at $r=20$ and $r=50$ ($1.690$ and $2.650$ exceed 1) but
+fails at $r=5$, and in an earlier design every $r=5$ candidate was rejected.
+Since one bulk level is used at every rank, this is why the generator uses
+$\mu_{\mathrm{bulk}}=0.1$.
 
 \subsection{Paired-seed design and screening}\label{sec:paired}
 Each candidate seed is screened once per rank against its entire
@@ -218,23 +221,27 @@ along $\delta$ are within-seed. Rejections are counted and reported, not
 silently discarded.
 
 Because of the screening, the $r=5$ sample is conditioned differently from the
-$r=20$ and $r=50$ samples: at $r=5$ it excludes the seeds with the largest
-$a$. Comparisons across ranks should be read with this in mind.
+$r=20$ and $r=50$ samples: at $r=5$ it excludes the seeds whose instances have
+an off-diagonal entry above 1 (at $n=100$, both rejections occurred at $m=20$,
+$\delta=10^{-2}$). These are not simply the seeds with the largest $a$, since
+the rejection depends on the basis-dependent kernel term as well.
+Comparisons across ranks should be read with this in mind.
 
 \paragraph{Extent of the family.}
 Every synthetic instance is close to feasible: $\lambda_{\min}(G)$ lies between
 $-0.075$ and $-0.017$ at $n=100$ and between $-0.047$ and $-0.011$ at $n=500$.
-With $\mu_{\mathrm{bulk}}=1$ the entrywise bound fails at every rank tested, so
-the family cannot be extended to strongly invalid inputs with the same
-construction, and the degree of invalidity is not a controlled factor here.
+A larger bulk level would give more strongly invalid inputs, but it fails the
+entrywise screen at $r=5$, and the family uses a single bulk level at every
+rank; the degree of invalidity is therefore not a controlled factor here.
 Findings that depend on it (\cref{sec:thesis,sec:us2105}) rest on perturbed
 matrices whose reference is computed, not exact.
 
 \paragraph{Regeneration.}
-The seed of candidate $c$ at rank $r$ and dimension $n$ is $100000n+1000r+c$.
+The seed of candidate $k$ at rank $r$ and dimension $n$ is $100000n+1000r+k$.
 The multiplicity is limited by the kernel dimension, $m\le n-r$, and the $m$
-entries equal to $\delta$ occupy the last $m$ columns of the eigenvector basis
-of $\Xs$ returned by the symmetric eigensolver, which is the point at which a
+entries equal to $\delta$ are attached to the last $m$ columns of $Q_0$, the
+kernel block of the eigenvector basis of $\Xs$ returned by the symmetric
+eigensolver, which is the point at which a
 different LAPACK build can yield a different member of the family
 (\cref{app:artifact}).
 

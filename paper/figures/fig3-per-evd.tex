@@ -19,9 +19,10 @@
 \end{axis}
 \end{tikzpicture}
 \caption{Median wall-clock time per \EVD\ at $n=100$, all seven variants timed
-in one session. The spread is a factor of 1.50 and works against Newton, whose
-\EVDs\ are accompanied by Krylov solves that the \EVD\ count does not record.
-Anderson-APM's \EVDs\ cost 1.17 times SBB-Dual's, the difference being its
+in one session. The spread is a factor of 1.50; Newton's \EVDs\ are the
+dearest, because they are accompanied by Krylov solves that the \EVD\ count
+does not record. Anderson-APM's \EVDs\ cost 1.17 times SBB-Dual's, the
+difference coming from its work outside the eigendecomposition, chiefly its
 least-squares update of $O(mn^2)$ work per \EVD.}
 \label{fig:perevd}
 \end{figure}

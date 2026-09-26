@@ -28,18 +28,15 @@ work/pdf-review/algorithm1-09.png, algorithms34-12.png, setup-16.png):
     Algorithm-3/4 parameters lambda1=lambda2=0.01, eps_l=1e-5, eps_u=1e8, q=2;
     x_0 = 0; stopping ||grad theta(x_k)||_2 <= 1e-7*n; k_max=200 or 3000s -> failure.
 
-UNVERIFIED / ASSUMED (the paper's eq. (6), the nonmonotone-linesearch formula, and
-the role of lambda1, lambda2, sit on a page not captured in this repository):
-  - Nonmonotone linesearch is implemented here as the standard Grippo-Lampariello-
-    Lucidi (1986) rule: theta(y_k) <= max_{0<=j<=min(k,M-1)} theta(x_{k-j})
-    + c*alpha_k*grad(x_k)'*d_k, backtracking alpha by factor rho from an initial
-    trial of 1. Memory M defaults to 10 (not given in the captured pages).
-  - lambda1, lambda2 do not appear in Algorithms 1/3/4 as pseudocoded on the
-    captured pages; they are not used below. If verification fails, this is the
-    first place to look -- they may parameterize the missing eq. (6).
-  - B_0 = I at the start of every outer AGD-SDAJ call's inner QN-SDAJ run (the
-    paper states B_k is reset each outer iteration; the reset value is not shown
-    on the captured pages, I is the natural default for a "positive definite B_0").
+Equation (6), the nonmonotone line search, was later transcribed from the full
+text and is the default (`ls_mode = :eq6`): the Li-Fukushima-type residual rule
+  ||grad(x + alpha d)||^2 <= (1+eps_k)||grad(x)||^2 - lambda1||alpha grad(x)||^2
+                             - lambda2||alpha d||^2,   eps_k = 1/(k+1)^2,
+with lambda1 = lambda2 = 0.01 and k the inner-step index. The earlier guesses
+(a Grippo-Lampariello-Lucidi rule with memory M, and an unsquared Li-Fukushima
+rule) remain selectable for the record in paper Appendix B but are superseded.
+B_0 = I at the start of every outer iteration's inner QN-SDAJ run, which the
+full text confirms.
 
 EVD COUNTING CONVENTION (must match this project's own protocol, Paper 2 Sec. 3.2):
 one eigendecomposition of (A + Diag(x)) per DISTINCT point x at which theta and/or

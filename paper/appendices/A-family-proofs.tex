@@ -37,7 +37,9 @@ needed only for a \emph{rate}; the limit itself follows from pigeonhole.)
 \begin{remark}[What this does not give]
 It is tempting to conclude that a fixed $c>0$ must eventually violate
 \cref{prop:det}. That does not follow. At fixed $r$ the projector bound $b$
-also tends to zero, so $a+cb\le1$ can persist: with $a_n=1-2/n$ and
+is observed to decrease with $n$ as well (\cref{sec:feasibility}), though we
+do not prove it, and if it tends to zero then $a+cb\le1$ can persist: with
+$a_n=1-2/n$ and
 $b_n=1/n$ one has $a_n\to1$ while $a_n+cb_n<1$ for every $n$ at $c=1$. A claim
 in either direction needs the relative rates of $1-a$ and $b$, which we do not
 establish here.
@@ -50,7 +52,9 @@ unit vector $v$ and every $t\ge0$,
 \[
   \Pr\bigl\{u_j^{\mathsf T}v\ge t\bigr\}\le 2\exp(-t^2r/2).
 \]
-This explicit form is the cap estimate of~\cite[Lem.~2.2]{ball1997elementary};
+This follows, with a factor of two to spare, from the cap estimate
+of~\cite[Lem.~2.2]{ball1997elementary}, which gives $\exp(-t^2r/2)$ for
+$0\le t<1$ (for $t\ge1$ the probability is zero or trivially bounded);
 the subgaussian statement of~\cite[Thm.~3.4.5]{vershynin2026high} gives the
 same decay with an unspecified absolute constant in the exponent, which would
 leave the constant in \cref{prop:hd} unspecified as well.

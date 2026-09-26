@@ -143,13 +143,15 @@ A target counts as reached at the first accepted iterate from which the error
 stays at or below the target for the rest of the run. The accelerated methods
 are not monotone in forward error, so this differs from the first iterate at
 which the error dips below the target; scoring the first dip alone would
-understate their cost. Under this rule Newton-SIN-BH, AGD-SDAJ-BH, SBB-Dual
-and Dykstra-APM reach every target on all 270 instances. Only unmodified
+understate their cost. Under this rule Newton-SIN-BH, Anderson-APM,
+AGD-SDAJ-BH, SBB-Dual and Dykstra-APM reach every target on all 270
+instances. Only unmodified
 AGD-SDAJ misses some: 264/270 and 253/270 at forward targets $10^{-8}$ and
 $10^{-10}$ (264 and 254 for the residual), which is consistent with its 18
 budget-exhausting stalls (\cref{sec:trap2}). Its entries marked $^{*}$ are
 medians over the instances it reached, and are therefore optimistic. The
-second/third-place reversal is the same whether or not those entries are
+third-place reversal, between SBB-Dual and the AGD variants, is the same
+whether or not those entries are
 included. A first-hit rule (the first accepted iterate with error at or below
 the target, whether or not it holds) leaves four of the six solvers'
 medians unchanged at every target, and moves Anderson-APM on 5 instances at
@@ -261,7 +263,8 @@ be associated with rank in this way.
 \paragraph{A crossover between a published method and our adaptation of one.}
 The reversal is not confined to SBB-Dual. Dykstra-APM, a published method,
 and AGD-SDAJ-BH, our Borsdorf--Higham adaptation of a published method
-(\cref{sec:trap2}), exchange places over the same rank range. At $r=5$
+(\cref{sec:trap2}), also exchange places with rank, between $r=20$ and
+$r=50$ rather than between $r=5$ and $r=20$. At $r=5$
 AGD-SDAJ-BH is cheaper on all 90 instances at $10^{-8}$ (median difference
 $+223.5$ \EVDs) and at $r=20$ on 80 of 90, with one tie; at $r=50$ Dykstra-APM
 is cheaper on 61 of 90 (median $-3.5$, cluster-bootstrap 95\% interval
@@ -275,11 +278,12 @@ gives a two-sided sign-test $p=0.0625$, above the conventional 0.05
 threshold for either rank taken alone; it is the same sign recurring at
 $r=50$ and, oppositely, at $r=5$, on two independently seeded sets of
 instances at different ranks, that gives the pooled 10-of-10 pattern its
-strength ($p\approx0.002$). The direction at $r=50$ is resolved
-but the margin is small, about an eighth of AGD-SDAJ-BH's median cost of 28
-\EVDs, and 29 of the 90 instances go the other way at $10^{-8}$. The reversal is therefore
-reproducible without SBB-Dual, on a pair neither of which is the author's own
-new method. It does not occur by the
+strength ($p\approx0.002$). At $r=50$ alone the evidence does not clear the
+conventional threshold, and the margin is small, about an eighth of
+AGD-SDAJ-BH's median cost of 28 \EVDs: 26 of the 90 instances go the other
+way and 3 tie at $10^{-8}$. The reversal is therefore
+reproducible without SBB-Dual, on a pair in which only AGD-SDAJ-BH is the
+author's adaptation, not a new method of the author's own. It does not occur by the
 same rank at higher dimension: at $n=500$
 AGD-SDAJ-BH is still ahead at $r=150$ (Dykstra-APM cheaper on 13 of 45 at
 $10^{-10}$, \cref{sec:highrank}). On the equity panel at $n=2105$ the
@@ -348,7 +352,8 @@ Dykstra-APM$^{\ddagger}$ & 87 [86.5, 88] & 195 [194.5, 195.5] & 191 [191, 192] \
 On this grid ($r\le50$), two of the $n=100$ conclusions survive and two do
 not; \cref{sec:highrank} shows that the two that fail return at higher rank.
 
-\emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 5 \EVDs.
+\emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 3 to 5
+\EVDs.
 The stall of unmodified AGD-SDAJ recurs (31 of 270 runs exhaust the \EVD\
 budget, against none for AGD-SDAJ-BH, whose worst case is 240 \EVDs\ against
 4039 for unmodified AGD-SDAJ; the budget is checked between outer iterations,
@@ -369,8 +374,8 @@ the evidence by a wide margin. The rank effect of \cref{sec:cells} keeps its
 direction but no longer produces a crossover: the median paired difference at
 $10^{-8}$ falls from $+669.5$ \EVDs\ at $r=5$ to $+129$ at $r=20$ and $+13$ at
 $r=50$, where SBB-Dual is cheaper on 17\% of instances. Cell by cell, SBB-Dual
-is ahead of AGD-SDAJ-BH in 0 of the 54 cells with a resolved bootstrap
-interval (47 resolved in favour of AGD-SDAJ-BH, 7 unresolved); with 5 seed
+is ahead of AGD-SDAJ-BH in 0 of the 54 cells (47 with a bootstrap interval
+resolved in favour of AGD-SDAJ-BH, 7 unresolved); with 5 seed
 clusters per cell, a resolved interval here is again close to unanimous
 agreement across those 5, not independent confirmation on top of it. SBB-Dual is thus
 behind at every rank tested at $n=500$, while it led at $r\ge20$ at $n=100$.
@@ -427,15 +432,16 @@ $10^{-10}$. Both patterns of \cref{sec:cells} therefore survive at $n=500$;
 what changes with dimension is the rank at which they appear, from between
 $r=5$ and $r=20$ at $n=100$ to between $r=50$ and $r=75$ at $n=500$
 (\cref{fig:crossoverrank}). We report
-these as brackets and fit no trend to them: three dimensions with three or four
-grid points each cannot separate proportional growth from any other increasing
-rule, and the equity instances of \cref{sec:thesis,sec:us2105} sit outside the
-synthetic family in more ways than dimension. Newton-SIN-BH is
+these as brackets and fit no trend to them: the synthetic family covers only
+two dimensions, each with three or four rank points, which cannot separate
+proportional growth from any other increasing rule, and the equity instances
+of \cref{sec:thesis,sec:us2105} sit outside the synthetic family in more ways
+than dimension. Newton-SIN-BH is
 strictly cheapest on all 135 instances at every target from $10^{-4}$ to
 $10^{-10}$.
 
-A pilot of 48 instances at $r\in\{100,150\}$, repeated with
-$\mu_{\mathrm{bulk}}=0.01$ on the same $\Xs$ and hence a tenfold smaller
+A pilot of 24 instances at $r\in\{100,150\}$, each repeated with
+$\mu_{\mathrm{bulk}}=0.01$ on the same $\Xs$ (48 runs in all) and hence a tenfold smaller
 violation, gave the same result: at $10^{-8}$ the median paired difference was
 $-12.5$ against $-14$ \EVDs\ at $r=100$ and $-19.5$ against $-18$ at $r=150$.
 The two medians are close (within 1.5 \EVDs\ of each other at both ranks),
@@ -501,9 +507,8 @@ $r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra
 
 Anderson-APM is again second at every rank (108, 64 and 53 \EVDs\ to
 $10^{-8}$), and it is cheaper than AGD-SDAJ-BH on 15, 25 and 23 of the 27
-instances at $r=20$, 50 and 100. The margin therefore widens with rank here
-too, on matrices whose eigenvectors come from market data rather than from a
-random orthogonal basis.
+instances at $r=20$, 50 and 100, on matrices whose eigenvectors come from
+market data rather than from a random orthogonal basis.
 
 \Cref{tab:thesiskkt} repeats the pattern of the synthetic family on
 data-derived spectra. Newton-SIN-BH is cheapest on all 81 instances at every
@@ -512,7 +517,8 @@ AGD-SDAJ-BH on none. Rank again organizes the comparison between SBB-Dual and
 AGD-SDAJ-BH: the median paired difference at $10^{-8}$ falls from $+128$ \EVDs\
 at $r=20$ to $+17$ at $r=50$ and $+7$ at $r=100$. At $r=100$ the gap nearly
 closes: SBB-Dual is cheaper on 11 of 27 instances at $10^{-8}$ and 13 of 27 at
-$10^{-10}$, ahead on all nine with $m=1$ and behind on all nine with $m=20$.
+$10^{-10}$; at $10^{-8}$ it is ahead on all nine with $m=1$ and behind on all
+nine with $m=20$.
 On synthetic instances of similar size SBB-Dual is already ahead at $r=75$
 (\cref{sec:highrank}), so eigenvectors taken from market data appear to move
 the crossover to a still higher rank. The replicates share $\Xs$ within a
@@ -610,16 +616,17 @@ $r$ & Newton-SIN-BH & Anderson-APM & AGD-SDAJ-BH & AGD-SDAJ & SBB-Dual & Dykstra
 \end{table}
 
 Newton-SIN-BH takes 5 \EVDs\ on every one of these 16 instances, and its
-median is 5 at $n=100$ and $n=500$ too (individual instances there range
-from 4 to 15): its median \EVD\ count is flat in $n$ over a twenty-fold
-range, while the first-order methods' median \EVD\ counts grow by an order
-of magnitude; wall-clock time is not flat for either, since each \EVD\
-itself costs more at larger $n$ (\cref{sec:evd-unit}). The gap between
+median at the $10^{-8}$ target is 4 or 5 at $n=100$ and $n=500$ too
+(individual instances there range from 4 to 11): its median \EVD\ count is
+flat in $n$ over a twenty-fold range, while the first-order methods grow
+with $n$ at very different rates, from about 2.4-fold for AGD-SDAJ-BH to
+about 10-fold for SBB-Dual; wall-clock time is not flat for either, since
+each \EVD\ itself costs more at larger $n$ (\cref{sec:evd-unit}). The gap between
 SBB-Dual and
 AGD-SDAJ-BH again narrows with rank, from $+490.5$ \EVDs\ at $r=50$ to $-0.5$ at
 $r=400$ at the $10^{-8}$ target. We do not claim a crossover at $r=400$: with
-only four instances at this rank (two rotations, two multiplicities, not
-independent seed clusters as elsewhere in this paper), no cluster-bootstrap
+only four instances at this rank (two rotations, two multiplicities, weak
+replicates rather than independent seed clusters), no cluster-bootstrap
 interval applies, so we report the raw range instead. The median there is
 $-0.5$ \EVDs\ across a range of $[-37,+27]$, and at
 $10^{-10}$ the sign turns over ($+8$ across a range of $[-17,+26]$, with

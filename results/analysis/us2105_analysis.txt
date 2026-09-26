@@ -65,3 +65,13 @@ exit reasons at the cap (evd_budget / max_iter):
   thesis-s0.1-r0 AGD-SDAJ: 65 EVDs, final error 2.06e-09
   thesis-s0.1-r0 SBB-Dual: 176 EVDs, final error 3.00e-09
   thesis-s0.1-r1 SBB-Dual: 172 EVDs, final error 3.03e-09
+
+perturbed matrix, eps=1e-08: EVDs per draw (the pairs of tab:us2105pert)
+  thesis-s0.005-r0  Newton-SIN-BH=6  AGD-SDAJ-BH=34  AGD-SDAJ=34  SBB-Dual=19  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.005-r1  Newton-SIN-BH=6  AGD-SDAJ-BH=22  AGD-SDAJ=76  SBB-Dual=19  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.01-r0  Newton-SIN-BH=6  AGD-SDAJ-BH=32  AGD-SDAJ=33  SBB-Dual=29  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.01-r1  Newton-SIN-BH=6  AGD-SDAJ-BH=29  AGD-SDAJ=34  SBB-Dual=28  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.03-r0  Newton-SIN-BH=7  AGD-SDAJ-BH=37  AGD-SDAJ=38  SBB-Dual=71  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.03-r1  Newton-SIN-BH=7  AGD-SDAJ-BH=44  AGD-SDAJ=48  SBB-Dual=67  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.1-r0  Newton-SIN-BH=8  AGD-SDAJ-BH=68  AGD-SDAJ=47  SBB-Dual=165  Dykstra-APM=--  Anderson-APM=--
+  thesis-s0.1-r1  Newton-SIN-BH=8  AGD-SDAJ-BH=66  AGD-SDAJ=72  SBB-Dual=162  Dykstra-APM=--  Anderson-APM=--

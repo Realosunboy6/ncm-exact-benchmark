@@ -12,10 +12,11 @@ $C(y_k)$ to apply the generalized Jacobian~\cite{qisun2006quadratically}. That
 decomposition was already computed when $\theta(y_k)$ and $\nabla\theta(y_k)$
 were evaluated, at the accepted trial of the previous line search. An
 implementation that recomputes it pays one extra \EVD\ per outer iteration and
-gains nothing. On the instances where both variants converge, recomputing the
+gains nothing. On the literature matrix \texttt{cor1399} (\cref{sec:real}),
+where both variants take the same six Newton steps, recomputing the
 decomposition raises Newton's cost from 7 to 13 \EVDs, an increase of about
-86\% (a factor of $1.86$), with an
-identical final error. Newton-SIN-BH caches the decomposition throughout
+86\% (a factor of $1.86$), with an identical final error
+(\texttt{results/timing\_session1/timing\_real\_matched.csv}). Newton-SIN-BH caches the decomposition throughout
 this paper; Newton-SIN, the naive-Armijo control of \cref{sec:trap2}, does
 not, so its \EVD\ counts already include this redundant factorization on top
 of the naive test's own cost. The same class of defect turned up in our first
@@ -43,14 +44,15 @@ whether a trial passes is decided by rounding noise rather than by the
 step's real merit: a step that
 improves both the gradient and the forward error can still be rejected, and
 the search must halve until it happens to land where the noise lets a
-trial through. In this regime Newton does not stall outright so much as
-creep, accepting a string of steps far smaller than warranted until it
-exhausts its iteration budget without converging, as the counts just below
-show. None of this is new. The
+trial through. In this regime Newton does not halt outright; it creeps,
+accepting a string of steps far smaller than warranted until it exhausts its
+iteration budget without converging --- a stall in the sense used below, as
+the counts just below show. None of this is new. The
 cancellation problem is well known in general
 optimization~\cite{hager2005new}. For the NCM dual,
 Borsdorf~\cite[\S4.7.1]{borsdorf2007newton} derived the threshold (about
-$10^{-8}$ in $\nrm{\nabla\theta}$) and proposed alternatives, which became the
+$10^{-8}$ in $\nrm{\nabla\theta}$ when $|\theta|\approx1$) and proposed
+alternatives, which became the
 modified step selection of Borsdorf and Higham~\cite[Sec.~3.3,
 Alg.~4.1]{borsdorf2010preconditioned}. Their Section~3.3 observes that when
 $|\phi(x)|=1$, $\nrm{p}_2<u^{1/2}$ and $\nrm{\nabla\phi(x)}_2<u^{1/2}/2$, the
@@ -59,7 +61,7 @@ condition cannot be verified at all. Their Algorithm~4.1, Step~6, then tests
 whether the two objective values are \emph{nearly equal}, using
 $|a-b|<\gamma u(1+|a|+|b|)$ with $\gamma=100$, and if so accepts the full
 inexact Newton step provided
-$\nrm{\nabla f(y_k+\alpha_kd_k)}_2/\nrm{\nabla f(y_k)}_2\le1-\mu$, falling
+$\nrm{\nabla f(y_k+d_k)}_2/\nrm{\nabla f(y_k)}_2\le1-\mu$, falling
 back to a unit steepest-descent step otherwise. Our implementation uses their
 parameter values, $\mubh=0.9$, $\rho=0.5$ and $\sigma=10^{-4}$ (we write
 $\mubh$ for their gradient-reduction parameter, since $\mu$ denotes the
@@ -72,7 +74,7 @@ instances; across all 270 instances it uses 151{,}471 backtracks in total.
 With Borsdorf--Higham globalization
 (parameters $\mubh=0.9$, $\sigma=10^{-4}$, halving, and $\gamma=100$ in the
 near-equality test), it converges on all 270 with 8 backtracks. The count of
-56 was reproduced exactly in a separate timing run on a separate code path: at
+56 was reproduced exactly in a separate timing run of the same code: at
 matched tolerance, the naive-Armijo control exits at \texttt{max\_iter} on
 56/270. Both counts are in the shipped result files: the 56 is the
 \texttt{exit} column of the \texttt{Newton-SIN} rows of
@@ -82,7 +84,7 @@ file, which agrees with the \texttt{backtracks} column of
 \texttt{ranking\_kkt270\_v2.csv.gz}. The backtrack total of 151{,}471 is the
 same run's own count of rejected trials, cross-checked against its
 recorded per-trial trajectory (\texttt{code/trace\_armijo\_stall.jl}). Of the 5{,}677
-trials that rejected the undamped Newton step ($\alpha=1$, before any
+rejected trials of the undamped Newton step ($\alpha=1$, before any
 backtracking), every one, without exception, would, if accepted, have
 reduced both the gradient norm and the exact forward error; counting every
 rejected trial, including those reached only after backtracking, 115{,}211
@@ -93,7 +95,8 @@ The same failure occurs in AGD-SDAJ~\cite{huynh2025accelerated}, a separately
 published method with a different algorithmic structure. Line~5 of
 Algorithm~1 in that paper is the objective-value test~\eqref{eq:armijo}. Run
 to the common tolerance $10^{-11}$, AGD-SDAJ as published exhausts the 4000-\EVD\
-budget on 18 of the 270 instances. On instance
+budget on 18 of the 270 instances (the budget is checked at the start of each
+outer iteration, so a stalled run ends at between 4000 and 4035 \EVDs). On instance
 \texttt{degen-r20-m1-d1e-10-p2}, the trajectory contains 3198 rejected
 monotone line-search trials, with the forward error $\fro{X_k-\Xs}$ and
 $\nrm{\nabla\theta}$ fixed at $6.0935\times10^{-9}$ and
@@ -146,7 +149,8 @@ Three points limit what these results show.
     (\cref{sec:repro}, \cref{app:agd}).
   \item \emph{The adaptation is ours.} AGD-SDAJ-BH is our modification and is
     not specified by the original authors. We therefore report it alongside
-    the unmodified method everywhere.
+    the unmodified method on every test set where both were run (all except
+    the 135 higher-rank instances of \cref{sec:highrank}).
 \end{enumerate}
 The general point is that whether a method appears to converge at a given
 tolerance can depend on a line-search detail that is unrelated to the

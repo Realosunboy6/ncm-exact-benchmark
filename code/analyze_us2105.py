@@ -70,3 +70,7 @@ if __name__ == "__main__":
     pert = load([f"{d}/ranking_us2105_pert.csv"])
     table(pert, lambda i: re.search(r"-s([\d.]+)-", i).group(1), ["0.005", "0.01", "0.03", "0.1"],
           "perturbed matrix (computed reference)")
+    print("\nperturbed matrix, eps=1e-08: EVDs per draw (the pairs of tab:us2105pert)")
+    for i in sorted({k[0] for k in pert}):
+        c = [cost(pert[(i, s)], 1e-8) for s in SOLVERS]
+        print(f"  {i}  " + "  ".join(f"{s}={'--' if v is None else v}" for s, v in zip(SOLVERS, c)))
