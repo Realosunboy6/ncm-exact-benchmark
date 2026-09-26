@@ -50,7 +50,8 @@ def table(rows, key_of, keys, label):
                 cells.append(f"{s}={st.median(v):g}({len(v)}/{len(I)})" if v else f"{s}=--")
             d = [cost(rows[(i, "SBB-Dual")], eps) - cost(rows[(i, "AGD-SDAJ-BH")], eps) for i in I
                  if None not in (cost(rows[(i, "SBB-Dual")], eps), cost(rows[(i, "AGD-SDAJ-BH")], eps))]
-            extra = f" | SBB cheaper {sum(x < 0 for x in d)}/{len(d)}, median diff {st.median(d):+g}" if d else ""
+            extra = (f" | SBB cheaper {sum(x < 0 for x in d)}/{len(d)}, median diff {st.median(d):+g}, "
+                     f"range [{min(d):+g}, {max(d):+g}]") if d else ""
             print(f"  {key!s:>6}  " + "  ".join(cells) + extra)
     print("\nexit reasons at the cap (evd_budget / max_iter):")
     for i in inst:

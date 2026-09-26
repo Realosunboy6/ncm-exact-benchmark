@@ -83,7 +83,7 @@ file & contents\\
 \texttt{code/analyze\_per\_instance.py} & \cref{tab:real}\\
 \texttt{code/analyze\_stopping\_rule.py} & the cross-dimension comparison of \cref{sec:stopping}\\
 \texttt{code/make\_figure\_data.py} & the data behind every figure\\
-\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py} & supplementary seed-level diagnostics for \cref{sec:highrank,sec:us2105}, in \texttt{results/analysis/highrank\_analysis.txt} and \texttt{us2105\_analysis.txt}; neither \cref{tab:highrank} nor \cref{tab:us2105pert} itself carries a bootstrap interval column, and the cluster-bootstrap intervals quoted in the surrounding prose (e.g. the $r=50$ crossover) come from \texttt{analyze\_ranking.py}, above\\
+\texttt{code/analyze\_highrank.py}, \texttt{analyze\_us2105.py} & supplementary seed-level diagnostics for \cref{sec:highrank,sec:us2105}, in \texttt{results/analysis/highrank\_analysis.txt} and \texttt{us2105\_analysis.txt}; neither \cref{tab:highrank} nor \cref{tab:us2105pert} itself carries a bootstrap interval column, and the cluster-bootstrap intervals quoted in the surrounding prose (e.g. the $r=50$ crossover) come from \texttt{analyze\_ranking.py}, above; the $r=400$ raw range quoted in \cref{sec:us2105} (four instances, not independent seed clusters, so no cluster bootstrap applies) is \texttt{analyze\_us2105.py}'s own \texttt{range} column\\
 \texttt{code/analyze\_confound.py} & the bulk-level pilot of \cref{sec:highrank}, from \texttt{results/ranking\_confound\_mu*.csv.gz}\\
 \texttt{code/check\_scoring\_column.py} & the rescaled-iterate sensitivity check (\cref{sec:acct-results})\\
 \texttt{code/analyze\_timing.py} & \cref{tab:primitive,tab:perevd,tab:native}\\
