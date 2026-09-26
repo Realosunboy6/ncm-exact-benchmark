@@ -3,22 +3,25 @@
 The generator, the solvers, the analysis scripts and every result file behind
 every table are available at
 \url{https://github.com/Realosunboy6/ncm-exact-benchmark}. Paths below are
-relative to the artifact root. An archived snapshot carrying a permanent
-identifier will be deposited on acceptance.
+relative to the artifact root. The full instance sets (\cref{tab:artifact})
+are archived separately, with a permanent identifier, at
+\url{https://doi.org/10.5281/zenodo.22967421} under CC-BY-4.0.
 
-Instance binaries are not stored in full, since they reach 1\,GB at $n=500$;
-the manifests record a hash and four numerical invariants of every instance
-in every set except the perturbed equity panel at $n=2105$ and the bulk-level
-pilot. The generator is seeded and reproduces those instances up to rounding:
-regenerated on the original machine, each $G$ differs from the original by at
-most $10^{-17}$ in relative Frobenius norm and each $\Xs$ is bit-identical,
-although the hashes, taken on exact bits, differ. The script
-\texttt{code/check\_instances.py} compares a regenerated set with the recorded
-invariants instead. On another LAPACK build the generator may receive a basis
-for the degenerate kernel of $\Xs$ in a rotated form, which yields different
-members of the same family; the check detects this, since a rotated basis
-moves the invariants by 15 to 20 per cent. A 12-instance subset of the
-original instances at $n=100$ (2\,MB) ships with the artifact.
+Instance binaries are not stored in the code repository, since they reach
+1\,GB at $n=500$; the manifests there record a hash and four numerical
+invariants of every instance in every set except the perturbed equity panel
+at $n=2105$ and the bulk-level pilot. The generator is seeded and reproduces
+those instances up to rounding: regenerated on the original machine, each $G$
+differs from the original by at most $10^{-17}$ in relative Frobenius norm and
+each $\Xs$ is bit-identical, although the hashes, taken on exact bits, differ.
+The script \texttt{code/check\_instances.py} compares a regenerated set with
+the recorded invariants instead. On another LAPACK build the generator may
+receive a basis for the degenerate kernel of $\Xs$ in a rotated form, which
+yields different members of the same family; the check detects this, since a
+rotated basis moves the invariants by 15 to 20 per cent. A 12-instance subset
+of the original instances at $n=100$ (2\,MB) ships with the code repository;
+the full sets (675 instances, $n=100$ and $n=500$, about 1.65\,GB) are on the
+Zenodo archive above.
 
 \begingroup
 \small
