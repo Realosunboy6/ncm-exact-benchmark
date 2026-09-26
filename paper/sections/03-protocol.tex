@@ -226,11 +226,11 @@ Both patterns are consistent with Anderson-APM's per-\EVD\ premium, found
 above, being large enough in a noisier session to outweigh its \EVD-count
 advantage against whichever solver is closest to it in \EVDs. This is a
 genuine further source of instability in the ranking, alongside the
-accuracy target and the instance regime --- not evidence that \EVD-counting
-is biased for any specific pair, since that bias was already bounded above
-and found too small to explain a reversal. What the ten sessions confirm is
-narrower: only the identity of the single cheapest method is independent of
-the choice of cost metric. Even within one session the metric can decide a
+accuracy target and the instance regime: it is the session-to-session
+timing noise found above, not a systematic \EVD-counting bias, that decides
+which side of a close per-\EVD\ gap a given session lands on. What the ten
+sessions confirm is narrower: only the identity of the single cheapest
+method is independent of the choice of cost metric. Even within one session the metric can decide a
 close pair: at $n=500$, Anderson-APM needs fewer \EVDs\ than AGD-SDAJ-BH on
 13 of 18 instances but less time on only 11.
 
