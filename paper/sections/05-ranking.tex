@@ -159,7 +159,7 @@ $10^{-8}$ and from 63.5 to 62.5 at $10^{-10}$; AGD-SDAJ from 50 to 48 (also
 reaching 266 instead of 264) and from 72 to 70 (257 instead of 253). The
 disagreement is on 53 to 62 of 270 instances at those two targets (one
 instance each at $10^{-6}$, not enough to move the median), 5 to 8 \EVDs\
-apart there in median, at most 1542. Both shifts leave AGD-SDAJ-BH and
+apart there in median. Both shifts leave AGD-SDAJ-BH and
 AGD-SDAJ well above SBB-Dual's 34 and 43.5, so \cref{tab:fwd}'s median
 ordering does not depend on requiring sustained accuracy rather than a first
 crossing, though the exact AGD medians do.
@@ -346,7 +346,9 @@ not; \cref{sec:highrank} shows that the two that fail return at higher rank.
 \emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 5 \EVDs.
 The stall of unmodified AGD-SDAJ recurs (31 of 270 runs exhaust the \EVD\
 budget, against none for AGD-SDAJ-BH, whose worst case is 240 \EVDs\ against
-4039).
+4039 for unmodified AGD-SDAJ; the budget is checked between outer iterations,
+not within a line search, so an exhausting run can overshoot the round
+4000-\EVD\ cap by up to one line search's trials before it halts).
 
 \emph{Not reproduced for $r\le50$.} The change of order between SBB-Dual and
 the AGD variants seen in \cref{tab:fwd} is absent: at $n=500$ AGD-SDAJ-BH is
@@ -681,8 +683,8 @@ $\sigma=0.1$ (fourth of the five, per \cref{tab:thesispert}); it is cheaper
 than AGD-SDAJ-BH on all five draws at $\sigma\in\{0.005,0.01\}$ and on none at
 $\sigma\in\{0.03,0.1\}$, so the degree of invalidity reorders it exactly as it
 reorders SBB-Dual. On the four literature matrices it
-is second on the Rocky Mountain matrix (6 \EVDs), but third on
-\texttt{cor1399} (103 against 66 for AGD-SDAJ-BH) and fourth on
+is second on the Rocky Mountain matrix (6 \EVDs), but fourth on both
+\texttt{cor1399} (103 against 66 for AGD-SDAJ-BH) and
 \texttt{cor3120} (155 against 41), the two matrices where every projection
 method is slow (\cref{tab:real}). A comparison drawn only from the exact
 families would therefore overstate its standing, consistent with the regime

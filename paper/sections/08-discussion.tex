@@ -108,7 +108,8 @@ crossover at another.
     machine with single-threaded BLAS. \Cref{sec:evd-unit} repeats the
     matched-tolerance measurement five times in all (the session reported in
     \cref{tab:perevd} and four further sessions): a given solver's per-\EVD\
-    cost varies by up to a factor of 4.9 across sessions, more than three
+    cost varies by at least a factor of 4.9 across sessions (a lower bound;
+    \cref{sec:evd-unit}), more than three
     times the $\le\!1.50\times$ spread between solvers within
     one session, so per-\EVD\ ratios that differ by less than about 50\%
     should not be read as ordered, and the specific rank of the middle four
