@@ -158,82 +158,47 @@ foremost among them); in these timing tables their cost to that exit counts
 as their cost, unlike the cost-to-target rule of \cref{sec:traj}, under which
 a run that never reaches a target is recorded as not reaching it.
 \Cref{tab:perevd} shows a factor-of-1.50 spread in per-\EVD\ cost across the
-seven variants, and the largest per-\EVD\ cost is Newton's: each Newton outer
-iteration includes a Krylov solve that no \EVD\ count records, so counting
-\EVDs\ understates Newton's cost and flatters it. Two examples bound how much
-this matters here. First, Newton-SIN-BH is cheaper than SBB-Dual by a factor
-of 9.3 in \EVDs\ (5 against 46.5) but only by a factor of 5.4 in wall-clock
-time (0.009\,s against 0.050\,s): the \EVD\ count overstates Newton-SIN-BH's
-advantage, but does not reverse it. Second, Anderson-APM spends about 16\% of
-its time outside the eigendecomposition (its least-squares update alone about
-13\% at $n=100$ and 15\% at $n=500$), against about 1\% for SBB-Dual, so its
-\EVDs\ cost 1.17 times SBB-Dual's. The bias runs the same way as Newton's:
-Anderson-APM needs 1.37 times fewer \EVDs\ than SBB-Dual but only about 1.05
-times less time, so the \EVD\ count again overstates the advantage of the
-method with fewer \EVDs\ without reversing it. In this single session, then,
+seven variants. Two solvers carry work the \EVD\ count does not see, and in
+both cases counting \EVDs\ overstates that solver's advantage without
+reversing it: Newton-SIN-BH is cheaper than SBB-Dual by 9.3 in \EVDs\
+(5 against 46.5) but only 5.4 in wall-clock time (0.009\,s against
+0.050\,s), because each Newton outer iteration hides an uncounted Krylov
+solve; and Anderson-APM, whose least-squares update costs about 13--15\% of
+its time against about 1\% for SBB-Dual, is 1.37 times fewer \EVDs\ than
+SBB-Dual but only about 1.05 times less time. In this single session, then,
 the known bias in \EVD-counting is smaller than the gaps it is used to
-compare. We report both metrics throughout; whether this single-session
-picture survives repeated measurement is the question the next two
-paragraphs answer.
+compare. We report both metrics throughout, but for the reason given next we
+treat \EVDs\ as primary and wall-clock time as a secondary check rather than
+the reverse.
 
 \paragraph{Session-to-session variation.}
 \Cref{tab:perevd} is a single measured session. Repeating the
-matched-tolerance timing measurement four further times, on the same
-instances and the same code, shows that a given solver's median
-microseconds/\EVD\ varies far more across sessions than the solvers differ
-from each other within one session: by a factor of between 3.8 and 4.9,
-depending on the solver, at $n=100$, and between 4.5 and 4.9 at $n=500$,
-across these five sessions (\texttt{results/analysis/timing\_repeats.md};
-five sessions need not have sampled the extremes, so the true spread may be
-larger), against the $\le\!1.50\times$ spread between solvers found above. Two features of the
-ranking nonetheless survive this noise. The cheapest end is consistent: the
-cheapest solver per \EVD\ is always SBB-Dual or an AGD variant, at both
-dimensions. The dearest-per-\EVD\ end is consistent too, though not
-unanimous: Newton-SIN-BH holds it at $n=100$ in four of the five sessions
-(Anderson-APM in the fifth) and at $n=500$ in four of five (Dykstra-APM in
-the fifth, by about 1.6\% over Anderson-APM). It is the middle of the
-ranking that reorders between sessions, which is why the specific ratios in
-\cref{tab:perevd} --- 1.04, 1.05, 1.13, 1.17, 1.18 --- should be read as one
-session's draw rather than as stable constants, and not as an ordering among
-the solvers they describe. This session-to-session noise does not touch the
-9.3-in-\EVDs\ comparison above, since that comparison involves no timing
-measurement at all. It affects the 5.4-in-time comparison only mildly: a
-slowdown that hits every solver cancels in a ratio, and across the five
-sessions at $n=100$ the per-\EVD\ ratio of Newton-SIN-BH to SBB-Dual ranged
-from 1.36 to 1.50, so that figure should be read to about ten per cent.
-
-\paragraph{The cost metric agrees in half the sessions, and always picks the same winner.}
-At matched tolerance, ranking the seven timed variants by median \EVDs\ and by
-median wall-clock time gives the same order in this session:
-\[
-\begin{aligned}
-  &\text{Newton-SIN-BH} < \text{Newton-SIN} < \text{Anderson-APM} < \text{SBB-Dual}\\
-  &\qquad < \text{AGD-SDAJ-BH} < \text{AGD-SDAJ} < \text{Dykstra-APM}.
-\end{aligned}
-\]
-Repeating the comparison across the four further sessions above, the two
-rankings agree exactly in 2 of the 5 sessions at $n=100$ and 3 of 5 at
-$n=500$ (\texttt{results/analysis/timing\_repeats.md}), 5 of 10 in all;
-since \EVD\ counts are identical across sessions by construction, every
-disagreement comes from the wall-clock side. Two things are nonetheless
-robust across all ten sessions (five at each dimension). First,
-Newton-SIN-BH is cheapest overall under either cost metric, every time.
-Second, the trailing position is usually but not always robust: Dykstra-APM
-is dearest overall in 8 of the 10 sessions --- all five at $n=500$, but only
-three of five at $n=100$, where in two sessions AGD-SDAJ overtakes it as the
-most expensive by wall-clock time despite needing about a fifth fewer \EVDs\
-(81.5 against 102.5). So only the leading position is unconditionally
-stable; the trailing one is merely usual, and the middle reorders. Where the
-ranking does move, it is not scattered: apart from that trailing swap, the
-solver overtaken is always Anderson-APM, by SBB-Dual at $n=100$ in every session where the two metrics
-disagree, and at $n=500$ by AGD-SDAJ-BH (and, in one session, AGD-SDAJ).
-Anderson-APM's per-\EVD\ premium alone does not predict which sessions flip,
-so this is a further source of instability in the ranking, alongside the
-accuracy target and the instance regime. What the ten sessions do establish
-is that the identity of the single cheapest method does not depend on the
-choice of cost metric. Even within one session the metric can decide a close
-pair: at $n=500$, Anderson-APM needs fewer \EVDs\ than AGD-SDAJ-BH on 13 of 18
-instances but less time on only 11.
+matched-tolerance timing measurement four further times shows a given
+solver's median microseconds/\EVD\ varies far more across sessions (a
+factor of 3.8 to 4.9, depending on the solver and dimension;
+\texttt{results/analysis/timing\_repeats.md}) than the $\le\!1.50\times$
+spread between solvers within one session --- a swing large enough, and
+uniform enough across solvers within a session, that we read it as a
+platform effect (\cref{sec:discussion}) rather than a property of the
+methods. Two features nonetheless survive it: the cheapest solver per \EVD\
+is always SBB-Dual or an AGD variant, at both dimensions, and the dearest per
+\EVD\ is Newton-SIN-BH in 8 of the 10 sessions (Anderson-APM and Dykstra-APM
+each take it once). It is the middle of the ranking that reorders, so the
+specific ratios in \cref{tab:perevd} should be read as one session's draw,
+not stable constants; the 5.4-in-time figure above is likewise approximate
+to about ten per cent (1.36 to 1.50 across sessions), while the
+9.3-in-\EVDs\ figure, involving no timing measurement, is unaffected.
+Ranking the seven variants by median \EVDs\ and by median wall-clock time
+agrees in only 5 of these 10 sessions, always on identical \EVD\ counts, so
+every disagreement is wall-clock noise. By this second, wall-clock notion of
+``dearest,'' Newton-SIN-BH is still cheapest overall in every session, but
+the dearest \emph{overall} solver is Dykstra-APM in 8 of the 10 (a different
+8 of 10 from the per-\EVD\ count above: all five at $n=500$, three of five
+at $n=100$, where AGD-SDAJ overtakes it twice despite needing about a fifth
+fewer \EVDs). So only the identity of the single cheapest method is
+independent of the choice of cost metric; even within one session the
+metric can decide a close pair (at $n=500$, Anderson-APM needs fewer \EVDs\
+than AGD-SDAJ-BH on 13 of 18 instances but less time on only 11).
 
 \subsection{Summary of the protocol}
 \begin{enumerate}
