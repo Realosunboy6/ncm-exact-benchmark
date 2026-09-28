@@ -115,7 +115,15 @@ crossover at another.
     treated as a fixed property of the methods (\cref{sec:evd-unit}). Only
     the leading position (Newton-SIN-BH cheapest overall) is robust across
     every session; Dykstra-APM is dearest overall in 8 of the 10 sessions
-    across both dimensions, but not all.
+    across both dimensions, but not all. A swing of this size, uniform across
+    every solver in a session (\cref{sec:evd-unit}), is consistent with a
+    platform-level cause such as thermal throttling or a power-state change on
+    a laptop-class part rather than with anything solver-specific; we did not
+    pin the CPU power plan or record clock frequency during these sessions,
+    so we cannot rule this out. This is itself an argument against reading
+    wall-clock time alone as a stable property of a method on this kind of
+    hardware, which is why we report \EVD\ counts as the primary unit of cost
+    throughout and wall-clock time only as a secondary check.
   \item \emph{Parameters.} Each method in the main study ran at one parameter
     setting: the published values for Newton-SIN-BH, AGD-SDAJ, Dykstra-APM and
     Anderson-APM (history length $m=2$), and the specification of

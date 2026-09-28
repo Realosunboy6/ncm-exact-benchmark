@@ -92,8 +92,10 @@ Each contribution builds on established practice (\cref{sec:related}).
     method (see below): Dykstra-APM (alternating projections with Dykstra's
     correction~\cite{higham2002nearest}) and AGD-SDAJ-BH (our line-search
     adaptation of the accelerated method of Huynh and
-    Hwang~\cite{huynh2025accelerated}) exchange places between $r=20$ and $r=50$ at
-    $n=100$, and the exchange has not occurred by $r=150$ at $n=500$. At
+    Hwang~\cite{huynh2025accelerated}) exchange places in median between
+    $r=20$ and $r=50$ at $n=100$ (five paired seeds per rank; a per-rank sign
+    test alone gives $p=0.0625$, \cref{sec:cells}), and the exchange has not
+    occurred by $r=150$ at $n=500$. At
     $n=2105$ the order of Anderson-APM and AGD-SDAJ-BH is not monotone in
     rank: Anderson-APM is cheaper at $r=50$ and $r=400$, AGD-SDAJ-BH at $r=100$
     and $r=200$. The same rank pattern appears between SBB-Dual and
