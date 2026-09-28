@@ -17,8 +17,8 @@ decides which method to use.
 
 This paper is about how such comparisons are made. Its scope is narrow: to
 determine which methodological choices, when NCM solvers are compared, change
-the conclusion and which only change the numbers. Four candidate confounds are
-examined:
+the conclusion and which only change the numbers. Four sources of ambiguity
+are controlled or examined:
 \begin{enumerate}
   \item \emph{Native stopping rules.} Each method stops when its own criterion
     is met, so the solvers stop at different accuracies.
@@ -31,15 +31,21 @@ examined:
     operations in different methods, and some per-iteration work is not
     recorded at all.
 \end{enumerate}
-A careful benchmark must control each of these. Without an exact solution,
-however, the second confound cannot be removed, and without trajectories the
-first and third cannot be separated.
+The first, third and fourth are varied directly, against a common exact
+reference, so their effect on a comparison can be measured. The second is not
+varied; it is removed, by using an exact solution in place of another
+solver's approximate one, rather than measured by comparing rankings under
+an exact and an approximate reference. A careful benchmark must control each
+of these. Without an exact solution, the second cannot be removed at all,
+and without trajectories the first and third cannot be separated.
 
 \paragraph{Contributions.}
 In brief, we give an exact-solution NCM family and a matched-accuracy
 protocol, and use them to show that conclusions drawn from NCM solver
-comparisons do not transfer across benchmark regimes. The rank at which an
-ordering established at $n=100$ reverses moves higher at $n=500$; the order
+comparisons do not transfer across benchmark regimes. For SBB-Dual against
+AGD-SDAJ-BH, the rank at which an ordering established at $n=100$ reverses
+moves higher at $n=500$; for Dykstra-APM against AGD-SDAJ-BH, the reversal
+seen at $n=100$ has not occurred by $r=150$ at $n=500$. The order
 also changes with the degree of invalidity on matrices built from equity
 returns, and of four matrices from the literature, the three that
 discriminate between the first-order methods are consistent with this
