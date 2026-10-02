@@ -117,7 +117,8 @@ method is timed in an implementation that does not add work of its own. The
 projection methods rebuild the projection from the positive eigenpairs, as the
 dual methods do, rather than from all $n$, which removes an $O(n^3)$ product
 per \EVD\ and gives bit-identical iterates on all 1104 projection-method runs
-checked; and
+checked (270 $n=100$ instances and 6 $n=500$ instances, $\times$ 2 methods
+$\times$ 2 tolerances; \texttt{code/validation/check\_projection\_rebuild.jl}); and
 Anderson-APM is timed in a form that updates its buffers in place, with
 iterates bit-identical to the transcription verified in \cref{app:anderson}.
 Timed as transcribed, it would have cost $2.3$ to $3.8$ times more per \EVD.
