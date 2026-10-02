@@ -2,8 +2,8 @@
 
 \paragraph{What changed the conclusions, and what did not.}
 On this family, none of the conventions we tested changed which method was
-cheapest. The accuracy target, the instance regime and the problem dimension
-did change the order below it. For SBB-Dual against AGD-SDAJ-BH, the changes
+cheapest. The accuracy target, the instance regime and the rank of the solution
+relative to the dimension did change the order below it. For SBB-Dual against AGD-SDAJ-BH, the changes
 of lower-place ordering with the
 accuracy target and with rank that we found at $n=100$ recur at $n=500$ only
 above $r=50$ (\cref{sec:n500,sec:highrank}); the pair that does not involve
@@ -189,8 +189,8 @@ against AGD-SDAJ-BH, the same rank-dependent reversal seen at $n=100$ has
 not recurred by $r=150$ at $n=500$. Rankings
 below the leading method are therefore not invariant across the benchmark
 regimes tested; they depend materially on the benchmark
-regime, including its
-dimension, the rank of the solution and the size of the violation, and, for
+regime, including the
+rank of the solution relative to the dimension and the size of the violation, and, for
 the specific rank at which a reversal occurs, on which pair of methods is
 compared. The one clear failure we found is a known finite-precision
 line-search defect, which appears in two separately published methods, on
