@@ -261,10 +261,13 @@ end
 function sbb_dual(G::Matrix{Float64}; eps::Float64=EPS_CLAMP,
                   tol::Union{Nothing,Float64}=nothing, maxit::Int=5000,
                   rescale::Bool=true, to::TimerOutput=TimerOutput(),
-                  traj=nothing)
+                  traj=nothing, hi_clamp::Bool=true)
     n = size(G, 1)
     τ = tol === nothing ? 1e-7 * n : tol      # dimension-scaled exit rule
-    t_lo, t_hi = eps, 2.0 - eps
+    # Experiment 2026-10-02 (r/n gate): hi_clamp=false removes the upper BB
+    # clamp t_hi = 2-eps to test whether SBB-Dual's behavior is the clamp's
+    # doing. The lower clamp and the den>0 fallback are unchanged.
+    t_lo, t_hi = eps, hi_clamp ? 2.0 - eps : Inf
     y = zeros(n)
     θ, g, X = theta_grad(G, y, to; traj=traj)
     gn = norm(g)
@@ -1256,6 +1259,7 @@ function run_ranking_study(instances, outpath;
                            agd_tol=1e-11, apm_maxit=2000, sbb_maxit=20000,
                            max_evds=4000, ref_sbb_maxit=60000,
                            solvers::Union{Nothing,Vector{String}}=nothing,
+                           sbb_hi_clamp::Bool=true,
                            xstars=Dict{String,Matrix{Float64}}())
     open(outpath, "w") do io
         println(io, "instance,n,solver,evds,err_raw_fro,err_bh_fro,grad_2,grad_inf,accepted,event,outer_iteration,trial,solver_exit,backtracks,cg_iters_total,negative_curvature_count,lambda_min_X,diag_err_inf")
@@ -1273,7 +1277,9 @@ function run_ranking_study(instances, outpath;
                         ref.cert2, ref.certinf, ref.exit, ref.evds, tref)
                 flush(stdout)
             end
-            runs = (("SBB-Dual",      (t) -> sbb_dual(G; tol=sbb_tol, maxit=sbb_maxit, traj=t)),
+            runs = ((sbb_hi_clamp ? "SBB-Dual" : "SBB-Dual-unclamped",
+                     (t) -> sbb_dual(G; tol=sbb_tol, maxit=sbb_maxit, traj=t,
+                                     hi_clamp=sbb_hi_clamp)),
                     ("Newton-SIN-BH", (t) -> newton_ncm_globalized(G; tol=newton_tol, traj=t,
                                                 globalization=:armijo_bh, max_evds=max_evds)),
                     ("AGD-SDAJ",      (t) -> agd_sdaj_ncm(G; tol=agd_tol, traj=t, max_evds=max_evds,
@@ -1376,6 +1382,7 @@ function main()
                           apm_maxit=parse(Int, get(args, "apm-maxit", "2000")),
                           max_evds=parse(Int, get(args, "max-evds", "4000")),
                           ref_sbb_maxit=parse(Int, get(args, "ref-sbb-maxit", "60000")),
+                          sbb_hi_clamp=!haskey(args, "sbb-no-hi-clamp"),
                           solvers=haskey(args, "solvers") ?
                                   String.(strip.(split(args["solvers"], ","))) : nothing)
         return

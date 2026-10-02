@@ -42,6 +42,10 @@ gradient method on~\eqref{eq:dual}. It uses the BB1 step, clamped to
 $[\eta,2-\eta]$ with $\eta=0.01$, has no line search, performs one \EVD\ per
 update, and finishes with a diagonal-rescaling step
 $\hat X=D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$, as in~\cite{borsdorf2010preconditioned}.
+The clamp is conservative: removing it (pure BB1) on the same 270 instances
+reaches every target on all 270 and is cheaper at low rank --- $145$ vs $20$
+\EVDs\ at $r=5$ and $34.5$ vs $15$ at $r=20$ ($\varepsilon=10^{-8}$) --- and
+identical at $r=50$ ($11$ vs $11$), where it never binds.
 
 \paragraph{Dykstra-APM} (\cref{alg:apm}) is Higham's alternating projections
 with Dykstra's correction~\cite{higham2002nearest}. Each iteration uses one \EVD. The
@@ -351,6 +355,9 @@ Dykstra-APM$^{\ddagger}$ & 87 [86.5, 88] & 195 [194.5, 195.5] & 191 [191, 192] \
 
 On this grid ($r\le50$), two of the $n=100$ conclusions survive and two do
 not; \cref{sec:highrank} shows that the two that fail return at higher rank.
+The grid holds the rank fixed while the dimension changes, so a direct
+$n=100$--$n=500$ comparison confounds the two: at $r=20$, $r/n$ is $0.20$ at
+$n=100$ but $0.04$ at $n=500$.
 
 \emph{Confirmed.} Newton-SIN-BH is again cheapest at every target, at 3 to 5
 \EVDs.
@@ -389,11 +396,14 @@ censored: 90 of 270 runs stop at the 800-iteration cap, and from $10^{-6}$
 down its medians cover only 180 instances. Its position at $n=500$ should be
 read as censored rather than measured.
 
-The scaling is the cleaner way to state the difference. Between $n=100$ and
-$n=500$ the median cost to $10^{-8}$ rises by a factor of 6.1 for SBB-Dual
-(34 to 207.5 \EVDs) and by 1.8 for AGD-SDAJ-BH (45 to 79), while Newton-SIN-BH
-is unchanged at 5. The order below first place therefore reflects the test set,
-including its dimension, rather than a fixed property of the methods.
+The scaling is the cleaner way to state the difference, once stated in $r/n$
+rather than $r$. At matched $r/n=0.20$ ($r=20$ at $n=100$, $r=100$ at $n=500$)
+the median-cost ordering at $10^{-8}$ is identical: Newton-SIN-BH $<$
+Anderson-APM $<$ SBB-Dual $<$ AGD-SDAJ-BH $<$ Dykstra-APM. The pooled medians
+rise with dimension (SBB-Dual 34 to 207.5 \EVDs, AGD-SDAJ-BH 45 to 79,
+Newton-SIN-BH unchanged at 5), but the order below first place reflects the
+test set's rank-to-dimension ratio rather than a fixed property of the
+methods.
 
 \subsection{Higher ranks at $n=500$}\label{sec:highrank}
 The grid of \cref{sec:family} stops at $r=50$. To locate the crossover we
@@ -443,7 +453,7 @@ $10^{-10}$.
 A pilot of 24 instances at $r\in\{100,150\}$, each repeated with
 $\mu_{\mathrm{bulk}}=0.01$ on the same $\Xs$ (48 runs in all) and hence a tenfold smaller
 violation, gave the same result: at $10^{-8}$ the median paired difference was
-$-12.5$ against $-14$ \EVDs\ at $r=100$ and $-19.5$ against $-18$ at $r=150$.
+$-14$ against $-12.5$ \EVDs\ at $r=100$ and $-18$ against $-19.5$ at $r=150$.
 The two medians are close (within 1.5 \EVDs\ of each other at both ranks),
 and 48 instances at two ranks is not powered to detect a small residual
 effect of $\mu_{\mathrm{bulk}}$; the pilot rules out a large one and is
@@ -867,12 +877,11 @@ AGD stall recorded here is a work-budget exhaustion, not a backtracking
 failure. Third, the reported costs score a run at the first accepted iterate
 from which the target holds to the end of the run (Sec.~3.2); a weaker
 first-dip rule would credit the first accepted iterate below the target even
-if the run later leaves it. Rescoring all ten (dataset, target) pairs of the
-$n=100$ and $n=500$ KKT families under the first-dip rule leaves every
-ordering unchanged. Medians shift by at most 2.5 \EVDs\ (AGD-SDAJ-BH: 45 to 43
-and 63.5 to 62.5 at $n=100$, $\varepsilon=10^{-8},10^{-10}$; 79 to 76.5 and
-101.5 to 101 at $n=500$), and a few AGD-SDAJ runs that dip below target
-without settling count as reached under the weaker rule. The check is
+if the run later leaves it. The sensitivity to this choice at $n=100$ is
+reported with \cref{tab:fwd}; repeating the rescoring on the five targets of
+the $n=500$ KKT family leaves every ordering unchanged there as well, with
+medians shifting by at most 2.5 \EVDs\ (AGD-SDAJ-BH: 79 to 76.5 and 101.5 to
+101 at $\varepsilon=10^{-8},10^{-10}$). The check is
 implemented in \texttt{code/first\_dip\_check.py}. Reach-and-hold is kept as
 the reported convention because a method that leaves a target after dipping
 below it has not reached it in any sense a user could rely on.
