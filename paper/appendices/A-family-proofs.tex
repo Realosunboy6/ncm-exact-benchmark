@@ -93,8 +93,8 @@ released family ($r\in\{5,20,50\}$, $n=100$) is in the fixed-rank regime of
 \subsection{Mixed $\mu$}
 Write $k=n-r$ for the kernel dimension and $e_j$ for the all-ones vector of
 length $j$ (unrelated to the all-ones vector $e$ used elsewhere for the
-unit-diagonal constraint). In $\mu=c\,e$ the $e$ is likewise all-ones of
-length $k$, not $n$; the length is always clear from context. For the released
+unit-diagonal constraint). The $e$ in $\mu=c\,e$ is also length-specific:
+all-ones of length $k$, not $n$; the length is always clear from context. For the released
 $\mu=(\mu_{\mathrm{bulk}}e_{k-m},\ \delta e_m)$, write
 $Q_0=[Q_b\ Q_\delta]$. Then
 $W=\mu_{\mathrm{bulk}}Q_bQ_b^{\mathsf T}+\delta Q_\delta Q_\delta^{\mathsf T}
@@ -103,7 +103,8 @@ The off-diagonal entries therefore pick up an extra term
 $(\mu_{\mathrm{bulk}}-\delta)(Q_\delta Q_\delta^{\mathsf T})_{ij}$, whose size
 depends on the choice of basis for $\ker\Xs$ used to select $Q_\delta$. A
 bound analogous to \cref{prop:det} follows with $b$ replaced by
-$b+\max_{i\ne j}|(Q_\delta Q_\delta^{\mathsf T})_{ij}|$.
+$b+\max_{i\ne j}|(Q_\delta Q_\delta^{\mathsf T})_{ij}|$ (for
+$0\le\delta\le\mu_{\mathrm{bulk}}$, as in the released family).
 
 \begin{remark}[Open]
 We do not characterize $\max_{i\ne j}|(Q_\delta Q_\delta^{\mathsf T})_{ij}|$.

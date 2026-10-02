@@ -27,13 +27,13 @@ rule~\cite{li2000derivative} on the residual:
   \qquad \epsilon_k=\frac{1}{(k+1)^2},
 \end{equation}
 where, as implemented, $k$ is the index of the inner step within its outer
-iteration ($\epsilon_i$ in Algorithm~\ref{alg:agd}), so that
+iteration ($\epsilon_i$ in \cref{alg:agd}), so that
 $\epsilon_k\in\{1,\tfrac14\}$ for $q=2$. This indexing is our reading of the
 text, not stated explicitly there; with it, the published counts of
 \cref{tab:agd-full} are reproduced exactly on P8 and P9. The test uses
 $\lambda_1=\lambda_2=0.01$, and $\alpha=\rho^{\,j}$ is backtracked from 1 over
 $j=0,1,2,\dots$ (we write $j$ for the backtracking exponent, since $m$ is the
-near-zero multiplicity of Definition~\ref{def:family}). The
+near-zero multiplicity of \cref{def:family}). The
 merit function is $\tfrac12\nrm{\nabla\theta}^2$. The quasi-Newton direction
 $d=-B^{-1}\nabla\theta$ need not be a descent direction for it, which is why a
 nonmonotone rule is needed. The paper also confirms that $B_k$ is reset to the
@@ -112,9 +112,9 @@ iterations on P7 remained once the line search was correct.
 The cumulative effect on P7 was 46 \EVDs\ $\to$ 40 (defects 1--2) $\to$ 43
 (exact equation~(6)) $\to$ 32 (correct acceleration factor), against a
 published 31. (\cref{tab:agd-full} shows only the GLL-guess, LF-guess, and
-final columns; the 46-\EVD\ starting point and the 43-\EVD\ intermediate,
-with the exact eq.~(6) but the uncorrected acceleration factor, are not
-tabled.)
+final columns; the 46-\EVD\ starting point with all three defects, and the
+43-\EVD\ intermediate with the exact eq.~(6) but the uncorrected acceleration
+factor, are not tabled.)
 
 \paragraph{The remaining P7 residual.}
 See \cref{sec:repro}. P7 matches in outer iterations (4) and residual norm

@@ -10,7 +10,8 @@ are compared. The comparison then credits a method for stopping early as much
 as for converging quickly. This happens even when all methods share one
 nominal rule. Under the dimension-scaled rule $\nrm{\nabla\theta}_2\le10^{-7}n$
 used by~\cite{huynh2025accelerated}, which at $n=100$ is $10^{-5}$, the six
-solvers of \cref{sec:ranking} and the Newton-SIN control stop at median
+solver variants of \cref{sec:ranking} plus the Newton-SIN control (seven
+variants in all) stop at median
 forward errors between
 $5.04\times10^{-8}$ and $1.93\times10^{-5}$, a factor of 383
 (\cref{sec:stopping}, \cref{fig:native}). A cost comparison taken at these
@@ -111,7 +112,7 @@ trajectory runs are a separate, untimed pass.
 All seven variants were timed back to back in a single session, because
 timings from different sessions are not comparable: an earlier session on the
 same machine, with identical \EVD\ counts on every run, measured the dual
-methods, whose code had not changed, between 3.7 and 4.0 times slower per
+methods, whose code had not changed, between 3.7 and 4.2 times slower per
 \EVD\ at $n=100$. Each
 method is timed in an implementation that does not add work of its own. The
 projection methods rebuild the projection from the positive eigenpairs, as the
@@ -169,7 +170,7 @@ reversing it: Newton-SIN-BH is cheaper than SBB-Dual by 9.3 in \EVDs\
 (5 against 46.5) but only 5.4 in wall-clock time (0.009\,s against
 0.050\,s), because each Newton outer iteration hides an uncounted Krylov
 solve; and Anderson-APM, whose least-squares update costs about 13--15\% of
-its time against about 1\% for SBB-Dual, uses about 27\% fewer \EVDs\ than
+its time against about 1\% of non-\EVD\ overhead for SBB-Dual, uses about 27\% fewer \EVDs\ than
 SBB-Dual but only about 5\% less wall-clock time. In this single session, then,
 the known bias in \EVD-counting is smaller than the gaps it is used to
 compare. We report both metrics throughout, but for the reason given next we

@@ -45,7 +45,8 @@ $\hat X=D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$, as in~\cite{borsdorf2010precondi
 The clamp is conservative: removing the upper clamp on the same 270 instances
 reaches every target on all 270 and is cheaper at low rank --- $145$ vs $20$
 \EVDs\ at $r=5$ and $34.5$ vs $15$ at $r=20$ ($\varepsilon=10^{-8}$) --- and
-identical at $r=50$ ($11$ vs $11$), where it never binds.
+identical at $r=50$ ($11$ vs $11$), with the clamped run slower on 7 of 90
+instances there.
 
 \paragraph{Dykstra-APM} (\cref{alg:apm}) is Higham's alternating projections
 with Dykstra's correction~\cite{higham2002nearest}. Each iteration uses one \EVD. The
@@ -631,8 +632,8 @@ Newton-SIN-BH takes 5 \EVDs\ on every one of these 16 instances, and its
 median at the $10^{-8}$ target is 4 or 5 at $n=100$ and $n=500$ too
 (individual instances there range from 4 to 11): its median \EVD\ count is
 flat in $n$ over a twenty-fold range, while the first-order methods grow
-with $n$ at very different rates, from about 2.4-fold for AGD-SDAJ-BH to
-about 10-fold for SBB-Dual; wall-clock time is not flat for either, since
+with $n$ at very different rates, with SBB-Dual's growth far outpacing
+AGD-SDAJ-BH's; wall-clock time is not flat for either, since
 each \EVD\ itself costs more at larger $n$ (\cref{sec:evd-unit}). The gap between
 SBB-Dual and
 AGD-SDAJ-BH again narrows with rank, from $+490.5$ \EVDs\ at $r=50$ to $-0.5$ at
@@ -812,7 +813,7 @@ $n=3120$ six times (255 against 41), which is the pattern of \cref{sec:n500}.
 Newton-SIN-BH is cheapest on all four, as everywhere else in this paper. The
 change of order is therefore visible on matrices with uncontrolled spectra that
 we did not construct. With four matrices that differ in more than dimension,
-this is consistent with the dimension effect of \cref{sec:n500}, not an
+this is consistent with the rank-to-dimension pattern of \cref{sec:n500}, not an
 independent demonstration of it.
 
 \paragraph{The line-search stall occurs on real data.}
