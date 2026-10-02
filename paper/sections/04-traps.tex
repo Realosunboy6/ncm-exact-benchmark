@@ -105,7 +105,11 @@ far below the rounding error in $\theta$, which is about $u|\theta|\approx
 3\times10^{-14}$ because $\theta(\ys)\approx3\times10^{2}$ on this instance.
 We adapted the Borsdorf--Higham near-equality test to
 Algorithm~1's step: when the objective difference cannot be resolved, a trial
-is accepted if it reduces $\nrm{\nabla\theta}$. With this change, all 18
+is accepted if it reduces $\nrm{\nabla\theta}$. The test is weaker than the
+Newton safeguard's $(1-\mubh)$ reduction by design: that reduction is calibrated
+to Newton steps, while near the precision floor a gradient step only inches the
+gradient down, so the stronger test never fires. With
+this change, all 18
 stalls disappear (\cref{tab:agd-stall}). Across the family, the number of
 instances reaching the tolerance rises from 252/270 to 270/270, and the
 worst-case cost falls from 4035 \EVDs\ to 131.

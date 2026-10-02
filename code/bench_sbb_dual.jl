@@ -870,6 +870,13 @@ function agd_sdaj_ncm(G::Matrix{Float64}; tol::Union{Nothing,Float64}=nothing,
             if !ok && globalization == :armijo_bh
                 near_equal = abs(tht - thk) <
                     bh_gamma * unit_roundoff * (1.0 + abs(tht) + abs(thk))
+                # When the objective difference is unresolvable, decide on the
+                # gradient: accept any strict decrease. A (1-mu) reduction test
+                # as in Newton's safeguard never fires here -- near the
+                # precision floor a first-order step only creeps the gradient
+                # down, so the Newton-calibrated 10% test is dead code (it gave
+                # trajectories identical to the naive method on all 270
+                # instances). Accepting any decrease is the working analogue.
                 if near_equal && norm(gt) < norm(gk)
                     ok = true
                 end

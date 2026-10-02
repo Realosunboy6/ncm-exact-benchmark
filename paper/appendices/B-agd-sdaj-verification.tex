@@ -185,5 +185,8 @@ exhausted, against 210 for AGD-SDAJ-BH), and on \texttt{tyda99r2} and
 AGD-SDAJ-BH changes only the monotone Armijo test of Algorithm~1, line~5
 (\cref{alg:agd}). When
 $|\theta_t-\theta|<\gamma u(1+|\theta_t|+|\theta|)$ with $\gamma=100$ and
-$u=2^{-53}$, a trial that reduces $\nrm{\nabla\theta}$ is accepted. The
+$u=2^{-53}$, a trial that reduces $\nrm{\nabla\theta}$ is accepted (weaker than
+the Newton safeguard's $(1-\mubh)$ reduction by design: near the precision floor
+a gradient step only inches the gradient down, so the stronger test never
+fires). The
 nonmonotone rule~\eqref{eq:hh6} is unchanged. This adaptation is ours.
