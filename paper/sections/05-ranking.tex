@@ -844,7 +844,7 @@ changes an ordering. For methods with many rejected trials it need not be,
 and accepted-only accounting is the rule that cannot credit a point the method
 itself rejected.
 
-Two further accounting choices deserve a check, because each could favour a
+Three accounting choices deserve a check, because each could favour a
 particular method. First, cost is scored on the raw projection
 $\Proj(G+\Diag(y))$, while SBB-Dual applies a Borsdorf--Higham rescaling before
 returning its iterate (\cref{sec:solvers}), so it is scored on a quantity it
@@ -864,7 +864,18 @@ their last trial if a backtracking limit of 60 is reached, and the method then
 moves to a point the trajectory records as rejected. This never occurs in the
 reported runs: no line search in any study exceeded 60 trials, and every
 AGD stall recorded here is a work-budget exhaustion, not a backtracking
-failure.
+failure. Third, the reported costs score a run at the first accepted iterate
+from which the target holds to the end of the run (Sec.~3.2); a weaker
+first-dip rule would credit the first accepted iterate below the target even
+if the run later leaves it. Rescoring all ten (dataset, target) pairs of the
+$n=100$ and $n=500$ KKT families under the first-dip rule leaves every
+ordering unchanged. Medians shift by at most 2.5 \EVDs\ (AGD-SDAJ-BH: 45 to 43
+and 63.5 to 62.5 at $n=100$, $\varepsilon=10^{-8},10^{-10}$; 79 to 76.5 and
+101.5 to 101 at $n=500$), and a few AGD-SDAJ runs that dip below target
+without settling count as reached under the weaker rule. The check is
+implemented in \texttt{code/first\_dip\_check.py}. Reach-and-hold is kept as
+the reported convention because a method that leaves a target after dipping
+below it has not reached it in any sense a user could rely on.
 
 The iteration caps are not uniform across methods, and no comparison in this
 paper relies on a capped run. At $n=500$ the caps are 1200 iterations for
