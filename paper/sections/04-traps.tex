@@ -15,11 +15,13 @@ implementation that recomputes it pays one extra \EVD\ per outer iteration and
 gains nothing. On the literature matrix \texttt{cor1399} (\cref{sec:real}),
 where both variants take the same six Newton steps, recomputing the
 decomposition raises Newton's cost from 7 to 13 \EVDs, an increase of about
-86\% (a factor of $1.86$), with an identical final error
+86\%, with an identical final error
 (\texttt{results/timing\_session1/timing\_real\_matched.csv}). Newton-SIN-BH caches the decomposition throughout
 this paper; Newton-SIN, the naive-Armijo control of \cref{sec:trap2}, does
 not, so its \EVD\ counts already include this redundant factorization on top
-of the naive test's own cost. The same class of defect turned up in our first
+of the naive test's own cost. (The 56-stall finding of \cref{sec:trap2} is
+about convergence, not \EVD\ counts, so this confounding does not affect it.)
+The same class of defect turned up in our first
 reimplementation of AGD-SDAJ (\cref{app:agd}, defect~1). It was found in the
 same way, by
 counting primitives one at a time against a published count.
@@ -38,7 +40,9 @@ achieved decrease is itself buried in that same rounding error, near
 $\theta_k$. Near the solution
 $|\nabla\theta^{\mathsf T}d|\gtrsim\nrm{\nabla\theta}^2$ (equality for a
 gradient-type step; for Newton's step it can be considerably larger), so
-this second, more severe threshold falls at a gradient norm of roughly
+this second, more severe threshold --- which concerns whether the
+\emph{achieved} decrease is resolvable at all, rather than the
+$c\cdot\alpha$ sufficient-decrease margin --- falls at a gradient norm of roughly
 $\sqrt{u\,|\theta|}$, where $u$ is the unit roundoff. Past that point,
 whether a trial passes is decided by rounding noise rather than by the
 step's real merit: a step that
@@ -67,15 +71,15 @@ $\nrm{\nabla f(y_k+d_k)}_2/\nrm{\nabla f(y_k)}_2\le1-\mu$, falling
 back to a unit steepest-descent step otherwise. Our implementation uses their
 parameter values, $\mubh=0.9$, $\rho=0.5$ and $\sigma=10^{-4}$ (we write
 $\mubh$ for their gradient-reduction parameter, since $\mu$ denotes the
-spectrum vector of Definition~\ref{def:family}).
+spectrum vector of \cref{def:family}).
 
 \paragraph{Semismooth Newton.}
 With the naive test~\eqref{eq:armijo}, Newton stalls (exits at
 \texttt{max\_iter} without converging) on 56 of the 270 KKT
 instances; across all 270 instances it uses 151{,}471 backtracks in total.
 With Borsdorf--Higham globalization
-(parameters $\mubh=0.9$, $\sigma=10^{-4}$, halving, and $\gamma=100$ in the
-near-equality test), it converges on all 270 with 8 backtracks. The count of
+(parameters $\mubh=0.9$, $\rho=0.5$, $\sigma=10^{-4}$, and $\gamma=100$ in the
+near-equality test), it converges on all 270 with 8 backtracks in total. The count of
 56 was reproduced exactly in a separate timing run of the same code: at
 matched tolerance, the naive-Armijo control exits at \texttt{max\_iter} on
 56/270. Both counts are in the shipped result files: the 56 is the

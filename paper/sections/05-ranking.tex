@@ -42,7 +42,7 @@ gradient method on~\eqref{eq:dual}. It uses the BB1 step, clamped to
 $[\eta,2-\eta]$ with $\eta=0.01$, has no line search, performs one \EVD\ per
 update, and finishes with a diagonal-rescaling step
 $\hat X=D^{-1/2}XD^{-1/2}$, $D=\Diag(\diag X)$, as in~\cite{borsdorf2010preconditioned}.
-The clamp is conservative: removing it (pure BB1) on the same 270 instances
+The clamp is conservative: removing the upper clamp on the same 270 instances
 reaches every target on all 270 and is cheaper at low rank --- $145$ vs $20$
 \EVDs\ at $r=5$ and $34.5$ vs $15$ at $r=20$ ($\varepsilon=10^{-8}$) --- and
 identical at $r=50$ ($11$ vs $11$), where it never binds.

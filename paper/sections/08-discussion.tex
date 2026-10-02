@@ -17,8 +17,10 @@ wall-clock time) changed cost ratios and, in half of the ten timing sessions, th
 ordering below first place too: repeating the matched-tolerance timing
 measurement five times per dimension
 (\cref{sec:evd-unit}) shows the single cheapest method is unaffected in
-every session, but which method is dearest overall is not, at $n=100$. Two
-line-search details changed whether methods converged at all. The summary
+every session, but which method is dearest overall changes from session to
+session at $n=100$. Two line-search details changed whether methods converged
+at all: the Borsdorf--Higham globalization (\cref{sec:trap1}) and the
+near-equality safeguard adapted to the AGD step (\cref{sec:trap2}). The summary
 that the evidence supports is conservative: the protocol matters for the
 \emph{magnitude} of reported advantages, for the ordering of methods that
 are close in cost, and, for the cost unit specifically, sometimes for which
@@ -193,7 +195,8 @@ regime, including the
 rank of the solution relative to the dimension and the size of the violation, and, for
 the specific rank at which a reversal occurs, on which pair of methods is
 compared. The one clear failure we found is a known finite-precision
-line-search defect, which appears in two separately published methods, on
+line-search defect, which appears in the published Newton method of Qi and
+Sun and in the published AGD method of Huynh and Hwang, on
 the constructed family and on real matrices. It is
 removed in the semismooth Newton method by the published Borsdorf--Higham
 modified line search, and in AGD-SDAJ by our adaptation of their near-equality

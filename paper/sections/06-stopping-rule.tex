@@ -38,8 +38,8 @@ Anderson-APM  & 13 & 0.016 & $1.37\times10^{-5}$\\
 
 \input{figures/fig2-native-accuracy}
 
-At this dimension the best and worst median achieved accuracies differ by a
-factor of 383 over all 270 instances. Repeating the run at $n=500$ on a subset
+At this dimension the best and worst solver medians differ by a
+factor of 383. Repeating the run at $n=500$ on a subset
 of 18 instances (threshold $5\times10^{-5}$) gives a spread of only 13.8, with
 medians from $1.74\times10^{-5}$ for Newton-SIN-BH to $2.41\times10^{-4}$ for
 Dykstra-APM. The spread across solvers is therefore not itself a stable
@@ -48,8 +48,9 @@ dimensions on the same instances. Newton
 overshoots the tolerance because a quadratically convergent step moves far
 past the threshold. First-order methods stop close to it, and the stopping
 quantity of Dykstra-APM and Anderson-APM (the diagonal error of the PSD
-iterate) is not the dual gradient norm at all. The cost column is therefore a comparison at different
-accuracies, and it favours methods that stop early. At this tolerance the
+iterate) is not the dual gradient norm at all. The cost column therefore
+compares runs that stopped at very different accuracies, so a lower \EVD\
+count need not mean a cheaper route to the same accuracy. At this tolerance the
 native costs also place SBB-Dual (18.5 \EVDs) slightly ahead of both AGD
 variants (20 \EVDs), with Anderson-APM ahead of all three (13 \EVDs). This
 native order happens to coincide with the tight-target order of
@@ -59,9 +60,9 @@ obtained at accuracies near $10^{-5}$, which lie at the crossover of
 agreement is therefore not evidence for either regime.
 
 \paragraph{Growth with $n$.}
-The rule loosens as $n$ grows. In earlier runs, outside the ranking study, a
-nearly feasible $n=500$ instance exited after \emph{zero} updates with forward
-error $7.8\times10^{-4}$. At $n=2000$, both dual first-order methods stopped
+The rule loosens as $n$ grows. On a nearly feasible instance the native
+criterion can even exit after \emph{zero} updates, at a forward error far
+above the nominal target. At $n=2000$, the dual first-order methods stopped
 after 3 to 5 iterations with forward errors between $2.7\times10^{-3}$ and
 $4.1\times10^{-3}$. Under this rule, a larger problem can appear easier
 simply because less accuracy is being asked for.
@@ -85,8 +86,9 @@ it. On these same 18 paired instances the spread across solvers therefore
 narrows from 1653-fold at $n=100$ to 13.8-fold at $n=500$ (a matched,
 smaller-sample counterpart to the 383-fold spread reported over all 270
 instances at $n=100$ above): the rule does not degrade the
-methods equally, and it conceals most of the advantage of the method that
-converges fastest. A reader comparing published $n=100$ and $n=500$ results
+methods equally --- it declares a $5\times10^{-8}$ solution and a
+$2\times10^{-5}$ solution equally converged, concealing most of Newton's
+accuracy advantage. A reader comparing published $n=100$ and $n=500$ results
 under this rule is comparing solutions of very different quality.
 The real-matrix runs of \cref{sec:real} were made at a matched tolerance
 only, so they give no native-rule spread on real data.

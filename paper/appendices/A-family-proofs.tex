@@ -13,7 +13,8 @@ affect the entry $(i,j)$, and $I_{ij}=0$, so
   G_{ij}=\Xs_{ij}-W_{ij}=\Xs_{ij}+c\,(P_r)_{ij}.
 \]
 By the triangle inequality, $|G_{ij}|\le|\Xs_{ij}|+c|(P_r)_{ij}|\le a+cb$. If
-$a<1$ and $c\le(1-a)/b$, then $a+cb\le1$. \qed
+$a<1$ and $c\le(1-a)/b$ (for $b>0$; if $b=0$ then $W$ has zero off-diagonal
+entries and any $c$ works), then $a+cb\le1$. \qed
 
 \begin{remark}
 The bound is sufficient but not necessary. Cancellation between $\Xs_{ij}$ and
@@ -58,7 +59,8 @@ $0\le t<1$ (for $t\ge1$ the probability is zero or trivially bounded);
 the subgaussian statement of~\cite[Thm.~3.4.5]{vershynin2026high} gives the
 same decay with an unspecified absolute constant in the exponent, which would
 leave the constant in \cref{prop:hd} unspecified as well.
-Applying this with $v=u_i$, and again to $-u_j$, gives
+Applying this with $v=u_i$, and applying the one-sided bound also to $-u_j$,
+which is likewise uniform on $S^{r-1}$, bounds the lower tail, giving
 $\Pr\{|u_i^{\mathsf T}u_j|\ge t\}\le4\exp(-t^2r/2)$; the bound is unchanged
 after averaging over $u_i$. Taking a union bound over the fewer than $n^2/2$
 unordered pairs,
@@ -91,7 +93,8 @@ released family ($r\in\{5,20,50\}$, $n=100$) is in the fixed-rank regime of
 \subsection{Mixed $\mu$}
 Write $k=n-r$ for the kernel dimension and $e_j$ for the all-ones vector of
 length $j$ (unrelated to the all-ones vector $e$ used elsewhere for the
-unit-diagonal constraint). For the released
+unit-diagonal constraint). In $\mu=c\,e$ the $e$ is likewise all-ones of
+length $k$, not $n$; the length is always clear from context. For the released
 $\mu=(\mu_{\mathrm{bulk}}e_{k-m},\ \delta e_m)$, write
 $Q_0=[Q_b\ Q_\delta]$. Then
 $W=\mu_{\mathrm{bulk}}Q_bQ_b^{\mathsf T}+\delta Q_\delta Q_\delta^{\mathsf T}

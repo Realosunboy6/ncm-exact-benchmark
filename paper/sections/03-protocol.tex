@@ -83,7 +83,8 @@ Anderson-APM  & 34    & 0    & 0  & 34\\
 \end{tabular}
 \end{table}
 
-Four accepted Newton iterations use 5 \EVDs\ and 24 Krylov iterations. SBB-Dual,
+Four accepted Newton iterations use 5 \EVDs\ (one at the initial point plus one
+per accepted step) and 24 Krylov iterations. SBB-Dual,
 Dykstra-APM and Anderson-APM use one \EVD\ per iteration and no further
 primitive, although Anderson-APM's least-squares update carries $O(mn^2)$ work
 that the \EVD\ count does not record. Nine AGD-SDAJ-BH outer
@@ -91,8 +92,8 @@ iterations use 70 \EVDs, because each outer iteration contains $q=2$
 quasi-Newton inner steps and one accelerated gradient step, each with its own
 line search, and the accelerated step can need a further evaluation
 (\cref{alg:agd}). A table of
-`iterations to convergence' across these rows would compare four
-different quantities. We therefore report \EVDs, Krylov iterations and
+`iterations to convergence' across these rows would compare a different
+quantity in each method class (Newton, AGD, SBB, APM). We therefore report \EVDs, Krylov iterations and
 line-search trials separately.
 
 \subsection{Timing protocol}\label{sec:timing}
@@ -115,7 +116,8 @@ methods, whose code had not changed, between 3.7 and 4.0 times slower per
 method is timed in an implementation that does not add work of its own. The
 projection methods rebuild the projection from the positive eigenpairs, as the
 dual methods do, rather than from all $n$, which removes an $O(n^3)$ product
-per \EVD\ and gives bit-identical iterates on all 1104 runs checked; and
+per \EVD\ and gives bit-identical iterates on all 1104 projection-method runs
+checked; and
 Anderson-APM is timed in a form that updates its buffers in place, with
 iterates bit-identical to the transcription verified in \cref{app:anderson}.
 Timed as transcribed, it would have cost $2.3$ to $3.8$ times more per \EVD.
@@ -155,9 +157,9 @@ Newton-SIN-BH & 1695 & 1.50\\
 \input{figures/fig3-per-evd}
 
 The median is taken over every run, including any that exhausted its budget
-without converging (Newton-SIN's 56 naive-Armijo stalls of \cref{sec:trap2}
-foremost among them); in these timing tables their cost to that exit counts
-as their cost, unlike the cost-to-target rule of \cref{sec:traj}, under which
+without converging (notably Newton-SIN's 56 naive-Armijo stalls of \cref{sec:trap2}).
+In these timing tables a run's cost to its own exit counts as its cost ---
+unlike the cost-to-target rule of \cref{sec:traj}, under which
 a run that never reaches a target is recorded as not reaching it.
 \Cref{tab:perevd} shows a factor-of-1.50 spread in per-\EVD\ cost across the
 seven variants. Two solvers carry work the \EVD\ count does not see, and in
@@ -166,8 +168,8 @@ reversing it: Newton-SIN-BH is cheaper than SBB-Dual by 9.3 in \EVDs\
 (5 against 46.5) but only 5.4 in wall-clock time (0.009\,s against
 0.050\,s), because each Newton outer iteration hides an uncounted Krylov
 solve; and Anderson-APM, whose least-squares update costs about 13--15\% of
-its time against about 1\% for SBB-Dual, is 1.37 times fewer \EVDs\ than
-SBB-Dual but only about 1.05 times less time. In this single session, then,
+its time against about 1\% for SBB-Dual, uses about 27\% fewer \EVDs\ than
+SBB-Dual but only about 5\% less wall-clock time. In this single session, then,
 the known bias in \EVD-counting is smaller than the gaps it is used to
 compare. We report both metrics throughout, but for the reason given next we
 treat \EVDs\ as primary and wall-clock time as a secondary check rather than
@@ -188,11 +190,12 @@ is always SBB-Dual or an AGD variant, at both dimensions, and the dearest per
 each take it once). It is the middle of the ranking that reorders, so the
 specific ratios in \cref{tab:perevd} should be read as one session's draw,
 not stable constants; the 5.4-in-time figure above is likewise approximate
-to about ten per cent (1.36 to 1.50 across sessions), while the
+to about ten per cent across sessions, while the
 9.3-in-\EVDs\ figure, involving no timing measurement, is unaffected.
 Ranking the seven variants by median \EVDs\ and by median wall-clock time
-agrees in only 5 of these 10 sessions, always on identical \EVD\ counts, so
-every disagreement is wall-clock noise. By this second, wall-clock notion of
+agrees in only 5 of these 10 sessions. The ranking by median \EVDs\ is
+identical in all 10 sessions, since \EVD\ counts do not vary across sessions,
+so every disagreement is wall-clock noise. By this second, wall-clock notion of
 ``dearest,'' Newton-SIN-BH is still cheapest overall in every session, but
 the dearest \emph{overall} solver is Dykstra-APM in 8 of the 10 (a different
 8 of 10 from the per-\EVD\ count above: all five at $n=500$, three of five

@@ -44,7 +44,8 @@ published values of 124 and 174. Two checks separate an error of transcription
 from rounding at the stopping tolerance. First, an independent implementation
 that solves each least-squares problem from scratch, without updating, gives
 the same iterates as ours to within $2.3\times10^{-12}$ in relative Frobenius
-norm until the stopping quantity reaches $10^{-10}$, and the same iteration
+norm until the stopping quantity reaches $10^{-10}$ (below which rounding
+dominates the comparison), and the same iteration
 count at the tolerances $10^{-8}$ and $10^{-10}$ in all 82 small cases. Second,
 changing only the eigensolver moves the counts at $n\,\mathrm{eps}$ onto the
 published ones: under \texttt{syevd} both large counts are reproduced exactly,
