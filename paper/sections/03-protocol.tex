@@ -25,7 +25,9 @@ the pair
 \]
 together with $\nrm{\nabla\theta}_2$ and a flag indicating whether the
 evaluated point was accepted. Here $\Xs$ is the exact solution from
-\cref{prop:exact}, not the output of another solver. All runs use a common,
+\cref{prop:exact}, not the output of another solver. Measuring forward error
+rather than a residual follows the standard distinction
+of~\cite[Ch.~1--2]{higham2002accuracy}. All runs use a common,
 tight tolerance of $10^{-11}$, and each solver has its own cap (\cref{sec:ranking}). These trajectories are work--precision diagrams in the sense
 of~\cite{hairer1996solving}, and reading costs off them at a ladder of targets
 follows data profiles~\cite{more2009benchmarking} and fixed-target

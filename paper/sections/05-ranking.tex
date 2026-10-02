@@ -902,7 +902,11 @@ other method needs. We report its position as censored throughout.
 \subsection{What each solver returns}\label{sec:returned}
 Methods also differ in what they return (\cref{tab:feas}). All six return
 matrices with $\lambda_{\min}$ at roundoff level, so none is meaningfully more
-positive semidefinite than another. The diagonal is a different matter.
+positive semidefinite than another. This is the expected behaviour in floating
+point: as Higham observes, a computed matrix is very unlikely to be exactly
+positive semidefinite, since rounding in forming or storing it almost surely
+renders the smallest eigenvalue nonzero, and possibly
+negative~\cite[\S10.3.2]{higham2002accuracy}. The diagonal is a different matter.
 SBB-Dual returns an exactly unit diagonal because of its rescaling epilogue,
 whereas every other variant returns a diagonal that is accurate only to its
 convergence tolerance. The worst-case diagonal error of unmodified AGD-SDAJ
